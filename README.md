@@ -5,7 +5,7 @@ This repo contains the Fast Food Ordering and Management System (FOMS) project i
 - Alvin Aw Yong
 - (winnie)
 - (jed)
-- (zi hao)
+- Chan Zi Hao
 - Siah Yee Long
 
 Project management Google Sheet: https://docs.google.com/spreadsheets/d/1dPtr8qC_U1CEHDBrYfFGHZv_c4DwXO4q4GOTOtAYkY8/edit?usp=sharing
