@@ -1,3 +1,4 @@
+package main;
 /*
 This is the main application for the FOMS. Run this to begin the ordering system
  */
