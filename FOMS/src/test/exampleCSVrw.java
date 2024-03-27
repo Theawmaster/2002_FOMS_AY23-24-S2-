@@ -11,11 +11,11 @@ import utilities.Logger;
 /**
  * [WIP] This class facilitates reading and writing to csv files
  */
-public class Data {
-    private String path = "FOMS/src/test/data.csv";
+public class exampleCSVrw {
+    private String path = "FOMS/src/test/exampleData.csv";
     private ArrayList<String> rowData;
     
-    public Data(){}
+    public exampleCSVrw(){}
 
     
     /** 
@@ -38,7 +38,7 @@ public class Data {
     }
     
     /** 
-     * @param FileWriter(path)
+     * @param s the string to write to file
      */
     public void writeToFile(String s) { //TODO: input should not be just a string, pass in obj that spits out csv format text to write
         Logger.info("Writing data to " + path);
