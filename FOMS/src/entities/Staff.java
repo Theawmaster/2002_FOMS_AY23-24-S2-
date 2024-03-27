@@ -2,7 +2,7 @@ package entities;
 
 import constants.Role;
 
-public class Staffs {
+public class Staff {
 
 	private String firstName;
 	private String lastName;
@@ -21,7 +21,7 @@ public class Staffs {
      * @param age
      * @param gender
      */
-	public Staffs(String firstName, String lastName, String loginID, Role role, boolean gender, int age) {
+	public Staff(String firstName, String lastName, String loginID, Role role, boolean gender, int age) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.loginID = loginID;
