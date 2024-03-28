@@ -2,6 +2,7 @@ package test;
 
 import java.util.ArrayList;
 import entities.Staff;
+import entities.Branch;
 import utilities.LoadData;
 /**
  * This is a test class for you to see how a list of Staffs can be loaded from the csv files. 
@@ -10,9 +11,16 @@ import utilities.LoadData;
 public class exampleLoadStaff {
     public static void main(String[] args) {
         LoadData d = new LoadData();
+
         ArrayList<Staff> staffs = new ArrayList<>();
         staffs = d.loadStaffs();
         for(Staff s : staffs)
             s.prinStaff();
+
+        ArrayList<Branch> branches = new ArrayList<>();
+        branches = d.loadBranches();
+        for(Branch b : branches)
+            b.prinBranch();
+        
     }
 }
