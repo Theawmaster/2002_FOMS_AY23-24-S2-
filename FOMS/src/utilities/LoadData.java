@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import constants.Role;
 import entities.Staff;
 
+import constants.Category;
+import entities.MenuItems;
+
 /**
  * Class that accounts for loading of data: Staff, Branch, Menu item
  */
@@ -51,7 +54,42 @@ public class LoadData {
 
     // }
 
-    // public ArrayList<MenuItem> loadMenuItems(){
+    public ArrayList<MenuItems> loadMenuItems(){
+        ArrayList<MenuItems> menuitems = new ArrayList<>(); // the return value
+    
+        SerialiseCSV c = new SerialiseCSV();
+            // load data from the menu list csv
+        ArrayList<String> serialisedData = c.readCSV(constants.FilePaths.menuListPath.getPath());
+    
+        for(String s:serialisedData){
+            String[] row = s.split(",");
+            if (s.isEmpty() || s.contains("Name,") || s.contains("Price,") || row.length < 4)
+                continue;
+    
+            String categorystr = row[3].trim().split("\\s+")[0].toUpperCase(); // take the first word
+            Category category;
+            if ("SIDE".equals(categorystr)) {
+                category = Category.SIDE;
+            } else if ("SET".equals(categorystr)) {
+                category = Category.SETMEAL;
+            } else if ("BURGER".equals(categorystr)) {
+                category = Category.BURGER;
+            } else if ("DRINK".equals(categorystr)) {
+                category = Category.DRINK;
+            } else{
+                category = Category.UNDEFINED;
+            }
+                // TODO: Handle exception if category is undefined
+    
+            
+            String food = row[0].trim();
+            Double price = Double.parseDouble(row[1].trim());
+            // Branch branch = row[2];
 
-    // }
+            MenuItems tempMenuItems = new MenuItems(food, price, category);
+            menuitems.add(tempMenuItems); // add to the return value of list of staff
+            }
+            // to do: implement getbranch 
+            return menuitems;
+        }
 }
