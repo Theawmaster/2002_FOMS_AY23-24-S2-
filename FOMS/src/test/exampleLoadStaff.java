@@ -2,6 +2,7 @@ package test;
 
 import java.util.ArrayList;
 import entities.Staff;
+import entities.MenuItems;
 import entities.Branch;
 import utilities.LoadData;
 /**
@@ -17,10 +18,14 @@ public class exampleLoadStaff {
         for(Staff s : staffs)
             s.prinStaff();
 
+        ArrayList<MenuItems> menuitems = new ArrayList<>();
+        menuitems = d.loadMenuItems();
+        for(MenuItems i : menuitems)                
+            i.printMenuItems();
+      
         ArrayList<Branch> branches = new ArrayList<>();
         branches = d.loadBranches();
         for(Branch b : branches)
             b.prinBranch();
-        
     }
 }
