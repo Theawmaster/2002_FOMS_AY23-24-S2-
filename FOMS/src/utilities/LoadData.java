@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import constants.Role;
 import entities.Staff;
+import entities.Branch;
 
 import constants.Category;
 import entities.MenuItems;
@@ -50,9 +51,31 @@ public class LoadData {
         return staffs;
     }
     
-    // public ArrayList<Branch> loadBranches(){
+    /**
+     * Function that reads CSV data and loads corresponding data into Branch object
+     * @return a list of branches
+     */
+    public ArrayList<Branch> loadBranches(){
+        ArrayList<Branch> branches = new ArrayList<>();
 
-    // }
+        SerialiseCSV c = new SerialiseCSV();
+        // load data from the branch list csv
+        ArrayList<String> serialisedData = c.readCSV(constants.FilePaths.branchListPath.getPath());
+
+        for(String s:serialisedData){
+            String[] row = s.split(",");
+            if (s.isEmpty() || s.contains("Name,") || s.contains("Location") || row.length < 2)
+                continue;
+            
+            String name = row[0];
+            String location = row[1];
+            int quota = Integer.parseInt(row[2].trim());
+
+            Branch tempBranch = new Branch(name, location, quota);
+            branches.add(tempBranch);
+        }
+        return branches;
+    }
 
     public ArrayList<MenuItems> loadMenuItems(){
         ArrayList<MenuItems> menuitems = new ArrayList<>(); // the return value
