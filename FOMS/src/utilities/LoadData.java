@@ -1,12 +1,13 @@
 package utilities;
 
 import java.util.ArrayList;
+import java.util.Locale.Category;
 
 import constants.Role;
 import entities.Staff;
 import entities.Branch;
 
-import constants.Category;
+import constants.MealCategory;
 import entities.MenuItems;
 
 /**
@@ -90,17 +91,17 @@ public class LoadData {
                 continue;
     
             String categorystr = row[3].trim().split("\\s+")[0].toUpperCase(); // take the first word
-            Category category;
+            MealCategory category;
             if ("SIDE".equals(categorystr)) {
-                category = Category.SIDE;
+                category = MealCategory.SIDE;
             } else if ("SET".equals(categorystr)) {
-                category = Category.SETMEAL;
+                category = MealCategory.SETMEAL;
             } else if ("BURGER".equals(categorystr)) {
-                category = Category.BURGER;
+                category = MealCategory.BURGER;
             } else if ("DRINK".equals(categorystr)) {
-                category = Category.DRINK;
+                category = MealCategory.DRINK;
             } else{
-                category = Category.UNDEFINED;
+                category = MealCategory.UNDEFINED;
             }
                 // TODO: Handle exception if category is undefined
     

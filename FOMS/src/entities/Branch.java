@@ -10,10 +10,9 @@ public class Branch {
 
     /**
      * Constructor for Branch
-     * @param name
+     * @param branchName
      * @param location
      * @param quota
-     * @param size
      */
     public Branch(String branchName, String location, int quota){
         this.branchName = branchName;
@@ -21,7 +20,7 @@ public class Branch {
         this.quota = quota;
     }
 
-    public void prinBranch(){
+    public void printBranch(){
         System.out.println("Branch Name: " + getBranchName());
         System.out.println("Location: " + getLocation());
         System.out.println("Quota: " + getQuota());

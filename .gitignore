@@ -1,7 +1,10 @@
 .vscode
 .DS_Store
-*.bak*
 .metadata
+
+# Visual Paradigm backup and working files
+*.bak*
+*.lck*
 
 # Compiled class file
 *.class

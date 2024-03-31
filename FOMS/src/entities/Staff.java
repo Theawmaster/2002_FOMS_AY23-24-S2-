@@ -30,7 +30,7 @@ public class Staff {
         this.age = age;
 	}
 
-    public void prinStaff(){
+    public void printStaff(){
         System.out.println("Name: " + getFirstName() + " " + getLastName());
         System.out.println("Login ID: " + getLoginID());
         System.out.println("Role: " + getRole());

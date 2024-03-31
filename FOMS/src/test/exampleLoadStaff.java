@@ -16,7 +16,7 @@ public class exampleLoadStaff {
         ArrayList<Staff> staffs = new ArrayList<>();
         staffs = d.loadStaffs();
         for(Staff s : staffs)
-            s.prinStaff();
+            s.printStaff();
 
         ArrayList<MenuItems> menuitems = new ArrayList<>();
         menuitems = d.loadMenuItems();
@@ -26,6 +26,6 @@ public class exampleLoadStaff {
         ArrayList<Branch> branches = new ArrayList<>();
         branches = d.loadBranches();
         for(Branch b : branches)
-            b.prinBranch();
+            b.printBranch();
     }
 }
