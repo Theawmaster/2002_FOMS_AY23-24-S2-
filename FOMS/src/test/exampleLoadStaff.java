@@ -1,31 +1,33 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import entities.Staff;
-import entities.MenuItems;
+import entities.MenuItem;
 import entities.Branch;
-import utilities.LoadData;
+import utilities.LoadBranches;
+import utilities.LoadMenuItems;
+import utilities.LoadStaffs;
 /**
  * This is a test class for you to see how a list of Staffs can be loaded from the csv files. 
  * Look at LoadData.java, Staff.java, SerialiseCSV.java to see how it was done
  */
 public class exampleLoadStaff {
     public static void main(String[] args) {
-        LoadData d = new LoadData();
-
-        ArrayList<Staff> staffs = new ArrayList<>();
-        staffs = d.loadStaffs();
-        for(Staff s : staffs)
-            s.prinStaff();
-
-        ArrayList<MenuItems> menuitems = new ArrayList<>();
-        menuitems = d.loadMenuItems();
-        for(MenuItems i : menuitems)                
+        LoadMenuItems m = new LoadMenuItems();
+        ArrayList<MenuItem> menuitems = m.getLoadedData();
+        for(MenuItem i : menuitems)                
             i.printMenuItems();
-      
-        ArrayList<Branch> branches = new ArrayList<>();
-        branches = d.loadBranches();
-        for(Branch b : branches)
-            b.prinBranch();
+
+        LoadStaffs l = new LoadStaffs();
+        ArrayList<Staff> staffs = l.getLoadedData();
+        for(Staff s : staffs)
+            s.printStaff();
+
+        LoadBranches b = new LoadBranches();
+        ArrayList<Branch> branches = b.getLoadedData();
+        for(Branch x : branches)
+            x.printBranch();
     }
 }

@@ -1,12 +1,12 @@
 package entities;
 
-import constants.Category;
+import constants.MealCategory;
 
-public class MenuItems {
+public class MenuItem {
 
 	private String food;
 	private double price;
-    private Category category;
+    private MealCategory category;
 	// private Branch branch; 
     // for branch need to extend 
 	
@@ -18,7 +18,7 @@ public class MenuItems {
      * @param age
      * @param gender
      */
-	public MenuItems(String food, double price, Category category) {
+	public MenuItem(String food, double price, MealCategory category) {
         this.food = food;
         this.price = price;
         this.category = category;
@@ -28,7 +28,7 @@ public class MenuItems {
     public void printMenuItems(){
         System.out.println("Food: " + getFood());
         System.out.println("Price: " + getPrice());
-        System.out.println("Category: " + getcategory());
+        System.out.println("Category: " + getCategory());
     } // to do: implement getbranch
 
 	protected String getFood() {
@@ -39,7 +39,7 @@ public class MenuItems {
         return this.price;
 	}
     
-    protected Category getcategory(){
+    protected MealCategory getCategory(){
         return this.category;
     }
     // to do: implement getbranch 

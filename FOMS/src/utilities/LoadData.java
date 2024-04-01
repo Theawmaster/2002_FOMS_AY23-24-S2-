@@ -2,117 +2,30 @@ package utilities;
 
 import java.util.ArrayList;
 
-import constants.Role;
-import entities.Staff;
-import entities.Branch;
-
-import constants.Category;
-import entities.MenuItems;
-
 /**
- * Class that accounts for loading of data: Staff, Branch, Menu item
+ * Abstract class for loading of data from CSV
  */
-public class LoadData {
-    public LoadData(){}
-
+public abstract class LoadData<T> {
     /**
-     * Function that reads CSV data and loads corresponding data into Staff object
-     * @return a list of Staff
+     * The {@link loadedData} contains a list of loaded data from CSV
      */
-    public ArrayList<Staff> loadStaffs(){
-        ArrayList<Staff> staffs = new ArrayList<>(); // the return value
-
-        SerialiseCSV c = new SerialiseCSV();
-        // load data from the staff list csv
-        ArrayList<String> serialisedData = c.readCSV(constants.FilePaths.staffListPath.getPath());
-
-        for(String s:serialisedData){
-            String[] row = s.split(",");
-            if (s.isEmpty() || s.contains("Name,") || s.contains("Staff Login ID,") || row.length < 5)
-                continue;
-
-
-            Role staffRole = Role.UNDEFINED;
-            if(row[2].trim().toUpperCase().contains("S")) staffRole = Role.STAFF;
-            else if(row[2].trim().toUpperCase().contains("M")) staffRole = Role.MANAGER;
-            else if(row[2].trim().toUpperCase().contains("A")) staffRole = Role.ADMIN;
-            //TODO: else throw an exception
-            boolean isFemale = true;
-            if(row[3].trim().toUpperCase().contains("F")) isFemale = true;
-            else if(row[3].trim().toUpperCase().contains("M")) isFemale = false;
-            //TODO: else throw an exception
-            String[] name = row[0].trim().split(" ", 2);
-            String firstName = name[0];
-            String lastname = (name.length>1) ? name[1] : name[0];
-
-            Staff tempStaff = new Staff(firstName, lastname, row[1].trim(), staffRole, isFemale, Integer.parseInt(row[4].trim()));
-            staffs.add(tempStaff); // add to the return value of list of staff
-        }
-        return staffs;
-    }
-    
+    protected ArrayList<T> loadedData;
     /**
-     * Function that reads CSV data and loads corresponding data into Branch object
-     * @return a list of branches
+     * Concrete constructor that loads data into {@link loadedData}
      */
-    public ArrayList<Branch> loadBranches(){
-        ArrayList<Branch> branches = new ArrayList<>();
-
-        SerialiseCSV c = new SerialiseCSV();
-        // load data from the branch list csv
-        ArrayList<String> serialisedData = c.readCSV(constants.FilePaths.branchListPath.getPath());
-
-        for(String s:serialisedData){
-            String[] row = s.split(",");
-            if (s.isEmpty() || s.contains("Name,") || s.contains("Location") || row.length < 2)
-                continue;
-            
-            String name = row[0];
-            String location = row[1];
-            int quota = Integer.parseInt(row[2].trim());
-
-            Branch tempBranch = new Branch(name, location, quota);
-            branches.add(tempBranch);
-        }
-        return branches;
+    public LoadData(){
+        this.loadedData = loadDatafromCSV();
     }
-
-    public ArrayList<MenuItems> loadMenuItems(){
-        ArrayList<MenuItems> menuitems = new ArrayList<>(); // the return value
-    
-        SerialiseCSV c = new SerialiseCSV();
-            // load data from the menu list csv
-        ArrayList<String> serialisedData = c.readCSV(constants.FilePaths.menuListPath.getPath());
-    
-        for(String s:serialisedData){
-            String[] row = s.split(",");
-            if (s.isEmpty() || s.contains("Name,") || s.contains("Price,") || row.length < 4)
-                continue;
-    
-            String categorystr = row[3].trim().split("\\s+")[0].toUpperCase(); // take the first word
-            Category category;
-            if ("SIDE".equals(categorystr)) {
-                category = Category.SIDE;
-            } else if ("SET".equals(categorystr)) {
-                category = Category.SETMEAL;
-            } else if ("BURGER".equals(categorystr)) {
-                category = Category.BURGER;
-            } else if ("DRINK".equals(categorystr)) {
-                category = Category.DRINK;
-            } else{
-                category = Category.UNDEFINED;
-            }
-                // TODO: Handle exception if category is undefined
-    
-            
-            String food = row[0].trim();
-            Double price = Double.parseDouble(row[1].trim());
-            // Branch branch = row[2];
-
-            MenuItems tempMenuItems = new MenuItems(food, price, category);
-            menuitems.add(tempMenuItems); // add to the return value of list of staff
-            }
-            // to do: implement getbranch 
-            return menuitems;
-        }
+    /**
+     * Abstract method where reading of CSV is called and data is sorted accordingly to corresponding classes
+     * @return a list of data loaded from CSV, and saves it in this.loadedData
+     */
+    public abstract ArrayList<T> loadDatafromCSV();
+    /**
+     * Concrete getter method to return loadedData
+     * @return list of class T in loadedData
+     */
+    public ArrayList<T> getLoadedData(){
+        return this.loadedData;
+    };
 }

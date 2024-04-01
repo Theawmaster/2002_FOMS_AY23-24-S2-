@@ -1,6 +1,6 @@
 package constants;
 
-public enum Category {
+public enum MealCategory {
     SIDE,
     SETMEAL,
     BURGER,
