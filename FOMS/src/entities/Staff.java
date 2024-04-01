@@ -10,8 +10,8 @@ public class Staff {
     private Role role;
 	private boolean gender; // True: F, False: Male, because the woman is always right
 	private int age;
+	private LoginDetail loginDetail;
 	// private Branch branch;
-	// private LogIn logInDetails;
 	// private Stats stats;
 
     /**
@@ -21,13 +21,14 @@ public class Staff {
      * @param age
      * @param gender
      */
-	public Staff(String firstName, String lastName, String loginID, Role role, boolean gender, int age) {
+	public Staff(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.loginID = loginID;
         this.role = role;
         this.gender = gender;
         this.age = age;
+		this.loginDetail = new LoginDetail(this, staffPassword); // sets default login details first. default pw is loginID
 	}
 
     public void printStaff(){
@@ -76,19 +77,6 @@ public class Staff {
 
 	// protected void getLogInDetails() {
 	// 	// TODO - implement Staff.getLogInDetails
-	// 	throw new UnsupportedOperationException();
-	// }
-
-	/**
-	 * 
-	 * @param logInDetails
-	 */
-	// protected void setLogInDetails(int logInDetails) {
-	// 	this.logInDetails = logInDetails;
-	// }
-
-	// public void logIn() {
-	// 	// TODO - implement Staff.logIn
 	// 	throw new UnsupportedOperationException();
 	// }
 

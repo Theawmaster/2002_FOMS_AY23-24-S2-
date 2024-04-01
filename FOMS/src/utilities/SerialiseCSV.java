@@ -20,7 +20,7 @@ public class SerialiseCSV {
      * @param csvFilePath
      * @return rows of data as a list of string
      */
-    public ArrayList<String> readCSV(String csvFilePath) {
+    public static ArrayList<String> readCSV(String csvFilePath) {
         Logger.info("Reading branch data from path:" + csvFilePath);
         ArrayList<String> dataReadFromCSV = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
@@ -41,12 +41,25 @@ public class SerialiseCSV {
      * @param s
      * @param csvFilePath
      */
-    public void writeToCSV(String s, String csvFilePath) {
+    public static void writeToCSV(String s, String csvFilePath) {
         Logger.info("Writing data to " + csvFilePath);
         try (FileWriter fw = new FileWriter(csvFilePath)) {
             fw.write(s + "\n");
         } catch (IOException e) {
             Logger.error("Error writing to " + csvFilePath);
+        }
+    }
+    /**
+     * To append data to a CSV file specified by the CSV file path
+     * @param s The data to be appended
+     * @param csvFilePath The file path of the CSV file
+     */
+    public static void appendToCSV(String s, String csvFilePath) {
+        Logger.info("Appending data to " + csvFilePath);
+        try (FileWriter fw = new FileWriter(csvFilePath, true)) {
+            fw.append(s + "\n");
+        } catch (IOException e) {
+            Logger.error("Error appending to " + csvFilePath);
         }
     }
 }
