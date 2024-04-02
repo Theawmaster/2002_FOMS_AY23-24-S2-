@@ -11,6 +11,7 @@ public class Staff {
 	private boolean gender; // True: F, False: Male, because the woman is always right
 	private int age;
 	private LoginDetail loginDetail;
+	private Branch branch; 
 	// private Branch branch;
 	// private Stats stats;
 
@@ -39,6 +40,34 @@ public class Staff {
         System.out.println("Age: " + getAge());
     }
 
+	// Setters
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(boolean gender) {
+        this.gender = gender;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+	// New method to set the Branch of a Staff member
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+	
+	// Getters
 	protected String getFirstName() {
 		return this.firstName;
 	}
@@ -63,17 +92,15 @@ public class Staff {
         return this.age;
 	}
 
+	// If you also need to get the Branch of a Staff member, add a getter method
+	public Branch getBranch() {
+		return this.branch;
+	}
+
 	// protected void getBranch() {
 	// 	return;
 	// }
 
-	/**
-	 * 
-	 * @param branch
-	 */
-	// protected void setBranch(Branch branch) {
-	// 	this.branch = branch;
-	// }
 
 	// protected void getLogInDetails() {
 	// 	// TODO - implement Staff.getLogInDetails
