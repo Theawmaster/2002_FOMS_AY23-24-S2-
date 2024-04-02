@@ -1,7 +1,7 @@
 package FOMSpackage.entities;
 
 /**
- * The {@code Admin} class extends the {@code Staff} class and provides various administrative functionalities
+ * The {@c  ode Admin} class extends the {@code Staff} class and provides various administrative functionalities
  * such as managing payments, staff, and branch operations within the system.
  */
 public class Admin extends Staff {

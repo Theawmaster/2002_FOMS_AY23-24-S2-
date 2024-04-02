@@ -35,11 +35,23 @@ public class MenuItem {
 		return this.food;
 	}
 
+    protected String setFood(String food) {
+        return this.food;
+    }
+
 	protected double getPrice() {
         return this.price;
 	}
+
+    protected double setPrice(double price) {
+        return this.price;
+    }
     
     protected MealCategory getCategory(){
+        return this.category;
+    }
+
+    protected MealCategory setCategory(MealCategory category){
         return this.category;
     }
     // to do: implement getbranch 
