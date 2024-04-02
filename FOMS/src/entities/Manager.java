@@ -13,7 +13,7 @@ import constants.Role;
  * such as managing orders, menu items and staffs within the system.
  */
 public class Manager extends Staff {
-
+ 
     /**
      * Constructor for Manager, extending Staff with additional properties.
      * 

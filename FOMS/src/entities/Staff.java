@@ -15,7 +15,7 @@ public class Staff {
 	// private Branch branch;
 	// private Stats stats;
 
-    /**
+    /** 
      * Constructor for Staff
      * @param firstName
      * @param lastName
