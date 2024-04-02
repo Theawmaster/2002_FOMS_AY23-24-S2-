@@ -1,10 +1,12 @@
 package entities;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 import java.util.Scanner;
 import entities.Branch;
 import java.util.UUID;
-
+ 
 import constants.Role;
 
 
@@ -16,6 +18,7 @@ public class Admin extends Staff {
 
     private Branch managedBranch; // branch managed by the admin
     private PaymentManager paymentManager; // payment manager to handle payments
+    private Map<String, Staff> staffMembers; // map of staff members
 
     /**
      * Constructor for Admin, extending Staff with additional properties.
@@ -31,6 +34,7 @@ public class Admin extends Staff {
     public Admin(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
         super(firstName, lastName, loginID, role, gender, age, staffPassword);
         this.paymentManager = new PaymentManager();
+        this.staffMembers = new HashMap<>(); // Assuming each staff member can be identified by their loginID
     }
 
     /**
@@ -54,40 +58,72 @@ public class Admin extends Staff {
     }
 
     /**
-     * Edits the details of a manager in the system.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
+     * Edits the details of a manager.
      */
-    public void editManager() {
-        // TODO - implement Admin.editManager
-        throw new UnsupportedOperationException();
+    public void editManager(String loginID, String newFirstName, String newLastName, boolean newGender, int newAge) {
+        Staff manager = staffMembers.get(loginID);
+        if (manager != null && manager.getRole() == Role.MANAGER) {
+            manager.setFirstName(newFirstName);
+            manager.setLastName(newLastName);
+            manager.setGender(newGender);
+            manager.setAge(newAge);
+            System.out.println("Manager details updated for login ID: " + loginID);
+        } else {
+            System.out.println("Manager with login ID: " + loginID + " not found.");
+        }
     }
 
     /**
-     * Edits staff information in the system.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
+     * Edits the details of a staff member.
+     * 
+     * @param loginID The login ID of the staff member to edit.
+     * @param newFirstName The new first name for the staff member.
+     * @param newLastName The new last name for the staff member.
+     * @param newGender The new gender for the staff member (true for female, false for male).
+     * @param newAge The new age for the staff member.
      */
-    public void editStaff() {
-        // TODO - implement Admin.editStaff
-        throw new UnsupportedOperationException();
+    public void editStaff(String loginID, String newFirstName, String newLastName, boolean newGender, int newAge) {
+        Staff staff = staffMembers.get(loginID);
+        if (staff != null) {
+            staff.setFirstName(newFirstName);
+            staff.setLastName(newLastName);
+            staff.setGender(newGender);
+            staff.setAge(newAge);
+            System.out.println("Staff details updated for login ID: " + loginID);
+        } else {
+            System.out.println("Staff member with login ID: " + loginID + " not found.");
+        }
+    }
+
+     /**
+     * Fires a manager by loginID.
+     */
+    public void fireStaff(String loginID) {
+        if (staffMembers.containsKey(loginID) && staffMembers.get(loginID).getRole() == Role.MANAGER) {
+            staffMembers.remove(loginID);
+            System.out.println("Manager with login ID " + loginID + " has been fired.");
+        } else {
+            System.out.println("Manager with login ID " + loginID + " not found.");
+        }
     }
 
     /**
-     * Terminates the employment of a staff member.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
+     * Hires a new manager.
+     * 
+     * @param firstName the first name of the new manager
+     * @param lastName the last name of the new manager
+     * @param loginID the login ID of the new manager
+     * @param gender the gender of the new manager (true for female, false for male)
+     * @param age the age of the new manager
+     * @param staffPassword the password for the new manager's login
      */
-    public void fireStaff() {
-        // TODO - implement Admin.fireStaff
-        throw new UnsupportedOperationException();
+    public void hireStaff(String firstName, String lastName, String loginID, boolean gender, int age, String staffPassword) {
+        // Assuming Role.MANAGER is an enum value
+        Staff newManager = new Staff(firstName, lastName, loginID, Role.MANAGER, gender, age, staffPassword);
+        staffMembers.put(loginID, newManager);
+        System.out.println("New manager hired: " + firstName + " " + lastName);
     }
 
-    /**
-     * Hires a new staff member into the organization.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
-     */
-    public void hireStaff() {
-        // TODO - implement Admin.hireStaff
-        throw new UnsupportedOperationException();
-    }
 
       /**
      * Opens a new branch, replacing any currently managed branch.
@@ -132,12 +168,17 @@ public class Admin extends Staff {
 
     /**
      * Promotes a staff member within the organization.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
      */
-    public void promoteStaff() {
-        // TODO - implement Admin.promoteStaff
-        throw new UnsupportedOperationException();
+    public void promoteStaff(String loginID, Role newRole) {
+        Staff staff = staffMembers.get(loginID);
+        if (staff != null) {
+            staff.setRole(newRole);  // Assuming there's a setRole method in Staff
+            System.out.println("Staff member " + staff.getFirstName() + " " + staff.getLastName() + " promoted to " + newRole);
+        } else {
+            System.out.println("Staff member with login ID " + loginID + " not found.");
+        }
     }
+    
 
      /**
      * Removes a payment using the associated PaymentManager instance.
@@ -148,20 +189,31 @@ public class Admin extends Staff {
 
     /**
      * Transfers a staff member from one branch to another.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
+     * 
+     * @param loginID the login ID of the staff member to transfer
+     * @param newBranch the new branch to transfer the staff member to
      */
-    public void transferStaff() {
-        // TODO - implement Admin.transferStaff
-        throw new UnsupportedOperationException();
+    public void transferStaff(String loginID, Branch newBranch) {
+        Staff staff = staffMembers.get(loginID);
+        if (staff != null) {
+            staff.setBranch(newBranch);  // Assuming there's a setBranch method in Staff
+            System.out.println("Staff member " + staff.getFirstName() + " " + staff.getLastName() + " transferred to " + newBranch.getBranchName());
+        } else {
+            System.out.println("Staff member with login ID " + loginID + " not found.");
+        }
     }
 
     /**
      * Views all staff members in the system.
-     * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
      */
     public void viewAllStaff() {
-        // TODO - implement Admin.viewAllStaff
-        throw new UnsupportedOperationException();
+        if (staffMembers.isEmpty()) {
+            System.out.println("No staff members found.");
+        } else {
+            for (Staff staff : staffMembers.values()) {
+                staff.printStaff();  // Assuming Staff has a method to print its details
+            }
+        }
     }
 
 }

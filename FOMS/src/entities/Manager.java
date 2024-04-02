@@ -13,6 +13,21 @@ import constants.Role;
  * such as managing orders, menu items and staffs within the system.
  */
 public class Manager extends Staff {
+ 
+    /**
+     * Constructor for Manager, extending Staff with additional properties.
+     * 
+     * @param firstName The first name of the manager.
+     * @param lastName The last name of the manager.
+     * @param loginID The login ID for the manager.
+     * @param gender The gender of the manager (true for female, false for male).
+     * @param age The age of the manager.
+     * @param staffPassword The password for the manager's account.
+     */
+    public Manager(String firstName, String lastName, String loginID, boolean gender, int age, String staffPassword) {
+        super(firstName, lastName, loginID, Role.MANAGER, gender, age, staffPassword);
+        // Initialize Manager-specific fields here
+    }
 
     /**
      * The list of the menu items in an array list.
