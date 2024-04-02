@@ -1,12 +1,16 @@
-package FOMSpackage.entities;
+package entities;
 
 /**
- * The iPaymentMethods interface defines the methods related to payment modes.
+ * The iPaymentMethods interface defines methods for managing payments.
  */
 public interface iPaymentMethods {
+    /**
+     * Adds a new payment.
+     */
+    void addPayment();
 
     /**
-     * Specifies the payment mode.
+     * Removes an existing payment.
      */
-    void paymentMode();
+    void removePayment();
 }
