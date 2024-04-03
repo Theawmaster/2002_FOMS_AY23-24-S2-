@@ -62,4 +62,40 @@ public class SerialiseCSV {
             Logger.error("Error appending to " + csvFilePath);
         }
     }
+    /**
+     * Replaces a specified column value in a CSV file after finding the specified "where" value.
+     * @param where The value to search for in the first column.
+     * @param columnIndex The index of the column to be replaced (index 0 is first column and should not be the thing you're replacing).
+     * @param replacementValue The new value to replace the existing value.
+     * @param csvFilePath The file path of the CSV file.
+     * @return true if successful
+     */
+    public static boolean replaceColumnValue(String where, int columnIndex, String replacementValue, String csvFilePath) {
+        Logger.info("Replacing column in " + csvFilePath);
+        ArrayList<String> updatedLines = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length > columnIndex && parts[0].equals(where)) {
+                    parts[columnIndex] = replacementValue;
+                    line = String.join(",", parts);
+                }
+                updatedLines.add(line);
+            }
+        } catch (IOException e) {
+            Logger.error("Error replacing column in " + csvFilePath);
+            return false;
+        }
+
+        try (FileWriter fw = new FileWriter(csvFilePath)) {
+            for (String updatedLine : updatedLines) {
+                fw.write(updatedLine + "\n");
+            }
+            return true;
+        } catch (IOException e) {
+            Logger.error("Error writing to " + csvFilePath + " while replacing column.");
+            return false;
+        }
+    }
 }
