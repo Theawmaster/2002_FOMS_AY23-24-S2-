@@ -3,6 +3,8 @@ package pages;
 import java.util.Scanner;
 import constants.Settings;
 import entities.Staff;
+import utilities.LoadStaffs;
+import utilities.authenticator.StaffLoginService;
 
 /**
  * This page will be displayed on CLI to facilitate login-related matters
@@ -22,8 +24,22 @@ public class LoginPage {
         System.out.println("[2]: Forgot password");
         System.out.println("[3]: Change password");
         System.out.println("[b]: Go back");
+
+        LoadStaffs loadedStaffs = new LoadStaffs();
+        StaffLoginService loginService = new StaffLoginService(loadedStaffs.getLoadedData());
+
+        Scanner sc = new Scanner(System.in);
+        String choice = sc.nextLine().trim();
+        switch (choice) {
+            case "1":
+                if(tryLogin())
+                break;
+        
+            default:
+                break;
+        }
     }
-    public boolean tryLogin(Staff staff){
+    public boolean tryLogin(){
         Scanner sc = new Scanner(System.in);
         String userID, password;
 
@@ -33,7 +49,7 @@ public class LoginPage {
             System.out.println("Enter your password:");
             password = sc.nextLine();
 
-
+            
         }
         return false;
     }
