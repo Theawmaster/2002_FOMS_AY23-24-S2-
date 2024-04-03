@@ -1,6 +1,7 @@
 package entities;
 
 import constants.Role;
+import utilities.authenticator.LoginDetail;
 
 public class Staff {
 
@@ -29,7 +30,7 @@ public class Staff {
         this.role = role;
         this.gender = gender;
         this.age = age;
-		this.loginDetail = new LoginDetail(this, staffPassword); // sets default login details first. default pw is loginID
+		this.loginDetail = new LoginDetail(loginID, staffPassword); // sets default login details first. default pw is loginID
 	}
 
     public void printStaff(){
@@ -90,6 +91,9 @@ public class Staff {
     
 	protected int getAge() {
         return this.age;
+	}
+	public LoginDetail getLoginDetail(){
+		return this.loginDetail;
 	}
 
 	// If you also need to get the Branch of a Staff member, add a getter method
