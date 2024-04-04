@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Scanner;
 import entities.Branch;
 import java.util.UUID;
- 
+
 import constants.Role;
 
 
@@ -17,7 +17,7 @@ import constants.Role;
 public class Admin extends Staff {
 
     private Branch managedBranch; // branch managed by the admin
-    private PaymentManager paymentManager; // payment manager to handle payments
+    private PaymentService paymentService; // payment manager to handle payments
     private Map<String, Staff> staffMembers; // map of staff members
 
     /**
@@ -33,15 +33,15 @@ public class Admin extends Staff {
      */
     public Admin(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
         super(firstName, lastName, loginID, role, gender, age, staffPassword);
-        this.paymentManager = new PaymentManager();
+        this.paymentService = new PaymentService();
         this.staffMembers = new HashMap<>(); // Assuming each staff member can be identified by their loginID
     }
 
     /**
-     * Adds a payment using the associated PaymentManager instance.
+     * Adds a payment using the associated PaymentService instance.
      */
     public void addPayment() {
-        paymentManager.addPayment();
+        paymentService.addPayment();
     }
 
    /**
@@ -181,10 +181,10 @@ public class Admin extends Staff {
     
 
      /**
-     * Removes a payment using the associated PaymentManager instance.
+     * Removes a payment using the associate PaymentService instance.
      */
     public void removePayment() {
-        paymentManager.removePayment();
+        paymentService.removePayment();
     }
 
     /**
