@@ -1,5 +1,8 @@
 package entities;
 
+import java.util.List;
+
+import constants.OrderStatus;
 import constants.Role;
 import utilities.authenticator.LoginDetail;
 
@@ -111,19 +114,73 @@ public class Staff {
 	// 	throw new UnsupportedOperationException();
 	// }
 
-	// public void processOrders() {
-	// 	// TODO - implement Staff.processOrders
-	// 	throw new UnsupportedOperationException();
-	// }
+	/**
+     * Facilitates processing of orders by updating their statuses.
+     * @param orders The list of orders to process.
+     */
+    public void processOrders(List<Order> orders) {
+        if (orders.isEmpty()) {
+            System.out.println("There are no orders to process.");
+            return;
+        }
 
-	// public void viewAllOrders() {
-	// 	// TODO - implement Staff.viewAllOrders
-	// 	throw new UnsupportedOperationException();
-	// }
+		// Display the orders to process
+        System.out.println("Process Orders:");
+        for (Order order : orders) {
+            System.out.println("Order ID: " + order.getOrderId());
+            System.out.println("Order Type: " + (order.isTakeaway() ? "Takeaway" : "Dine-in"));
+            System.out.println("Order Status: " + order.getStatus());
+            System.out.println("Total Price: " + order.getTotalPrice());
+            System.out.println("---------------------------");
+        }
 
-	// public void viewSpecificOrder() {
-	// 	// TODO - implement Staff.viewSpecificOrder
-	// 	throw new UnsupportedOperationException();
-	// }
+        // Assuming the manager calls to process at a fast rate which can be done afterwards
+        // Setting order status to ready for pickup
+        order.setStatus(OrderStatus.READY_TO_PICKUP);
+        System.out.println("Order processed. Status updated to: " + order.getStatus());
+	}
 
+	/**
+     * Views all orders in the system.
+     * @param orders The list of orders to view.
+     */
+    public void viewAllOrders(List<Order> orders) {
+        if (orders.isEmpty()) {
+            System.out.println("There are no orders to view.");
+            return;
+        }
+
+        // Display all orders
+        System.out.println("All Orders:");
+        for (Order order : orders) {
+            System.out.println("Order ID: " + order.getOrderId());
+            System.out.println("Order Type: " + (order.isTakeaway() ? "Takeaway" : "Dine-in"));
+            System.out.println("Order Status: " + order.getStatus());
+            System.out.println("Total Price: " + order.getTotalPrice());
+        }
+    }
+
+	/**
+	* Displays the details of a specific order identified by the orderId.
+	* If the order is found, its details are printed; otherwise, a message indicating 
+	* that the order does not exist is printed.
+	* 
+	* @param orders The list of orders to search for the specific order.
+	* @param orderId The ID of the order to be viewed.
+	*/
+	public void viewSpecificOrder(List<Order> orders, int orderId) {
+		// Find the order with the given orderId and print its details
+		// If the order is not found, print a message indicating that the order does not exist
+		boolean found = false;
+		for (Order order : orders) {
+			if (order.getOrderId() == orderId) {
+				order.printOrderDetails();
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			System.out.println("Order with ID " + orderId + " does not exist.");
+		}
+	}
 }

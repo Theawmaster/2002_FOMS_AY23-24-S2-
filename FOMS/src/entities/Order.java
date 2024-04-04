@@ -37,7 +37,7 @@ public class Order {
      * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
      */
     public Order(boolean isTakeaway) {
-        this.orderId = UUID.randomUUID().toString();
+        this.orderId = orderId;
         this.items = new ArrayList<>();
         this.isTakeaway = isTakeaway;
         this.status = OrderStatus.NEW;
@@ -137,7 +137,7 @@ public class Order {
      * @param orderId The unique identifier of the order.
      * @return The status of the order.
      */
-    public OrderStatus getStatus(int orderId) {
+    public OrderStatus getStatus() {
         // Yet to implement orderId to capture status of the order ...
         return status;
     }
@@ -176,7 +176,7 @@ public class Order {
         System.out.println("Total Items in Order: " + countTotalItems());
         System.out.println("Items in Order:");
         items.forEach(item -> {
-            System.out.println("- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory());
+            System.out.println("- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getCustomization());
         });
         System.out.println("Total Price: " + totalPrice);
         // Add function for payment after listing down order details...
