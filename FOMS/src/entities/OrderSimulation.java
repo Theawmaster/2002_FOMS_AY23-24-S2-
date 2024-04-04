@@ -1,3 +1,5 @@
+package entities;
+
 import entities.MenuItem;
 import entities.Order;
 import constants.OrderStatus;
@@ -9,8 +11,8 @@ public class OrderSimulation {
         Order takeawayOrder = new Order(true);
         
         // Create menu items
-        MenuItem burger = new MenuItem("Burger", 5.99, MealCategory.MAIN);
-        MenuItem fries = new MenuItem("Fries", 2.49, MealCategory.SIDE);
+        MenuItem burger = new MenuItem("Burger", 5.99, MealCategory.BURGER, "na");
+        MenuItem fries = new MenuItem("Fries", 2.49, MealCategory.SIDE, "na");
 
         // Add items to the order with customization
         takeawayOrder.addItem(burger, "No onions");
@@ -23,12 +25,14 @@ public class OrderSimulation {
 
         // Create a new order for dine-in
         Order dineInOrder = new Order(false);
-        
-        // Create menu items
-        MenuItem pizza = new MenuItem("Pizza", 9.99, MealCategory.MAIN);
 
-        // Add items to the order
-        dineInOrder.addItem(pizza, "");
+        // Create menu items
+        MenuItem burger1 = new MenuItem("Burger", 5.99, MealCategory.BURGER, "na");
+        MenuItem fries1 = new MenuItem("Fries", 2.49, MealCategory.SIDE, "na");
+
+        // Add items to the order with customization
+        dineInOrder.addItem(burger, "with onions");
+        dineInOrder.addItem(fries, "no crispy");
 
         // Print order details
         System.out.println("Dine-in Order Details:");
