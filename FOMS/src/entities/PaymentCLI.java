@@ -5,12 +5,13 @@ import java.util.Scanner;
 public class PaymentCLI {
 
     public static void main(String[] args) {
-        PaymentManager paymentManager = new PaymentManager();
+        PaymentService paymentService = new PaymentService();
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("=== Payment Management CLI ===");
         System.out.println("Commands:");
         System.out.println("  add - Add a new payment");
+        System.out.println("  view - View an existing payment");
         System.out.println("  remove - Remove an existing payment");
         System.out.println("  exit - Exit the program");
 
@@ -21,11 +22,15 @@ public class PaymentCLI {
             switch (command.toLowerCase()) {
                 case "add":
                     // Simulate adding a payment
-                    paymentManager.addPayment();
+                    paymentService.addPayment();
+                    break;
+                    case "view":
+                    // Simulate viewing a payment
+                    paymentService.viewPayment();
                     break;
                 case "remove":
                     // Simulate removing a payment
-                    paymentManager.removePayment();
+                    paymentService.removePayment();
                     break;
                 case "exit":
                     // Exit the CLI
