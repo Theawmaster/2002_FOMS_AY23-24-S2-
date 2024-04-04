@@ -38,6 +38,10 @@ public class Manager extends Staff {
      */
 	private List<Staff> supervisedStaff = new ArrayList<>();
 
+    public Manager (String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword)
+    {
+        super(firstName, lastName, loginID, role, gender, age, staffPassword);
+    }
     /**
      * Adds menu item to the system.
      * This method is currently not implemented and will throw an {@code UnsupportedOperationException} if called.
