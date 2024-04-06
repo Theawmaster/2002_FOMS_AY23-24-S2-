@@ -10,6 +10,11 @@ public interface iPaymentMethods {
     void addPayment();
 
     /**
+     * Views all payments.
+     */
+    void viewPayment();
+
+    /**
      * Removes an existing payment.
      */
     void removePayment();

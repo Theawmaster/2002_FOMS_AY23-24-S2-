@@ -3,23 +3,54 @@ package pages;
 import java.util.Random;
 import java.util.Scanner;
 import constants.Settings;
+import entities.Staff;
 import utilities.authenticator.StaffLoginService;
 import utilities.authenticator.iLoginService;
+import utilities.LoadStaffs;
+import java.util.ArrayList;
+import constants.FilePaths;
+import constants.Role;
 
 /**
  * This page will be displayed on CLI to facilitate login-related matters
  */
 public class LoginPage {
+
+    private StaffLoginService staffLoginService;
+    private Staff loggedInStaff;
+
+    /**
+     * It creates an instance of LoginPage to run the program.
+     *
+     * @param args The command-line arguments passed to the program.
+     */
+    public static void main(String[] args) {
+        // Create an instance of LoginPage to run your program
+        new LoginPage();
+    }
+
     /**
      * The constructor simply calls the showLoginPage method
      */
     public LoginPage(){
+
+
+        LoadStaffs loadStaffs = new LoadStaffs();
+
+        // Use LoadStaff to load the list of staff from the CSV
+        ArrayList<Staff> staffList = loadStaffs.loadDatafromCSV();
+
+        // Initialize StaffLoginService with the loaded staff list
+        this.staffLoginService = new StaffLoginService(staffList);
+
         showLoginPage();
     }
     /**
      * The {@link showLoginPage} method displays the menu and facilitates the options shown on screen
      */
     public void showLoginPage(){
+
+
         System.out.println( "                   _____ _         __  __   _             _                       \n" + //
                             "                  / ____| |       / _|/ _| | |           (_)                      \n" + //
                             "  ______ ______  | (___ | |_ __ _| |_| |_  | | ___   __ _ _ _ __    ______ ______ \n" + //
@@ -31,16 +62,30 @@ public class LoginPage {
         System.out.println("[1]: Log in");
         System.out.println("[2]: Forgot password");
         System.out.println("[3]: Change password");
-        System.out.println("[b]: Go back");
-
-        StaffLoginService staffLoginService = new StaffLoginService();
+        System.out.println("[4]: Exit");
+        //System.out.println("[b]: Go back");
 
         Scanner sc = new Scanner(System.in);
         String choice = sc.nextLine().trim();
         switch (choice) {
             case "1":
-                if(tryLogin(staffLoginService)) System.out.println("LOGIN SUCCESS YAYYY"); // TODO: do something like go to the next page or something
-                break;
+            boolean loginSuccess = tryLogin(staffLoginService);
+            if (loginSuccess) {
+                System.out.println("LOGIN SUCCESS");
+                // Check if the logged-in user is an admin
+                if (loggedInStaff != null && loggedInStaff.getRole() == Role.ADMIN) {
+                    // Redirect to AdminPage
+                    new AdminPage(); 
+                } else if (loggedInStaff != null && loggedInStaff.getRole() == Role.MANAGER) {
+                    new ManagerPage();
+                } else {
+                    System.out.println("Welcome, " + loggedInStaff.getFirstName());
+                    // Direct to a different page or functionality based on the role if necessary
+                }
+            } else {
+                System.out.println("Login failed.");
+            }
+            break;
             case "2":
                 if(tryForgotPassword(staffLoginService)) System.out.println("OI STOP FUCKING FORGETTING. RESET SUCCESS ANYWAY");
                 else System.out.println("failed reset pw");
@@ -48,10 +93,12 @@ public class LoginPage {
             case "3": 
                 if(tryChangePassword(staffLoginService)) System.out.println(("CHANGE PASSWORD SUCCESS YAYYY")); // TODO: do something like go to the next page or something
                 break;
-            case "b":
-            case "B":
+            case "4":
+                System.out.println("Terminating program...");
+                System.exit(0);
+           // case "b":
+            //case "B":
                 // TODO: go back to prev page or something
-                break;
             default:
                 System.out.println("Invalid choice!");
                 break;
@@ -67,13 +114,17 @@ public class LoginPage {
         String userID, password;
 
         for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
-            System.out.println("Enter your user ID:");
+            System.out.println("Enter your username:");
             userID = sc.nextLine().trim();
             System.out.println("Enter your password:");
             password = sc.nextLine().trim();
 
-            if(loginService.login(userID, password)) return true;
-            System.out.println("XXX WRONG. WHAT A FAILURE");
+            if (loginService.login(userID, password)) {
+                this.loggedInStaff = staffLoginService.getStaffByID(userID);
+                return true;
+            } else {
+                System.out.println("XXX WRONG. WHAT A FAILURE");
+            }
         }
         System.out.println("FAILED TOO MANY TIMES. BOO.");
         return false;

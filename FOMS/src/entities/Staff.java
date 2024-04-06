@@ -15,7 +15,7 @@ public class Staff {
 	private boolean gender; // True: F, False: Male, because the woman is always right
 	private int age;
 	private LoginDetail loginDetail;
-	private Branch branch; 
+	private Branch branch;
 	// private Branch branch;
 	// private Stats stats;
 
@@ -72,7 +72,7 @@ public class Staff {
 	}
 	
 	// Getters
-	protected String getFirstName() {
+	public String getFirstName() {
 		return this.firstName;
 	}
 
@@ -80,11 +80,11 @@ public class Staff {
         return this.lastName;
 	}
 
-    protected String getLoginID(){
+    public String getLoginID(){
         return this.loginID;
     }
     
-    protected Role getRole(){
+    public Role getRole(){
         return this.role;
     }
 
@@ -125,21 +125,14 @@ public class Staff {
         }
 
 		// Display the orders to process
-        System.out.println("Process Orders:");
+        System.out.println("Processing Orders:");
         for (Order order : orders) {
-            System.out.println("Order ID: " + order.getOrderId());
-            System.out.println("Order Type: " + (order.isTakeaway() ? "Takeaway" : "Dine-in"));
-            System.out.println("Order Status: " + order.getStatus());
-            System.out.println("Total Price: " + order.getTotalPrice());
-            System.out.println("---------------------------");
+            // Process each order here, for example, updating its status
+            order.setStatus(OrderStatus.READY_TO_PICKUP);
+            System.out.println("Order ID: " + order.getOrderId() + " processed. Status updated to: " + order.getStatus());
         }
-
-        // Assuming the manager calls to process at a fast rate which can be done afterwards
-        // Setting order status to ready for pickup
-        order.setStatus(OrderStatus.READY_TO_PICKUP);
-        System.out.println("Order processed. Status updated to: " + order.getStatus());
-	}
-
+    }
+    
 	/**
      * Views all orders in the system.
      * @param orders The list of orders to view.

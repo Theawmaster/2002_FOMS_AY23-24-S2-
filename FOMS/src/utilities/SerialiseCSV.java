@@ -72,4 +72,49 @@ public class SerialiseCSV {
             Logger.error("Error appending to " + csvFilePath);
         }
     }
+
+    /**
+     * Replaces a specified value in a specified column of a CSV file.
+     *
+     * @param searchString The value to search for in the specified column.
+     * @param columnIndex  The index of the column in which the value will be replaced.
+     * @param newValue      The new value to replace the old value with.
+     * @param csvFilePath   The file path of the CSV file.
+     * @return true if the value is found and replaced successfully, false otherwise.
+     */
+    public static boolean replaceColumnValue(String searchString, int columnIndex, String newValue, String csvFilePath) {
+        ArrayList<String> lines = readCSV(csvFilePath);
+        boolean found = false;
+
+        // Iterate through each line in the CSV file
+        for (int i = 0; i < lines.size(); i++) {
+            String[] columns = lines.get(i).split(",");
+            // Check if the line has enough columns and the specified value is found in the specified column
+            if (columns.length > columnIndex && columns[columnIndex].equals(searchString)) {
+                // Replace the old value with the new value
+                columns[columnIndex] = newValue;
+                // Update the line with the modified columns
+                lines.set(i, String.join(",", columns));
+                found = true;
+            }
+        }
+
+        // If the value is found and replaced successfully, write the modified data back to the CSV file
+        if (found) {
+            try (FileWriter fw = new FileWriter(csvFilePath)) {
+                // Write each line of the modified data back to the CSV file
+                for (String line : lines) {
+                    fw.write(line + "\n");
+                }
+                return true;
+            } catch (IOException e) {
+                Logger.error("Error replacing value in " + csvFilePath + ": " + e.getMessage());
+                return false;
+            }
+        } else {
+            Logger.error("Value not found in " + csvFilePath);
+            return false;
+        }
+    }
+
 }
