@@ -64,6 +64,18 @@ public class LoadStaffs extends LoadData<Staff>{
         }
         return staffs;
     }
+
+    /**
+    * The {@link updatePassword} method calls on the {@link SerialiseCSV.replaceColumnValue} method to update the 2nd column with the new password
+    * @param loginID search String
+    * @param newPassword updated new password
+    * @return true if successful
+    */
+   public static boolean updatePassword(String loginID, String newPassword){
+        return SerialiseCSV.replaceColumnValue(loginID, 1, newPassword, FilePaths.staffPasswordsPath.getPath());
+    }
+
+
     /**
      * The {@link getPasswords} private method reads in saved passwords from staff_passwords.csv and stores them in the private variable {@link loadedPasswords}
      * TODO: Add a point for decryption of password data. Passwords should not be stored in raw form
