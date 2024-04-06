@@ -3,6 +3,7 @@ package utilities.authenticator;
 import entities.Staff;
 import java.util.ArrayList;
 import java.util.HashMap;
+import utilities.LoadStaffs;
 
 public class StaffLoginService implements iLoginService {
     private HashMap<String, String> loadedUsersAndPasswords = new HashMap<>();
@@ -20,15 +21,28 @@ public class StaffLoginService implements iLoginService {
         return storedPassword != null && storedPassword.equals(password);
     }
 
+    /** 
+     * The {@link changePassword} method facilitates the changing of password. It calls of the {@link LoadStaffs.updatePassword} function to update the record in the CSV accordingly 
+     * @param username
+     * @param oldPassword
+     * @param newPassword
+     * @return true if successful
+     */
     @Override
-    public boolean resetPassword(String userID) {
-        // Implement the logic to reset a user's password
-        throw new UnsupportedOperationException("Reset password not implemented.");
+    public boolean changePassword(String userID, String oldPassword, String newPassword){
+        LoadStaffs.updatePassword(userID, newPassword);
+        return this.loadedUsersAndPasswords.replace(newPassword, oldPassword, newPassword);
     }
 
+    /**
+     * The {@link resetPassword} method facilitates the resetting of password. It simply resets the password to the username of the staff
+     * @param username 
+     * @return true if successful
+     */
     @Override
-    public boolean changePassword(String userID, String oldPassword, String newPassword) {
-        // Implement the logic to change a user's password
-        throw new UnsupportedOperationException("Change password not implemented.");
+    public boolean resetPassword(String userID){
+        //TODO: update this in the staff login details also
+        return changePassword(userID, this.loadedUsersAndPasswords.get(userID), userID);
     }
 }
+
