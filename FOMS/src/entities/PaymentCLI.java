@@ -1,3 +1,7 @@
+/**
+ * This class provides a simulation command-line interface (CLI) for managing payments
+ */
+
 package entities;
 
 import java.util.Scanner;
