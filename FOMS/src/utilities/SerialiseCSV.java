@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -25,6 +26,8 @@ public class SerialiseCSV {
     public static ArrayList<String> readCSV(String csvFilePath) {
         Logger.info("Reading branch data from path:" + csvFilePath);
         ArrayList<String> dataReadFromCSV = new ArrayList<>();
+        Path path = Paths.get(csvFilePath);   
+        
         try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
             String line = null;
             while ((line = br.readLine()) != null) {
@@ -33,7 +36,7 @@ public class SerialiseCSV {
                 }
             }
         } catch (IOException e) {
-            Logger.error("Error parsing file from path:" + csvFilePath);
+            Logger.error("Error parsing file from path:" + csvFilePath + "; Error: " + e.getMessage());
         }
         return dataReadFromCSV;
     }
