@@ -12,31 +12,30 @@ public class PaymentCLI {
         PaymentService paymentService = new PaymentService();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("=== Payment Management CLI ===");
         System.out.println("Commands:");
-        System.out.println("  add - Add a new payment");
-        System.out.println("  view - View an existing payment");
-        System.out.println("  remove - Remove an existing payment");
-        System.out.println("  exit - Exit the program");
+        System.out.println("  1 - Add a new payment");
+        System.out.println("  2 - View an existing payment");
+        System.out.println("  3 - Remove an existing payment");
+        System.out.println("  q - Exit the program");
 
         while (true) {
             System.out.print("\nEnter command: ");
             String command = scanner.nextLine().trim();
 
             switch (command.toLowerCase()) {
-                case "add":
+                case "1":
                     // Simulate adding a payment
                     paymentService.addPayment();
                     break;
-                    case "view":
+                    case "2":
                     // Simulate viewing a payment
                     paymentService.viewPayment();
                     break;
-                case "remove":
+                case "3":
                     // Simulate removing a payment
                     paymentService.removePayment();
                     break;
-                case "exit":
+                case "q":
                     // Exit the CLI
                     System.out.println("Exiting Payment Management CLI.");
                     return;

@@ -5,6 +5,7 @@ import entities.Order;
 import constants.OrderStatus;
 import constants.MealCategory;
 
+
 public class OrderSimulation {
     public static void main(String[] args) {
         // Create a new order for takeaway
