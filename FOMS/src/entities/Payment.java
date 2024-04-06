@@ -52,4 +52,5 @@ public class Payment {
     public String getPaymentType() {
         return paymentType;
     }
+
 }

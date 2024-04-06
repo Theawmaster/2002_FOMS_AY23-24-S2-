@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
@@ -42,11 +44,16 @@ public class SerialiseCSV {
      * @param csvFilePath
      */
     public static void writeToCSV(String s, String csvFilePath) {
-        Logger.info("Writing data to " + csvFilePath);
-        try (FileWriter fw = new FileWriter(csvFilePath)) {
-            fw.write(s + "\n");
+        try {
+            Files.createDirectories(Paths.get(csvFilePath).getParent());
+
+            try (FileWriter fw = new FileWriter(csvFilePath, true)) { // true to append
+                fw.write(s + "\n");
+                fw.flush();
+            }
+            Logger.info("Data written to file successfully.");
         } catch (IOException e) {
-            Logger.error("Error writing to " + csvFilePath);
+            Logger.error("Error writing to " + csvFilePath + ": " + e.getMessage());
         }
     }
     /**
