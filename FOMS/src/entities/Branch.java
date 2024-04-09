@@ -38,4 +38,9 @@ public class Branch {
         return this.quota;
     }
 
+    @Override
+    public String toString() {
+        return branchName + " (" + location + ")";
+    }
+
 }

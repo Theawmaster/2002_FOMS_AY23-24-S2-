@@ -22,28 +22,20 @@ public class ManagerPage {
      */
     private void showManagerMenu() {
 
-        System.out.println("    ______  _______         _____  _____   ______         _____         _____         ______        _____              _____         _____         _____         ______   ");
-        System.out.println("   |      \\/       \\    ___|\\    \\|\\    \\ |\\     \\    ___|\\    \\    ___|\\    \\    ___|\\     \\   ___|\\    \\         ___|\\    \\    ___|\\    \\    ___|\\    \\    ___|\\     \\  ");
-        System.out.println("  /          /\\     \\  /    /\\    \\| \\    \\  \\     \\  /    /\\    \\  /    /\\    \\  |     \\     \\ |    |\\    \\       |    |\\    \\  /    /\\    \\  /    /\\    \\  |     \\     \\ ");
-        System.out.println(" /     /\\   / /\\     ||    |  |    |\\|    \\  \\     ||    |  |    ||    |  |____| |     ,_____/||    | |    |      |    | |    ||    |  |    ||    |  |____| |     ,_____/|");
-        System.out.println("/     /\\ \\_/ / /    /||    |__|    | |     \\  |    ||    |__|    ||    |    ____ |     \\--'\\_|/|    |/____/       |    |/____/||    |__|    ||    |    ____ |     \\--'\\_|/");
-        System.out.println("|     |  \\|_|/ /    / ||    .--.    | |      \\ |    ||    .--.    ||    |   |    ||     /___/|  |    |\\    \\       |    ||    |||    .--.    ||    |   |    ||     /___/|  ");
-        System.out.println("|     |       |    |  ||    |  |    | |    |\\ \\|    ||    |  |    ||    |   |_,  ||     \\____|\\ |    | |    |      |    ||____|/|    |  |    ||    |   |_,  ||     \\____|\\ ");
-        System.out.println("|\\____\\       |____|  /|____|  |____| |____||\\_____/||____|  |____||\\ ___\\___/  /||____ '     /||____| |____|      |____|       |____|  |____||\\ ___\\___/  /||____ '     /|");
-        System.out.println("| |    |      |    | / |    |  |    | |    |/ \\|   |||    |  |    || |   /____ / ||    /_____/ ||    | |    |      |    |       |    |  |    || |   /____ / ||    /_____/ |");
-        System.out.println("| |____|      |____|/  |____|  |____| |____|   |___|/|____|  |____| \\|___|    | / |____|     | /|____| |____|      |____|       |____|  |____| \\|___|    | / |____|     | / ");
-        System.out.println("|    \\(          )/       \\(      )/     \\(       )/    \\(      )/     \\( |____|/    \\( |_____|/   \\(     )/          \\(           \\(      )/     \\( |____|/    \\( |_____|/ ");
-        System.out.println("|     '          '         '      '       '       '      '      '       '   )/        '    )/       '     '            '            '      '       '   )/        '    )/    ");
-        System.out.println("                                                                           '              '                                                           '              '      ");
-
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Manager Commands:");
-        System.out.println("  1 - Simulate Orders");
-        System.out.println("  q - Return to Login Page");
 
         String command;
+
         do {
+            System.out.println("                    _______                                          ______                                       ");
+            System.out.println(" ______ ______     |   |   |.---.-.-----.---.-.-----.-----.----.    |   __ \\.---.-.-----.-----.     ______ ______ ");
+            System.out.println("|______|______|    |       ||  _  |     |  _  |  _  |  -__|   _|    |    __/|  _  |  _  |  -__|    |______|______|");
+            System.out.println("                   |__|_|__||___._|__|__|___._|___  |_____|__|      |___|   |___._|___  |_____|                   ");
+            System.out.println("                                              |_____|                             |_____|                          ");
+            System.out.println("Manager Commands:");
+            System.out.println("  1 - Simulate Orders");
+            System.out.println("  q - Return to Login Page");
             System.out.print("\nEnter manager command: ");
             command = scanner.nextLine().trim();
 
@@ -59,6 +51,8 @@ public class ManagerPage {
                     System.out.println("Unknown command. Please try again.");
             }
         } while (!command.equals("q"));
+                // Close the scanner to prevent resource leak
+                scanner.close();
     }
 
     /**
