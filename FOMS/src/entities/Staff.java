@@ -42,6 +42,7 @@ public class Staff {
         System.out.println("Role: " + getRole());
         System.out.println("Gender: " + (getGender() ? "F" : "M"));
         System.out.println("Age: " + getAge());
+        System.out.println("Branch: " + branch.getBranchName());
     }
 
 	// Setters
@@ -176,4 +177,24 @@ public class Staff {
 			System.out.println("Order with ID " + orderId + " does not exist.");
 		}
 	}
+
+    /**
+     * Returns a string representation of the object. In this case, it returns
+     * a formatted string containing the person's name, login ID, role, gender,
+     * and age.
+     *
+     * @return a string representation of the person
+     */
+    @Override
+    public String toString() {
+        // Determine the gender string representation
+        String genderStr = gender ? "Female" : "Male";
+
+        String branchInfo = (branch != null) ? branch.toString() : "No Branch Assigned"; 
+        
+        // Format the string with the person's information
+        return "Name: " + firstName + " " + lastName + ", Login ID: " + loginID + 
+            ", Role: " + role + ", Gender: " + genderStr + ", Age: " + age + ", Branch: " + branchInfo;
+    }
+
 }

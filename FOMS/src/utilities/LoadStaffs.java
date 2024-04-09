@@ -2,9 +2,11 @@ package utilities;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import constants.FilePaths;
-import constants.Role;
+import constants.Role; 
+import entities.Branch;
 import entities.Staff;
 
 /**
@@ -26,6 +28,10 @@ public class LoadStaffs extends LoadData<Staff>{
 
         // load data from the staff list csv
         ArrayList<String> serialisedData = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
+
+        // Load branch data from the CSV file
+        List<Branch> branches = loadBranchesFromCSV(FilePaths.branchListPath.getPath());
+
         // load password data into this.passwords
         getPasswords();
 
@@ -40,16 +46,13 @@ public class LoadStaffs extends LoadData<Staff>{
             else if(row[2].trim().toUpperCase().contains("A")) staffRole = Role.ADMIN;
             //TODO: else throw an exception
 
-            boolean isFemale = true;
-            if(row[3].trim().toUpperCase().contains("F")) isFemale = true;
-            else if(row[3].trim().toUpperCase().contains("M")) isFemale = false;
-            //TODO: else throw an exception
-
+            boolean isFemale = row[3].trim().equalsIgnoreCase("F");
             String[] name = row[0].trim().split(" ", 2);
             String firstName = name[0];
-            String lastname = (name.length>1) ? name[1] : name[0];
+            String lastName = (name.length > 1) ? name[1] : name[0];
             String loginID = row[1].trim();
-            Integer age = Integer.parseInt(row[4].trim());
+            int age = Integer.parseInt(row[4].trim());
+            String branchName = row[5].trim();
 
             String staffPassword; 
             if(this.loadedPasswords!=null && this.loadedPasswords.containsKey(loginID)) 
@@ -59,10 +62,46 @@ public class LoadStaffs extends LoadData<Staff>{
                 appendNewPasswordRecord(loginID, staffPassword);
             }
 
-            Staff tempStaff = new Staff(firstName, lastname, loginID, staffRole, isFemale, age, staffPassword);
+            Staff tempStaff = new Staff(firstName, lastName, loginID, staffRole, isFemale, age, staffPassword);
+
+            // Find the branch object matching the staff's branch name
+            for (Branch branch : branches) {
+                if (branch.getBranchName().equalsIgnoreCase(branchName)) {
+                    tempStaff.setBranch(branch);
+                    break;
+                }
+            }
+
             staffs.add(tempStaff);
         }
         return staffs;
+    }
+
+    /**
+     * Loads branch data from the CSV file.
+     *
+     * @param filePath The path to the CSV file containing branch data.
+     * @return A list of Branch objects.
+     */
+    private List<Branch> loadBranchesFromCSV(String filePath) {
+        List<Branch> branches = new ArrayList<>();
+
+        // Load data from the branch CSV
+        ArrayList<String> serialisedData = SerialiseCSV.readCSV(filePath);
+
+        for (String s : serialisedData) {
+            String[] row = s.split(",");
+            if (s.isEmpty() || s.contains("Name,") || row.length < 3)
+                continue;
+
+            String branchName = row[0].trim();
+            String location = row[1].trim();
+            int quota = Integer.parseInt(row[2].trim());
+
+            branches.add(new Branch(branchName, location, quota));
+        }
+
+        return branches;
     }
 
     /**
@@ -106,5 +145,18 @@ public class LoadStaffs extends LoadData<Staff>{
     private void appendNewPasswordRecord(String staffID, String staffPassword){
         String passwordRecord = staffID + "," + staffPassword;
         SerialiseCSV.appendToCSV(passwordRecord, FilePaths.staffPasswordsPath.getPath());
+    }
+
+     /**
+     * Prints out details of all staff loaded from the CSV.
+     */
+    public void viewAllStaff() {
+        ArrayList<Staff> staffList = this.loadDatafromCSV(); // Use existing method to load data
+        System.out.println("\nStaff List:");
+        for (Staff staff : staffList) {
+            // Print each staff's details
+            System.out.println(staff); // Assuming Staff has an overridden toString method
+        }
+        System.out.println();
     }
 }
