@@ -15,6 +15,11 @@ public enum FilePaths {
     menuListPath("utilities/data/menu_list.csv"),
 
     /**
+     * Path to the order menu list CSV file.
+     */
+    ordermenuListPath("utilities/data/ordermenu_list.csv"),
+
+    /**
      * Path to the staff list CSV file.
      */
     staffListPath("utilities/data/staff_list.csv"),
