@@ -31,7 +31,9 @@ public class MenuManager {
             System.out.println("                                                                  /____/                                                ");
             System.out.println("1. Add Food Item");
             System.out.println("2. Remove Food Item");
-            System.out.println("3. Exiting Menu Management...");
+            System.out.println("3. Edit Food Item");
+            System.out.println("4. View Menu Item");
+            System.out.println("5. Exiting Menu Management...");
             System.out.print("Enter your choice: ");
 
             String choice = scanner.nextLine();
@@ -52,6 +54,20 @@ public class MenuManager {
                     }
                     break;
                 case "3":
+                    try {
+                        editFoodItem(scanner);
+                    } catch (IOException e) {
+                        System.err.println("Error editing food item: " + e.getMessage());
+                    }
+                    break;
+                case "4":
+                    try {
+                        viewFoodItem();
+                    } catch (IOException e) {
+                        System.err.println("Error viewing food item: " + e.getMessage());
+                    }
+                    break;
+                case "5":
                     running = false;
                     System.out.println("Exiting Menu Management...");
                     new ManagerPage().showManagerMenu();
@@ -99,19 +115,84 @@ public class MenuManager {
 
     private void removeFoodItem(Scanner scanner) throws IOException {
         List<String> menuItems = Files.readAllLines(Paths.get(FilePaths.menuListPath.getPath()));
-        for (int i = 0; i < menuItems.size(); i++) {
-            System.out.println((i + 1) + ". " + menuItems.get(i));
+        for (int i = 1; i < menuItems.size(); i++) {
+            System.out.println((i) + ". " + menuItems.get(i));
         }
 
         System.out.print("Enter the number of the food item to remove: ");
-        int itemIndex = Integer.parseInt(scanner.nextLine()) - 1;
+        int itemIndex = Integer.parseInt(scanner.nextLine());
 
-        if (itemIndex >= 0 && itemIndex < menuItems.size()) {
+        if (itemIndex >= 1 && itemIndex < menuItems.size()) {
             menuItems.remove(itemIndex);
             Files.write(Paths.get(FilePaths.menuListPath.getPath()), menuItems);
             System.out.println("Food item removed successfully.");
         } else {
             System.out.println("Invalid food item number.");
+        }
+    }
+
+    public void editFoodItem(Scanner scanner) throws IOException {
+        List<String> menuItems = Files.readAllLines(Paths.get(FilePaths.menuListPath.getPath()));
+        for (int i = 1; i < menuItems.size(); i++) {
+            System.out.println((i) + ". " + menuItems.get(i));
+        }
+        
+        System.out.print("Enter the number of the food item to edit: ");
+        int itemIndex = Integer.parseInt(scanner.nextLine());
+
+        if (itemIndex >= 1 && itemIndex < menuItems.size()) {
+            String[] itemParts = menuItems.get(itemIndex).split(",");
+            String name = itemParts[0];
+            double price = Double.parseDouble(itemParts[1]);
+            String branch = itemParts[2];
+            String category = itemParts[3];
+
+            System.out.print("Enter new Food Name (leave empty to keep the same): ");
+            String newName = scanner.nextLine();
+            if (!newName.isEmpty()) {
+                name = newName;
+            }
+
+            System.out.print("Enter new Price (leave empty to keep the same): ");
+            String newPriceInput = scanner.nextLine();
+            if (!newPriceInput.isEmpty()) {
+                price = Double.parseDouble(newPriceInput);
+            }
+
+            System.out.print("Enter new Branch (leave empty to keep the same): ");
+            String newBranch = scanner.nextLine();
+            if (!newBranch.isEmpty()) {
+                branch = newBranch;
+            }
+
+            System.out.print("Enter new Category (leave empty to keep the same): ");
+            String newCategory = scanner.nextLine().toLowerCase();
+            if (!newCategory.isEmpty()) {
+                category = newCategory;
+            }
+
+            // Construct the edited food item string
+            String editedFoodItem = String.join(",", name, String.valueOf(price), branch, category);
+            menuItems.set(itemIndex, editedFoodItem);
+
+            // Write the updated menu items back to the file
+            Files.write(Paths.get(FilePaths.menuListPath.getPath()), menuItems);
+            System.out.println("Food item edited successfully.");
+        } else {
+            System.out.println("Invalid food item number.");
+        }
+    }
+
+    public void viewFoodItem() throws IOException {
+        List<String> menuItems = Files.readAllLines(Paths.get(FilePaths.menuListPath.getPath()));
+        if (menuItems.isEmpty()) {
+            System.out.println("The menu is currently empty.");
+            return;
+        }
+        else {
+            for (int i = 1; i < menuItems.size(); i++) {
+                System.out.println((i) + ". " + menuItems.get(i));
+            }
         }
     }
 }
