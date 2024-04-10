@@ -75,6 +75,11 @@ public class Manager extends Staff {
                         System.out.print("Enter new description for " + oldFood + ": ");
                         String newDescriptionStr = sc.next();
                         item.setDescription(newDescriptionStr);
+
+                        System.out.print("Enter new category for " + oldFood + ": ");
+                        String newCategoryStr = sc.next();
+                        MealCategory newCategory = MealCategory.valueOf(newCategoryStr.toUpperCase());
+                        item.setCategory(newCategory);
                     }
                 }
                 break;
@@ -88,6 +93,11 @@ public class Manager extends Staff {
                         System.out.print("Enter new description for " + oldFood + ": ");
                         String newDescriptionStr = sc.next();
                         item.setDescription(newDescriptionStr);
+
+                        System.out.print("Enter new category for " + oldFood + ": ");
+                        String newCategoryStr = sc.next();
+                        MealCategory newCategory = MealCategory.valueOf(newCategoryStr.toUpperCase());
+                        item.setCategory(newCategory);
                     }                       
                 }               
                 break;
