@@ -7,7 +7,6 @@ import constants.MealCategory;
 import java.util.Scanner;
 
 public class ManagerPage {
-
      /**
      * Constructor for ManagerPage class.
      * Creates a new instance of the ManagerPage and displays the manager menu.
@@ -34,7 +33,13 @@ public class ManagerPage {
             System.out.println("                   |__|_|__||___._|__|__|___._|___  |_____|__|      |___|   |___._|___  |_____|                   ");
             System.out.println("                                              |_____|                             |_____|                          ");
             System.out.println("Manager Commands:");
-            System.out.println("  1 - Simulate Orders");
+            System.out.println("  1 - Display Orders");
+            System.out.println("  2 - View OrderId order details");
+            System.out.println("  3 - Process order of OrderId");
+            System.out.println("  4 - Add Menu Item");
+            System.out.println("  5 - Edit Menu Item");
+            System.out.println("  6 - Remove Menu Item");
+            System.out.println("  7 - View all staffs");
             System.out.println("  q - Return to Login Page");
             System.out.print("\nEnter manager command: ");
             command = scanner.nextLine().trim();
@@ -42,6 +47,24 @@ public class ManagerPage {
             switch (command) {
                 case "1":
                     simulateOrders(); 
+                    break;
+                case "2":
+                    // to add viewMyStaff method
+                    break;
+                case "3":
+                
+                    break;
+                case "4":
+                
+                    break;
+                case "5":
+                
+                    break;
+                case "6":
+                
+                    break;
+                case "7":
+                
                     break;
                 case "q":
                     System.out.println("Returning to Login Page.");
