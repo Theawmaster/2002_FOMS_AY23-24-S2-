@@ -114,6 +114,7 @@ public class MenuManager {
     
 
     private void removeFoodItem(Scanner scanner) throws IOException {
+        System.out.println("Name,Price,Branch,Category");
         List<String> menuItems = Files.readAllLines(Paths.get(FilePaths.menuListPath.getPath()));
         for (int i = 1; i < menuItems.size(); i++) {
             System.out.println((i) + ". " + menuItems.get(i));
@@ -132,6 +133,7 @@ public class MenuManager {
     }
 
     public void editFoodItem(Scanner scanner) throws IOException {
+        System.out.println("Name,Price,Branch,Category");
         List<String> menuItems = Files.readAllLines(Paths.get(FilePaths.menuListPath.getPath()));
         for (int i = 1; i < menuItems.size(); i++) {
             System.out.println((i) + ". " + menuItems.get(i));
@@ -190,6 +192,7 @@ public class MenuManager {
             return;
         }
         else {
+            System.out.println("Name,Price,Branch,Category");
             for (int i = 1; i < menuItems.size(); i++) {
                 System.out.println((i) + ". " + menuItems.get(i));
             }
