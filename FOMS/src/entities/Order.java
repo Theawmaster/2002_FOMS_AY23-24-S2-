@@ -15,7 +15,7 @@ import java.time.temporal.ChronoUnit;
  */
 public class Order {
     /** Unique identifier for the order. */
-    private int orderId;
+    private double orderId;
     
     /** List of items included in the order. */
     private List<MenuItem> items;
@@ -36,7 +36,7 @@ public class Order {
      * Constructs a new order.
      * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
      */
-    public Order(boolean isTakeaway) {
+    public Order(double orderId) {
         this.orderId = orderId;
         this.items = new ArrayList<>();
         this.isTakeaway = isTakeaway;
@@ -65,9 +65,9 @@ public class Order {
      * @param item The menu item to add.
      * @param customization Customization details for the menu item.
      */
-    public void addItem(MenuItem item, String customization) {
+    public void addItem(MenuItem item, String description, String customization) {
          // Create a new MenuItem with customization and add it to the order
-        MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getCategory(), customization);
+        MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getCategory(), description, customization);
         if (customization.isEmpty())
         {
             items.add(item); // Add menu items in order without customization 
@@ -104,7 +104,7 @@ public class Order {
      * Gets the unique identifier of the order.
      * @return The order ID.
      */
-    public int getOrderId() {
+    public double getOrderId() {
         return orderId;
     }
 
