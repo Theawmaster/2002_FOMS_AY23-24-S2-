@@ -7,6 +7,7 @@ public class MenuItem {
 	private String food;
 	private double price;
     private MealCategory category;
+    private String description;
     private String customization;
 	// private Branch branch; 
     // for branch need to extend 
@@ -19,10 +20,11 @@ public class MenuItem {
      * @param age
      * @param gender
      */
-	public MenuItem(String food, double price, MealCategory category, String customization) {
+	public MenuItem(String food, double price, MealCategory category, String description, String customization) {
         this.food = food;
         this.price = price;
         this.category = category;
+        this.description = description;
         this.customization = customization;
 	}
     // to do: implement branch 
@@ -31,6 +33,7 @@ public class MenuItem {
         System.out.println("Food: " + getFood());
         System.out.println("Price: " + getPrice());
         System.out.println("Category: " + getCategory());
+        System.out.println("Description: " + getDescription());
     } // to do: implement getbranch
 
 	protected String getFood() {
@@ -57,6 +60,14 @@ public class MenuItem {
         return this.category;
     }
 
+    protected String getDescription() {
+        return description;
+    }
+
+    protected void setDescription(String description) {
+        this.description = description;
+    }
+
     protected String getCustomization() {
         return customization;
     }
@@ -64,6 +75,5 @@ public class MenuItem {
     protected void setCustomization(String customization) {
         this.customization = customization;
     }
-    
     // to do: implement getbranch 
 }
