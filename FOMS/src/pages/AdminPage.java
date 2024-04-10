@@ -1,6 +1,9 @@
 package pages;
 
 import entities.PaymentService;
+import entities.StaffManagement;
+import entities.StaffManagementFriend;
+import entities.BranchManagement;
 import utilities.LoadStaffs;
 import java.util.Scanner;
 
@@ -23,10 +26,10 @@ public class AdminPage {
      * Displays the admin page with various commands for managing payments.
      */
     public void showAdminPage() {
-        
+        boolean running = true;
         Scanner scanner = new Scanner(System.in);
+        while (running) {
 
-        while (true) {
             System.out.println("                    _______     __            __             ______                                       ");
             System.out.println(" ______ ______     |   _   |.--|  |.--------.|__|.-----.    |   __ \\.---.-.-----.-----.     ______ ______ ");
             System.out.println("|______|______|    |       ||  _  ||        ||  ||     |    |    __/|  _  |  _  |  -__|    |______|______|");
@@ -37,6 +40,8 @@ public class AdminPage {
             System.out.println("  2 - View an existing payment");
             System.out.println("  3 - Remove an existing payment");
             System.out.println("  4 - View all staff members");
+            System.out.println("  5 - Staff Management");
+            System.out.println("  6 - Branch Management");
             System.out.println("  q - Exit the admin panel & return to login page");
             System.out.print("\nEnter admin command: ");
             String command = scanner.nextLine().trim();
@@ -59,8 +64,19 @@ public class AdminPage {
                     LoadStaffs loadStaffs = new LoadStaffs();
                     loadStaffs.viewAllStaff();
                     break;
+                case "5":
+                    // Simulate staff management
+                    StaffManagementFriend staffManagement = new entities.StaffManagement();
+                    staffManagement.activate_();
+                    break;
+                case "6":
+                    // Simulate branch management
+                    BranchManagement branchManagement = new entities.BranchManagement();
+                    branchManagement.runManagement();
+                    break;
                 case "q":
                     // Exit the admin panel
+                    running = false;
                     System.out.println("Exiting Admin Panel and returning to Login Page...");
                     new LoginPage().showLoginPage();
                 default:

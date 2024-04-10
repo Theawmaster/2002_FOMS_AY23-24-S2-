@@ -9,6 +9,8 @@ import java.util.UUID;
 import constants.Role;
 import entities.PaymentService;
 import utilities.LoadStaffs;
+import entities.StaffManagement;
+import java.lang.reflect.Method;
 
 
 /**
@@ -39,6 +41,31 @@ public class Admin extends Staff {
     }
 
     /**
+     * Manage staff members in the system.
+     */
+    public void manageStaff() {
+        try {
+            // Create an instance of the StaffManagement class
+            StaffManagement staffManagement = new StaffManagement();
+            
+            // Get the Class object of StaffManagement
+            Class<?> staffManagementClass = staffManagement.getClass();
+            
+            // Get the declared method "activate_" from the StaffManagement class
+            Method activateMethod = staffManagementClass.getDeclaredMethod("activate_");
+            
+            // Set the method accessible (since it's private)
+            activateMethod.setAccessible(true);
+            
+            // Invoke the activate_() method on the staffManagement object
+            activateMethod.invoke(staffManagement);
+        } catch (Exception e) {
+            // Handle any exceptions
+            e.printStackTrace();
+        }
+    }
+
+    /**
      * Adds a payment using the associated PaymentService instance.
      */
     public void addPayment() {
@@ -56,73 +83,6 @@ public class Admin extends Staff {
             // Effectively "removes" the branch by setting managedBranch to null
             this.managedBranch = null;
         }
-    }
-
-    /**
-     * Edits the details of a manager.
-     */
-    public void editManager(String loginID, String newFirstName, String newLastName, boolean newGender, int newAge) {
-        Staff manager = staffMembers.get(loginID);
-        if (manager != null && manager.getRole() == Role.MANAGER) {
-            manager.setFirstName(newFirstName);
-            manager.setLastName(newLastName);
-            manager.setGender(newGender);
-            manager.setAge(newAge);
-            System.out.println("Manager details updated for login ID: " + loginID);
-        } else {
-            System.out.println("Manager with login ID: " + loginID + " not found.");
-        }
-    }
-
-    /**
-     * Edits the details of a staff member.
-     * 
-     * @param loginID The login ID of the staff member to edit.
-     * @param newFirstName The new first name for the staff member.
-     * @param newLastName The new last name for the staff member.
-     * @param newGender The new gender for the staff member (true for female, false for male).
-     * @param newAge The new age for the staff member.
-     */
-    public void editStaff(String loginID, String newFirstName, String newLastName, boolean newGender, int newAge) {
-        Staff staff = staffMembers.get(loginID);
-        if (staff != null) {
-            staff.setFirstName(newFirstName);
-            staff.setLastName(newLastName);
-            staff.setGender(newGender);
-            staff.setAge(newAge);
-            System.out.println("Staff details updated for login ID: " + loginID);
-        } else {
-            System.out.println("Staff member with login ID: " + loginID + " not found.");
-        }
-    }
-
-     /**
-     * Fires a manager by loginID.
-     */
-    public void fireStaff(String loginID) {
-        if (staffMembers.containsKey(loginID) && staffMembers.get(loginID).getRole() == Role.MANAGER) {
-            staffMembers.remove(loginID);
-            System.out.println("Manager with login ID " + loginID + " has been fired.");
-        } else {
-            System.out.println("Manager with login ID " + loginID + " not found.");
-        }
-    }
-
-    /**
-     * Hires a new manager.
-     * 
-     * @param firstName the first name of the new manager
-     * @param lastName the last name of the new manager
-     * @param loginID the login ID of the new manager
-     * @param gender the gender of the new manager (true for female, false for male)
-     * @param age the age of the new manager
-     * @param staffPassword the password for the new manager's login
-     */
-    public void hireStaff(String firstName, String lastName, String loginID, boolean gender, int age, String staffPassword) {
-        // Assuming Role.MANAGER is an enum value
-        Staff newManager = new Staff(firstName, lastName, loginID, Role.MANAGER, gender, age, staffPassword);
-        staffMembers.put(loginID, newManager);
-        System.out.println("New manager hired: " + firstName + " " + lastName);
     }
 
 
@@ -164,21 +124,6 @@ public class Admin extends Staff {
         this.managedBranch = new Branch(branchName, location, quota);
         System.out.println("Opened a new branch: " + branchName + " at " + location + " with quota " + quota);
     }
-
-
-
-    /**
-     * Promotes a staff member within the organization.
-     */
-    public void promoteStaff(String loginID, Role newRole) {
-        Staff staff = staffMembers.get(loginID);
-        if (staff != null) {
-            staff.setRole(newRole);  // Assuming there's a setRole method in Staff
-            System.out.println("Staff member " + staff.getFirstName() + " " + staff.getLastName() + " promoted to " + newRole);
-        } else {
-            System.out.println("Staff member with login ID " + loginID + " not found.");
-        }
-    }
     
 
      /**
@@ -188,21 +133,6 @@ public class Admin extends Staff {
         paymentService.removePayment();
     }
 
-    /**
-     * Transfers a staff member from one branch to another.
-     * 
-     * @param loginID the login ID of the staff member to transfer
-     * @param newBranch the new branch to transfer the staff member to
-     */
-    public void transferStaff(String loginID, Branch newBranch) {
-        Staff staff = staffMembers.get(loginID);
-        if (staff != null) {
-            staff.setBranch(newBranch);  // Assuming there's a setBranch method in Staff
-            System.out.println("Staff member " + staff.getFirstName() + " " + staff.getLastName() + " transferred to " + newBranch.getBranchName());
-        } else {
-            System.out.println("Staff member with login ID " + loginID + " not found.");
-        }
-    }
 
     /**
      * Views all staff members in the system.
