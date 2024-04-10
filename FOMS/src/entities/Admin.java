@@ -6,8 +6,9 @@ import java.util.Map;
 import java.util.Scanner;
 import entities.Branch;
 import java.util.UUID;
-
 import constants.Role;
+import entities.PaymentService;
+import utilities.LoadStaffs;
 
 
 /**
@@ -210,9 +211,9 @@ public class Admin extends Staff {
         if (staffMembers.isEmpty()) {
             System.out.println("No staff members found.");
         } else {
-            for (Staff staff : staffMembers.values()) {
-                staff.printStaff();  // Assuming Staff has a method to print its details
-            }
+            LoadStaffs loadStaffs = new LoadStaffs();
+            loadStaffs.viewAllStaff();
+            
         }
     }
 
