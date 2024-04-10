@@ -1,9 +1,8 @@
 package constants;
 
 public enum Role {
+    ADMIN,
     STAFF,
     MANAGER,
-    ADMIN,
-    EMPLOYEE,
     UNDEFINED
 }
