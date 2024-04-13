@@ -6,6 +6,7 @@ import java.util.HashMap;
 import utilities.Session;
 import pages.customerPages.CustomerPage;
 import pages.staffPages.StaffLoginPage;
+import pages.staffPages.*;
 
 /**
  * This class serves to manage the different pages. Call this class to change to the active page required. 
@@ -36,6 +37,12 @@ public class pageViewer {
         pages.put("MainPage", new MainPage());
         pages.put("CustomerPage", new CustomerPage(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
+        pages.put("StaffAccessPage", new StaffAccessPage(session));
+        pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));
+        pages.put("StaffViewOrderDetailsPage", new StaffViewOrderDetailsPage(session));
+        pages.put("ManagerAccessPage", new ManagerAccessPage(session));
+        pages.put("ManagerEditMenuItemsPage", new ManagerEditMenuItemsPage(session));
+        pages.put("ManagerViewStaffDetailsPage", new ManagerViewStaffDetailsPage(session));
         // add more views here as required
     }
     /**

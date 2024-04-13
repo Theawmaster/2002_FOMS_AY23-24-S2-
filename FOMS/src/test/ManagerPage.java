@@ -2,12 +2,11 @@
  * [ARCHIVED] please archive this when youre done transferring the functions to the correct page
  */
 
-package pages.staffPages;
+package test;
 
 import entities.MenuItem;
 import entities.Order;
 import entities.OrderManager;
-import test.archivedLoginPage;
 import entities.MenuManager;
 import constants.OrderStatus;
 import constants.MealCategory;

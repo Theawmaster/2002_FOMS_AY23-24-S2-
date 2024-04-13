@@ -1,7 +1,7 @@
 package entities;
 
 import constants.FilePaths;
-import pages.staffPages.ManagerPage;
+import test.ManagerPage;
 
 import java.io.IOException;
 import java.nio.file.Files;

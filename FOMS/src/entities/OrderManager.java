@@ -1,7 +1,7 @@
 package entities;
 
 import constants.FilePaths;
-import pages.staffPages.ManagerPage;
+import test.ManagerPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -74,7 +74,7 @@ public class OrderManager {
 
     public void processOrder(Scanner scanner) throws IOException {
         System.out.println("orderID,Status,isittakeaway,Name,Price,Branch,Category,Customization");
-        List<String> orderMenuItems = Files.readAllLines(Paths.get(FilePaths.ordermenuListPath.getPath()));
+        List<String> orderMenuItems = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
         for (int i = 1; i < orderMenuItems.size(); i++) {
             System.out.println((i) + ". " + orderMenuItems.get(i));
         }
@@ -87,23 +87,18 @@ public class OrderManager {
             String orderID = itemParts[0]; // Extract orderID
             String status = itemParts[1];
             String isittakeaway = itemParts[2];
-            String name = itemParts[3];
-            double price = Double.parseDouble(itemParts[4]);
-            String branch = itemParts[5];
-            String category = itemParts[6];
-            String customization = itemParts[7];
 
             String newStatus = "READY FOR PICKUP";
             status = newStatus;
             
             // Construct the edited order status string
-            String editedOrderStatus = String.join(",", orderID, status, isittakeaway, name, String.valueOf(price), branch, category, customization);
+            String editedOrderStatus = String.join(",", orderID, status, isittakeaway);
     
             // Update the orderMenuItems list with the modified line
             orderMenuItems.set(orderitemIndex, editedOrderStatus);
 
             // Write the updated menu items back to the file
-            Files.write(Paths.get(FilePaths.ordermenuListPath.getPath()), orderMenuItems);
+            Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), orderMenuItems);
             System.out.println("OrderID now ready for pickup!");
         } else {
             System.out.println("Invalid orderID number.");
@@ -111,7 +106,7 @@ public class OrderManager {
     }
     
     public void viewAllOrders() throws IOException {
-        List<String> ordermenuItems = Files.readAllLines(Paths.get(FilePaths.ordermenuListPath.getPath()));
+        List<String> ordermenuItems = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
         if (ordermenuItems.isEmpty()) {
             System.out.println("The order menu list is currently empty.");
             return;

@@ -1,7 +1,7 @@
 package entities;
 
 import entities.Staff;
-import pages.staffPages.AdminPage;
+import test.AdminPage;
 import constants.FilePaths;
 import java.util.ArrayList;
 import java.util.List;

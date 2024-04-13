@@ -2,12 +2,11 @@
  * [ARCHIVED] please archive this when youre done transferring the functions to the correct page
  */
 
-package pages.staffPages;
+package test;
 
 import entities.PaymentService;
 import entities.StaffManagement;
 import entities.StaffManagementFriend;
-import test.archivedLoginPage;
 import entities.BranchManagement;
 import utilities.LoadStaffs;
 import java.util.Scanner;

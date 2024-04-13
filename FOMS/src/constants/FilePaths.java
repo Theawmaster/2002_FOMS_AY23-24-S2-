@@ -17,7 +17,7 @@ public enum FilePaths {
     /**
      * Path to the order menu list CSV file.
      */
-    ordermenuListPath("FOMS/src/utilities/data/ordermenu_list.csv"),
+    orderprocessListPath("FOMS/src/utilities/data/order_process_list.csv"),
 
     /**
      * Path to the staff list CSV file.

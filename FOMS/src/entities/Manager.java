@@ -56,7 +56,7 @@ public class Manager extends Staff {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Do you also want to edit the Menu Item name?");
-        command = sc.nextLine().trim();
+        String command = sc.nextLine().trim();
 
          // Find the existing menu item and replace it with the new description
         switch (command) {
@@ -118,10 +118,10 @@ public class Manager extends Staff {
      * @param orders The list of orders to process.
      */
     public void processOrders(int orderId1) {
-        Order order = new Order();
+        Order order = new Order(0);
         // Display orderId order to process
         System.out.println("Processing Order:");
-        System.out.println("Order ID: " + order.getOrderId(orderId1));
+        System.out.println("Order ID: " + order.getOrderId());
         System.out.println("Order Type: " + (order.isTakeaway() ? "Takeaway" : "Dine-in"));
         System.out.println("Order Status: " + order.getStatus());
         System.out.println("---------------------------");

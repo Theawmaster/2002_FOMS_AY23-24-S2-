@@ -8,8 +8,6 @@ import java.util.Random;
 import java.util.Scanner;
 import constants.Settings;
 import entities.Staff;
-import pages.staffPages.AdminPage;
-import pages.staffPages.ManagerPage;
 import services.authenticator.StaffLoginService;
 import services.authenticator.iLoginService;
 import utilities.LoadStaffs;
