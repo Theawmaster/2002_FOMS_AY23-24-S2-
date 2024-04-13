@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import utilities.Session;
+import pages.customerPages.CustomerPage;
 import pages.staffPages.StaffLoginPage;
 
 /**
@@ -33,8 +34,8 @@ public class pageViewer {
         // initialise all views
         pages.put("SelectBranchPage", new SelectBranchPage(session));
         pages.put("MainPage", new MainPage());
+        pages.put("CustomerPage", new CustomerPage(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
-
         // add more views here as required
     }
     /**
