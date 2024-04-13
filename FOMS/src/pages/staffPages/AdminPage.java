@@ -1,8 +1,13 @@
-package pages;
+/**
+ * [ARCHIVED] please archive this when youre done transferring the functions to the correct page
+ */
+
+package pages.staffPages;
 
 import entities.PaymentService;
 import entities.StaffManagement;
 import entities.StaffManagementFriend;
+import test.archivedLoginPage;
 import entities.BranchManagement;
 import utilities.LoadStaffs;
 import java.util.Scanner;
@@ -78,7 +83,7 @@ public class AdminPage {
                     // Exit the admin panel
                     running = false;
                     System.out.println("Exiting Admin Panel and returning to Login Page...");
-                    new LoginPage().showLoginPage();
+                    new archivedLoginPage().showLoginPage();
                 default:
                     // Handle other admin tasks...
                     System.out.println("Unknown command. Please try again.");

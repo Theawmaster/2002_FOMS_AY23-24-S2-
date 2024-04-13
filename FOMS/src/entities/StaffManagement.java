@@ -1,6 +1,7 @@
 package entities;
 
 import entities.Staff;
+import pages.staffPages.AdminPage;
 import constants.FilePaths;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.stream.Collectors;
 import java.util.Map;
-import pages.AdminPage;
 
 /**
  * The {@code StaffManagement} class provides functionalities for managing staff members.

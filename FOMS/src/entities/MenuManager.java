@@ -1,6 +1,7 @@
 package entities;
 
 import constants.FilePaths;
+import pages.staffPages.ManagerPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +10,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
-import pages.ManagerPage;
 
 public class MenuManager {
 

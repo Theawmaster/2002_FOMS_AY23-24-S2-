@@ -1,6 +1,7 @@
 package entities;
 
 import constants.FilePaths;
+import pages.staffPages.AdminPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +10,6 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import pages.AdminPage;
 
 /**
  * The BranchManagement class allows administrators to manage branches.

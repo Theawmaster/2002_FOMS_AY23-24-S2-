@@ -46,7 +46,7 @@ public class LoadMenuItems extends LoadData<MenuItem>{
             Double price = Double.parseDouble(row[1].trim());
             // Branch branch = row[2];
 
-            MenuItem tempMenuItems = new MenuItem(food, price, category);
+            MenuItem tempMenuItems = new MenuItem(food, price, category, "", "");
             menuitems.add(tempMenuItems); // add to the return value of list of staff
             }
             // to do: implement getbranch 

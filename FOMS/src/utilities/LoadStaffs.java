@@ -30,6 +30,7 @@ public class LoadStaffs extends LoadData<Staff>{
         ArrayList<String> serialisedData = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
 
         // Load branch data from the CSV file
+        //TODO: no you call LoadBranches to do this job instead, dont do the job for them
         List<Branch> branches = loadBranchesFromCSV(FilePaths.branchListPath.getPath());
 
         // load password data into this.passwords
@@ -58,7 +59,7 @@ public class LoadStaffs extends LoadData<Staff>{
             if(this.loadedPasswords!=null && this.loadedPasswords.containsKey(loginID)) 
                 staffPassword = this.loadedPasswords.get(loginID);
             else{
-                staffPassword = loginID; // default if there is no record in staff_passwords.csv
+                staffPassword = "password"; // default if there is no record in staff_passwords.csv
                 appendNewPasswordRecord(loginID, staffPassword);
             }
 
@@ -79,7 +80,7 @@ public class LoadStaffs extends LoadData<Staff>{
 
     /**
      * Loads branch data from the CSV file.
-     *
+     * TODO: delete this. dont do LoadBranch's job
      * @param filePath The path to the CSV file containing branch data.
      * @return A list of Branch objects.
      */
@@ -100,7 +101,6 @@ public class LoadStaffs extends LoadData<Staff>{
 
             branches.add(new Branch(branchName, location, quota));
         }
-
         return branches;
     }
 
@@ -145,18 +145,5 @@ public class LoadStaffs extends LoadData<Staff>{
     private void appendNewPasswordRecord(String staffID, String staffPassword){
         String passwordRecord = staffID + "," + staffPassword;
         SerialiseCSV.appendToCSV(passwordRecord, FilePaths.staffPasswordsPath.getPath());
-    }
-
-     /**
-     * Prints out details of all staff loaded from the CSV.
-     */
-    public void viewAllStaff() {
-        ArrayList<Staff> staffList = this.loadDatafromCSV(); // Use existing method to load data
-        System.out.println("\nStaff List:");
-        for (Staff staff : staffList) {
-            // Print each staff's details
-            System.out.println(staff); // Assuming Staff has an overridden toString method
-        }
-        System.out.println();
     }
 }
