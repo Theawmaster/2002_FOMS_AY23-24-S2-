@@ -1,10 +1,9 @@
-package utilities.authenticator;
+package services.authenticator;
 
 import entities.Staff;
 import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.LoadStaffs;
-import constants.FilePaths;
 
 /**
  * Service class for authenticating staff logins and managing their passwords.
@@ -65,7 +64,7 @@ public class StaffLoginService implements iLoginService {
     @Override
     public boolean changePassword(String userID, String oldPassword, String newPassword){
         LoadStaffs.updatePassword(userID, newPassword);
-        return this.loadedUsersAndPasswords.replace(newPassword, oldPassword, newPassword);
+        return this.loadedUsersAndPasswords.replace(userID, oldPassword, newPassword);
     }
 
     /**
@@ -76,6 +75,6 @@ public class StaffLoginService implements iLoginService {
      */
     @Override
     public boolean resetPassword(String userID){
-        return changePassword(userID, this.loadedUsersAndPasswords.get(userID), userID);
+        return changePassword(userID, this.loadedUsersAndPasswords.get(userID), "password");
     }
 }

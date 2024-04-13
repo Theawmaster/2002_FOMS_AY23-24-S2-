@@ -4,7 +4,7 @@ import java.util.List;
 
 import constants.OrderStatus;
 import constants.Role;
-import utilities.authenticator.LoginDetail;
+import services.authenticator.LoginDetail;
 
 public class Staff {
 

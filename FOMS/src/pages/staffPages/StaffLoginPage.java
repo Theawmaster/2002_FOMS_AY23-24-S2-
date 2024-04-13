@@ -1,56 +1,43 @@
-package pages;
+package pages.staffPages;
 
 import java.util.Random;
 import java.util.Scanner;
+
+import utilities.Logger;
+import utilities.Session;
 import constants.Settings;
-import entities.Staff;
-import utilities.authenticator.StaffLoginService;
-import utilities.authenticator.iLoginService;
-import utilities.LoadStaffs;
-import java.util.ArrayList;
-import constants.FilePaths;
-import constants.Role;
+import pages.iPage;
+import pages.pageViewer;
+import services.authenticator.iLoginService;
+import services.authenticator.StaffLoginService;
 
 /**
- * This page will be displayed on CLI to facilitate login-related matters
+ * This is the page that the staff will first see
+ * This page facilitates the logging in of staff. When the staff has successfully logged in, the session's currentActiveStaff will be updated to that guy
+ * Which implies that any manager-only-accessible page or admin-only-accessible pages can simply check the session's active staff to determine privileges
+ * @author Siah Yee Long
  */
-public class LoginPage {
-
+public class StaffLoginPage implements iPage {
+    /**
+     * The current active session 
+     */
+    private Session session;
+    /**
+     * The LoginService used for this page
+     */
     private StaffLoginService staffLoginService;
-    private Staff loggedInStaff;
-
     /**
-     * It creates an instance of LoginPage to run the program.
-     *
-     * @param args The command-line arguments passed to the program.
+     * Initialising this page sets the session provided from pageViewer
+     * @param s
      */
-    public static void main(String[] args) {
-        // Create an instance of LoginPage to run your program
-        new LoginPage();
-    }
-
-    /**
-     * The constructor simply calls the showLoginPage method
-     */
-    public LoginPage(){
-
-
-        LoadStaffs loadStaffs = new LoadStaffs();
-
-        // Use LoadStaff to load the list of staff from the CSV
-        ArrayList<Staff> staffList = loadStaffs.loadDatafromCSV();
-
-        // Initialize StaffLoginService with the loaded staff list
-        this.staffLoginService = new StaffLoginService(staffList);
-
-        showLoginPage();
+    public StaffLoginPage(Session s){
+        this.session = s;
+        this.staffLoginService = new StaffLoginService(this.session.getAllStaffs());
     }
     /**
-     * The {@link showLoginPage} method displays the menu and facilitates the options shown on screen
+     * Method to view menu options
      */
-    public void showLoginPage(){
-
-
+    public void viewOptions(){
         System.out.println( "                   _____ _         __  __   _             _                       \n" + //
                             "                  / ____| |       / _|/ _| | |           (_)                      \n" + //
                             "  ______ ______  | (___ | |_ __ _| |_| |_  | | ___   __ _ _ _ __    ______ ______ \n" + //
@@ -62,54 +49,56 @@ public class LoginPage {
         System.out.println("[1]: Log in");
         System.out.println("[2]: Forgot password");
         System.out.println("[3]: Change password");
-        System.out.println("[4]: Exit");
-        //System.out.println("[b]: Go back");
-
-        Scanner sc = new Scanner(System.in);
-        String choice = sc.nextLine().trim();
+        System.out.println("[B]: Go back");
+    }
+    /**
+     * Method to handle user input 
+     * @param choice branches the pages
+     */
+    public void handleInput(String choice){
         switch (choice) {
             case "1":
-            boolean loginSuccess = tryLogin(staffLoginService);
-            if (loginSuccess) {
-                System.out.println("LOGIN SUCCESS");
-                // Check if the logged-in user is an admin
-                if (loggedInStaff != null && loggedInStaff.getRole() == Role.ADMIN) {
-                    // Redirect to AdminPage
-                    new AdminPage(); 
-                } else if (loggedInStaff != null && loggedInStaff.getRole() == Role.MANAGER) {
-                    new ManagerPage();
+                boolean loginSuccess = tryLogin(staffLoginService);
+                if (loginSuccess) {
+                    System.out.println("LOGIN SUCCESS");
+                    System.out.println("Welcome, " + this.session.getCurrentActiveStaff().getFirstName());
+
+                    // log in success. go to staff access page
+                    pageViewer.changePage("StaffAccessPage");
+
+                    Logger.debug("login success, go staffaccesspage");
+                    Logger.debug("Branch: "+this.session.getCurrentActiveBranch().getBranchName()+" Staff: "+this.session.getCurrentActiveStaff().getFirstName()+" Order: "+this.session.getCurrentActiveOrder());
                 } else {
-                    System.out.println("Welcome, " + loggedInStaff.getFirstName());
-                    // Direct to a different page or functionality based on the role if necessary
+                    System.out.println("Login failed.");
+                    pageViewer.changePage("MainPage");
                 }
-            } else {
-                System.out.println("Login failed.");
-            }
-            break;
+                break;
             case "2":
                 if(tryForgotPassword(staffLoginService)) System.out.println("OI STOP FUCKING FORGETTING. RESET SUCCESS ANYWAY");
                 else System.out.println("failed reset pw");
+                pageViewer.changePage("StaffLoginPage");
                 break;
             case "3": 
-                if(tryChangePassword(staffLoginService)) System.out.println(("CHANGE PASSWORD SUCCESS YAYYY")); // TODO: do something like go to the next page or something
+                if(tryChangePassword(staffLoginService)) System.out.println(("CHANGE PASSWORD SUCCESS YAYYY"));
+                pageViewer.changePage("StaffLoginPage");
                 break;
-            case "4":
-                System.out.println("Terminating program...");
-                System.exit(0);
-           // case "b":
-            //case "B":
-                // TODO: go back to prev page or something
+            case "b":
+            case "B":
+                // goes back to MainPage
+                pageViewer.changePage("MainPage");
+                break;
             default:
                 System.out.println("Invalid choice!");
                 break;
         }
     }
+
     /**
      * The {@link tryLogin} method will allow the user a maximum of {@link Settings.PW_MAX_TRIES} tries for logging in
      * @param loginService is the service used to do the login
      * @return true if successful
      */
-    public boolean tryLogin(iLoginService loginService){
+    private boolean tryLogin(iLoginService loginService){
         Scanner sc = new Scanner(System.in);
         String userID, password;
 
@@ -120,7 +109,7 @@ public class LoginPage {
             password = sc.nextLine().trim();
 
             if (loginService.login(userID, password)) {
-                this.loggedInStaff = staffLoginService.getStaffByID(userID);
+                this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
                 return true;
             } else {
                 System.out.println("XXX WRONG. WHAT A FAILURE");
@@ -136,7 +125,7 @@ public class LoginPage {
      * @param loginService 
      * @return true if successful
      */
-    public boolean tryForgotPassword(iLoginService loginService){
+    private boolean tryForgotPassword(iLoginService loginService){
         String generatedValue;
         Scanner sc = new Scanner(System.in);
 
@@ -150,6 +139,7 @@ public class LoginPage {
             }
             System.out.println("WRONG! TRY AGAIN");
         }
+        sc.close();
         return false;
     }
     /**
@@ -157,7 +147,7 @@ public class LoginPage {
      * @param loginService
      * @return true if successful
      */
-    public boolean tryChangePassword(iLoginService loginService){
+    private boolean tryChangePassword(iLoginService loginService){
         Scanner sc = new Scanner(System.in);
         String userID = "", oldPassword = "";
 

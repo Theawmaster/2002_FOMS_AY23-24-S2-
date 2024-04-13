@@ -90,7 +90,7 @@ public class SerialiseCSV {
         for (int i = 0; i < lines.size(); i++) {
             String[] columns = lines.get(i).split(",");
             // Check if the line has enough columns and the specified value is found in the specified column
-            if (columns.length > columnIndex && columns[columnIndex].equals(searchString)) {
+            if (columns.length > columnIndex && columns[0].equals(searchString)) {
                 // Replace the old value with the new value
                 columns[columnIndex] = newValue;
                 // Update the line with the modified columns

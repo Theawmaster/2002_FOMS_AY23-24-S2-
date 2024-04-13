@@ -7,32 +7,32 @@ public enum FilePaths {
     /**
      * Path to the branch list CSV file.
      */
-    branchListPath("utilities/data/branch_list.csv"),
+    branchListPath("FOMS/src/utilities/data/branch_list.csv"),
 
     /**
      * Path to the menu list CSV file.
      */
-    menuListPath("utilities/data/menu_list.csv"),
+    menuListPath("FOMS/src/utilities/data/menu_list.csv"),
 
     /**
      * Path to the order menu list CSV file.
      */
-    ordermenuListPath("utilities/data/ordermenu_list.csv"),
+    ordermenuListPath("FOMS/src/utilities/data/ordermenu_list.csv"),
 
     /**
      * Path to the staff list CSV file.
      */
-    staffListPath("utilities/data/staff_list.csv"),
+    staffListPath("FOMS/src/utilities/data/staff_list.csv"),
 
     /**
      * Path to the staff passwords CSV file.
      */
-    staffPasswordsPath("utilities/data/staff_passwords.csv"),
+    staffPasswordsPath("FOMS/src/utilities/data/staff_passwords.csv"),
 
     /**
      * Path to the payment list CSV file.
      */
-    paymentListPath("entities/data/payment_list.csv");
+    paymentListPath("FOMS/src/entities/data/payment_list.csv");
 
     private final String path;
 

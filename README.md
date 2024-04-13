@@ -12,16 +12,33 @@ Project management Google Sheet: https://docs.google.com/spreadsheets/d/1dPtr8qC
 
 # Project description
 
+The Fastfood Ordering and Management System (FOMS) is a command-line interface application designed to streamline operations in fast food restaurants. This system facilitates menu browsing, order customisation, payment processing, and order tracking, enhancing the overall customer experience and operational efficiency.
+
+# Objectives
+- Apply Object-Oriented programming concepts learned during the course.
+- Apply SOLID design principle concepts learned during the course.
+- Develop practical skills in Java programming.
+- Enhance teamwork capabilities by collaboratively working on a software project.
+
 # Use
 
 # File Structure
-- FOMS: root folder for source code
-    - docs: where javadocs files are stored
-    - src: where all source codes are stored
-        - main
-        - test: FOR TESTING ONLY, DELETE BEFORE SUBMITTING
-        - utilities: currently only added a Logger to debug stuff instead of using System.out.println()
-- UML Diagram: contains all UML Diagrams drawn
+- **FOMS:** root folder for source code
+    - **docs:** where javadocs files are stored
+    - **src:** where all source codes are stored
+        - **main:** contains the main starting point for the entire FOMS application
+        - **constants:** constants used in this project
+        - **entities:** all entities present in the project
+        - **pages:** all UI pages (front end)
+            - customerPages
+            - staffPages
+        - **services:** all services used by the pages
+            - authenticator
+            - payments
+        - **utilities:** utility functions handling low-level responsibilities
+            - data: contains raw CSV data
+        - **test:** FOR TESTING ONLY, DELETE BEFORE SUBMITTING
+- **UML Diagram:** contains all UML Diagrams drawn
 
 
 # Generating Javadocs

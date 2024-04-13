@@ -1,8 +1,13 @@
-package pages;
+/**
+ * [ARCHIVED] please archive this when youre done transferring the functions to the correct page
+ */
+
+package pages.staffPages;
 
 import entities.MenuItem;
 import entities.Order;
 import entities.OrderManager;
+import test.archivedLoginPage;
 import entities.MenuManager;
 import constants.OrderStatus;
 import constants.MealCategory;
@@ -58,7 +63,7 @@ public class ManagerPage {
                     break;
                 case "q":
                     System.out.println("Returning to Login Page.");
-                    new LoginPage().showLoginPage(); // Return to the login page
+                    new archivedLoginPage().showLoginPage(); // Return to the login page
                     break;
                 default:
                     System.out.println("Unknown command. Please try again.");

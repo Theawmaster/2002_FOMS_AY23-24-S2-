@@ -1,4 +1,4 @@
-package utilities.authenticator;
+package services.authenticator;
 
 /**
  * This class is used for storing the staff's log in details
@@ -18,7 +18,7 @@ public class LoginDetail {
     public LoginDetail(String userID, String initialPassword){
         this.userID = userID;
         this.userPassword = initialPassword; // assume that initial passwords have no requirement i.e. it does not need to be > 8 characters; since it is prob the default password anyway
-        if(this.userID == this.userPassword) this.defaultPassword = true;
+        if("password" == this.userPassword) this.defaultPassword = true;
         else this.defaultPassword = false;
         this.lastLogin = "Never";
     }

@@ -1,4 +1,4 @@
-package utilities.authenticator;
+package services.authenticator;
 
 public interface iLoginService {
     boolean login(String userID, String password);
