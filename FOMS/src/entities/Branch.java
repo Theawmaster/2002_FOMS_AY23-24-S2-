@@ -1,5 +1,8 @@
 package entities;
 
+/**
+ * Branch
+ */
 public class Branch {
     
     private String branchName;
@@ -27,7 +30,7 @@ public class Branch {
         System.out.println("Branch Name: " + getBranchName());
         System.out.println("Location: " + getLocation());
         System.out.println("Quota: " + getQuota());
-        System.out.println("Status: " + getStatus());
+        System.out.println("Status: " + getStatus()); // Added by @Theawmaster for open/close of branch
     }
 
     public String getBranchName(){

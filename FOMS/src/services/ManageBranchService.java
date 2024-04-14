@@ -20,14 +20,30 @@ public class ManageBranchService {
         return loadBranches.updateBranchStatus(branchName, status);
     }
 
+    /**
+     * Add a new branch to the CSV file
+     * @param branchName The name of the branch
+     * @param location The location of the branch
+     * @param quota The staff quota of the branch
+     * @param status The status of the branch
+     * @return true if the branch was added successfully, false otherwise
+     */
     public boolean addBranch(String branchName, String location, int quota, String status) {
         return loadBranches.addBranch(branchName, location, quota, status);
     }
 
+    /**
+     * Remove a branch from the CSV file
+     * @param branchName The name of the branch
+     * @return true if the branch was removed successfully, false otherwise
+     */
     public boolean removeBranch(String branchName) {
         return loadBranches.removeBranch(branchName);
     }
 
+    /**
+     * Display all branches
+     */
     public void displayBranches() {
         ArrayList<Branch> branches = loadBranches.loadDatafromCSV();
         for (Branch branch : branches) {
