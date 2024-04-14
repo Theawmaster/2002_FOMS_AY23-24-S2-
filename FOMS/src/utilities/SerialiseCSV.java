@@ -64,12 +64,14 @@ public class SerialiseCSV {
      * @param s The data to be appended
      * @param csvFilePath The file path of the CSV file
      */
-    public static void appendToCSV(String s, String csvFilePath) {
-        Logger.info("Appending data to " + csvFilePath);
-        try (FileWriter fw = new FileWriter(csvFilePath, true)) {
+    public static boolean appendToCSV(String s, String csvFilePath) {
+        try (FileWriter fw = new FileWriter(csvFilePath, true)) { // true to append
             fw.append(s + "\n");
+            fw.flush();
+            return true; // Return true to indicate success
         } catch (IOException e) {
-            Logger.error("Error appending to " + csvFilePath);
+            Logger.error("Error appending to " + csvFilePath + ": " + e.getMessage());
+            return false; // Return false to indicate failure
         }
     }
 
@@ -113,6 +115,44 @@ public class SerialiseCSV {
             }
         } else {
             Logger.error("Value not found in " + csvFilePath);
+            return false;
+        }
+    }
+
+    /**
+     * Deletes a row in the CSV file where the first column matches the deleteKey.
+     *
+     * @param deleteKey    The value to search for deletion.
+     * @param csvFilePath  The path to the CSV file.
+     * @return true if a row was deleted successfully, false otherwise.
+     * @author @Theawmaster
+     */
+    public static boolean deleteToCSV(String deleteKey, String csvFilePath) {
+        ArrayList<String> lines = readCSV(csvFilePath);
+        ArrayList<String> updatedLines = new ArrayList<>();
+        boolean found = false;
+
+        for (String line : lines) {
+            String[] columns = line.split(",");
+            if (columns.length > 0 && columns[0].trim().equals(deleteKey)) {
+                found = true; // Found the row to delete
+                continue; // Skip adding this line to updatedLines
+            }
+            updatedLines.add(line);
+        }
+
+        if (found) {
+            try {
+                // Use Paths.get to handle path correctly and FileWriter for writing back
+                Files.write(Paths.get(csvFilePath), updatedLines);
+                Logger.info("Row successfully deleted from " + csvFilePath);
+                return true;
+            } catch (IOException e) {
+                Logger.error("Error writing to " + csvFilePath + ": " + e.getMessage());
+                return false;
+            }
+        } else {
+            Logger.info("No matching row found to delete in " + csvFilePath);
             return false;
         }
     }

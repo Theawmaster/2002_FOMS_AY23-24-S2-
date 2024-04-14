@@ -98,8 +98,9 @@ public class LoadStaffs extends LoadData<Staff>{
             String branchName = row[0].trim();
             String location = row[1].trim();
             int quota = Integer.parseInt(row[2].trim());
+            String status = row[3].trim();
 
-            branches.add(new Branch(branchName, location, quota));
+            branches.add(new Branch(branchName, location, quota, status));
         }
         return branches;
     }

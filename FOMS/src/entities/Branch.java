@@ -7,23 +7,27 @@ public class Branch {
     // private Manager managers;
     // private Staff staffs;
     private int quota;
+    private String status;
 
     /**
      * Constructor for Branch
      * @param branchName
      * @param location
      * @param quota
+     * @param status
      */
-    public Branch(String branchName, String location, int quota){
+    public Branch(String branchName, String location, int quota, String status){
         this.branchName = branchName;
         this.location = location;
         this.quota = quota;
+        this.status = status;
     }
 
     public void printBranch(){
         System.out.println("Branch Name: " + getBranchName());
         System.out.println("Location: " + getLocation());
         System.out.println("Quota: " + getQuota());
+        System.out.println("Status: " + getStatus());
     }
 
     public String getBranchName(){
@@ -36,6 +40,10 @@ public class Branch {
 
     public int getQuota(){
         return this.quota;
+    }
+
+    public String getStatus(){
+        return this.status;
     }
 
     @Override
