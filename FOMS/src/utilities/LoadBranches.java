@@ -16,22 +16,68 @@ public class LoadBranches extends LoadData<Branch>{
     @Override
     public ArrayList<Branch> loadDatafromCSV(){
         ArrayList<Branch> branches = new ArrayList<>();
-
-        // load data from the branch list csv
         ArrayList<String> serialisedData = SerialiseCSV.readCSV(FilePaths.branchListPath.getPath());
 
-        for(String s:serialisedData){
-            String[] row = s.split(",");
-            if (s.isEmpty() || s.contains("Name,") || s.contains("Location") || row.length < 2)
+        boolean isFirstLine = true; // Flag to skip the header
+        for (String s : serialisedData) {
+            if (isFirstLine) {
+                isFirstLine = false; // Skip the first line (header)
                 continue;
-            
-            String name = row[0];
-            String location = row[1];
-            int quota = Integer.parseInt(row[2].trim());
+            }
+            if (s.isEmpty()) continue; // Skip empty lines
 
-            Branch tempBranch = new Branch(name, location, quota);
-            branches.add(tempBranch);
+            String[] row = s.split(",");
+            if (row.length < 4) continue; // Ensure there are enough columns
+
+            try {
+                String name = row[0].trim();
+                String location = row[1].trim();
+                int quota = Integer.parseInt(row[2].trim());
+                String status = row[3].trim();
+
+                branches.add(new Branch(name, location, quota, status));
+            } catch (NumberFormatException e) {
+                System.err.println("Error parsing quota for branch: " + e.getMessage());
+                // Optionally handle this error or log it
+            }
         }
         return branches;
     }
+
+    /**
+     * Add a new branch to the CSV file
+     * @param branchName The name of the branch
+     * @param location The location of the branch
+     * @param quota The staff quota of the branch
+     * @param status The status of the branch
+     * @return true if the branch was added successfully, false otherwise
+     * @author @Theawmaster
+     */
+    public boolean addBranch(String branchName, String location, int quota, String status) {
+        String newBranchData = branchName + "," + location + "," + quota + "," + status;
+        return SerialiseCSV.appendToCSV(newBranchData, FilePaths.branchListPath.getPath());
+    }
+
+    /**
+     * Update the status of a branch in the CSV file
+     * @param branchName The name of the branch
+     * @param status The new status of the branch
+     * @return true if the branch status was updated successfully, false otherwise
+     * @author @Theawmaster
+     */
+    public boolean updateBranchStatus(String branchName, String status) {
+        return SerialiseCSV.replaceColumnValue(branchName, 3, status, FilePaths.branchListPath.getPath());
+    }
+
+    /**
+     * Remove a branch from the CSV file
+     * @param branchName The name of the branch to remove
+     * @return true if the branch was removed successfully, false otherwise
+     * @author @Theawmaster
+     */
+    public boolean removeBranch(String branchName) {
+        return SerialiseCSV.deleteToCSV(branchName, FilePaths.branchListPath.getPath());
+    }
+
 }
+
