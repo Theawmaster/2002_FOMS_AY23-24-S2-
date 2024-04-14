@@ -10,7 +10,7 @@ import pages.staffPages.*;
 import pages.staffPages.admin.AdminAccessPage;
 import pages.staffPages.admin.AdminManagePaymentPage;
 import pages.staffPages.admin.AdminManageBranchPage;
-// import pages.staffPages.admin.AdminManageStaffPage;
+import pages.staffPages.admin.AdminManageStaffPage;
 
 /**
  * This class serves to manage the different pages. Call this class to change to the active page required. 
@@ -50,7 +50,7 @@ public class pageViewer {
         pages.put("AdminAccessPage", new AdminAccessPage(session));
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
         pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
-        // pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
+        pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
         // add more views here as required
     }
     /**

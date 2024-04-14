@@ -147,4 +147,6 @@ public class LoadStaffs extends LoadData<Staff>{
         String passwordRecord = staffID + "," + staffPassword;
         SerialiseCSV.appendToCSV(passwordRecord, FilePaths.staffPasswordsPath.getPath());
     }
+
+    
 }
