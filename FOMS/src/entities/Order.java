@@ -176,7 +176,7 @@
             System.out.println("Total Items in Order: " + countTotalItems());
             System.out.println("Items in Order:");
             items.forEach(item -> {
-                System.out.println("- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getCustomization());
+                System.out.println("- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getDescription() + ", "+ item.getCustomization());
             });
             System.out.println("Total Price: " + totalPrice);
         }
