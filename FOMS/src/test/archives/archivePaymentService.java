@@ -1,4 +1,4 @@
-package entities;
+package test.archives;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,16 +14,15 @@ import java.util.Scanner;
 import java.util.UUID;
 import utilities.SerialiseCSV;
 import constants.FilePaths;
-import utilities.LoadPaymentService;
 
 
 /**
  * The PaymentService class implements the iPaymentMethods interface
  * and provides functionality for managing payments.
  */
-public class PaymentService implements iPaymentMethods {
+public class archivePaymentService implements archiveiPaymentMethods {
     /** A map to store payments with their unique IDs. */
-    private Map<String, Payment> payments = new HashMap<>();
+    private Map<String, archivePayment> payments = new HashMap<>();
 
     /**
      * Adds a new payment.
@@ -86,7 +85,7 @@ public class PaymentService implements iPaymentMethods {
 
 
 
-        Payment payment = new Payment(paymentId, amount, paymentType);
+        archivePayment payment = new archivePayment(paymentId, amount, paymentType);
         payments.put(paymentId, payment);
         System.out.println("Payment added. Payment ID: " + paymentId);
 
@@ -108,11 +107,11 @@ public class PaymentService implements iPaymentMethods {
         String paymentId = scanner.nextLine();
     
         if (payments.containsKey(paymentId)) {
-            Payment payment = payments.get(paymentId);
+            archivePayment payment = payments.get(paymentId);
             displayPaymentDetails(paymentId, payment);
         } else {
             // Use the PaymentLoader utility to load the payment from the CSV
-            Payment payment = LoadPaymentService.loadPaymentFromCSV(paymentId);
+            archivePayment payment = archiveLoadPaymentService.loadPaymentFromCSV(paymentId);
             if (payment != null) {
                 displayPaymentDetails(paymentId, payment);
             } else {
@@ -129,7 +128,7 @@ public class PaymentService implements iPaymentMethods {
          * @param paymentId The ID of the payment whose details are to be displayed.
          * @param payment The Payment object containing the details of the payment.
          */
-    private void displayPaymentDetails(String paymentId, Payment payment) {
+    private void displayPaymentDetails(String paymentId, archivePayment payment) {
         System.out.println("Payment Details:");
         System.out.println("ID: " + paymentId);
         System.out.println("Amount: " + payment.getAmount());

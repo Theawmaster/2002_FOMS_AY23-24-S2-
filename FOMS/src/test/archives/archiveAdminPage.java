@@ -2,7 +2,7 @@
  * [ARCHIVED] please archive this when youre done transferring the functions to the correct page
  */
 
-package test;
+package test.archives;
 
 import entities.PaymentService;
 import entities.StaffManagement;
@@ -14,14 +14,14 @@ import java.util.Scanner;
 /**
  * This class provides a simulation command-line interface (CLI) for managing payments
  */
-public class AdminPage {
+public class archiveAdminPage {
 
     private PaymentService paymentService;
 
     /**
      * Constructor for AdminPage, initializing the PaymentService instance.
      */
-    public AdminPage() {
+    public archiveAdminPage() {
         this.paymentService = new PaymentService();
         showAdminPage();
     }

@@ -2,7 +2,7 @@
  * [ARCHIVE] replaced by StaffLoginPage
  */
 
-package test;
+package test.archives;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -79,9 +79,9 @@ public class archivedLoginPage{
                 // Check if the logged-in user is an admin
                 if (loggedInStaff != null && loggedInStaff.getRole() == Role.ADMIN) {
                     // Redirect to AdminPage
-                    new AdminPage(); 
+                    new archiveAdminPage(); 
                 } else if (loggedInStaff != null && loggedInStaff.getRole() == Role.MANAGER) {
-                    new ManagerPage();
+                    new archiveManagerPage();
                 } else {
                     System.out.println("Welcome, " + loggedInStaff.getFirstName());
                     // Direct to a different page or functionality based on the role if necessary

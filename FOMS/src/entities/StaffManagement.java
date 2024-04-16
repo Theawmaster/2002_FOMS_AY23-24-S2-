@@ -1,7 +1,7 @@
 package entities;
 
 import entities.Staff;
-import test.AdminPage;
+import test.archives.archiveAdminPage;
 import constants.FilePaths;
 import java.util.ArrayList;
 import java.util.List;
@@ -95,7 +95,7 @@ public class StaffManagement implements StaffManagementFriend{
                 case "6":
                     running = false;
                     System.out.println("Exiting Staff Management...");
-                    new AdminPage().showAdminPage();
+                    new archiveAdminPage().showAdminPage();
                 default:
                     System.out.println("Invalid choice, please try again...");
             }
