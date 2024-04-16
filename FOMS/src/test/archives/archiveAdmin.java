@@ -1,4 +1,4 @@
-package entities;
+package test.archives;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -8,6 +8,7 @@ import entities.Branch;
 import java.util.UUID;
 import constants.Role;
 import entities.PaymentService;
+import entities.Staff;
 import utilities.LoadStaffs;
 import entities.StaffManagement;
 import java.lang.reflect.Method;
@@ -17,7 +18,7 @@ import java.lang.reflect.Method;
  * The {@code Admin} class extends the {@code Staff} class and provides various administrative functionalities
  * such as managing payments, staff, and branch operations within the system.
  */
-public class Admin extends Staff {
+public class archiveAdmin extends Staff {
 
     private Branch managedBranch; // branch managed by the admin
     private PaymentService paymentService; // payment manager to handle payments
@@ -34,7 +35,7 @@ public class Admin extends Staff {
      * @param age The age of the admin.
      * @param staffPassword The password for the admin's account.
      */
-    public Admin(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
+    public archiveAdmin(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
         super(firstName, lastName, loginID, role, gender, age, staffPassword);
         this.paymentService = new PaymentService();
         this.staffMembers = new HashMap<>(); // Assuming each staff member can be identified by their loginID
@@ -126,12 +127,7 @@ public class Admin extends Staff {
     }
     
 
-     /**
-     * Removes a payment using the associate PaymentService instance.
-     */
-    public void removePayment() {
-        paymentService.removePayment();
-    }
+
 
 
     /**

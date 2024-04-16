@@ -9,7 +9,7 @@ import exceptionHandlers.PaymentServiceDisabledException;
 /**
  * @author Siah Yee Long
  */
-public class CashPaymentService implements iPaymentService{
+public class VisaPaymentService implements iPaymentService{
         /**
      * Determines if current payment service is enabled
      */
@@ -21,7 +21,7 @@ public class CashPaymentService implements iPaymentService{
     /**
      * Constructor called from Session
      */
-    public CashPaymentService(){
+    public VisaPaymentService(){
         this.isEnabled = true;
         transactionHist = new ArrayList<>();
     }
@@ -29,7 +29,7 @@ public class CashPaymentService implements iPaymentService{
      * @return the name of the payment service
      */
     @Override
-    public String getPaymentTypeName(){ return "Cash"; }
+    public String getPaymentTypeName(){ return "Visa"; }
     /**
      * @return if the current payment service is enabled
      */
@@ -51,13 +51,12 @@ public class CashPaymentService implements iPaymentService{
     public void pay(int customerID, double amount) throws TransactionFailedException{
         if(this.isEnabled){
             try{
-                askForCash(amount);
+                simulateSwipe(amount);
                 this.transactionHist.add(new PaymentDetails(customerID, amount, this));
                 System.out.println("Payment via " + this.getPaymentTypeName() + " successful.");
+                return;
             }
-            catch (TransactionFailedException e){
-                throw e;
-            }
+            catch (TransactionFailedException e){throw e;}
         }
         else
             throw new PaymentServiceDisabledException(this.getPaymentTypeName() + " is currently disabled!");
@@ -69,19 +68,11 @@ public class CashPaymentService implements iPaymentService{
     public ArrayList<PaymentDetails> getTransactionHist(){
         return this.transactionHist;
     }
-    private void askForCash(double amount) throws TransactionFailedException{
-        double insertedAmt = 0;
-        double in;
+    private void simulateSwipe(double amount) throws TransactionFailedException{
         Scanner sc = new Scanner(System.in);
-        System.out.println();
-        while(insertedAmt<amount){
-            System.out.println("Please pay $"+ (amount-insertedAmt));
-            System.out.println("Insert cash into the terminal (-1 if you no more money, otherwise type amount inserted): ");
-            in = sc.nextDouble();
-            if(in < 0) throw new TransactionFailedException("Customer is broke! No food for you!");
-            insertedAmt += in;
-        }
-        System.out.println("Here's your change of $"+(insertedAmt-amount));
-        return;
+        System.out.println("Please swipe your card to transact $"+amount+". (type 'swipe'):");
+        // get user to type "tap" to simulate Apple pay payment
+        if(sc.nextLine().equalsIgnoreCase("swipe")) return;
+        else throw new TransactionFailedException("Visa transaction failed");
     }
 }

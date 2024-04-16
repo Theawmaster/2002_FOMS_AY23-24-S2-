@@ -46,10 +46,10 @@ public class StaffLoginPage implements iPage {
                             "                 |_____/ \\__\\__,_|_| |_|   |_|\\___/ \\__, |_|_| |_|                \n" + //
                             "                                                     __/ |                        \n" + //
                             "                                                    |___/                         ");
-        System.out.println("[1]: Log in");
-        System.out.println("[2]: Forgot password");
-        System.out.println("[3]: Change password");
-        System.out.println("[B]: Go back");
+        System.out.println("[1] Log in");
+        System.out.println("[2] Forgot password");
+        System.out.println("[3] Change password");
+        System.out.println("[B] Go back");
     }
     /**
      * Method to handle user input 
@@ -65,9 +65,6 @@ public class StaffLoginPage implements iPage {
 
                     // log in success. go to staff access page
                     pageViewer.changePage("StaffAccessPage");
-
-                    Logger.debug("login success, go staffaccesspage");
-                    Logger.debug("Branch: "+this.session.getCurrentActiveBranch().getBranchName()+" Staff: "+this.session.getCurrentActiveStaff().getFirstName()+" Order: "+this.session.getCurrentActiveOrder());
                 } else {
                     System.out.println("Login failed.");
                     pageViewer.changePage("MainPage");

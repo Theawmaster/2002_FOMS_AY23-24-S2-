@@ -1,7 +1,7 @@
 package entities;
 
 import constants.FilePaths;
-import test.ManagerPage;
+import test.archives.archiveManagerPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -61,7 +61,7 @@ public class OrderManager {
                 case "4":
                     running = false;
                     System.out.println("Exiting Order Management...");
-                    new ManagerPage().showManagerMenu();
+                    new archiveManagerPage().showManagerMenu();
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");
