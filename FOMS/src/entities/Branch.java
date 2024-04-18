@@ -19,6 +19,13 @@ public class Branch {
      * @param branchQuota
      * @param status
      */
+
+    public Branch(String s){
+        this.branchName = s;
+        this.branchQuota = getbranchQuota();
+        this.location = getLocation();
+        this.status = getStatus();
+    }
     public Branch(String branchName, String location, int branchQuota, String status){
         this.branchName = branchName;
         this.location = location;
