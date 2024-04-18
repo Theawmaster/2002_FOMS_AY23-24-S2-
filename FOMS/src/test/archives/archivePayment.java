@@ -1,9 +1,9 @@
-package entities;
+package test.archives;
 
 /**
  * The Payment class represents a payment made in the system.
  */
-public class Payment {
+public class archivePayment {
     /** The unique identifier for the payment. */
     private String paymentId;
     
@@ -20,7 +20,7 @@ public class Payment {
      * @param amount      the amount of the payment
      * @param paymentType the type of payment
      */
-    public Payment(String paymentId, double amount, String paymentType) {
+    public archivePayment(String paymentId, double amount, String paymentType) {
         this.paymentId = paymentId;
         this.amount = amount;
         this.paymentType = paymentType;

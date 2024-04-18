@@ -9,8 +9,8 @@ import exceptionHandlers.PaymentServiceDisabledException;
 /**
  * @author Siah Yee Long
  */
-public class CashPaymentService implements iPaymentService{
-        /**
+public class ApplepayPaymentService implements iPaymentService {
+    /**
      * Determines if current payment service is enabled
      */
     private boolean isEnabled;
@@ -21,7 +21,7 @@ public class CashPaymentService implements iPaymentService{
     /**
      * Constructor called from Session
      */
-    public CashPaymentService(){
+    public ApplepayPaymentService(){
         this.isEnabled = true;
         transactionHist = new ArrayList<>();
     }
@@ -29,7 +29,7 @@ public class CashPaymentService implements iPaymentService{
      * @return the name of the payment service
      */
     @Override
-    public String getPaymentTypeName(){ return "Cash"; }
+    public String getPaymentTypeName(){ return "Apple pay"; }
     /**
      * @return if the current payment service is enabled
      */
@@ -51,7 +51,7 @@ public class CashPaymentService implements iPaymentService{
     public void pay(int customerID, double amount) throws TransactionFailedException{
         if(this.isEnabled){
             try{
-                askForCash(amount);
+                simulateTap(amount);
                 this.transactionHist.add(new PaymentDetails(customerID, amount, this));
                 System.out.println("Payment via " + this.getPaymentTypeName() + " successful.");
             }
@@ -62,26 +62,23 @@ public class CashPaymentService implements iPaymentService{
         else
             throw new PaymentServiceDisabledException(this.getPaymentTypeName() + " is currently disabled!");
     }
-        /**
+    /**
      * @return an array list of payment details
      */
     @Override
     public ArrayList<PaymentDetails> getTransactionHist(){
         return this.transactionHist;
     }
-    private void askForCash(double amount) throws TransactionFailedException{
-        double insertedAmt = 0;
-        double in;
+    /**
+     * Private method to simulate waiting for user to tap iPhone
+     * @param amount amount user has to pay
+     * @throws TransactionFailedException if user fails to tap properly
+     */
+    private void simulateTap(double amount) throws TransactionFailedException{
         Scanner sc = new Scanner(System.in);
-        System.out.println();
-        while(insertedAmt<amount){
-            System.out.println("Please pay $"+ (amount-insertedAmt));
-            System.out.println("Insert cash into the terminal (-1 if you no more money, otherwise type amount inserted): ");
-            in = sc.nextDouble();
-            if(in < 0) throw new TransactionFailedException("Customer is broke! No food for you!");
-            insertedAmt += in;
-        }
-        System.out.println("Here's your change of $"+(insertedAmt-amount));
-        return;
+        System.out.println("Please tap your phone to transact $"+amount+". (type 'tap'):");
+        // get user to type "tap" to simulate Apple pay payment
+        if(sc.nextLine().equalsIgnoreCase("tap")) return;
+        else throw new TransactionFailedException("Apple pay transaction failed");
     }
 }

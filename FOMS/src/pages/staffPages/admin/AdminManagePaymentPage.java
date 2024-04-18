@@ -2,6 +2,7 @@ package pages.staffPages.admin;
 
 import pages.iPage;
 import pages.pageViewer;
+import services.ManagePaymentsService;
 import utilities.Session;
 
 /**
@@ -23,30 +24,31 @@ public class AdminManagePaymentPage implements iPage {
      */
     public void viewOptions() {
         System.out.println("== FOMS | Admin Manage Payment Methods ==");
-        System.out.println("[1]. View all payment methods");
-        System.out.println("[2]. Enable a payment method");
-        System.out.println("[3]. Disable a payment method");
-        System.out.println("[B]. Go back");
+        System.out.println("[1] View all payment methods");
+        System.out.println("[2] Enable a payment method");
+        System.out.println("[3] Disable a payment method");
+        System.out.println("[B] Go back");
     }
 
     /**
-     * Method to handle user input
+     * Method to handle user input. Calls ManagePaymentsService to do the job instead
      * @param option: user input
      */
     public void handleInput(String option) {
         switch (option) {
             case "1":
-                pageViewer.changePage("ViewAllPaymentPage");
+                ManagePaymentsService.viewAllPaymentMethods(this.session);
+                pageViewer.changePage("AdminManagePaymentPage");
                 break;
             case "2":
-                pageViewer.changePage("EnablePaymentMethodPage");
+                ManagePaymentsService.enablePaymentsService(this.session);
+                pageViewer.changePage("AdminManagePaymentPage");
                 break;
             case "3":
-                pageViewer.changePage("DisablePaymentMethodPage");
+                ManagePaymentsService.disablePaymentsService(this.session);
+                pageViewer.changePage("AdminManagePaymentPage");
                 break;
             case "B":
-                pageViewer.changePage("AdminAccessPage");
-                break;
             case "b":
                 pageViewer.changePage("AdminAccessPage");
                 break;

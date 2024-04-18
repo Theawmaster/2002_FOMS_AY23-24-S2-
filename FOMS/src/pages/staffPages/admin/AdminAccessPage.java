@@ -1,5 +1,6 @@
 package pages.staffPages.admin;
 
+import constants.Role;
 import pages.iPage;
 import pages.pageViewer;
 import utilities.Session;
@@ -23,11 +24,19 @@ public class AdminAccessPage implements iPage {
      * Method to view admin access options
      */
     public void viewOptions() {
-        System.out.println("Admin Access Page");
-        System.out.println("[1]. Manage Staff");
-        System.out.println("[2]. Manage Branch");
-        System.out.println("[3]. Manage Payment Methods");
-        System.out.println("[B]. Back to Staff Access Page");
+        // allow entry only if current user is an admin
+        if(this.session.getCurrentActiveStaff().getRole() == Role.ADMIN){
+            System.out.println("Admin Access Page");
+            System.out.println("[1] Manage Staff");
+            System.out.println("[2] Manage Branch");
+            System.out.println("[3] Manage Payment Methods");
+            System.out.println("[B] Back to Staff Access Page");
+        }
+        else{
+            System.out.println("You are not an admin! You do not have access to this page!");
+            // go back to staff access page
+            pageViewer.changePage("StaffAccessPage");
+        }
     }
 
     /**
@@ -43,7 +52,7 @@ public class AdminAccessPage implements iPage {
                 pageViewer.changePage("AdminManageBranchPage");
                 break;
             case "3":
-                pageViewer.changePage("AdminManagePaymentMethodsPage");
+                pageViewer.changePage("AdminManagePaymentPage");
                 break;
             case "B":
                 pageViewer.changePage("StaffAccessPage");

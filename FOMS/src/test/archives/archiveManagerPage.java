@@ -2,7 +2,7 @@
  * [ARCHIVED] please archive this when youre done transferring the functions to the correct page
  */
 
-package test;
+package test.archives;
 
 import entities.MenuItem;
 import entities.Order;
@@ -13,12 +13,12 @@ import constants.MealCategory;
 import utilities.LoadStaffs;
 import java.util.Scanner;
 
-public class ManagerPage {
+public class archiveManagerPage {
      /**
      * Constructor for ManagerPage class.
      * Creates a new instance of the ManagerPage and displays the manager menu.
      */
-    public ManagerPage() {
+    public archiveManagerPage() {
         showManagerMenu(); // Show the manager menu upon creation
     }
 

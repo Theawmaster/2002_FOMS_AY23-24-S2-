@@ -1,7 +1,11 @@
+/**
+ * [OUTDATED] replaced by AdminManageBranchPage
+ */
+
 package entities;
 
 import constants.FilePaths;
-import test.AdminPage;
+import test.archives.archiveAdminPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -66,7 +70,7 @@ public class BranchManagement {
                 case "3":
                     running = false;
                     System.out.println("Exiting Branch Management...");
-                    new AdminPage().showAdminPage();
+                    new archiveAdminPage().showAdminPage();
                 default:
                     System.out.println("Invalid choice, please try again.");
             }

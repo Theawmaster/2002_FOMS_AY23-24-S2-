@@ -1,4 +1,4 @@
-package utilities;
+package test.archives;
 
 import entities.Payment;
 import constants.FilePaths;
@@ -8,7 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class LoadPaymentService {
+public class archiveLoadPaymentService {
 
     /**
      * Attempts to load a payment from the CSV file based on the given payment ID.

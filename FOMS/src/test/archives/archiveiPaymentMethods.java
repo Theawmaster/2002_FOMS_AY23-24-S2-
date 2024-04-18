@@ -1,9 +1,9 @@
-package entities;
+package test.archives;
 
 /**
  * The iPaymentMethods interface defines methods for managing payments.
  */
-public interface iPaymentMethods {
+public interface archiveiPaymentMethods {
     /**
      * Adds a new payment.
      */

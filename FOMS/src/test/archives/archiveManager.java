@@ -1,4 +1,4 @@
-package entities;
+package test.archives;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,12 +8,15 @@ import java.util.Scanner;
 import constants.MealCategory;
 import constants.OrderStatus;
 import constants.Role;
+import entities.MenuItem;
+import entities.Order;
+import entities.Staff;
 
 /**
  * The {@code Manager} extends the {@code Staff} class and provide various management functionalities 
  * such as managing orders, menu items and staffs within the system.
  */
-public class Manager extends Staff {
+public class archiveManager extends Staff {
  
     /**
      * The list of the menu items in an array list.
@@ -34,7 +37,7 @@ public class Manager extends Staff {
      * @param age The age of the manager.
      * @param staffPassword The password for the manager's account.
      */
-    public Manager(String firstName, String lastName, String loginID, boolean gender, int age, String staffPassword) {
+    public archiveManager(String firstName, String lastName, String loginID, boolean gender, int age, String staffPassword) {
         super(firstName, lastName, loginID, Role.MANAGER, gender, age, staffPassword);
         // Initialize Manager-specific fields here
     }
