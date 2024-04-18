@@ -26,7 +26,6 @@ public class ManageStaffService {
             String output = String.format("%-12s\t%-12s\t%-8s\t%-6s\t%-3d\t%-10s\t%-10s",
                             s.getFirstName(),
                             s.getLastName(),
-                            s.getRole(),
                             (s.getGender() ? "F" : "M"),
                             s.getAge(),
                             s.getBranch().getBranchName(),

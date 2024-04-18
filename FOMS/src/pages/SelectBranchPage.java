@@ -1,6 +1,8 @@
 package pages;
 
 import entities.Branch;
+import entities.MenuItem;
+import entities.Staff;
 import utilities.Logger;
 import utilities.Session;
 

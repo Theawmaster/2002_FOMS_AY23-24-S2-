@@ -7,8 +7,16 @@ import constants.MealCategory;
 import entities.MenuItem;
 import entities.Branch;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+
 /**
  * The {@link LoadStaffs} class loads MenuItem data from the CSV database
+ * @param branches
+ * @return a list of MenuItem objects with information loaded in
+ * @author @Theawmaster
  */
 public class LoadMenuItems extends LoadData<MenuItem>{
     public LoadMenuItems(ArrayList<Branch> branches) {
@@ -62,4 +70,21 @@ public class LoadMenuItems extends LoadData<MenuItem>{
         // TODO: implement getbranch 
         return menuitems;
         }
+
+        /**
+         * This method adds a MenuItem object to the CSV file
+         * @param m
+         * @return
+         */
+        public static boolean addMenuToCSV(MenuItem m) {
+            String menuData = String.format("%s,%.2f,%s,%s,%s\n", m.getFood(), m.getPrice(), m.getBranch().getBranchName(), m.getCategory(), m.getDescription(), m.getCustomization());
+            try {
+                Files.write(Paths.get(FilePaths.menuListPath.getPath()), menuData.getBytes(), StandardOpenOption.APPEND);
+                return true;
+            } catch (IOException e) {
+                System.out.println("Failed to write to CSV: " + e.getMessage());
+                return false;
+            }
+        }        
+
 }

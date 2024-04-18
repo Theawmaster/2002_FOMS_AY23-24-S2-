@@ -26,6 +26,7 @@ public class Session {
     private Staff currentActiveStaff;
     private Branch currentActiveBranch;
     private Order currentActiveOrder;
+    private MenuItem currentActiveMenuItem;
 
 
     /**
@@ -70,6 +71,9 @@ public class Session {
     public void setCurrentActiveOrder(Order o){
         this.currentActiveOrder = o;
     }
+    public void setCurrentActiveMenuItem(MenuItem menuItem){
+        this.currentActiveMenuItem = menuItem;
+    }
 
     public Staff getCurrentActiveStaff(){
         return this.currentActiveStaff;
@@ -79,5 +83,8 @@ public class Session {
     }
     public Order getCurrentActiveOrder(){
         return this.currentActiveOrder;
+    }
+    public MenuItem getCurrentActiveMenuItem(){
+        return this.currentActiveMenuItem;
     }
 }
