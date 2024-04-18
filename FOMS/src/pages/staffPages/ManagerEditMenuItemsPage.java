@@ -43,6 +43,7 @@ public class ManagerEditMenuItemsPage implements iPage {
                 pageViewer.changePage("ManagerAccessPage");
                 break;
             default:
+                System.out.println("Invalid choice!");
                 break;
         }
     }
