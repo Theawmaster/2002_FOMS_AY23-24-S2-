@@ -11,6 +11,7 @@ import entities.Branch;
 import entities.MenuItem;
 import entities.Order;
 
+
 /**
  * This class acts as a data store and contains all active entities in the programme.
  * @author Siah Yee Long
@@ -25,6 +26,7 @@ public class Session {
     private Staff currentActiveStaff;
     private Branch currentActiveBranch;
     private Order currentActiveOrder;
+
 
     /**
      * Initialised in pageViewer only. Loads all data from LoadData's child classes to set the context of the current session
@@ -79,5 +81,43 @@ public class Session {
         return this.currentActiveOrder;
     }
 
+     /**
+     * Counts the number of staff (excluding managers) in a given branch.
+     * @param branchName The name of the branch.
+     * @return The count of staff in the specified branch.
+     */
+    public long getStaffCount(String branchName) {
+        return allStaffs.stream()
+            .filter(staff -> staff.getBranch().getBranchName().equalsIgnoreCase(branchName) && !staff.getRole().equalsIgnoreCase("MANAGER"))
+            .count();
+    }
+
+    /**
+     * Counts the number of managers in a given branch.
+     * @param branchName The name of the branch.
+     * @return The count of managers in the specified branch.
+     */
+    public long getManagerCount(String branchName) {
+        return allStaffs.stream()
+            .filter(staff -> staff.getBranch().getBranchName().equalsIgnoreCase(branchName) && staff.getRole().equalsIgnoreCase("MANAGER"))
+            .count();
+    }
+
+    /**
+     * Retrieves the staff quota for a specific branch.
+     * @param branchName The name of the branch.
+     * @return The staff quota for the branch or -1 if the branch is not found.
+     */
+    public int getBranchQuota(String branchName) {
+        return allBranches.stream()
+            .filter(branch -> branch.getBranchName().equalsIgnoreCase(branchName))
+            .findFirst()
+            .map(Branch::getbranchQuota)
+            .orElse(0);  // Default to 0 if not found
+    }
+
+    public int calculateAllowedManagers(long staffCount) {
+        return (staffCount < 5) ? 1 : (staffCount < 9) ? 2 : 3;
+    }
 
 }
