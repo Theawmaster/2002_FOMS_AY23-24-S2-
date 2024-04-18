@@ -19,7 +19,7 @@ import entities.Order;
  */
 public class Session {
     private ArrayList<Staff> allStaffs;
-    private ArrayList<Branch> allBranches;
+    protected ArrayList<Branch> allBranches;
     private ArrayList<MenuItem> allMenuItems;
     private ArrayList<iPaymentService> allPaymentServices;
 
@@ -32,15 +32,15 @@ public class Session {
      * Initialised in pageViewer only. Loads all data from LoadData's child classes to set the context of the current session
      */
     public Session(){
-        LoadStaffs initLoadStaffs = new LoadStaffs();
-        this.allStaffs = initLoadStaffs.loadDatafromCSV();
-
-        LoadBranches initLoadBranches = new LoadBranches();
-        this.allBranches = initLoadBranches.loadDatafromCSV();
-
-        LoadMenuItems initLoadMenuItems = new LoadMenuItems();
-        this.allMenuItems = initLoadMenuItems.loadDatafromCSV();
-
+        LoadBranches initLoadBranches = new LoadBranches(null);
+        this.allBranches = initLoadBranches.getLoadedData();
+    
+        LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches);
+        this.allStaffs = initLoadStaffs.getLoadedData();
+    
+        LoadMenuItems initLoadMenuItems = new LoadMenuItems(this.allBranches);
+        this.allMenuItems = initLoadMenuItems.getLoadedData();
+    
         allPaymentServices = new ArrayList<>();
         allPaymentServices.add(new VisaPaymentService());
         allPaymentServices.add(new CashPaymentService());
@@ -80,44 +80,4 @@ public class Session {
     public Order getCurrentActiveOrder(){
         return this.currentActiveOrder;
     }
-
-     /**
-     * Counts the number of staff (excluding managers) in a given branch.
-     * @param branchName The name of the branch.
-     * @return The count of staff in the specified branch.
-     */
-    public long getStaffCount(String branchName) {
-        return allStaffs.stream()
-            .filter(staff -> staff.getBranch().getBranchName().equalsIgnoreCase(branchName) && !staff.getRole().equalsIgnoreCase("MANAGER"))
-            .count();
-    }
-
-    /**
-     * Counts the number of managers in a given branch.
-     * @param branchName The name of the branch.
-     * @return The count of managers in the specified branch.
-     */
-    public long getManagerCount(String branchName) {
-        return allStaffs.stream()
-            .filter(staff -> staff.getBranch().getBranchName().equalsIgnoreCase(branchName) && staff.getRole().equalsIgnoreCase("MANAGER"))
-            .count();
-    }
-
-    /**
-     * Retrieves the staff quota for a specific branch.
-     * @param branchName The name of the branch.
-     * @return The staff quota for the branch or -1 if the branch is not found.
-     */
-    public int getBranchQuota(String branchName) {
-        return allBranches.stream()
-            .filter(branch -> branch.getBranchName().equalsIgnoreCase(branchName))
-            .findFirst()
-            .map(Branch::getbranchQuota)
-            .orElse(0);  // Default to 0 if not found
-    }
-
-    public int calculateAllowedManagers(long staffCount) {
-        return (staffCount < 5) ? 1 : (staffCount < 9) ? 2 : 3;
-    }
-
 }

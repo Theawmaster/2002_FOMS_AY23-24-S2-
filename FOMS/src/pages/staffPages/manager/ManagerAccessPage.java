@@ -17,15 +17,15 @@ public class ManagerAccessPage implements iPage{
      * Method to view manager access options
      */
     public void viewOptions(){
-        if (this.session.getCurrentActiveStaff().getRole() == Role.MANAGER){
-            System.out.println("[1] Display My Staffs");
-            System.out.println("[2] Edit Menu Items");
-            System.out.println("[B] Return to Staff Access Page");
-        }
-        else {
+        if (this.session.getCurrentActiveStaff().getRole() == Role.STAFF){
             System.out.println("You are not a manager! You do not have access to this page!");
             // go back to staff access page
             pageViewer.changePage("StaffAccessPage");
+        }
+        else {
+            System.out.println("[1] Display My Staffs");
+            System.out.println("[2] Edit Menu Items");
+            System.out.println("[B] Return to Staff Access Page");
         }
     }
     /**

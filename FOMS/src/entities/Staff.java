@@ -77,7 +77,7 @@ public class Staff {
 		return this.firstName;
 	}
 
-	protected String getLastName() {
+	public String getLastName() {
         return this.lastName;
 	}
 
@@ -89,11 +89,11 @@ public class Staff {
         return this.role;
     }
 
-    protected boolean getGender() {
+    public boolean getGender() {
         return this.gender;
     }
     
-	protected int getAge() {
+	public int getAge() {
         return this.age;
 	}
 	public LoginDetail getLoginDetail(){

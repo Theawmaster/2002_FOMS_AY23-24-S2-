@@ -15,12 +15,17 @@ import java.util.stream.Collectors;
  * The {@link LoadStaffs} class loads Branch data from the CSV database
  */
 public class LoadBranches extends LoadData<Branch>{
+
+    public LoadBranches(ArrayList<Branch> branches) {
+        super(branches);
+    }
+
     /**
      * The {@link loadDatafromCSV} method in this class loads in Branch data from branch_list.csv 
      * @return a list of Branch objects with information loaded in
      */
     @Override
-    public ArrayList<Branch> loadDatafromCSV(){
+    public ArrayList<Branch> loadDatafromCSV(ArrayList<Branch> x){
         ArrayList<Branch> branches = new ArrayList<>();
         ArrayList<String> serialisedData = SerialiseCSV.readCSV(FilePaths.branchListPath.getPath());
 
@@ -82,7 +87,7 @@ public class LoadBranches extends LoadData<Branch>{
      * @author @Theawmaster
      */
     public boolean removeBranch(String branchName) {
-        return SerialiseCSV.deleteToCSV(branchName, FilePaths.branchListPath.getPath());
+        return SerialiseCSV.deleteToCSV(branchName, 0, FilePaths.branchListPath.getPath());
     }
 
     /**
