@@ -67,7 +67,7 @@
          */
         public void addItem(MenuItem item, String description, String customization) {
             // Create a new MenuItem with customization and add it to the order
-            MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getCategory(), description, customization);
+            MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getBranch(),item.getCategory(), description, customization);
             if (customization.isEmpty())
             {
                 items.add(item); // Add menu items in order without customization 
