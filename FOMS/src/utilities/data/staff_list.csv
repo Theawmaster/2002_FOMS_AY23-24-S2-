@@ -1,11 +1,8 @@
 ﻿Name,Staff Login ID,Role,Gender,Age,Branch
 kumar Blackmore,kumarB,STAFF,M,32,NTU
-Alexei ,Alexei,STAFF,M,25,NTU
-Tom Chan ,TomC,AD,M,56,HQ
+Alexei Alexei,Alexei,STAFF,M,25,NTU
+Tom Chan,TomC,AD,M,56,HQ
 Alica Ang,AlicaA,MANAGER,F,27,JE
 Mary lee,MaryL,STAFF,F,44,JE
 Justin Loh,JustinL,MANAGER,M,49,JP
-Boss,boss,AD,F,62,HQ
-CP,cp1,AD,M,53,HQ
-lol,lollol,MANAGER,M,23,CWP
-test,test123,STAFF,F,29,JP
+Boss Boss,boss,AD,F,62,HQ

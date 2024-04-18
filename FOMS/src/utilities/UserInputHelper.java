@@ -1,46 +1,42 @@
 package utilities;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import entities.Branch;
 
 public class UserInputHelper {
-    private Scanner scanner;
-    private Session session;
+    private static Scanner scanner = new Scanner(System.in);
 
-    public UserInputHelper(Session session) {
-        this.scanner = new Scanner(System.in);
-        this.session = session;
-    }
-
-    public String getInput(String prompt) {
+    public static String getInput(String prompt) {
         System.out.println(prompt);
         return scanner.nextLine().trim();
     }
 
-    public String chooseRole() {
+    public static String chooseRole() {
         String roleInput;
         do {
-            roleInput = getInput("Enter Role (S for Staff / M for Manager): ").toUpperCase();
-            if (!"S".equals(roleInput) && !"M".equals(roleInput)) {
-                System.out.println("Invalid input. Please enter 'S' for Staff or 'M' for Manager.");
+            roleInput = getInput("Enter Role (S/M/A): ").toUpperCase();
+            if (!"S".equals(roleInput) && !"M".equals(roleInput) && !"A".equals(roleInput)) {
+                System.out.println("Invalid input!");
             }
-        } while (!"S".equals(roleInput) && !"M".equals(roleInput));
-        return "S".equals(roleInput) ? "STAFF" : "MANAGER";
+        } while (!"S".equals(roleInput) && !"M".equals(roleInput) && !"A".equals(roleInput));
+        return roleInput;
     }
 
-    public String chooseGender() {
+    public static String chooseGender() {
         String gender;
         do {
             gender = getInput("Enter Gender (M/F): ").toUpperCase();
             if (!"M".equals(gender) && !"F".equals(gender)) {
-                System.out.println("Invalid input. Please enter 'M' for Male or 'F' for Female.");
+                System.out.println("Invalid input. Please enter 'M' for Male or 'F' for Female!");
             }
         } while (!"M".equals(gender) && !"F".equals(gender));
         return gender;
     }
 
-    public int chooseAge() {
+    public static int chooseAge() {
         int age = -1;
         do {
             try {
@@ -55,20 +51,31 @@ public class UserInputHelper {
         return age;
     }
 
-    public String chooseBranch(List<Branch> branches) {
-        branches.forEach(branch -> System.out.println(branch.getBranchName() + " - Quota: " + branch.getbranchQuota()));
-        while (true) {
-            System.out.println("Enter the name of the branch you wish to assign the staff to:");
-            final String branchInput = scanner.nextLine().trim().toUpperCase(); // Make input effectively final
-            boolean exists = branches.stream().anyMatch(b -> b.getBranchName().equalsIgnoreCase(branchInput));
-            if (exists) {
-                return branchInput;  // Return immediately on valid input
-            }
-            System.out.println("Invalid branch. Please enter a valid branch name from the list.");
+    public static Branch chooseBranch(ArrayList<Branch> branches) {
+        int numOptions = 0;
+        for(Branch b : branches){
+            numOptions++;
+            System.out.println(numOptions + ". " + b.getBranchName());
         }
+        while(true){
+            try{
+                // ask user to choose branch
+                int choiceBranch = Integer.parseInt(getInput("Select a branch: "));
+                return branches.get(choiceBranch-1);
+            }
+            catch (IndexOutOfBoundsException e){
+                System.out.println("Please select a branch within the range only! ");
+                Logger.error(e.getMessage());
+            }
+            catch (NumberFormatException e){
+                System.out.println("Please enter only integer values! ");
+                Logger.error(e.getMessage());
+            }
+        }
+
     }
     
-    public int getUserChoice(String prompt, int maxChoice) {
+    public static int getUserChoice(String prompt, int maxChoice) {
         int choice;
         do {
             System.out.println(prompt);
@@ -85,23 +92,13 @@ public class UserInputHelper {
         } while (true);
     }
     
-    public boolean confirmAction(String message) {
+    public static boolean confirmAction(String message) {
         System.out.println(message);
         String input = scanner.nextLine().trim().toLowerCase();
         return "y".equals(input);
     }
-
-    public String getStaffID() {
-        System.out.println("Enter the Staff ID of the staff you want to promote to Manager:");
-        return scanner.nextLine().trim();
-    }
-
-    public String getStaffIDForTransfer() {
-        System.out.println("Enter the Staff ID of the staff/manager you want to transfer:");
-        return scanner.nextLine().trim();
-    }
     
-    public String getNewBranch(List<String> branchNames) {
+    public static String getNewBranch(List<String> branchNames) {
         System.out.println("Enter the new Branch:");
         String branch;
         do {

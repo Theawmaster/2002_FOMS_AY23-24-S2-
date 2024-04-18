@@ -1,14 +1,10 @@
 package pages.staffPages.admin;
 
 import services.ManageStaffService;
-import constants.Role;
 
 import pages.iPage;
 import pages.pageViewer;
 import utilities.Session;
-import java.util.Scanner;
-import entities.Staff;
-import java.io.IOException;
 
 /**
  * The AdminManageStaffPage class is a page that allows the admin to manage staff members
@@ -21,8 +17,6 @@ public class AdminManageStaffPage implements iPage {
      * The current active session
      */
     private Session session;
-    private ManageStaffService manageStaffService = new ManageStaffService();
-    private Scanner scanner = new Scanner(System.in); 
 
     public AdminManageStaffPage(Session session) {
         this.session = session;
@@ -33,12 +27,12 @@ public class AdminManageStaffPage implements iPage {
      */
     public void viewOptions() {
         System.out.println("Admin Manage Staff Page");
-        System.out.println("[1]. Display all Staff");
-        System.out.println("[2]. Fire Staff");
-        System.out.println("[3]. Hire Staff");
-        System.out.println("[4]. Promote Staff to Manager");
-        System.out.println("[5]. Transfer staff to another branch");
-        System.out.println("[B]. Back");
+        System.out.println("[1] View all Staff");
+        System.out.println("[2] Fire Staff");
+        System.out.println("[3] Hire Staff");
+        System.out.println("[4] Promote Staff");
+        System.out.println("[5] Transfer Staff");
+        System.out.println("[B] Back");
     }
 
     /**
@@ -48,23 +42,26 @@ public class AdminManageStaffPage implements iPage {
     public void handleInput(String option) {
         switch(option) {
             case "1":
-                manageStaffService.displayAllStaff();
+                // just go to this page instead since the functions are alr there
+                pageViewer.changePage("ManagerViewStaffDetailsPage");
                 break;
             case "2":
-                manageStaffService.fireStaff();
+                ManageStaffService.fireStaff(this.session);
+                pageViewer.changePage("AdminManageStaffPage");
                 break;
             case "3":
-                manageStaffService.addStaff();
+                ManageStaffService.hireStaff(this.session);
+                pageViewer.changePage("AdminManageStaffPage");
                 break;
             case "4":
-                manageStaffService.promoteToManager();
+                ManageStaffService.promoteStaff(this.session);
+                pageViewer.changePage("AdminManageStaffPage");
                 break;
             case "5":
-                manageStaffService.transferStaff();
+                ManageStaffService.transferStaff(this.session);
+                pageViewer.changePage("AdminManageStaffPage");
                 break;
             case "B":
-                pageViewer.changePage("AdminAccessPage");
-                break;
             case "b":
                 pageViewer.changePage("AdminAccessPage");
                 break;

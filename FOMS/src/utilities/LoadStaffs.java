@@ -20,6 +20,10 @@ import java.util.stream.Collectors;
  * The {@link LoadStaffs} class loads Staff data and corresponding passwords from the CSV database
  */
 public class LoadStaffs extends LoadData<Staff>{
+    public LoadStaffs(ArrayList<Branch> branches) {
+        super(branches);
+    }
+
     /**
      * The {@link loadedPasswords} private variable stores a hashmap of staffID:password to be loaded into the Staff class. 
      * This variable will not be accessible outside of this class
@@ -30,15 +34,11 @@ public class LoadStaffs extends LoadData<Staff>{
      * @return a list of Staff objects with information loaded in
      */
     @Override
-    public ArrayList<Staff> loadDatafromCSV(){
+    public ArrayList<Staff> loadDatafromCSV(ArrayList<Branch> branches){
         ArrayList<Staff> staffs = new ArrayList<Staff>(); // the return value
 
         // load data from the staff list csv
         ArrayList<String> serialisedData = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
-
-        // Load branch data from the CSV file
-        //TODO: no you call LoadBranches to do this job instead, dont do the job for them
-        List<Branch> branches = loadBranchesFromCSV(FilePaths.branchListPath.getPath());
 
         // load password data into this.passwords
         getPasswords();
@@ -52,7 +52,6 @@ public class LoadStaffs extends LoadData<Staff>{
             if(row[2].trim().toUpperCase().contains("S")) staffRole = Role.STAFF;
             else if(row[2].trim().toUpperCase().contains("M")) staffRole = Role.MANAGER;
             else if(row[2].trim().toUpperCase().contains("A")) staffRole = Role.ADMIN;
-            //TODO: else throw an exception
 
             boolean isFemale = row[3].trim().equalsIgnoreCase("F");
             String[] name = row[0].trim().split(" ", 2);
@@ -72,9 +71,15 @@ public class LoadStaffs extends LoadData<Staff>{
 
             Staff tempStaff = new Staff(firstName, lastName, loginID, staffRole, isFemale, age, staffPassword);
 
-            // Find the branch object matching the staff's branch name
+            // Find the branch object matching the staff's branch name and update the number of managers and staff in the branch
             for (Branch branch : branches) {
                 if (branch.getBranchName().equalsIgnoreCase(branchName)) {
+                    if(tempStaff.getRole() == Role.MANAGER){
+                        branch.incrementManagerCount();
+                    }
+                    else if(tempStaff.getRole() == Role.STAFF)
+                        branch.incrementStaffCount();
+
                     tempStaff.setBranch(branch);
                     break;
                 }
@@ -86,33 +91,6 @@ public class LoadStaffs extends LoadData<Staff>{
     }
 
     /**
-     * Loads branch data from the CSV file.
-     * TODO: delete this. dont do LoadBranch's job
-     * @param filePath The path to the CSV file containing branch data.
-     * @return A list of Branch objects.
-     */
-    private List<Branch> loadBranchesFromCSV(String filePath) {
-        List<Branch> branches = new ArrayList<>();
-
-        // Load data from the branch CSV
-        ArrayList<String> serialisedData = SerialiseCSV.readCSV(filePath);
-
-        for (String s : serialisedData) {
-            String[] row = s.split(",");
-            if (s.isEmpty() || s.contains("Name,") || row.length < 3)
-                continue;
-
-            String branchName = row[0].trim();
-            String location = row[1].trim();
-            int quota = Integer.parseInt(row[2].trim());
-            String status = row[3].trim();
-
-            branches.add(new Branch(branchName, location, quota, status));
-        }
-        return branches;
-    }
-
-    /**
     * The {@link updatePassword} method calls on the {@link SerialiseCSV.replaceColumnValue} method to update the 2nd column with the new password
     * @param loginID search String
     * @param newPassword updated new password
@@ -121,7 +99,6 @@ public class LoadStaffs extends LoadData<Staff>{
    public static boolean updatePassword(String loginID, String newPassword){
         return SerialiseCSV.replaceColumnValue(loginID, 1, newPassword, FilePaths.staffPasswordsPath.getPath());
     }
-
 
     /**
      * The {@link getPasswords} private method reads in saved passwords from staff_passwords.csv and stores them in the private variable {@link loadedPasswords}
@@ -155,31 +132,7 @@ public class LoadStaffs extends LoadData<Staff>{
         SerialiseCSV.appendToCSV(passwordRecord, FilePaths.staffPasswordsPath.getPath());
     }
 
-    /**
-     * This method calculates and returns the count of non-managerial staff per branch.
-     * @return A map of branch names to their respective staff counts.
-     */
-    public Map<String, Long> getStaffCounts() {
-        List<String> staffLines = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
 
-        return staffLines.stream()
-            .map(line -> line.split(","))
-            .filter(parts -> parts.length >= 6 && !parts[2].trim().equalsIgnoreCase("MANAGER")) // Excluding managers
-            .collect(Collectors.groupingBy(parts -> parts[5].trim(), Collectors.counting()));
-    }
-
-    /**
-     * This method calculates and returns the count of managers per branch.
-     * @return A map of branch names to their respective manager counts.
-     */
-    public Map<String, Long> getManagerCounts() {
-        List<String> staffLines = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
-
-        return staffLines.stream()
-            .map(line -> line.split(","))
-            .filter(parts -> parts.length >= 6 && parts[2].trim().equalsIgnoreCase("MANAGER")) // Only managers
-            .collect(Collectors.groupingBy(parts -> parts[5].trim(), Collectors.counting()));
-    }
 
     /**
      * Adds a new staff member to the staff list CSV file.
@@ -192,8 +145,8 @@ public class LoadStaffs extends LoadData<Staff>{
      * @return
      * @author @Theawmaster
      */
-    public boolean addStaffToCSV(String name, String id, String role, String gender, int age, String branch) {
-        String staffData = String.format("%s,%s,%s,%s,%d,%s\n", name, id, role, gender, age, branch);
+    public static boolean addStaffToCSV(Staff s) {
+        String staffData = String.format("%s,%s,%s,%s,%d,%s\n", s.getFirstName()+" "+s.getLastName(), s.getLoginID(), s.getRole(), s.getGender(), s.getAge(), s.getBranch().getBranchName());
         try {
             Files.write(Paths.get(FilePaths.staffListPath.getPath()), staffData.getBytes(), StandardOpenOption.APPEND);
             return true;
@@ -226,42 +179,75 @@ public class LoadStaffs extends LoadData<Staff>{
             Files.write(Paths.get(FilePaths.staffListPath.getPath()), lines);
         }
     }
-
-    /**
+    public static boolean updatePromotedStaff(Staff staff){
+        return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 3, "MANAGER", FilePaths.staffListPath.getPath());
+    }
+    public static boolean updateTransferredStaff(Staff staff, Branch branch){
+        return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 6, branch.getBranchName(), FilePaths.staffListPath.getPath());
+    }
+    public static boolean updateFiredStaff(Staff staff){
+        return SerialiseCSV.deleteToCSV(staff.getLoginID(), 1, FilePaths.staffListPath.getPath()) 
+            && SerialiseCSV.deleteToCSV(staff.getLoginID(), 0, FilePaths.staffPasswordsPath.getPath());
+    }
+        /**
      * Promotes a staff member to a manager.
      * @param staffId
      * @return
      * @throws IOException
      * @author @Theawmaster
      */
-    public boolean promoteStaffToManager(String staffId) throws IOException {
-        List<String> lines = readAllStaffLines();
-        boolean found = false;
-        for (int i = 0; i < lines.size(); i++) {
-            String[] parts = lines.get(i).split(",");
-            if (parts[1].trim().equals(staffId) && parts[2].trim().equalsIgnoreCase("STAFF")) {
-                String branch = parts[5].trim();
-                if (canAddManager(branch, lines)) {
-                    parts[2] = "MANAGER";
-                    lines.set(i, String.join(",", parts));
-                    found = true;
-                    break;
-                } else {
-                    System.out.println("ORH OH... Manager quota exceeded for this branch.. Promotion not possible..");
-                    return false;
-                }
-            }
-        }
+    // public boolean promoteStaffToManager(String staffId) throws IOException {
+    //     List<String> lines = readAllStaffLines();
+    //     boolean found = false;
+    //     for (int i = 0; i < lines.size(); i++) {
+    //         String[] parts = lines.get(i).split(",");
+    //         if (parts[1].trim().equals(staffId) && parts[2].trim().equalsIgnoreCase("STAFF")) {
+    //             String branch = parts[5].trim();
+    //             if (canAddManager(branch, lines)) {
+    //                 parts[2] = "MANAGER";
+    //                 lines.set(i, String.join(",", parts));
+    //                 found = true;
+    //                 break;
+    //             } else {
+    //                 System.out.println("ORH OH... Manager quota exceeded for this branch.. Promotion not possible..");
+    //                 return false;
+    //             }
+    //         }
+    //     }
     
-        if (!found) {
-            System.out.println("BOOOO Staff ID not found or the employee is already a manager...");
-            return false;
-        }
+    //     if (!found) {
+    //         System.out.println("BOOOO Staff ID not found or the employee is already a manager...");
+    //         return false;
+    //     }
     
-        Files.write(Paths.get(FilePaths.staffListPath.getPath()), lines);
-        return true;
-    }
+    //     Files.write(Paths.get(FilePaths.staffListPath.getPath()), lines);
+    //     return true;
+    // }
+    /**
+     * This method calculates and returns the count of non-managerial staff per branch.
+     * @return A map of branch names to their respective staff counts.
+     */
+    // public Map<String, Long> getStaffCounts() {
+    //     List<String> staffLines = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
 
+    //     return staffLines.stream()
+    //         .map(line -> line.split(","))
+    //         .filter(parts -> parts.length >= 6 && !parts[2].trim().equalsIgnoreCase("MANAGER")) // Excluding managers
+    //         .collect(Collectors.groupingBy(parts -> parts[5].trim(), Collectors.counting()));
+    // }
+
+    // /**
+    //  * This method calculates and returns the count of managers per branch.
+    //  * @return A map of branch names to their respective manager counts.
+    //  */
+    // public Map<String, Long> getManagerCounts() {
+    //     List<String> staffLines = SerialiseCSV.readCSV(FilePaths.staffListPath.getPath());
+
+    //     return staffLines.stream()
+    //         .map(line -> line.split(","))
+    //         .filter(parts -> parts.length >= 6 && parts[2].trim().equalsIgnoreCase("MANAGER")) // Only managers
+    //         .collect(Collectors.groupingBy(parts -> parts[5].trim(), Collectors.counting()));
+    // }
     /**
      * Checks if a manager can be added to the branch based on the current manager count.
      * @param branch
@@ -269,39 +255,39 @@ public class LoadStaffs extends LoadData<Staff>{
      * @return
      * @author @Theawmaster
      */
-    private boolean canAddManager(String branch, List<String> lines) {
-        // TODO Auto-generated method stub
-        long currentManagers = lines.stream()
-                                    .filter(line -> line.contains(branch) && line.split(",")[2].trim().equalsIgnoreCase("MANAGER"))
-                                    .count();
+    // private boolean canAddManager(String branch, List<String> lines) {
+    //     // TODO Auto-generated method stub
+    //     long currentManagers = lines.stream()
+    //                                 .filter(line -> line.contains(branch) && line.split(",")[2].trim().equalsIgnoreCase("MANAGER"))
+    //                                 .count();
     
-        // Get staff count for quota calculation
-        long staffCount = lines.stream()
-                               .filter(line -> line.contains(branch) && line.split(",")[2].trim().equalsIgnoreCase("STAFF"))
-                               .count();
+    //     // Get staff count for quota calculation
+    //     long staffCount = lines.stream()
+    //                            .filter(line -> line.contains(branch) && line.split(",")[2].trim().equalsIgnoreCase("STAFF"))
+    //                            .count();
     
-        // Calculate allowed managers based on staff count
-        int allowedManagers = (staffCount < 5) ? 1 : (staffCount < 9) ? 2 : 3;
+    //     // Calculate allowed managers based on staff count
+    //     int allowedManagers = (staffCount < 5) ? 1 : (staffCount < 9) ? 2 : 3;
     
-        return currentManagers < allowedManagers;
-    }
+    //     return currentManagers < allowedManagers;
+    // }
     
-    public boolean updateStaffBranch(String staffId, String newBranch) throws IOException {
-        List<String> lines = readAllStaffLines();
-        boolean updated = false;
-        for (int i = 0; i < lines.size(); i++) {
-            String[] parts = lines.get(i).split(",");
-            if (parts[1].trim().equals(staffId)) {
-                parts[5] = newBranch;  // Update the branch
-                lines.set(i, String.join(",", parts));
-                updated = true;
-                break;
-            }
-        }
-        if (updated) {
-            Files.write(Paths.get(FilePaths.staffListPath.getPath()), lines);
-        }
-        return updated;
-    }
+    // public boolean updateStaffBranch(String staffId, String newBranch) throws IOException {
+    //     List<String> lines = readAllStaffLines();
+    //     boolean updated = false;
+    //     for (int i = 0; i < lines.size(); i++) {
+    //         String[] parts = lines.get(i).split(",");
+    //         if (parts[1].trim().equals(staffId)) {
+    //             parts[5] = newBranch;  // Update the branch
+    //             lines.set(i, String.join(",", parts));
+    //             updated = true;
+    //             break;
+    //         }
+    //     }
+    //     if (updated) {
+    //         Files.write(Paths.get(FilePaths.staffListPath.getPath()), lines);
+    //     }
+    //     return updated;
+    // }
 
 }
