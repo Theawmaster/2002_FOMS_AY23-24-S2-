@@ -1,7 +1,6 @@
-package entities;
+package test.archives;
 
 import entities.Staff;
-import test.archives.archiveAdminPage;
 import constants.FilePaths;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ import java.util.Map;
  * The {@code StaffManagement} class provides functionalities for managing staff members.
  * This includes adding, editing, removing, promoting to manager, and transferring staff members.
  */
-public class StaffManagement implements StaffManagementFriend{
+public class archiveStaffManagement implements archiveStaffManagementFriend{
 
     /**
      * The main method to start the staff management program.
@@ -25,7 +24,7 @@ public class StaffManagement implements StaffManagementFriend{
      * @param args The command-line arguments.
      */
     public static void main(String[] args) {
-        StaffManagement program_ = new StaffManagement();
+        archiveStaffManagement program_ = new archiveStaffManagement();
         program_.activate_();
     }
 

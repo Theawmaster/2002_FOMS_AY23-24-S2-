@@ -2,10 +2,9 @@
  * [OUTDATED] replaced by AdminManageBranchPage
  */
 
-package entities;
+package test.archives;
 
 import constants.FilePaths;
-import test.archives.archiveAdminPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -19,14 +18,14 @@ import java.util.Scanner;
  * The BranchManagement class allows administrators to manage branches.
  * Administrators can open new branches, close existing branches, and exit branch management.
  */
-public class BranchManagement {
+public class archiveBranchManagement {
 
     /**
      * Main method to run the Branch Management system.
      * @param args Command-line arguments (not used)
      */
     public static void main(String[] args) {
-        BranchManagement management = new BranchManagement();
+        archiveBranchManagement management = new archiveBranchManagement();
         management.runManagement();
     }
 

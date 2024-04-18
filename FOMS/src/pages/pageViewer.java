@@ -12,12 +12,17 @@ import pages.customerPages.BrowseDrinksPage;
 import pages.customerPages.BrowseSetMealPage;
 import pages.customerPages.BrowseSidesPage;
 import pages.customerPages.CustomerPage;
+import pages.customerPages.EditOrderPage;
+import pages.customerPages.ViewOrderPage;
 import pages.staffPages.StaffLoginPage;
 import pages.staffPages.*;
 import pages.staffPages.admin.AdminAccessPage;
 import pages.staffPages.admin.AdminManagePaymentPage;
 import pages.staffPages.admin.AdminManageBranchPage;
 import pages.staffPages.admin.AdminManageStaffPage;
+import pages.staffPages.manager.ManagerAccessPage;
+import pages.staffPages.manager.ManagerEditMenuItemsPage;
+import pages.staffPages.manager.ManagerViewStaffDetailsPage;
 
 /**
  * This class serves to manage the different pages. Call this class to change to the active page required. 

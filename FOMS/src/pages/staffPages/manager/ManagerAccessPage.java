@@ -1,4 +1,4 @@
-package pages.staffPages;
+package pages.staffPages.manager;
 
 import constants.Role;
 import pages.iPage;
