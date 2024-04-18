@@ -4,6 +4,7 @@
     import java.util.ArrayList;
     import java.util.List;
     import java.util.UUID;
+    import java.util.concurrent.atomic.AtomicInteger;
 
     import utilities.Time;
     import java.time.LocalDateTime;
@@ -36,10 +37,9 @@
          * Constructs a new order.
          * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
          */
-        public Order(int orderId) {
-            this.orderId = orderId;
+        public Order() {
             this.items = new ArrayList<>();
-            this.isTakeaway = isTakeaway;
+            this.isTakeaway = false;
             this.status = OrderStatus.NEW;
             this.totalPrice = 0.0;
             this.orderDateTime = LocalDateTime.now();  // Store the order date and time when the order is created
@@ -101,8 +101,16 @@
         }
 
         /**
+         * Set the unique identifier of the order.
+         * @return Sets the order ID.
+         */
+        public void setOrderId(int orderId) {
+            this.orderId = orderId;
+        }
+        
+        /**
          * Gets the unique identifier of the order.
-         * @return The order ID.
+         * @return Retrieve the order ID.
          */
         public int getOrderId() {
             return orderId;
@@ -175,8 +183,9 @@
             System.out.println("Order Status: " + status);
             System.out.println("Total Items in Order: " + countTotalItems());
             System.out.println("Items in Order:");
+            AtomicInteger i = new AtomicInteger(1);
             items.forEach(item -> {
-                System.out.println("- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getDescription() + ", "+ item.getCustomization());
+                System.out.println(i.getAndIncrement() + "- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getDescription() + ", "+ item.getCustomization());
             });
             System.out.println("Total Price: " + totalPrice);
         }

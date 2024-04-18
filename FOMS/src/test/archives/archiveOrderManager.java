@@ -1,7 +1,6 @@
-package entities;
+package test.archives;
 
 import constants.FilePaths;
-import test.archives.archiveManagerPage;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,9 +10,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
-public class OrderManager {
+public class archiveOrderManager {
     public static void main(String[] args) {
-        OrderManager manager = new OrderManager();
+        archiveOrderManager manager = new archiveOrderManager();
         manager.runOrderManagement();
     }
 

@@ -1,4 +1,4 @@
-package pages.staffPages;
+package pages.staffPages.manager;
 
 import pages.iPage;
 import pages.pageViewer;
@@ -43,6 +43,7 @@ public class ManagerViewStaffDetailsPage implements iPage{
                 pageViewer.changePage("ManagerAccessPage");
                 break;
             default:
+                System.out.println("Invalid choice!");
                 break;
         }
     }

@@ -43,6 +43,7 @@ public class StaffAccessPage implements iPage {
                 pageViewer.changePage("StaffLoginPage");
                 break;
             default:
+                System.out.println("Invalid choice!");
                 break;
         }
     }
