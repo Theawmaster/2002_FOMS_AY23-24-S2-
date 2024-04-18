@@ -1,4 +1,4 @@
-package test;
+package test.archives;
 
 import entities.MenuItem;
 import entities.Order;

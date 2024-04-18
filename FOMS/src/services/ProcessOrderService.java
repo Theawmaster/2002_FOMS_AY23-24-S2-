@@ -10,7 +10,6 @@ import constants.FilePaths;
 import constants.OrderStatus;
 
 public class ProcessOrderService {
-
     public static void displayProcessOptions() {
         System.out.println("Order Options:");
         try {
