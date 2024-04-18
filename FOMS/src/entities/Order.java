@@ -99,6 +99,14 @@
         private void updateTotalPrice() {
             totalPrice = items.stream().mapToDouble(MenuItem::getPrice).sum();
         }
+ 
+        /**
+         * Gets the unique identifier of the order.
+         * @return Retrieve the order ID.
+         */
+        public int getOrderId() {
+            return orderId;
+        }
 
         /**
          * Set the unique identifier of the order.
@@ -106,14 +114,6 @@
          */
         public void setOrderId(int orderId) {
             this.orderId = orderId;
-        }
-        
-        /**
-         * Gets the unique identifier of the order.
-         * @return Retrieve the order ID.
-         */
-        public int getOrderId() {
-            return orderId;
         }
 
         /**
