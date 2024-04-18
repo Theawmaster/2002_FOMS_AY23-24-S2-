@@ -78,6 +78,8 @@ public class AddMenuItemPage implements iPage{
             session.setCurrentActiveOrder(currentOrder);
         }
         currentOrder.addItem(Item, Description, Customization);
+        System.out.println("Current order details: ");
+        currentOrder.printOrderDetails();
     }
 
     private int generateOrderId(){
