@@ -4,6 +4,10 @@ import pages.iPage;
 import pages.pageViewer;
 import utilities.Session;
 
+import java.util.Scanner;
+
+import entities.Order;
+
 public class CustomerPage implements iPage{
     /**
      * The current active session 
@@ -12,6 +16,7 @@ public class CustomerPage implements iPage{
     public CustomerPage(Session s){
         this.session = s;
     }
+    
     /**
      * Method to view menu options
      */
@@ -25,6 +30,7 @@ public class CustomerPage implements iPage{
      * Method to handle user input 
      * @param choice branches the pages
      */
+
     public void handleInput(String choice){
         switch (choice) {
             case "1":

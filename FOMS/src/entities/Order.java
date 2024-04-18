@@ -4,6 +4,7 @@
     import java.util.ArrayList;
     import java.util.List;
     import java.util.UUID;
+    import java.util.concurrent.atomic.AtomicInteger;
 
     import utilities.Time;
     import java.time.LocalDateTime;
@@ -182,8 +183,9 @@
             System.out.println("Order Status: " + status);
             System.out.println("Total Items in Order: " + countTotalItems());
             System.out.println("Items in Order:");
+            AtomicInteger i = new AtomicInteger(1);
             items.forEach(item -> {
-                System.out.println("- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getDescription() + ", "+ item.getCustomization());
+                System.out.println(i.getAndIncrement() + "- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getDescription() + ", "+ item.getCustomization());
             });
             System.out.println("Total Price: " + totalPrice);
         }

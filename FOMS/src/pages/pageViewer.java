@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import entities.MenuItem;
 
+import utilities.Logger;
 import utilities.Session;
 import pages.customerPages.AddMenuItemPage;
 import pages.customerPages.BrowseCategoriesPage;
@@ -46,6 +47,8 @@ public class pageViewer {
         pages.put("SelectBranchPage", new SelectBranchPage(session));
         pages.put("MainPage", new MainPage());
         pages.put("CustomerPage", new CustomerPage(session));
+        pages.put("ViewOrderPage", new ViewOrderPage(session));
+        pages.put("EditOrderPage", new EditOrderPage(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
         pages.put("StaffAccessPage", new StaffAccessPage(session));
         pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));
