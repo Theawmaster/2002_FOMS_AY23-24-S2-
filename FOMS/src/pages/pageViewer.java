@@ -2,10 +2,16 @@ package pages;
 
 import java.util.Map;
 import java.util.HashMap;
+import entities.MenuItem;
 
 import utilities.Logger;
 import utilities.Session;
-import pages.customerPages.*;
+import pages.customerPages.AddMenuItemPage;
+import pages.customerPages.BrowseCategoriesPage;
+import pages.customerPages.BrowseDrinksPage;
+import pages.customerPages.BrowseSetMealPage;
+import pages.customerPages.BrowseSidesPage;
+import pages.customerPages.CustomerPage;
 import pages.staffPages.StaffLoginPage;
 import pages.staffPages.*;
 import pages.staffPages.admin.AdminAccessPage;
@@ -54,6 +60,14 @@ public class pageViewer {
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
         pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
         pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
+        pages.put("BrowseCategoriesPage", new BrowseCategoriesPage(session));
+        pages.put("BrowseDrinksPage", new BrowseDrinksPage(session));
+        pages.put("BrowseSidesPage", new BrowseSidesPage(session));
+        pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
+        pages.put("AddMenuItemPage", new AddMenuItemPage(session));
+
+
+
         // add more views here as required
     }
     /**
@@ -80,5 +94,11 @@ public class pageViewer {
         }
         else
             System.out.println("No active view to handle input!");
+    }
+
+    public static void navigateToAddMenuItemPage(MenuItem selectedItem) {
+        AddMenuItemPage addMenuItemPage = new AddMenuItemPage(session, selectedItem);
+        currentPage = addMenuItemPage;
+        currentPage.viewOptions(); // Display the AddMenuItemPage options.
     }
 }

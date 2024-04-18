@@ -357,7 +357,7 @@ public class StaffManagement implements StaffManagementFriend{
             if (parts[1].trim().equals(staffId) && parts[2].trim().equalsIgnoreCase("STAFF")) {  // Check if it's a staff
                 String branch = parts[5].trim();
                 if (canAddManager(branch, lines)) {
-                    parts[2] = "MAN";  // Change role to Manager
+                    parts[2] = "MANAGER";  // Change role to Manager
                     lines.set(i, String.join(",", parts));
                     found = true;
                     break;
@@ -461,7 +461,7 @@ public class StaffManagement implements StaffManagementFriend{
      */
     private boolean canAddManager(String branch, List<String> lines) {
         long currentManagers = lines.stream()
-                                    .filter(line -> line.contains(branch) && line.split(",")[2].trim().equalsIgnoreCase("MAN"))
+                                    .filter(line -> line.contains(branch) && line.split(",")[2].trim().equalsIgnoreCase("MANAGER"))
                                     .count();
     
         // Get staff count for quota calculation

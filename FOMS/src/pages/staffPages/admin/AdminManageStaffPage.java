@@ -36,7 +36,8 @@ public class AdminManageStaffPage implements iPage {
         System.out.println("[1]. Display all Staff");
         System.out.println("[2]. Fire Staff");
         System.out.println("[3]. Hire Staff");
-        System.out.println("[4]. Promote Staff");
+        System.out.println("[4]. Promote Staff to Manager");
+        System.out.println("[5]. Transfer staff to another branch");
         System.out.println("[B]. Back");
     }
 
@@ -50,10 +51,16 @@ public class AdminManageStaffPage implements iPage {
                 manageStaffService.displayAllStaff();
                 break;
             case "2":
+                manageStaffService.fireStaff();
                 break;
             case "3":
+                manageStaffService.addStaff();
                 break;
             case "4":
+                manageStaffService.promoteToManager();
+                break;
+            case "5":
+                manageStaffService.transferStaff();
                 break;
             case "B":
                 pageViewer.changePage("AdminAccessPage");

@@ -47,7 +47,7 @@ public class ManageBranchService {
     public void displayBranches() {
         ArrayList<Branch> branches = loadBranches.loadDatafromCSV();
         for (Branch branch : branches) {
-            System.out.println(branch.getBranchName() + ", " + branch.getLocation() + ", " + branch.getQuota() + ", " + branch.getStatus());
+            System.out.println(branch.getBranchName() + ", " + branch.getLocation() + ", " + branch.getbranchQuota() + ", " + branch.getStatus());
         }
     }
     

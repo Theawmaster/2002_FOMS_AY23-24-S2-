@@ -23,7 +23,8 @@ public class CustomerPage implements iPage{
     public void viewOptions(){
         System.out.println("[1] Browse menu");
         System.out.println("[2] View cart");
-        //...
+        System.out.println("[3] View Order status");
+        System.out.println("[4] Back to main page ");
     }
     /**
      * Method to handle user input 
@@ -38,9 +39,13 @@ public class CustomerPage implements iPage{
             case "2":
                 pageViewer.changePage("ViewOrderPage");
                 break;
-                //...
+            case "3": 
+                pageViewer.changePage("ViewOrderStatus");
+            case "4":
+                pageViewer.changePage("MainPage");
             default:
                 break;
         }
     }
 }
+

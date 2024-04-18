@@ -1,5 +1,6 @@
 package pages.staffPages;
 
+import constants.Role;
 import pages.iPage;
 import pages.pageViewer;
 import utilities.Session;
@@ -16,9 +17,16 @@ public class ManagerAccessPage implements iPage{
      * Method to view manager access options
      */
     public void viewOptions(){
-        System.out.println("[1] Display My Staffs");
-        System.out.println("[2] Edit Menu Items");
-        System.out.println("[B] Return to Staff Access Page");
+        if (this.session.getCurrentActiveStaff().getRole() == Role.MANAGER){
+            System.out.println("[1] Display My Staffs");
+            System.out.println("[2] Edit Menu Items");
+            System.out.println("[B] Return to Staff Access Page");
+        }
+        else {
+            System.out.println("You are not a manager! You do not have access to this page!");
+            // go back to staff access page
+            pageViewer.changePage("StaffAccessPage");
+        }
     }
     /**
      * Method to handle user input 
@@ -39,6 +47,7 @@ public class ManagerAccessPage implements iPage{
                 pageViewer.changePage("StaffAccessPage");
                 break;
             default:
+                System.out.println("Invalid choice!");
                 break;
         }
     }

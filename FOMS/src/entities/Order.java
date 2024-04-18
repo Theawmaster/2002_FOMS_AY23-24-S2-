@@ -37,10 +37,9 @@
          * Constructs a new order.
          * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
          */
-        public Order(int orderId) {
-            this.orderId = orderId;
+        public Order() {
             this.items = new ArrayList<>();
-            this.isTakeaway = isTakeaway;
+            this.isTakeaway = false;
             this.status = OrderStatus.NEW;
             this.totalPrice = 0.0;
             this.orderDateTime = LocalDateTime.now();  // Store the order date and time when the order is created
@@ -68,7 +67,7 @@
          */
         public void addItem(MenuItem item, String description, String customization) {
             // Create a new MenuItem with customization and add it to the order
-            MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getCategory(), description, customization);
+            MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getBranch(),item.getCategory(), description, customization);
             if (customization.isEmpty())
             {
                 items.add(item); // Add menu items in order without customization 
@@ -102,8 +101,16 @@
         }
 
         /**
+         * Set the unique identifier of the order.
+         * @return Sets the order ID.
+         */
+        public void setOrderId(int orderId) {
+            this.orderId = orderId;
+        }
+        
+        /**
          * Gets the unique identifier of the order.
-         * @return The order ID.
+         * @return Retrieve the order ID.
          */
         public int getOrderId() {
             return orderId;
