@@ -4,6 +4,9 @@ import pages.iPage;
 import pages.pageViewer;
 import services.ManagePaymentsService;
 import utilities.Session;
+import entities.Order;
+import constants.OrderStatus;
+import services.ProcessOrderService;
 
 /**
  * This is the View Order Page that the user will see after choosing View Cart on Customer Page. 
@@ -42,6 +45,9 @@ public class ViewOrderPage implements iPage{
         switch (choice) {
             case "1":
                 ManagePaymentsService.makePayment(session, session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice());
+                session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
+                ProcessOrderService.addOrderToProcessingList(session.getCurrentActiveOrder());
+                session.getCurrentActiveOrder().printOrderDetails();
                 break;
             case "2":
                 pageViewer.changePage("EditOrderPage");
