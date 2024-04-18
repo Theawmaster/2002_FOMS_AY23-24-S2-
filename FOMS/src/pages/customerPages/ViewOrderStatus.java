@@ -47,6 +47,7 @@ public class ViewOrderStatus implements iPage{
                     System.out.println("Press [B] to go back to the main menu.");
                     break;
             }
+            pageViewer.changePage("CustomerPage");
         }
     }
     public void handleInput(String input) {
@@ -54,6 +55,7 @@ public class ViewOrderStatus implements iPage{
         Order currentOrder = session.getCurrentActiveOrder();
         if (currentOrder == null) {
             System.out.println("No active order found.");
+            pageViewer.changePage("CustomerPage");
             return;
         }
 

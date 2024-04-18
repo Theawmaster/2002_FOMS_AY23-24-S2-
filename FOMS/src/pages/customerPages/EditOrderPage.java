@@ -68,7 +68,9 @@ public class EditOrderPage implements iPage{
                 System.out.println("Enter the number of the item you wish to customise:");
                 try{
                     int itemNumber = scanner.nextInt();
+                    scanner.nextLine(); 
                     if(itemNumber > 0 && itemNumber <= session.getCurrentActiveOrder().countTotalItems()){
+                        System.out.println("Enter your customizations for the item:");
                         String customization = scanner.nextLine();
                         List<MenuItem> items = session.getCurrentActiveOrder().getItems();
                         MenuItem itemToCustomise = items.get(itemNumber - 1); 
@@ -77,6 +79,7 @@ public class EditOrderPage implements iPage{
                 }catch (InputMismatchException ime) {
                     System.out.println("Invalid input. Please enter a number.");
                     scanner.nextLine();
+                    pageViewer.changePage("EditOrderPage");
                 }
                 pageViewer.changePage("ViewOrderPage");
                 break;
@@ -88,12 +91,5 @@ public class EditOrderPage implements iPage{
             default:
                 break;
         }
-    }
-
-    public static void main(String[] args) {
-        Session session = new Session();
-        EditOrderPage editorder = new EditOrderPage(session);
-        ManagePaymentsService.viewAllPaymentMethods(session);
-        editorder.viewOptions();
     }
 }
