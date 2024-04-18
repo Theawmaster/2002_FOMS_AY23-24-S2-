@@ -63,6 +63,10 @@ public class Branch {
         return this.status;
     }
 
+    public void setStatus(String status){
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return branchName + " (" + location + ")";
