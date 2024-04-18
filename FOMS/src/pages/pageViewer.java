@@ -14,7 +14,6 @@ import pages.customerPages.BrowseSidesPage;
 import pages.customerPages.CustomerPage;
 import pages.customerPages.EditOrderPage;
 import pages.customerPages.ViewOrderPage;
-import pages.customerPages.ViewOrderStatus;
 import pages.staffPages.StaffLoginPage;
 import pages.staffPages.*;
 import pages.staffPages.admin.AdminAccessPage;
@@ -55,12 +54,6 @@ public class pageViewer {
         pages.put("CustomerPage", new CustomerPage(session));
         pages.put("ViewOrderPage", new ViewOrderPage(session));
         pages.put("EditOrderPage", new EditOrderPage(session));
-        pages.put("BrowseCategoriesPage", new BrowseCategoriesPage(session));
-        pages.put("BrowseDrinksPage", new BrowseDrinksPage(session));
-        pages.put("BrowseSidesPage", new BrowseSidesPage(session));
-        pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
-        pages.put("AddMenuItemPage", new AddMenuItemPage(session));
-        pages.put("ViewOrderStatus", new ViewOrderStatus(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
         pages.put("StaffAccessPage", new StaffAccessPage(session));
         pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));
@@ -72,7 +65,11 @@ public class pageViewer {
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
         pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
         pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
-        
+        pages.put("BrowseCategoriesPage", new BrowseCategoriesPage(session));
+        pages.put("BrowseDrinksPage", new BrowseDrinksPage(session));
+        pages.put("BrowseSidesPage", new BrowseSidesPage(session));
+        pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
+        pages.put("AddMenuItemPage", new AddMenuItemPage(session));
 
 
 

@@ -1,6 +1,5 @@
 package services;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import exceptionHandlers.TransactionFailedException;
@@ -111,10 +110,6 @@ public class ManagePaymentsService {
                 System.out.println(e.getMessage());
             }
             catch (NumberFormatException e){
-                System.out.println("Please enter only integer values! ");
-                Logger.error(e.getMessage());
-            }
-            catch (InputMismatchException e){
                 System.out.println("Please enter only integer values! ");
                 Logger.error(e.getMessage());
             }
