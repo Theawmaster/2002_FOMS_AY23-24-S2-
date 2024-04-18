@@ -37,8 +37,6 @@ public class StaffAccessPage implements iPage {
                 pageViewer.changePage("AdminAccessPage");
                 break;
             case "b":
-                pageViewer.changePage("StaffLoginPage");
-                break;
             case "B":
                 pageViewer.changePage("StaffLoginPage");
                 break;

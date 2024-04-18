@@ -37,7 +37,7 @@
          * Constructs a new order.
          * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
          */
-        public Order() {
+        public Order(int orderId) {
             this.items = new ArrayList<>();
             this.isTakeaway = false;
             this.status = OrderStatus.NEW;

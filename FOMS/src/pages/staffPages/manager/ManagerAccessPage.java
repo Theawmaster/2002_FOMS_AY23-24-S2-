@@ -41,8 +41,6 @@ public class ManagerAccessPage implements iPage{
                 pageViewer.changePage("ManagerEditMenuItemsPage");
                 break;
             case "b":
-                pageViewer.changePage("StaffAccessPage");
-                break;
             case "B":
                 pageViewer.changePage("StaffAccessPage");
                 break;

@@ -17,7 +17,7 @@ public class StaffProcessOrderPage implements iPage{
      * Method to display list of pending orders & view process order options
      */
     public void viewOptions(){
-        ProcessOrderService.displayProcessOptions(); 
+        ProcessOrderService.displayProcessOptions();
     }
     /**
     * Method to handle user input 
@@ -26,7 +26,7 @@ public class StaffProcessOrderPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                ProcessOrderService.processOrder();
+                ProcessOrderService.processOrderWithUserInputOfOrderID();
                 pageViewer.changePage("StaffProcessOrderPage");
                 break;
             case "2":
