@@ -63,7 +63,7 @@ public class pageViewer {
         pages.put("ManagerViewStaffDetailsPage", new ManagerViewStaffDetailsPage(session));
         pages.put("AdminAccessPage", new AdminAccessPage(session));
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
-        //pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
+        pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
         pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
         pages.put("BrowseCategoriesPage", new BrowseCategoriesPage(session));
         pages.put("BrowseDrinksPage", new BrowseDrinksPage(session));
