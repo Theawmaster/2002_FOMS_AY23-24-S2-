@@ -36,7 +36,7 @@ public class AddMenuItemPage implements iPage{
         // Add customization details to the item, if any
         selectedItem.setCustomization(input.isEmpty() ? "Standard" : input);
         // Prompt user to add to cart or not 
-        System.out.println("Would you like to add "+ selectedItem.getFood() +"to your order? ");
+        System.out.println("Would you like to add "+ selectedItem.getFood() +" to your order? ");
         System.out.println("[Y] Yes");
         System.out.println("[N] No");
 

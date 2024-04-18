@@ -3,12 +3,14 @@ package services;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.PublicKey;
 import java.util.List;
 import java.util.Scanner;
 
 import constants.FilePaths;
 import constants.OrderStatus;
 import constants.Role;
+import entities.Order;
 import pages.pageViewer;
 import utilities.Session;
 
@@ -45,7 +47,46 @@ public class ProcessOrderService {
             System.out.println("[1] Process Order");
             System.out.println("[2] View Order Details");
             System.out.println("[B] Return to Staff Access Page");
+            System.out.println("Pending Orders");
+            try {
+                List<String> orderLines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
+                if (orderLines.isEmpty()) {
+                    System.out.println("No orders available.");
+                } else {
+                    System.out.println("Order ID\tStatus");
+                    for (int i = 1; i < orderLines.size(); i++) {
+                        String[] parts = orderLines.get(i).split(",");
+                        int orderID = Integer.parseInt(parts[0].trim());
+                        String status = parts[1].trim();
+                        System.out.println(orderID + "\t\t" + status);
+                    }
+                }
+            } catch (IOException e) {
+                System.err.println("An error occurred while reading the order processing list: " + e.getMessage());
+            }
+            System.out.println("");
+            System.out.println("[1] Process Order");
+            System.out.println("[2] View Order Details");
+            System.out.println("[B] Return to Staff Access Page");
     }
+
+    /**
+     * Adds an order to the order processing list after payment.
+     * @param order The order to be added.
+     */
+    public static void addOrderToProcessingList(Order order) {
+        try {
+            // Read all lines from the order processing list
+            List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
+            // Add new order line
+            lines.add(order.getOrderId() + "," +order.getItems() + "," + (order.isTakeaway()? "Takeaway" : "Dine-in") + "," + order.getStatus().toString());
+            // Write the updated lines back to the file
+            Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
+        } catch (IOException e) {
+            System.err.println("An error occurred while updating the order processing list: " + e.getMessage());
+        }
+    }
+    
     /**
     * Method to process pending orders given user input of order ID
     */
@@ -81,16 +122,21 @@ public class ProcessOrderService {
                         lines.set(i, String.join(",", parts)); 
                         // Write the updated lines back to the file
                         Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines); 
+                        // Update the line
+                        lines.set(i, String.join(",", parts)); 
+                        // Write the updated lines back to the file
+                        Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines); 
                         System.out.println("Order Status Changed to 'Ready For Pickup'!");
                         orderFound = true;
                         break;
                     }
-                }
                 // If the order ID is not found, display a message
                 if (!orderFound) {
                     System.out.println("Order with ID " + InputOrderID + " not found.");
+                    System.out.println("Order with ID " + InputOrderID + " not found.");
                 }
-            } catch (IOException e) {
+                } 
+            }catch (IOException e) {
                 System.err.println("An error occurred in the order processing list: " + e.getMessage());
             }
     }     
