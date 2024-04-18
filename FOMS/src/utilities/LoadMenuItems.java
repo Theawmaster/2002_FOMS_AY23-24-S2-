@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import constants.FilePaths;
 import constants.MealCategory;
 import entities.MenuItem;
+import entities.Branch;
 
 /**
  * The {@link LoadStaffs} class loads MenuItem data from the CSV database
@@ -44,9 +45,10 @@ public class LoadMenuItems extends LoadData<MenuItem>{
             
             String food = row[0].trim();
             Double price = Double.parseDouble(row[1].trim());
-            // Branch branch = row[2];
+            String branchname = row[2].trim();
+            Branch branch = new Branch(branchname);
 
-            MenuItem tempMenuItems = new MenuItem(food, price, category, "", "");
+            MenuItem tempMenuItems = new MenuItem(food, price,branch, category);
             menuitems.add(tempMenuItems); // add to the return value of list of staff
             }
             // to do: implement getbranch 
