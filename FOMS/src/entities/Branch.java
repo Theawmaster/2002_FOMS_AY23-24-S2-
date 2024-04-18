@@ -9,35 +9,27 @@ public class Branch {
     private String location;
     // private Manager managers;
     // private Staff staffs;
-    private int quota;
+    private int branchQuota;
     private String status;
 
     /**
      * Constructor for Branch
      * @param branchName
      * @param location
-     * @param quota
+     * @param branchQuota
      * @param status
      */
-
-     public Branch(String branchname){
-        this.branchName = branchname;
-        this.location = "";
-        this.quota = 0;
-        this.status = "";
-    }
-    
-    public Branch(String branchName, String location, int quota, String status){
+    public Branch(String branchName, String location, int branchQuota, String status){
         this.branchName = branchName;
         this.location = location;
-        this.quota = quota;
+        this.branchQuota = branchQuota;
         this.status = status;
     }
 
     public void printBranch(){
         System.out.println("Branch Name: " + getBranchName());
         System.out.println("Location: " + getLocation());
-        System.out.println("Quota: " + getQuota());
+        System.out.println("Quota: " + getbranchQuota());
         System.out.println("Status: " + getStatus()); // Added by @Theawmaster for open/close of branch
     }
 
@@ -49,8 +41,8 @@ public class Branch {
         return this.location;
     }
 
-    public int getQuota(){
-        return this.quota;
+    public int getbranchQuota(){
+        return this.branchQuota;
     }
 
     public String getStatus(){
