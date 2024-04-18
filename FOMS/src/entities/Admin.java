@@ -71,61 +71,7 @@ public class Admin extends Staff {
     public void addPayment() {
         paymentService.addPayment();
     }
-
-   /**
-     * Closes the currently managed branch, if any.
-     */
-    public void closeBranch() {
-        if (this.managedBranch == null) {
-            System.out.println("No branch is currently managed, so no branch to close.");
-        } else {
-            System.out.println("Closing the branch: " + this.managedBranch.getBranchName());
-            // Effectively "removes" the branch by setting managedBranch to null
-            this.managedBranch = null;
-        }
-    }
-
-
-      /**
-     * Opens a new branch, replacing any currently managed branch.
-     * branchName The name of the new branch.
-     * location The location of the new branch.
-     * quota The quota for the new branch.
-     */
-    public void openBranch() {
-
-        Scanner scanner = new Scanner(System.in);
-
-        // Prompt user for branch details
-        System.out.print("Enter branch name: ");
-        String branchName = scanner.nextLine();
-
-        System.out.print("Enter branch location: ");
-        String location = scanner.nextLine();
-
-        int quota = 0;
-        System.out.print("Enter branch quota: ");
-        while (true) {
-            try {
-                quota = scanner.nextInt();
-                break; // Exit loop if input was successful
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a numeric value for quota.");
-                scanner.nextLine(); // Consume the invalid input
-            }
-        }
-
-        // If there's already a managed branch, simulate its closure before opening a new one
-        if (this.managedBranch != null) {
-            System.out.println("Automatically closing the currently managed branch: " + this.managedBranch.getBranchName());
-        }
-        
-        // Create a new Branch instance and assign it to managedBranch
-        this.managedBranch = new Branch(branchName, location, quota);
-        System.out.println("Opened a new branch: " + branchName + " at " + location + " with quota " + quota);
-    }
     
-
      /**
      * Removes a payment using the associate PaymentService instance.
      */
@@ -133,18 +79,5 @@ public class Admin extends Staff {
         paymentService.removePayment();
     }
 
-
-    /**
-     * Views all staff members in the system.
-     */
-    public void viewAllStaff() {
-        if (staffMembers.isEmpty()) {
-            System.out.println("No staff members found.");
-        } else {
-            LoadStaffs loadStaffs = new LoadStaffs();
-            loadStaffs.viewAllStaff();
-            
-        }
-    }
 
 }
