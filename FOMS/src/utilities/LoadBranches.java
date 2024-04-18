@@ -64,8 +64,8 @@ public class LoadBranches extends LoadData<Branch>{
      * @return true if the branch was added successfully, false otherwise
      * @author @Theawmaster
      */
-    public boolean addBranch(String branchName, String location, int quota, String status) {
-        String newBranchData = branchName + "," + location + "," + quota + "," + status;
+    public static boolean addBranch(Branch branch) {
+        String newBranchData = branch.getBranchName() + "," + branch.getLocation() + "," + branch.getbranchQuota() + "," + branch.getStatus();
         return SerialiseCSV.appendToCSV(newBranchData, FilePaths.branchListPath.getPath());
     }
 
@@ -76,8 +76,8 @@ public class LoadBranches extends LoadData<Branch>{
      * @return true if the branch status was updated successfully, false otherwise
      * @author @Theawmaster
      */
-    public boolean updateBranchStatus(String branchName, String status) {
-        return SerialiseCSV.replaceColumnValue(branchName, 3, status, FilePaths.branchListPath.getPath());
+    public static boolean updateBranchStatus(Branch branch, String status) {
+        return SerialiseCSV.replaceColumnValue(branch.getBranchName(), 3, status, FilePaths.branchListPath.getPath());
     }
 
     /**
@@ -86,8 +86,8 @@ public class LoadBranches extends LoadData<Branch>{
      * @return true if the branch was removed successfully, false otherwise
      * @author @Theawmaster
      */
-    public boolean removeBranch(String branchName) {
-        return SerialiseCSV.deleteToCSV(branchName, 0, FilePaths.branchListPath.getPath());
+    public static boolean removeBranch(Branch branch) {
+        return SerialiseCSV.deleteToCSV(branch.getBranchName(), 0, FilePaths.branchListPath.getPath());
     }
 
     /**
@@ -99,29 +99,29 @@ public class LoadBranches extends LoadData<Branch>{
      * @throws IOException 
      * @Author @Theawmaster
      */
-    public int getBranchQuota(String branchName) throws IOException {
-        List<String> branchLines = Files.readAllLines(Paths.get(FilePaths.branchListPath.getPath()));
-        return branchLines.stream()
-            .skip(1)
-            .map(line -> line.split(","))
-            .filter(parts -> parts.length >= 3 && parts[0].trim().equalsIgnoreCase(branchName))
-            .findFirst()
-            .map(parts -> Integer.parseInt(parts[2].trim()))
-            .orElse(0);
-    }
+    // public static int getBranchQuota(String branchName) throws IOException {
+    //     List<String> branchLines = Files.readAllLines(Paths.get(FilePaths.branchListPath.getPath()));
+    //     return branchLines.stream()
+    //         .skip(1)
+    //         .map(line -> line.split(","))
+    //         .filter(parts -> parts.length >= 3 && parts[0].trim().equalsIgnoreCase(branchName))
+    //         .findFirst()
+    //         .map(parts -> Integer.parseInt(parts[2].trim()))
+    //         .orElse(0);
+    // }
     
-    public List<String> getBranchNames() throws IOException {
-        List<String> branchLines = Files.readAllLines(Paths.get(FilePaths.branchListPath.getPath()));
-        return branchLines.stream()
-                          .skip(1) // Skip header
-                          .map(line -> line.split(",")[0].trim())
-                          .collect(Collectors.toList());
-    }
+    // public List<String> getBranchNames() throws IOException {
+    //     List<String> branchLines = Files.readAllLines(Paths.get(FilePaths.branchListPath.getPath()));
+    //     return branchLines.stream()
+    //                       .skip(1) // Skip header
+    //                       .map(line -> line.split(",")[0].trim())
+    //                       .collect(Collectors.toList());
+    // }
     
-    public boolean branchExists(String branchName) throws IOException {
-        List<String> branchNames = getBranchNames();
-        return branchNames.contains(branchName);
-    }
+    // public boolean branchExists(String branchName) throws IOException {
+    //     List<String> branchNames = getBranchNames();
+    //     return branchNames.contains(branchName);
+    // }
 
 }
 
