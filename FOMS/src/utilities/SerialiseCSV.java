@@ -78,7 +78,7 @@ public class SerialiseCSV {
     /**
      * Replaces a specified value in a specified column of a CSV file.
      *
-     * @param searchString The value to search for in the specified column.
+     * @param searchString The value to search for in column 0.
      * @param columnIndex  The index of the column in which the value will be replaced.
      * @param newValue      The new value to replace the old value with.
      * @param csvFilePath   The file path of the CSV file.
@@ -127,14 +127,14 @@ public class SerialiseCSV {
      * @return true if a row was deleted successfully, false otherwise.
      * @author @Theawmaster
      */
-    public static boolean deleteToCSV(String deleteKey, String csvFilePath) {
+    public static boolean deleteToCSV(String deleteKey, int deleteAt, String csvFilePath) {
         ArrayList<String> lines = readCSV(csvFilePath);
         ArrayList<String> updatedLines = new ArrayList<>();
         boolean found = false;
 
         for (String line : lines) {
             String[] columns = line.split(",");
-            if (columns.length > 0 && columns[0].trim().equals(deleteKey)) {
+            if (columns.length > 0 && columns[deleteAt].trim().equals(deleteKey)) {
                 found = true; // Found the row to delete
                 continue; // Skip adding this line to updatedLines
             }

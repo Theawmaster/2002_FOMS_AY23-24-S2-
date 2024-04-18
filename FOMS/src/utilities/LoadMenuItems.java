@@ -11,12 +11,16 @@ import entities.Branch;
  * The {@link LoadStaffs} class loads MenuItem data from the CSV database
  */
 public class LoadMenuItems extends LoadData<MenuItem>{
+    public LoadMenuItems(ArrayList<Branch> branches) {
+        super(branches);
+    }
+
     /**
      * The {@link loadDatafromCSV} method in this class loads in MenuItem data from menu_list.csv 
      * @return a list of MenuItem objects with information loaded in
      */
     @Override
-    public ArrayList<MenuItem> loadDatafromCSV(){
+    public ArrayList<MenuItem> loadDatafromCSV(ArrayList<Branch> branches){
         ArrayList<MenuItem> menuitems = new ArrayList<>(); // the return value
     
         // load data from the menu list csv
@@ -39,19 +43,23 @@ public class LoadMenuItems extends LoadData<MenuItem>{
                 category = MealCategory.DRINK;
             } else{
                 category = MealCategory.UNDEFINED;
-            }
-            // TODO: Handle exception if category is undefined
-    
+            }    
             
             String food = row[0].trim();
             Double price = Double.parseDouble(row[1].trim());
             String branchname = row[2].trim();
-            Branch branch = new Branch(branchname);
 
-            MenuItem tempMenuItems = new MenuItem(food, price,branch, category);
-            menuitems.add(tempMenuItems); // add to the return value of list of staff
+            // find the matching branch and add it in
+            MenuItem tempMenuItems;
+            for (Branch b : branches) {
+                if (b.getBranchName().equalsIgnoreCase(branchname)) {
+                    tempMenuItems  = new MenuItem(food, price, b, category);
+                    menuitems.add(tempMenuItems); // add to the return value of list of staff
+                    break;
+                }
             }
-            // to do: implement getbranch 
-            return menuitems;
+        }
+        // TODO: implement getbranch 
+        return menuitems;
         }
 }
