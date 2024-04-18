@@ -72,7 +72,7 @@ public class MenuItem {
         return customization;
     }
 
-    protected void setCustomization(String customization) {
+    public void setCustomization(String customization) {
         this.customization = customization;
     }
     // to do: implement getbranch 
