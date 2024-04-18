@@ -73,12 +73,17 @@ public class archiveAdmin extends Staff {
         paymentService.addPayment();
     }
     
+<<<<<<< HEAD:FOMS/src/entities/Admin.java
      /**
      * Removes a payment using the associate PaymentService instance.
      */
     public void removePayment() {
         paymentService.removePayment();
     }
+=======
+
+
+>>>>>>> 92ac2cb034b4ac114af55021b84519ae902ebf1b:FOMS/src/test/archives/archiveAdmin.java
 
 
 }

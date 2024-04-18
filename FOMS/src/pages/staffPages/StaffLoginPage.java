@@ -10,6 +10,7 @@ import pages.iPage;
 import pages.pageViewer;
 import services.authenticator.iLoginService;
 import services.authenticator.StaffLoginService;
+import entities.Staff;
 
 /**
  * This is the page that the staff will first see
@@ -107,7 +108,12 @@ public class StaffLoginPage implements iPage {
 
             if (loginService.login(userID, password)) {
                 this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
-                return true;
+                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch()) {
+                    return true;
+                } else {
+                    System.out.println("XXXX Imposter ALERT XXXXX Please log in from the correct branch!!!");
+                    return false;
+                }
             } else {
                 System.out.println("XXX WRONG. WHAT A FAILURE");
             }

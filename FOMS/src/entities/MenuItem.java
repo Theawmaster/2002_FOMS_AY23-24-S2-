@@ -79,7 +79,7 @@ public class MenuItem {
         this.category = category;
     }
 
-    protected String getDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -87,7 +87,7 @@ public class MenuItem {
         this.description = description;
     }
 
-    protected String getCustomization() {
+    public String getCustomization() {
         return customization;
     }
 

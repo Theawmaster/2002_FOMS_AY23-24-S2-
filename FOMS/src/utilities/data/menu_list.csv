@@ -1,8 +1,9 @@
-Name,Price,Branch,Category
-4PC set meal,9.9,NTU,set meal
-COLE SLAW,2.7,JE,side
-3PC set meal,10.4,JE,set meal
-chicken nugget,6.9,JP,side
-chicken nugget,6.6,NTU,side
-pepsi,2.1,JE,drink
-Pepsi,2.0,JE,drink
+Name,Price,Branch,Category,Description,Customization
+4PC set meal,9.9,NTU,set meal,NA,NA
+COLE SLAW,2.7,JE,side,NA,NA
+3PC set meal,10.4,JE,set meal,NA,NA
+chicken nugget,6.9,JP,side,NA,NA
+chicken nugget,6.6,NTU,side,NA,NA
+pepsi,2.1,JE,drink,NA,NA
+Pepsi,2.0,JE,drink,NA,NA
+water,0.80,JP,DRINK,healthy choice
