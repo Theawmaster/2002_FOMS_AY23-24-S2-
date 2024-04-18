@@ -2,7 +2,9 @@ package entities;
 
 import constants.OrderStatus;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -175,18 +177,56 @@ public class Order {
     }
 
     /**
-     * Prints the details of the order.
+     * Prints the details of the order including customization.
      */
     public void printOrderDetails() {
+        String formattedTotalPrice = String.format("%.2f", totalPrice);
+
         System.out.println("Order ID: " + orderId);
         System.out.println("Order Type: " + (isTakeaway ? "Takeaway" : "Dine-in"));
         System.out.println("Order Status: " + status);
         System.out.println("Total Items in Order: " + countTotalItems());
         System.out.println("Items in Order:");
         AtomicInteger i = new AtomicInteger(1);
+
         items.forEach(item -> {
-            System.out.println(i.getAndIncrement() + "- " + item.getFood() + ", " + item.getPrice() + ", " + item.getCategory() + ", " + item.getDescription() + ", "+ item.getCustomization());
+            // Format the price to display only two decimal places
+            String formattedPrice = String.format("%.2f", item.getPrice());
+            String itemDetails = i.getAndIncrement() + "- " + item.getFood() + ", $" + formattedPrice + ": " + item.getCategory();
+
+            if (!item.getCustomization().isEmpty()) {
+                itemDetails += "| Customization: " + item.getCustomization();
+            }
+
+            System.out.println(itemDetails);
         });
-        System.out.println("Total Price: " + totalPrice);
+        System.out.println("Total Price: $" + formattedTotalPrice);
+    }
+
+    /**
+     * Gets the menu items of the order as a single comma-separated string with quantities and customization.
+     * @return The menu items as a single comma-separated string with quantities and customization.
+     */
+    public String getMenuItemsAsString() {
+        StringBuilder sb = new StringBuilder();
+        
+        // Construct the combined menu items string with quantities and customization
+        int itemIndex = 1;
+        for (MenuItem item : items) {
+            String itemName = item.getFood();
+            String itemPrice = String.format("$%.2f", item.getPrice());
+            String itemDetails = itemIndex + ". " + itemName + ", " + itemPrice + ": " + item.getCategory();
+            if (!item.getCustomization().isEmpty()) {
+                itemDetails += "| Customization: " + item.getCustomization();
+            }
+            sb.append(itemDetails).append(" || ");
+            itemIndex++;
+        }
+
+        // Remove the trailing " || "
+        if (sb.length() > 0) {
+            sb.setLength(sb.length() - 4);
+        }
+        return sb.toString();
     }
 }
