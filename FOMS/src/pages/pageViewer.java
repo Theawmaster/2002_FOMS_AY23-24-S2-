@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.HashMap;
 import entities.MenuItem;
 
-import utilities.Logger;
+import utilities.PathTracker;
 import utilities.Session;
 import pages.customerPages.AddMenuItemPage;
 import pages.customerPages.BrowseCategoriesPage;
@@ -42,6 +42,7 @@ public class pageViewer {
      * The current session (to hold the current active Branch / Staff / Order)
      */
     private static Session session;
+    private static PathTracker pathTracker;
     /**
      * Initialises this class by loading the pages in existence and linking them to a meaningful name
      * Convention: key = name of page but in String format
@@ -70,18 +71,28 @@ public class pageViewer {
         pages.put("BrowseSidesPage", new BrowseSidesPage(session));
         pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
         pages.put("AddMenuItemPage", new AddMenuItemPage(session));
-
-
-
         // add more views here as required
+        
+        pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"));
     }
     /**
      * This static method switches the current active page
      * @param pageName the next page you want to go to
      */
     public static void changePage(String pageName){
-        if(pages.containsKey(pageName)){
+        if("back".equalsIgnoreCase(pageName)){
+            currentPage = pathTracker.getPrevPage();
+            pathTracker.printCurrentPath();
+            currentPage.viewOptions();
+        }
+        else if("current".equalsIgnoreCase(pageName)){
+            pathTracker.printCurrentPath();
+            currentPage.viewOptions();
+        }
+        else if(pages.containsKey(pageName)){
             currentPage = pages.get(pageName);
+            pathTracker.goTo(pageName, currentPage);
+            pathTracker.printCurrentPath();
             currentPage.viewOptions();
         }
         else{
@@ -101,6 +112,7 @@ public class pageViewer {
             System.out.println("No active view to handle input!");
     }
 
+    // no, just call changePage(<the page you wanna go to>) within whatever function youre in
     public static void navigateToAddMenuItemPage(MenuItem selectedItem) {
         AddMenuItemPage addMenuItemPage = new AddMenuItemPage(session, selectedItem);
         currentPage = addMenuItemPage;

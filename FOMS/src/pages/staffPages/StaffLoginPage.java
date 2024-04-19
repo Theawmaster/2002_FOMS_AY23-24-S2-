@@ -67,22 +67,22 @@ public class StaffLoginPage implements iPage {
                     pageViewer.changePage("StaffAccessPage");
                 } else {
                     System.out.println("Login failed.");
-                    pageViewer.changePage("MainPage");
+                    pageViewer.changePage("back");
                 }
                 break;
             case "2":
                 if(tryForgotPassword(staffLoginService)) System.out.println("OI STOP FUCKING FORGETTING. RESET SUCCESS ANYWAY");
                 else System.out.println("failed reset pw");
-                pageViewer.changePage("StaffLoginPage");
+                pageViewer.changePage("current");
                 break;
             case "3": 
                 if(tryChangePassword(staffLoginService)) System.out.println(("CHANGE PASSWORD SUCCESS YAYYY"));
-                pageViewer.changePage("StaffLoginPage");
+                pageViewer.changePage("current");
                 break;
             case "b":
             case "B":
                 // goes back to MainPage
-                pageViewer.changePage("MainPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

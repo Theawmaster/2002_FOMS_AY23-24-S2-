@@ -37,7 +37,7 @@ public class MainPage implements iPage{
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("SelectBranchPage");
+                pageViewer.changePage("back");
                 break;
             default:
             // TODO: handle an exception here

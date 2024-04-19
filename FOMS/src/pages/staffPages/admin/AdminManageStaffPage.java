@@ -47,23 +47,23 @@ public class AdminManageStaffPage implements iPage {
                 break;
             case "2":
                 ManageStaffService.fireStaff(this.session);
-                pageViewer.changePage("AdminManageStaffPage");
+                pageViewer.changePage("current");
                 break;
             case "3":
                 ManageStaffService.hireStaff(this.session);
-                pageViewer.changePage("AdminManageStaffPage");
+                pageViewer.changePage("current");
                 break;
             case "4":
                 ManageStaffService.promoteStaff(this.session);
-                pageViewer.changePage("AdminManageStaffPage");
+                pageViewer.changePage("current");
                 break;
             case "5":
                 ManageStaffService.transferStaff(this.session);
-                pageViewer.changePage("AdminManageStaffPage");
+                pageViewer.changePage("current");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("AdminAccessPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input");
