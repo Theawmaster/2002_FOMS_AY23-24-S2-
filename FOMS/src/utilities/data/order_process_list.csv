@@ -1,7 +1,6 @@
-orderID,Status
-86,PREPARING
-90,PREPARING
-0,[entities.MenuItem@5ce81285],Dine-in,PREPARING
-0,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: yes",Dine-in
-0,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
-0,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
+orderID,Status,OrderDetails,isTakeaway
+1,READY_TO_PICKUP,"1. 4PC set meal, $9.90: SETMEAL| Customization: yes",Dine-in
+2,READY_TO_PICKUP,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
+3,READY_TO_PICKUP,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
+4,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
+5,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in

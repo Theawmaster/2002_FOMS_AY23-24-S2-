@@ -2,6 +2,7 @@ package pages.staffPages;
 
 import pages.iPage;
 import pages.pageViewer;
+import services.ProcessOrderService;
 import utilities.Session;
 
 public class StaffViewOrderDetailsPage implements iPage{
@@ -13,12 +14,10 @@ public class StaffViewOrderDetailsPage implements iPage{
         this.session = s;
     }
     /**
-     * Method to view order details options
+     * Method to view order details process options
      */
     public void viewOptions(){
-        // to insert and display the order details given by the orderid
-        System.out.println("[1] Process Order");
-        System.out.println("[B] Return to Staff Process Order Page");
+        ProcessOrderService.displayOrderDetailsProcessOptions();;
     }
     /**
      * Method to handle user input 
@@ -27,10 +26,12 @@ public class StaffViewOrderDetailsPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-            // to implement after calling payment class specifically to display order id details with payment made.
+                ProcessOrderService.processOrderImmediately();
+                pageViewer.changePage("StaffProcessOrderPage");
                 break;
             case "b":
             case "B":
+                ProcessOrderService.resetStoredOrderID();
                 pageViewer.changePage("StaffProcessOrderPage");
                 break;
             default:
