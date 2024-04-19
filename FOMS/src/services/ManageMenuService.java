@@ -53,7 +53,7 @@ public class ManageMenuService {
      * @param session
      */
     public static void displayAllMenuItems(Session session) {
-        ArrayList<MenuItem> menuItems = filterBranch(session, session.getCurrentActiveStaff().getBranch());
+        ArrayList<MenuItem> menuItems = filterBranch(session, session.getCurrentActiveBranch());
         displayOutput(menuItems);
     }
 
@@ -63,11 +63,11 @@ public class ManageMenuService {
      */
     public static void addMenuItem(Session session) {
         String food = UserInputHelper.getInput("Enter food name: ");
-        double price = Double.parseDouble(UserInputHelper.getInput("Enter price: "));
-        MealCategory category = MealCategory.valueOf(UserInputHelper.getInput("Enter category: ").toUpperCase());
+        double price = UserInputHelper.getDoubleInput("Enter price: ");
+        MealCategory category = UserInputHelper.choosMealCategory("Enter category: ");
         String description = UserInputHelper.getInput("Enter description: ");
-        String customization = UserInputHelper.getInput("Enter customization: ");
-        Branch branch = session.getCurrentActiveStaff().getBranch();
+        String customization = UserInputHelper.getInput("Enter customization: "); // i thought this one is the customer write one?
+        Branch branch = session.getCurrentActiveBranch();
 
         MenuItem newMenuItem = new MenuItem(food, price, branch, category, description, customization);
         
@@ -81,6 +81,18 @@ public class ManageMenuService {
 
     }
 
+    public static void removeMenuItem(Session session){
+        MenuItem badMenuItem = UserInputHelper.chooseMenuItem(session.getAllMenuItems());
+        if(LoadMenuItems.removeMenuItem(badMenuItem)){
+            session.getAllMenuItems().remove(badMenuItem);
+            System.out.println("Removal of menu item successful");
+        }
+        else{
+            System.out.println("Something went wrong while trying to remove menu item");
+        }
+    }
 
-
+    public static void editMenuItem(Session session){
+        //@alvin can help me do this please
+    }
 }

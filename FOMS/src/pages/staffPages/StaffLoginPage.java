@@ -4,6 +4,7 @@ import java.util.Random;
 
 import utilities.Session;
 import utilities.UserInputHelper;
+import constants.Role;
 import constants.Settings;
 import pages.iPage;
 import pages.pageViewer;
@@ -103,7 +104,8 @@ public class StaffLoginPage implements iPage {
 
             if (loginService.login(userID, password)) {
                 this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
-                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch()) {
+                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole() == Role.ADMIN) {
+                    // if staff / manager is from this branch OR the guy is an admin, just let them pass
                     return true;
                 } else {
                     System.out.println("XXXX Imposter ALERT XXXXX Please log in from the correct branch!!!");

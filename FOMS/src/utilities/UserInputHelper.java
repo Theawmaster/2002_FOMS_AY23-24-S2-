@@ -1,10 +1,13 @@
 package utilities;
 
 import java.util.Scanner;
+
+import constants.MealCategory;
+
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import entities.Branch;
+import entities.MenuItem;
 
 public class UserInputHelper {
     private static Scanner scanner = new Scanner(System.in);
@@ -12,6 +15,17 @@ public class UserInputHelper {
     public static String getInput(String prompt) {
         System.out.println(prompt);
         return scanner.nextLine().trim();
+    }
+
+    public static double getDoubleInput(String prompt){
+        System.out.println(prompt);
+        try{
+            return scanner.nextDouble();
+        }
+        catch (NumberFormatException e){
+            System.out.println("Please enter a valid double!");
+            return getDoubleInput(prompt);
+        }
     }
 
     public static String chooseRole() {
@@ -57,22 +71,25 @@ public class UserInputHelper {
             numOptions++;
             System.out.println(numOptions + ". " + b.getBranchName());
         }
-        while(true){
-            try{
-                // ask user to choose branch
-                int choiceBranch = Integer.parseInt(getInput("Select a branch: "));
-                return branches.get(choiceBranch-1);
-            }
-            catch (IndexOutOfBoundsException e){
-                System.out.println("Please select a branch within the range only! ");
-                Logger.error(e.getMessage());
-            }
-            catch (NumberFormatException e){
-                System.out.println("Please enter only integer values! ");
-                Logger.error(e.getMessage());
-            }
-        }
+        return branches.get(getUserChoice("Select a branch: ", numOptions)-1);
+    }
 
+    public static MenuItem chooseMenuItem(ArrayList<MenuItem> menuItems){
+        int numOptions = 0;
+        for(MenuItem m : menuItems){
+            numOptions++;
+            System.out.println(numOptions + ". " + m.getFood());
+        }
+        return menuItems.get(getUserChoice("Select a menu item:", numOptions)-1);
+    }
+
+    public static MealCategory choosMealCategory(String prompt){
+        int i = 1;
+        for(MealCategory mc : MealCategory.values()){
+            System.out.println(i+". "+mc.toString());
+            i++;
+        }
+        return MealCategory.values()[getUserChoice(prompt, i)-1];
     }
     
     public static int getUserChoice(String prompt, int maxChoice) {
@@ -87,29 +104,30 @@ public class UserInputHelper {
                     return choice;
                 }
             } catch (NumberFormatException e) {
+                scanner.nextLine();
                 System.out.println("Invalid input. Please enter a valid number.");
             }
         } while (true);
     }
     
-    public static boolean confirmAction(String message) {
-        System.out.println(message);
-        String input = scanner.nextLine().trim().toLowerCase();
-        return "y".equals(input);
-    }
+    // public static boolean confirmAction(String message) {
+    //     System.out.println(message);
+    //     String input = scanner.nextLine().trim().toLowerCase();
+    //     return "y".equals(input);
+    // }
     
-    public static String getNewBranch(List<String> branchNames) {
-        System.out.println("Enter the new Branch:");
-        String branch;
-        do {
-            branch = scanner.nextLine().trim().toUpperCase();
-            if (!branchNames.contains(branch)) {
-                System.out.println("The branch does not exist. Please enter a valid branch:");
-            } else {
-                break;
-            }
-        } while (true);
-        return branch;
-    }
+    // public static String getNewBranch(List<String> branchNames) {
+    //     System.out.println("Enter the new Branch:");
+    //     String branch;
+    //     do {
+    //         branch = scanner.nextLine().trim().toUpperCase();
+    //         if (!branchNames.contains(branch)) {
+    //             System.out.println("The branch does not exist. Please enter a valid branch:");
+    //         } else {
+    //             break;
+    //         }
+    //     } while (true);
+    //     return branch;
+    // }
 }
 
