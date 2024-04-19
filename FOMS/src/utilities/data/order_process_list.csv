@@ -1,7 +1,5 @@
-orderID,Status
-86,PREPARING
-90,PREPARING
-0,[entities.MenuItem@5ce81285],Dine-in,PREPARING
-0,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: yes",Dine-in
-0,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
-0,PREPARING,"1. 4PC set meal, $9.90: SETMEAL| Customization: Standard",Dine-in
+orderID,Status,OrderDetails,isTakeaway
+1,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. 4PC set meal| $9.90: SETMEAL| Customization: more sauce || 3. chicken nugget| $6.60: SIDE| Customization: more sauce pls",Dine-in
+2,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. chicken nugget| $6.60: SIDE| Customization: STANDARD",Dine-in
+3,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. 4PC set meal| $9.90: SETMEAL| Customization: more sauce || 3. chicken nugget| $6.60: SIDE| Customization: nil",Dine-in
+4,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: STANDARD || 2. 4PC set meal| $9.90: SETMEAL| Customization: nil || 3. chicken nugget| $6.60: SIDE| Customization: more sauce pls",Dine-in
