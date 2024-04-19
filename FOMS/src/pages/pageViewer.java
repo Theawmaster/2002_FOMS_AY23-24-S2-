@@ -14,6 +14,7 @@ import pages.customerPages.BrowseSidesPage;
 import pages.customerPages.CustomerPage;
 import pages.customerPages.EditOrderPage;
 import pages.customerPages.ViewOrderPage;
+import pages.customerPages.ViewOrderStatus;
 import pages.staffPages.StaffLoginPage;
 import pages.staffPages.*;
 import pages.staffPages.admin.AdminAccessPage;
@@ -71,6 +72,7 @@ public class pageViewer {
         pages.put("BrowseSidesPage", new BrowseSidesPage(session));
         pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
         pages.put("AddMenuItemPage", new AddMenuItemPage(session));
+        pages.put("ViewOrderStatus", new ViewOrderStatus(session));
         // add more views here as required
         
         pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"));

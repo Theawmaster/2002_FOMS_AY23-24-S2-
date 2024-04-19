@@ -68,7 +68,9 @@ public class EditOrderPage implements iPage{
                 System.out.println("Enter the number of the item you wish to customise:");
                 try{
                     int itemNumber = scanner.nextInt();
+                    scanner.nextLine();
                     if(itemNumber > 0 && itemNumber <= session.getCurrentActiveOrder().countTotalItems()){
+                        System.out.println("Enter your customization:");
                         String customization = scanner.nextLine();
                         List<MenuItem> items = session.getCurrentActiveOrder().getItems();
                         MenuItem itemToCustomise = items.get(itemNumber - 1); 
