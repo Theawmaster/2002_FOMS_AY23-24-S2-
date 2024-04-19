@@ -24,7 +24,7 @@ public class CustomerPage implements iPage{
         System.out.println("[1] Browse menu");
         System.out.println("[2] View cart");
         System.out.println("[3] View Order status");
-        System.out.println("[4] Back to main page ");
+        System.out.println("[B] Back to main page ");
     }
     /**
      * Method to handle user input 
@@ -32,20 +32,31 @@ public class CustomerPage implements iPage{
      */
 
     public void handleInput(String choice){
-        switch (choice) {
-            case "1":
-                pageViewer.changePage("BrowseCategoriesPage");
-                break;
-            case "2":
-                pageViewer.changePage("ViewOrderPage");
-                break;
-            case "3": 
-                pageViewer.changePage("ViewOrderStatus");
-            case "4":
-                pageViewer.changePage("MainPage");
-            default:
-                break;
+        try{
+            switch (choice) {
+                case "1":
+                    pageViewer.changePage("BrowseCategoriesPage");
+                    break;
+                case "2":
+                    pageViewer.changePage("ViewOrderPage");
+                    break;
+                case "3": 
+                    pageViewer.changePage("ViewOrderStatus");
+                    break;
+                case "B":
+                case "b":
+                    pageViewer.changePage("MainPage");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+                    viewOptions();  // Re-display the options for the user
+                    break;
+            }
+        }catch(Exception e){
+            System.out.println("An unexpected error occured, please try again!");
+            viewOptions();
         }
+        
     }
 }
 

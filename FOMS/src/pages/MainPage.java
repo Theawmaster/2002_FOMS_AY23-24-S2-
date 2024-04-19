@@ -28,20 +28,26 @@ public class MainPage implements iPage{
      * @param choice branches the pages
      */
     public void handleInput(String choice){
-        switch (choice) {
-            case "1":
-                pageViewer.changePage("CustomerPage");
-                break;
-            case "2":
-                pageViewer.changePage("StaffLoginPage");
-                break;
-            case "b":
-            case "B":
-                pageViewer.changePage("back");
-                break;
-            default:
-            // TODO: handle an exception here
-                break;
+        try{
+            switch (choice) {
+                case "1":
+                    pageViewer.changePage("CustomerPage");
+                    break;
+                case "2":
+                    pageViewer.changePage("StaffLoginPage");
+                    break;
+                case "b":
+                case "B":
+                    pageViewer.changePage("back");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again.");
+                    viewOptions();
+                    break;
+            }
+        }catch(Exception e){
+            System.err.println("An unexpected error occured. Please try again!");
+            viewOptions();
         }
     }
 }

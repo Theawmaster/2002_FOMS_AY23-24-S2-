@@ -48,13 +48,14 @@ public class ViewOrderPage implements iPage{
                 session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
                 ProcessOrderService.addOrderToProcessingList(session.getCurrentActiveOrder());
                 session.getCurrentActiveOrder().printOrderDetails();
+                session.setCurrentActiveOrder(null);
                 pageViewer.changePage("CustomerPage");
                 break;
             case "2":
                 pageViewer.changePage("EditOrderPage");
                 break;
             case "3":
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
                 //...
             default:
