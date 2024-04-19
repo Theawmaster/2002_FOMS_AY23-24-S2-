@@ -35,7 +35,7 @@ public class AdminAccessPage implements iPage {
         else{
             System.out.println("You are not an admin! You do not have access to this page!");
             // go back to staff access page
-            pageViewer.changePage("StaffAccessPage");
+            pageViewer.changePage("back");
         }
     }
 
@@ -55,10 +55,8 @@ public class AdminAccessPage implements iPage {
                 pageViewer.changePage("AdminManagePaymentPage");
                 break;
             case "B":
-                pageViewer.changePage("StaffAccessPage");
-                break;
             case "b":
-                pageViewer.changePage("StaffAccessPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 pageViewer.changePage("Invalid choice");

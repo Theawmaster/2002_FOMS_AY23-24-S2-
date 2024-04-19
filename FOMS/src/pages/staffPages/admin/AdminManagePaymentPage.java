@@ -38,19 +38,19 @@ public class AdminManagePaymentPage implements iPage {
         switch (option) {
             case "1":
                 ManagePaymentsService.viewAllPaymentMethods(this.session);
-                pageViewer.changePage("AdminManagePaymentPage");
+                pageViewer.changePage("current");
                 break;
             case "2":
                 ManagePaymentsService.enablePaymentsService(this.session);
-                pageViewer.changePage("AdminManagePaymentPage");
+                pageViewer.changePage("current");
                 break;
             case "3":
                 ManagePaymentsService.disablePaymentsService(this.session);
-                pageViewer.changePage("AdminManagePaymentPage");
+                pageViewer.changePage("current");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("AdminAccessPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input");

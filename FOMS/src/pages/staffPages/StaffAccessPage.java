@@ -38,7 +38,7 @@ public class StaffAccessPage implements iPage {
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("StaffLoginPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

@@ -33,6 +33,7 @@ public class Session {
      * Initialised in pageViewer only. Loads all data from LoadData's child classes to set the context of the current session
      */
     public Session(){
+
         LoadBranches initLoadBranches = new LoadBranches(null);
         this.allBranches = initLoadBranches.getLoadedData();
     

@@ -33,23 +33,23 @@ public class ManagerEditMenuItemsPage implements iPage {
         switch (choice) {
              case "1":
                  ManageMenuService.displayAllMenuItems(this.session);
-                 pageViewer.changePage("ManagerEditMenuItemsPage");
+                 pageViewer.changePage("current");
                  break;
             case "2":
                 ManageMenuService.addMenuItem(this.session);
-                pageViewer.changePage("ManagerEditMenuItemsPage");
+                pageViewer.changePage("current");
                 break;
             case "3":
                 ManageMenuService.removeMenuItem(this.session);
-                pageViewer.changePage("ManagerEditMenuItemsPage");
+                pageViewer.changePage("current");
                 break;
             case "4":
                 ManageMenuService.editMenuItem(this.session);
-                pageViewer.changePage("ManagerEditMenuItemsPage");
+                pageViewer.changePage("current");
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("ManagerAccessPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");
