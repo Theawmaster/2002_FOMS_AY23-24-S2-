@@ -5,6 +5,7 @@ import pages.pageViewer;
 import utilities.Session;
 
 public class StaffAccessPage implements iPage {
+    
     /**
      * The current active session 
      */
@@ -19,7 +20,7 @@ public class StaffAccessPage implements iPage {
         System.out.println("[1] View Pending Orders");
         System.out.println("[2] Manager Access");
         System.out.println("[3] Admin Access");
-        System.out.println("[B] Return to Staff Login Page");
+        System.out.println("[B] Log Out");
     }
     /**
      * Method to handle user input 
@@ -38,6 +39,8 @@ public class StaffAccessPage implements iPage {
                 break;
             case "b":
             case "B":
+                session.clearStaff_Session();
+                System.out.println("Logging out...");
                 pageViewer.changePage("back");
                 break;
             default:

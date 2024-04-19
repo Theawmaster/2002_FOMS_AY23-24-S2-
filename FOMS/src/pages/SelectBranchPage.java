@@ -64,6 +64,7 @@ public class SelectBranchPage implements iPage{
             Logger.debug("You chose option: " + (intChoice+1) + " which corresponds to: " + activeBranch.getBranchName());
             // customer is now dining here. all staff and managers will belong to this branch.
             this.session.setCurrentActiveBranch(activeBranch);
+            pageViewer.setSession(this.session);
             //change view to the main page to start ordering and stuff
             pageViewer.changePage("MainPage");
         }

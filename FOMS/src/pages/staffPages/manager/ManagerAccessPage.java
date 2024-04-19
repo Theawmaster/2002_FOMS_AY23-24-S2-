@@ -17,7 +17,7 @@ public class ManagerAccessPage implements iPage{
      * Method to view manager access options
      */
     public void viewOptions(){
-        if (this.session.getCurrentActiveStaff().getRole() == Role.STAFF){
+        if (this.session.getCurrentActiveStaff().getRole() == Role.STAFF || this.session.getCurrentActiveStaff().getRole() == Role.ADMIN){
             System.out.println("You are not a manager! You do not have access to this page!");
             // go back to staff access page
             pageViewer.changePage("StaffAccessPage");

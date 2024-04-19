@@ -1,11 +1,13 @@
 package utilities;
 
 import java.util.Scanner;
+import javax.swing.*;
 
 import constants.MealCategory;
 
+import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import entities.Branch;
 import entities.MenuItem;
 
@@ -17,13 +19,30 @@ public class UserInputHelper {
         return scanner.nextLine().trim();
     }
 
+    public static String getPasswordInput(String prompt) {
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel(prompt);
+        JPasswordField pass = new JPasswordField(10);
+        panel.add(label);
+        panel.add(pass);
+        String[] options = new String[]{"OK", "Cancel"};
+        int option = JOptionPane.showOptionDialog(null, panel, "Password Input",
+                                                  JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+                                                  null, options, options[0]);
+        if (option == 0) { // Pressing OK button
+            char[] password = pass.getPassword();
+            return new String(password);
+        }
+        return ""; // If user cancels, return empty string
+    }   
+
     public static double getDoubleInput(String prompt){
         System.out.println(prompt);
         try{
             return scanner.nextDouble();
         }
         catch (NumberFormatException e){
-            System.out.println("Please enter a valid double!");
+            System.out.println("Please enter a valid choice!");
             return getDoubleInput(prompt);
         }
     }
@@ -83,14 +102,26 @@ public class UserInputHelper {
         return menuItems.get(getUserChoice("Select a menu item:", numOptions)-1);
     }
 
-    public static MealCategory choosMealCategory(String prompt){
+    public static MealCategory choosMealCategory(String prompt) {
+        System.out.println(prompt);
         int i = 1;
-        for(MealCategory mc : MealCategory.values()){
-            System.out.println(i+". "+mc.toString());
+        for (MealCategory mc : MealCategory.values()) {
+            System.out.println(i + ". " + mc.toString());
             i++;
         }
-        return MealCategory.values()[getUserChoice(prompt, i)-1];
-    }
+        while (true) {
+            try {
+                int choice = Integer.parseInt(scanner.nextLine().trim());
+                if (choice >= 1 && choice <= MealCategory.values().length) {
+                    return MealCategory.values()[choice - 1];
+                } else {
+                    System.out.println("Invalid input. Please enter a valid number between 1 and " + MealCategory.values().length + ".");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+    }    
     
     public static int getUserChoice(String prompt, int maxChoice) {
         int choice;
@@ -109,6 +140,8 @@ public class UserInputHelper {
             }
         } while (true);
     }
+  
+    
     
     // public static boolean confirmAction(String message) {
     //     System.out.println(message);

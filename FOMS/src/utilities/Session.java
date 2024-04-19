@@ -50,6 +50,16 @@ public class Session {
         // add more payment services if added
     }
 
+    // Method to clear the session
+    public void clearStaff_Session() {
+        this.currentActiveStaff = null;
+    }
+
+    public void clearBranch_Session() {
+        this.currentActiveBranch = null;
+    }
+
+    // Getters
     public ArrayList<Staff> getAllStaffs(){
         return this.allStaffs;
     }
