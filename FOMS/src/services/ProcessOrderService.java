@@ -67,7 +67,7 @@ public class ProcessOrderService {
      */
     public static void displayOrderDetailsProcessOptions() {
         Scanner scanner = new Scanner(System.in);
-
+    
         // Prompt the user to enter the order ID
         System.out.print("Enter order ID to view details: ");
         int orderID;
@@ -79,26 +79,33 @@ public class ProcessOrderService {
             ProcessOrderService.displayOrderDetailsProcessOptions();
             return;
         }
+    
+        System.out.println("Pending Order Details of Order ID " + orderID + ":");
 
-        System.out.println("Pending Order Details:");
         try {
             List<String> orderLines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
-            System.out.println("Order ID\tOrder Details\tIs Takeaway");
             boolean orderFound = false; // Flag to check if the order ID is found
-
+    
             for (int i = 1; i < orderLines.size(); i++) {
                 String[] parts = orderLines.get(i).split(",");
                 int orderIdInList = Integer.parseInt(parts[0].trim());
                 String status = parts[1].trim(); // Assuming status is at index 1
-
+    
                 // Check if the order ID matches
                 if (orderID == orderIdInList) {
                     String orderDetails = parts[2].trim();
+                    // Split the order details into separate items based on "|" delimiter
+                    String[] orderItems = orderDetails.split("\\|");
+                    for (String item : orderItems) {
+                        System.out.println(item.trim()); // Print each item without further splitting
+                    }
                     String isTakeaway = parts[3].trim();
-                    System.out.println(orderID + "\t" + orderDetails + "\t" + isTakeaway);
+                    System.out.println("");
+                    System.out.println("Having Here or Takeaway: " + isTakeaway);
                     orderFound = true;
                     // Set the storedOrderID to the entered orderID
                     storedOrderID = orderID;
+                    
                     // Check if the order is already processed or cancelled
                     if (status.equals(OrderStatus.READY_TO_PICKUP.toString())) {
                         System.out.println("This order is already processed and ready for pickup.");
@@ -123,7 +130,7 @@ public class ProcessOrderService {
             System.err.println("An error occurred while reading the order processing list: " + e.getMessage());
         }  
     }
-
+    
     /**
      * Adds an order to the order processing list after payment.
      * @param order The order to be added.

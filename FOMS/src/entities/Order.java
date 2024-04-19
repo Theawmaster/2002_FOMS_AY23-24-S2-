@@ -215,7 +215,7 @@ public class Order {
         for (MenuItem item : items) {
             String itemName = item.getFood();
             String itemPrice = String.format("$%.2f", item.getPrice());
-            String itemDetails = itemIndex + ". " + itemName + ", " + itemPrice + ": " + item.getCategory();
+            String itemDetails = itemIndex + ". " + itemName + "| " + itemPrice + ": " + item.getCategory();
             if (!item.getCustomization().isEmpty()) {
                 itemDetails += "| Customization: " + item.getCustomization();
             }
