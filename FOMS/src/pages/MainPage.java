@@ -1,11 +1,19 @@
 package pages;
 
+import utilities.Session;
+
 /**
  * This is the Main Page that the user will see. While it is called the Main Page, the user actually sees the SelectBranchPage before seeing this page.
  * This page facilitates the segregation between a customer and a staff.
  * @author Siah Yee Long
  */
 public class MainPage implements iPage{
+
+    private Session session;
+    public MainPage(Session s){
+        this.session = s;
+    }
+
     /**
      * Method to view menu options
      */
@@ -38,6 +46,7 @@ public class MainPage implements iPage{
                     break;
                 case "b":
                 case "B":
+                    session.clearBranch_Session();
                     pageViewer.changePage("back");
                     break;
                 default:

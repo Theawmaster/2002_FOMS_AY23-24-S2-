@@ -33,7 +33,6 @@ public class Staff {
         this.role = role;
         this.gender = gender;
         this.age = age;
-        this.branch = branch;
 		this.loginDetail = new LoginDetail(loginID, staffPassword); // sets default login details first. default pw is loginID
 	}
 

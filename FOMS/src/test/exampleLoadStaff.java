@@ -15,7 +15,7 @@ import utilities.LoadStaffs;
  */
 public class exampleLoadStaff {
     public static void main(String[] args) {
-        LoadMenuItems m = new LoadMenuItems();
+        LoadMenuItems m = new LoadMenuItems(null);
         ArrayList<MenuItem> menuitems = m.getLoadedData();
         for(MenuItem i : menuitems)                
             i.printMenuItems();
