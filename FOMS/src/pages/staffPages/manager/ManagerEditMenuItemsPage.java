@@ -33,18 +33,21 @@ public class ManagerEditMenuItemsPage implements iPage {
         switch (choice) {
              case "1":
                  ManageMenuService.displayAllMenuItems(this.session);
-                 pageViewer.changePage("ManagerViewStaffDetailsPage");
+                 pageViewer.changePage("ManagerEditMenuItemsPage");
                  break;
             case "2":
                 ManageMenuService.addMenuItem(this.session);
                 pageViewer.changePage("ManagerEditMenuItemsPage");
                 break;
-            // case "3":
-            //     pageViewer.changePage("ManagerEditMenuItemsPage");
-            //     break;
-            case "b":
-                pageViewer.changePage("ManagerAccessPage");
+            case "3":
+                ManageMenuService.removeMenuItem(this.session);
+                pageViewer.changePage("ManagerEditMenuItemsPage");
                 break;
+            case "4":
+                ManageMenuService.editMenuItem(this.session);
+                pageViewer.changePage("ManagerEditMenuItemsPage");
+                break;
+            case "b":
             case "B":
                 pageViewer.changePage("ManagerAccessPage");
                 break;

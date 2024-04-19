@@ -13,23 +13,6 @@ public class MenuItem {
        // private Branch branch; 
        // for branch need to extend 
         
-
-    /**
-     * Constructor for Staff
-     * @param firstName
-     * @param lastName
-     * @param age
-     * @param gender
-     */
-    public MenuItem(String food, double price, Branch branch, MealCategory category){
-        this.food = food;
-        this.price = price;
-        this.branch = branch;
-        this.category = category;
-        this.description = "NA";
-        this.customization = "NA";
-        
-    }
     public MenuItem(String food, double price, Branch branch, MealCategory category, String description, String customization) {
         this.food = food;
         this.price = price;

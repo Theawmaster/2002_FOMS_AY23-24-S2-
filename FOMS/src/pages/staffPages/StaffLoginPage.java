@@ -1,16 +1,15 @@
 package pages.staffPages;
 
 import java.util.Random;
-import java.util.Scanner;
 
-import utilities.Logger;
 import utilities.Session;
+import utilities.UserInputHelper;
+import constants.Role;
 import constants.Settings;
 import pages.iPage;
 import pages.pageViewer;
 import services.authenticator.iLoginService;
 import services.authenticator.StaffLoginService;
-import entities.Staff;
 
 /**
  * This is the page that the staff will first see
@@ -97,18 +96,16 @@ public class StaffLoginPage implements iPage {
      * @return true if successful
      */
     private boolean tryLogin(iLoginService loginService){
-        Scanner sc = new Scanner(System.in);
         String userID, password;
 
         for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
-            System.out.println("Enter your username:");
-            userID = sc.nextLine().trim();
-            System.out.println("Enter your password:");
-            password = sc.nextLine().trim();
+            userID = UserInputHelper.getInput("Enter your username:");
+            password = UserInputHelper.getInput("Enter your password:");
 
             if (loginService.login(userID, password)) {
                 this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
-                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch()) {
+                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole() == Role.ADMIN) {
+                    // if staff / manager is from this branch OR the guy is an admin, just let them pass
                     return true;
                 } else {
                     System.out.println("XXXX Imposter ALERT XXXXX Please log in from the correct branch!!!");
@@ -130,19 +127,15 @@ public class StaffLoginPage implements iPage {
      */
     private boolean tryForgotPassword(iLoginService loginService){
         String generatedValue;
-        Scanner sc = new Scanner(System.in);
 
         for(int i=0; i<Settings.FORGOTPW_MAX_TRIES.getValue(); i++){
-            System.out.println("Enter your username:");
-            String userID = sc.nextLine();
+            String userID = UserInputHelper.getInput("Enter your username:");
             generatedValue = generateRandomString();
-            System.out.println("Verify you're human. Type what you see on the screen: "+generatedValue);
-            if(generatedValue.equals(sc.nextLine())){
+            if(generatedValue.equals(UserInputHelper.getInput("Verify you're human. Type what you see on the screen: "+generatedValue))){
                 return loginService.resetPassword(userID);
             }
             System.out.println("WRONG! TRY AGAIN");
         }
-        sc.close();
         return false;
     }
     /**
@@ -151,27 +144,21 @@ public class StaffLoginPage implements iPage {
      * @return true if successful
      */
     private boolean tryChangePassword(iLoginService loginService){
-        Scanner sc = new Scanner(System.in);
-        String userID = "", oldPassword = "";
-
+        String userID="", oldPassword="";
         for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
-            System.out.println("Enter your user ID:");
-            userID = sc.nextLine();
-            System.out.println("Enter your old password:");
-            oldPassword = sc.nextLine();
+            userID = UserInputHelper.getInput("Enter your username:");
+            oldPassword = UserInputHelper.getInput("Enter your old password:");
 
             if(loginService.login(userID, oldPassword)) break; // login success. break from for loop
             System.out.println("WRONG. THINK HARDER. THINKKKKK");
             if(i+1 == Settings.PW_MAX_TRIES.getValue()) return false; // tried max times and still fail login
         }
 
-        System.out.println("Enter the new password:");
-        String newPassword = sc.nextLine();
+        String newPassword = UserInputHelper.getInput("Enter the new password:");
         // check if password meets minimum length criteria
         while (newPassword.length() < Settings.PW_MIN_CHARACTERS.getValue()){
             System.out.println("Password length too short! Passwords must be at least " + Settings.PW_MIN_CHARACTERS.getValue() + " long");
-            System.out.println("Enter the new password:");
-            newPassword = sc.nextLine();
+            newPassword = UserInputHelper.getInput("Enter the new password:");
         }
 
         return loginService.changePassword(userID, oldPassword, newPassword);

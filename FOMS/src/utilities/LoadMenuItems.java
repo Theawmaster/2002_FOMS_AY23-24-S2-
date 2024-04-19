@@ -7,11 +7,6 @@ import constants.MealCategory;
 import entities.MenuItem;
 import entities.Branch;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-
 /**
  * The {@link LoadStaffs} class loads MenuItem data from the CSV database
  * @param branches
@@ -56,12 +51,13 @@ public class LoadMenuItems extends LoadData<MenuItem>{
             String food = row[0].trim();
             Double price = Double.parseDouble(row[1].trim());
             String branchname = row[2].trim();
+            String desc = row[4].trim();
 
             // find the matching branch and add it in
             MenuItem tempMenuItems;
             for (Branch b : branches) {
                 if (b.getBranchName().equalsIgnoreCase(branchname)) {
-                    tempMenuItems  = new MenuItem(food, price, b, category);
+                    tempMenuItems  = new MenuItem(food, price, b, category, desc, "NA");
                     menuitems.add(tempMenuItems); // add to the return value of list of staff
                     break;
                 }
@@ -78,13 +74,18 @@ public class LoadMenuItems extends LoadData<MenuItem>{
          */
         public static boolean addMenuToCSV(MenuItem m) {
             String menuData = String.format("%s,%.2f,%s,%s,%s\n", m.getFood(), m.getPrice(), m.getBranch().getBranchName(), m.getCategory(), m.getDescription(), m.getCustomization());
-            try {
-                Files.write(Paths.get(FilePaths.menuListPath.getPath()), menuData.getBytes(), StandardOpenOption.APPEND);
-                return true;
-            } catch (IOException e) {
-                System.out.println("Failed to write to CSV: " + e.getMessage());
-                return false;
-            }
-        }        
+            // this function is alr written in SerialiseCSV, why not just use the methods if it's alr available
+            // try {
+            //     Files.write(Paths.get(FilePaths.menuListPath.getPath()), menuData.getBytes(), StandardOpenOption.APPEND);
+            //     return true;
+            // } catch (IOException e) {
+            //     System.out.println("Failed to write to CSV: " + e.getMessage());
+            //     return false;
+            // }
+            return SerialiseCSV.appendToCSV(menuData, FilePaths.menuListPath.getPath());
+        }
+        public static boolean removeMenuItem(MenuItem m){
+            return SerialiseCSV.deleteToCSV(m.getFood(), 0, FilePaths.menuListPath.getPath());
+        }
 
 }
