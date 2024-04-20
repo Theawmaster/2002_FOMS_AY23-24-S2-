@@ -16,3 +16,6 @@ orderID,Status,OrderDetails,isTakeaway
 1,PREPARING,"1. COLE SLAW| $2.70: SIDE| Customization: Extra coleslaw pls",Dine-in
 1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: No sauce",Dine-in
 2,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: more nuggets ",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
