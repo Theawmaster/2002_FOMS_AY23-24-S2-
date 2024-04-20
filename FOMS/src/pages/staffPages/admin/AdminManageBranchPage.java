@@ -1,7 +1,9 @@
 package pages.staffPages.admin;
 
+import constants.FilePaths;
 import pages.iPage;
 import pages.pageViewer;
+import utilities.PersistenceHandler;
 import utilities.Session;
 import services.ManageBranchService;
 
@@ -40,6 +42,8 @@ public class AdminManageBranchPage implements iPage {
      * @param option: user input
      */
     public void handleInput(String option) {
+        // if data has been modified by another instance of the FOMS app, update it into the session
+        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
         switch (option) {
             case "1":
                 ManageBranchService.changeBranchStatus(this.session, true);

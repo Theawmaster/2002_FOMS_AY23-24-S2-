@@ -39,7 +39,7 @@ public class StaffAccessPage implements iPage {
                 break;
             case "b":
             case "B":
-                session.clearStaff_Session();
+                this.session.setCurrentActiveStaff(null);
                 System.out.println("Logging out...");
                 pageViewer.changePage("back");
                 break;
