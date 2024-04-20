@@ -17,11 +17,9 @@ public class AdminManageBranchPage implements iPage {
      * The current active session
      */
     private Session session;
-    private ManageBranchService branchService;
 
     public AdminManageBranchPage(Session session) {
         this.session = session;
-        this.branchService = new ManageBranchService();
     }
 
     /**

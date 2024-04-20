@@ -5,12 +5,6 @@ import java.util.ArrayList;
 import constants.FilePaths;
 import entities.Branch;
 
-import java.util.List;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Collectors;
-
 /**
  * The {@link LoadStaffs} class loads Branch data from the CSV database
  */

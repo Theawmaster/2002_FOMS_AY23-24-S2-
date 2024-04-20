@@ -13,9 +13,6 @@ import constants.Role;
 import entities.Branch;
 import entities.Staff;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-
 /**
  * The {@link LoadStaffs} class loads Staff data and corresponding passwords from the CSV database
  */
@@ -102,7 +99,6 @@ public class LoadStaffs extends LoadData<Staff>{
 
     /**
      * The {@link getPasswords} private method reads in saved passwords from staff_passwords.csv and stores them in the private variable {@link loadedPasswords}
-     * TODO: Add a point for decryption of password data. Passwords should not be stored in raw form
      */
     private void getPasswords(){
         this.loadedPasswords = new HashMap<String, String>();
@@ -124,8 +120,6 @@ public class LoadStaffs extends LoadData<Staff>{
      * Used in the {@link loadData} method above if password not already existing for the current Staff
      * @param staffID String argument of the corresponding staffID
      * @param staffPassword String argument of the corresponding staffPassword
-     * TODO: should this be a private method? what if i wanna change password
-     * TODO: Add a point for encryption of password data. Passwords should not be stored in raw form
      */
     private void appendNewPasswordRecord(String staffID, String staffPassword){
         String passwordRecord = staffID + "," + staffPassword;

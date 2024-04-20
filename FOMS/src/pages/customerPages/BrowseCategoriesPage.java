@@ -39,7 +39,7 @@ public class BrowseCategoriesPage implements iPage {
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input, please put in a valid input");

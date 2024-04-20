@@ -121,7 +121,6 @@ public class pageViewer {
             try {
                 currentPage.handleInput(choice);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -134,10 +133,5 @@ public class pageViewer {
         AddMenuItemPage addMenuItemPage = new AddMenuItemPage(session, selectedItem);
         currentPage = addMenuItemPage;
         currentPage.viewOptions(); // Display the AddMenuItemPage options.
-    }
-
-    public static void setSession(Session newSession) {
-        session = newSession;
-        pathTracker.setSession(session); // Make sure the path tracker also updates its session
     }
 }

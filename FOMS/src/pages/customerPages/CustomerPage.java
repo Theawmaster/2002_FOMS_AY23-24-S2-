@@ -41,7 +41,7 @@ public class CustomerPage implements iPage{
                     break;
                 case "B":
                 case "b":
-                    pageViewer.changePage("MainPage");
+                    pageViewer.changePage("back");
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");
