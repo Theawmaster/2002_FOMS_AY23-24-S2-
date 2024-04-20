@@ -1,11 +1,15 @@
 package pages;
 
 import java.util.Map;
+
+import constants.FilePaths;
+
 import java.io.IOException;
 import java.util.HashMap;
 import entities.MenuItem;
 
 import utilities.PathTracker;
+import utilities.PersistenceHandler;
 import utilities.Session;
 import pages.customerPages.AddMenuItemPage;
 import pages.customerPages.BrowseCategoriesPage;
@@ -104,6 +108,8 @@ public class pageViewer {
         else{
             System.out.println("Error: View not found!");
         }
+        // if data has been modified by another instance of the FOMS app, update it into the session
+        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
     }
     /**
      * This static method handles the input of the current active page

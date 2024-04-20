@@ -46,7 +46,7 @@ public class MainPage implements iPage{
                     break;
                 case "b":
                 case "B":
-                    session.clearBranch_Session();
+                    this.session.setCurrentActiveBranch(null);
                     pageViewer.changePage("SelectBranchPage");
                     break;
                 default:

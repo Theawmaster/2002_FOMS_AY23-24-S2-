@@ -51,13 +51,16 @@ public class Session {
         // add more payment services if added
     }
 
-    // Method to clear the session
-    public void clearStaff_Session() {
-        this.currentActiveStaff = null;
-    }
-
-    public void clearBranch_Session() {
-        this.currentActiveBranch = null;
+    // Update session if required
+    public void updateSession(){
+        LoadBranches initLoadBranches = new LoadBranches(null);
+        this.allBranches = initLoadBranches.getLoadedData();
+    
+        LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches);
+        this.allStaffs = initLoadStaffs.getLoadedData();
+    
+        LoadMenuItems initLoadMenuItems = new LoadMenuItems(this.allBranches);
+        this.allMenuItems = initLoadMenuItems.getLoadedData();
     }
 
     // Getters

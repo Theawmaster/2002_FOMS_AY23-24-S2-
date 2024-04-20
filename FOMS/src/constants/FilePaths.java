@@ -32,7 +32,12 @@ public enum FilePaths {
     /**
      * Path to the payment list CSV file.
      */
-    paymentListPath("FOMS/src/entities/data/payment_list.csv");
+    paymentListPath("FOMS/src/entities/data/payment_list.csv"),
+
+    /**
+     * Path to the folder where all csv files are stored
+     */
+    dataFolderPath("FOMS/src/utilities/data");
 
     private final String path;
 

@@ -1,9 +1,11 @@
 package pages.staffPages.manager;
 
+import constants.FilePaths;
 import constants.Role;
 import pages.iPage;
 import pages.pageViewer;
 import services.ManageStaffService;
+import utilities.PersistenceHandler;
 import utilities.Session;
 
 public class ManagerViewStaffDetailsPage implements iPage{
@@ -37,6 +39,8 @@ public class ManagerViewStaffDetailsPage implements iPage{
      * @param choice branches the pages
      */
     public void handleInput(String choice){
+        // if data has been modified by another instance of the FOMS app, update it into the session
+        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
         switch (choice) {
             case "1":
                 ManageStaffService.displayStaff_sortName(this.session, true);
