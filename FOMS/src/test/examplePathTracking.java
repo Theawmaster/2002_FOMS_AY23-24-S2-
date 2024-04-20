@@ -12,7 +12,7 @@ import utilities.Session;
 public class examplePathTracking {
     public static void main(String[] args) {
         Session s = new Session();
-        PathTracker pathTracker = new PathTracker("default", new SelectBranchPage(s));
+        PathTracker pathTracker = new PathTracker("default", new SelectBranchPage(s), s);
         pathTracker.printCurrentPath();
 
         pathTracker.goTo("MainMenu", new MainPage(s));

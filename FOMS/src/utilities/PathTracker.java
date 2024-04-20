@@ -12,14 +12,6 @@ public class PathTracker {
     private Session session;
 
     /**
-     * Sets the session for this PathTracker instance.
-     * @param session The new session object containing user and other session data.
-     */
-    public void setSession(Session session) {
-        this.session = session;
-    }
-
-    /**
      * Create a LinkedHashMap to act as a stack for pushing and popping the pages navigated
      */
     private LinkedHashMap<String, iPage> path;
@@ -28,9 +20,10 @@ public class PathTracker {
      * @param defaultLocation the default location name
      * @param defaultPage the default page
      */
-    public PathTracker(String defaultLocation, iPage defaultPage) {
+    public PathTracker(String defaultLocation, iPage defaultPage, Session session) {
         this.path = new LinkedHashMap<>();
         this.path.put(defaultLocation, defaultPage);
+        this.session = session;
     }
     /**
      * Method to call when navigating to a new page
@@ -81,33 +74,36 @@ public class PathTracker {
         }
     
         String strPath = String.join(" > ", lastFiveItems);
-        String spaces = String.format("%" + (97 - strPath.length()) + "s", "");
+        String spaces = String.format("%" + (79 - strPath.length()) + "s", "");
     
         // Display
         System.out.println();
         System.out.println();
-        System.out.println("\u250F" + "\u2501".repeat(98) + "\u2513");
+        System.out.println("\u250F" + "\u2501".repeat(80) + "\u2513");
         System.out.println("\u2503 " + strPath + spaces + "\u2503");
-        System.out.println("\u2517" + "\u2501".repeat(98) + "\u251B");
+        System.out.println("\u2517" + "\u2501".repeat(80) + "\u251B");
     }
 
     public void printCurrentUser() {
        
-        if (this.session == null || (this.session.getCurrentActiveStaff() == null && this.session.getCurrentActiveBranch() == null)) {
-            System.out.println("| --- Customer section --- |");
+        if (this.session.getCurrentActiveStaff() == null && this.session.getCurrentActiveBranch() == null) {
+            System.out.println(Logger.ANSI_YELLOW+"| --- Welcome to Los Pollos Hermanos --- |"+Logger.ANSI_RESET);
             return;
         }
-    
         // Check for user session
-        if (this.session.getCurrentActiveStaff() != null) {
+        else if (this.session.getCurrentActiveStaff() != null) {
             String username = this.session.getCurrentActiveStaff().getLoginID();
             String role = this.session.getCurrentActiveStaff().getRole().name();
             String branch = this.session.getCurrentActiveStaff().getBranch().getBranchName();
-            System.out.println("| --- Staff Section, Current User: " + username + ", Role: " + role + ", Branch: " + branch + " --- |");
+            System.out.println( Logger.ANSI_CYAN+"| --- Staff Section, Current User: " +
+                                Logger.ANSI_YELLOW+ username + Logger.ANSI_CYAN+", Role: " +
+                                Logger.ANSI_YELLOW+ role + Logger.ANSI_CYAN+", Branch: " +
+                                Logger.ANSI_YELLOW+ branch + Logger.ANSI_CYAN+" --- |"+Logger.ANSI_RESET);
         } else {
             // For customer branch session
             String customerBranch = this.session.getCurrentActiveBranch().getBranchName();
-            System.out.println("| --- Customer Section, Branch: " + customerBranch + " --- |");
+            System.out.println( Logger.ANSI_CYAN+"| --- Customer Section, Branch: " + 
+                                Logger.ANSI_YELLOW+customerBranch + Logger.ANSI_CYAN+" --- |"+Logger.ANSI_RESET);
         }
     }
 }

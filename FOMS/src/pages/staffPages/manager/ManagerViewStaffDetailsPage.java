@@ -26,7 +26,7 @@ public class ManagerViewStaffDetailsPage implements iPage{
         System.out.println("[3] Sort my staff by age");
         if(this.session.getCurrentActiveStaff().getRole() == Role.ADMIN){
             // if current staff is an admin, allow them to filter staff by age, gender, role and branch
-            System.out.println("-- Admin privileges -- ");
+            System.out.println("\n-- Admin privileges -- ");
             System.out.println("[4] Filter all staff by age range");
             System.out.println("[5] Filter all staff by gender");
             System.out.println("[6] Filter all staff by role");
