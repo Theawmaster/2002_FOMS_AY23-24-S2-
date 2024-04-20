@@ -22,6 +22,7 @@ public class Session {
     protected ArrayList<Branch> allBranches;
     private ArrayList<MenuItem> allMenuItems;
     private ArrayList<iPaymentService> allPaymentServices;
+    private ArrayList<Order> allOrders;
 
     private Staff currentActiveStaff;
     private Branch currentActiveBranch;
@@ -72,6 +73,9 @@ public class Session {
     public ArrayList<iPaymentService> getAllPaymentServices(){
         return this.allPaymentServices;
     }
+    public ArrayList<Order> getAllOrders() {
+        return allOrders;
+    }
 
     public void setCurrentActiveStaff(Staff s){
         this.currentActiveStaff = s;
@@ -85,6 +89,9 @@ public class Session {
     public void setCurrentActiveMenuItem(MenuItem menuItem){
         this.currentActiveMenuItem = menuItem;
     }
+    public void setAllOrders(ArrayList<Order> allOrders) {
+        this.allOrders = allOrders;
+    }
 
     public Staff getCurrentActiveStaff(){
         return this.currentActiveStaff;
@@ -97,5 +104,20 @@ public class Session {
     }
     public MenuItem getCurrentActiveMenuItem(){
         return this.currentActiveMenuItem;
+    }
+    // to get order via order id
+    public Order getOrderById(int orderId) {
+        for (Order order : allOrders) {
+            if (order.getOrderId() == orderId) {
+                return order;
+            }
+        }
+        return null; // Return null if the order is not found
+    }
+    public void addOrder(Order order) {
+        if (allOrders == null) {
+            allOrders = new ArrayList<>();
+        }
+        allOrders.add(order);
     }
 }

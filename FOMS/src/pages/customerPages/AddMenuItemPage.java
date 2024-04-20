@@ -11,6 +11,7 @@ public class AddMenuItemPage implements iPage{
     private Scanner scanner = new Scanner(System.in);
     private Session session;
     private MenuItem selectedItem;
+    private static int Orderid = 1;
 
     public AddMenuItemPage(Session s){
         this.session = s;
@@ -27,14 +28,15 @@ public class AddMenuItemPage implements iPage{
         System.out.println("Branch: " + selectedItem.getBranch().getBranchName());
         System.out.println("Category: " + selectedItem.getCategory());
 
-        System.out.println("Enter any customization options: ");
+        System.out.println("Would you like any customization options: ");
+        System.out.println("If no customizations, just press 'Enter' ");
         String customization = scanner.nextLine();
         handleInput(customization);
     }
 
     public void handleInput(String input){
         // Add customization details to the item, if any
-        selectedItem.setCustomization(input.isEmpty() ? "Standard" : input);
+        selectedItem.setCustomization(input.isEmpty() ? "NA" : input);
         // Prompt user to add to cart or not 
         System.out.println("Would you like to add "+ selectedItem.getFood() +" to your order? ");
         System.out.println("[Y] Yes");
@@ -82,7 +84,7 @@ public class AddMenuItemPage implements iPage{
         currentOrder.printOrderDetails();
     }
 
-    private int generateOrderId(){
-        return (int)(Math.random()*10000);
+    private static int generateOrderId(){
+        return Orderid++;
     }
 }
