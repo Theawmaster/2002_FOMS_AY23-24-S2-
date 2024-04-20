@@ -138,7 +138,14 @@ public class ManageMenuService {
     
         switch (choice) {
             case 1:
-                itemToEdit.setFood(UserInputHelper.getInput("Enter new food name:"));
+                String foodEdit = UserInputHelper.getInput("Enter new food name:");
+                for(MenuItem m : session.getAllMenuItems()){
+                    if (m.getFood().equalsIgnoreCase(foodEdit) && m.getBranch().getBranchName().equals(session.getCurrentActiveBranch().getBranchName())) {
+                        System.out.println("Can't add the same item "+foodEdit);
+                        return;
+                    }
+                }
+                itemToEdit.setFood(foodEdit);
                 break;
             case 2:
                 itemToEdit.setPrice(UserInputHelper.getDoubleInput("Enter new price:"));
