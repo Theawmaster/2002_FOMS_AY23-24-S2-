@@ -46,8 +46,8 @@ public class MainPage implements iPage{
                     break;
                 case "b":
                 case "B":
-                    session.clearBranch_Session();
-                    pageViewer.changePage("back");
+                    this.session.setCurrentActiveBranch(null);
+                    pageViewer.changePage("SelectBranchPage");
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");

@@ -2,16 +2,12 @@ package pages.customerPages;
 
 import pages.iPage;
 import pages.pageViewer;
-import utilities.Session;
 
 public class BrowseCategoriesPage implements iPage {
     /**
      * The current active session 
      */
-    private Session session;
-    public BrowseCategoriesPage(Session s){
-        this.session = s;
-    }
+    public BrowseCategoriesPage(){}
     /**
      * Method to view customer options
      */
@@ -39,7 +35,7 @@ public class BrowseCategoriesPage implements iPage {
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input, please put in a valid input");

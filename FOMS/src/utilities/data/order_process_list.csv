@@ -3,3 +3,22 @@ orderID,Status,OrderDetails,isTakeaway
 2,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. chicken nugget| $6.60: SIDE| Customization: STANDARD",Dine-in
 3,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. 4PC set meal| $9.90: SETMEAL| Customization: more sauce || 3. chicken nugget| $6.60: SIDE| Customization: nil",Dine-in
 4,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: STANDARD || 2. 4PC set meal| $9.90: SETMEAL| Customization: nil || 3. chicken nugget| $6.60: SIDE| Customization: more sauce pls",Dine-in
+1,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: Standard",Dine-in
+1,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: more ketchup",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: More sauce ",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: More sauce  || 2. 4PC set meal| $9.90: SETMEAL| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.90: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.90: SIDE| Customization: Standard || 2. water| $0.80: DRINK| Customization: Standard",Dine-in
+1,PREPARING,"1. milo again| $3.40: DRINK| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: No sauce",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.90: SIDE| Customization: More sauce",Dine-in
+1,PREPARING,"1. COLE SLAW| $2.70: SIDE| Customization: Extra coleslaw pls",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: No sauce",Dine-in
+2,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: more nuggets ",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. pepsi| $2.10: DRINK| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in
+1,PREPARING,"1. chicken nugget| $6.60: SIDE| Customization: Standard",Dine-in

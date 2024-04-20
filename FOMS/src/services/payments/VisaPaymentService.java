@@ -1,9 +1,9 @@
 package services.payments;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import exceptionHandlers.TransactionFailedException;
+import utilities.UserInputHelper;
 import exceptionHandlers.PaymentServiceDisabledException;
 
 /**
@@ -69,10 +69,9 @@ public class VisaPaymentService implements iPaymentService{
         return this.transactionHist;
     }
     private void simulateSwipe(double amount) throws TransactionFailedException{
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please swipe your card to transact $"+amount+". (type 'swipe'):");
         // get user to type "tap" to simulate Apple pay payment
-        if(sc.nextLine().equalsIgnoreCase("swipe")) return;
+        String simulatedSwipe = UserInputHelper.getInput("Please swipe your card to transact $"+amount+". (type 'swipe'):");
+        if(simulatedSwipe.equalsIgnoreCase("swipe")) return;
         else throw new TransactionFailedException("Visa transaction failed");
     }
 }

@@ -82,6 +82,7 @@ public class StaffLoginPage implements iPage {
             case "b":
             case "B":
                 // goes back to MainPage
+                this.session.setCurrentActiveStaff(null);
                 pageViewer.changePage("back");
                 break;
             default:
@@ -104,19 +105,20 @@ public class StaffLoginPage implements iPage {
 
             if (loginService.login(userID, password)) {
                 this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
-                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole().equals("ADMIN")) {
+                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole()==Role.ADMIN) {
                     // if staff / manager is from this branch OR the guy is an admin, just let them pass
-                    pageViewer.setSession(this.session);
                     return true;
                 } else {
-                    this.session.clearStaff_Session();
+                    this.session.setCurrentActiveStaff(null);
                     System.out.println("XXXX Imposter ALERT XXXXX Please log in from the correct branch!!!");
                     return false;
                 }
             } else {
+                this.session.setCurrentActiveStaff(null);
                 System.out.println("XXX WRONG. WHAT A FAILURE");
             }
         }
+        this.session.setCurrentActiveStaff(null);
         System.out.println("FAILED TOO MANY TIMES. BOO.");
         return false;
     }
@@ -136,6 +138,7 @@ public class StaffLoginPage implements iPage {
             if(generatedValue.equals(UserInputHelper.getInput("Verify you're human. Type what you see on the screen: "+generatedValue))){
                 return loginService.resetPassword(userID);
             }
+            this.session.setCurrentActiveStaff(null);
             System.out.println("WRONG! TRY AGAIN");
         }
         return false;
@@ -169,7 +172,7 @@ public class StaffLoginPage implements iPage {
      * Just a helper function to generate a random string for human verification
      * @return an alphanumeric combination string
      */
-    public static String generateRandomString() {
+    private static String generateRandomString() {
         int length = 6; // Length of the alphanumeric string
         StringBuilder sb = new StringBuilder(length);
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

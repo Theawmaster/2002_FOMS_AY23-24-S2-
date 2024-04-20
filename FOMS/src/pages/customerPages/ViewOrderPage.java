@@ -4,7 +4,6 @@ import pages.iPage;
 import pages.pageViewer;
 import services.ManagePaymentsService;
 import utilities.Session;
-import entities.Order;
 import constants.OrderStatus;
 import services.ProcessOrderService;
 
@@ -26,11 +25,12 @@ public class ViewOrderPage implements iPage{
      * Method to view Current Order options
      */
     public void viewOptions(){
-        if(session.getCurrentActiveOrder() == null){
+        if(session.getCurrentActiveOrder() == null || session.getCurrentActiveOrder().countTotalItems() == 0){
             System.out.println("Your cart is empty");
-            pageViewer.changePage("CustomerPage");
+            pageViewer.changePage("back");
         }
         else{
+            session.getCurrentActiveOrder().printOrderDetails();
             System.out.println("[1] Make Payment");
             System.out.println("[2] Edit Order");
             System.out.println("[3] Continue Browsing");
@@ -48,8 +48,9 @@ public class ViewOrderPage implements iPage{
                 session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
                 ProcessOrderService.addOrderToProcessingList(session.getCurrentActiveOrder());
                 session.getCurrentActiveOrder().printOrderDetails();
+                session.addOrder(session.getCurrentActiveOrder());
                 session.setCurrentActiveOrder(null);
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
             case "2":
                 pageViewer.changePage("EditOrderPage");
@@ -60,6 +61,7 @@ public class ViewOrderPage implements iPage{
                 //...
             default:
                 System.out.println("Invalid choice, please try again.");
+                viewOptions();
                 break;
         }
     }

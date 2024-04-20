@@ -2,27 +2,19 @@ package pages.customerPages;
 
 import pages.iPage;
 import pages.pageViewer;
-import utilities.Session;
-
-import java.util.Scanner;
-
-import entities.Order;
 
 public class CustomerPage implements iPage{
     /**
      * The current active session 
      */
-    private Session session;
-    public CustomerPage(Session s){
-        this.session = s;
-    }
+    public CustomerPage(){}
     
     /**
      * Method to view menu options
      */
     public void viewOptions(){
         System.out.println("[1] Browse menu");
-        System.out.println("[2] View cart");
+        System.out.println("[2] View Cart, Make Payment or Edit Order");
         System.out.println("[3] View Order status");
         System.out.println("[B] Back to main page ");
     }
@@ -45,7 +37,7 @@ public class CustomerPage implements iPage{
                     break;
                 case "B":
                 case "b":
-                    pageViewer.changePage("MainPage");
+                    pageViewer.changePage("back");
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");

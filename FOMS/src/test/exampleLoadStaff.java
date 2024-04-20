@@ -20,12 +20,12 @@ public class exampleLoadStaff {
         for(MenuItem i : menuitems)                
             i.printMenuItems();
 
-        LoadStaffs l = new LoadStaffs();
+        LoadStaffs l = new LoadStaffs(null);
         ArrayList<Staff> staffs = l.getLoadedData();
         for(Staff s : staffs)
             s.printStaff();
 
-        LoadBranches b = new LoadBranches();
+        LoadBranches b = new LoadBranches(null);
         ArrayList<Branch> branches = b.getLoadedData();
         for(Branch x : branches)
             x.printBranch();

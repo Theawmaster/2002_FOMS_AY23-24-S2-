@@ -1,9 +1,11 @@
 package pages.staffPages.manager;
 
+import constants.FilePaths;
 import constants.Role;
 import pages.iPage;
 import pages.pageViewer;
 import services.ManageStaffService;
+import utilities.PersistenceHandler;
 import utilities.Session;
 
 public class ManagerViewStaffDetailsPage implements iPage{
@@ -24,7 +26,7 @@ public class ManagerViewStaffDetailsPage implements iPage{
         System.out.println("[3] Sort my staff by age");
         if(this.session.getCurrentActiveStaff().getRole() == Role.ADMIN){
             // if current staff is an admin, allow them to filter staff by age, gender, role and branch
-            System.out.println("-- Admin privileges -- ");
+            System.out.println("\n-- Admin privileges -- ");
             System.out.println("[4] Filter all staff by age range");
             System.out.println("[5] Filter all staff by gender");
             System.out.println("[6] Filter all staff by role");
@@ -37,6 +39,8 @@ public class ManagerViewStaffDetailsPage implements iPage{
      * @param choice branches the pages
      */
     public void handleInput(String choice){
+        // if data has been modified by another instance of the FOMS app, update it into the session
+        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
         switch (choice) {
             case "1":
                 ManageStaffService.displayStaff_sortName(this.session, true);

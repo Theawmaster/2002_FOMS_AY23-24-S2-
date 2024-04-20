@@ -1,5 +1,5 @@
-package entities;
+// package entities;
 
-public interface StaffManagementFriend {
-    void activate_();
-}
+// public interface StaffManagementFriend {
+//     void activate_();
+// }

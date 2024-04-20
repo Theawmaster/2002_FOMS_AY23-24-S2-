@@ -1,9 +1,9 @@
 package services.payments;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import exceptionHandlers.TransactionFailedException;
+import utilities.UserInputHelper;
 import exceptionHandlers.PaymentServiceDisabledException;
 
 /**
@@ -75,10 +75,9 @@ public class ApplepayPaymentService implements iPaymentService {
      * @throws TransactionFailedException if user fails to tap properly
      */
     private void simulateTap(double amount) throws TransactionFailedException{
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Please tap your phone to transact $"+amount+". (type 'tap'):");
         // get user to type "tap" to simulate Apple pay payment
-        if(sc.nextLine().equalsIgnoreCase("tap")) return;
+        String simulatedTap = UserInputHelper.getInput("Please tap your phone to transact $"+amount+". (type 'tap'):");
+        if(simulatedTap.equalsIgnoreCase("tap")) return;
         else throw new TransactionFailedException("Apple pay transaction failed");
     }
 }

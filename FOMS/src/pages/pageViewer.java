@@ -1,11 +1,15 @@
 package pages;
 
 import java.util.Map;
+
+import constants.FilePaths;
+
 import java.io.IOException;
 import java.util.HashMap;
 import entities.MenuItem;
 
 import utilities.PathTracker;
+import utilities.PersistenceHandler;
 import utilities.Session;
 import pages.customerPages.AddMenuItemPage;
 import pages.customerPages.BrowseCategoriesPage;
@@ -54,7 +58,7 @@ public class pageViewer {
         // initialise all views
         pages.put("SelectBranchPage", new SelectBranchPage(session));
         pages.put("MainPage", new MainPage(session));
-        pages.put("CustomerPage", new CustomerPage(session));
+        pages.put("CustomerPage", new CustomerPage());
         pages.put("ViewOrderPage", new ViewOrderPage(session));
         pages.put("EditOrderPage", new EditOrderPage(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
@@ -68,7 +72,7 @@ public class pageViewer {
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
         pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
         pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
-        pages.put("BrowseCategoriesPage", new BrowseCategoriesPage(session));
+        pages.put("BrowseCategoriesPage", new BrowseCategoriesPage());
         pages.put("BrowseDrinksPage", new BrowseDrinksPage(session));
         pages.put("BrowseSidesPage", new BrowseSidesPage(session));
         pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
@@ -76,7 +80,7 @@ public class pageViewer {
         pages.put("ViewOrderStatus", new ViewOrderStatus(session));
         // add more views here as required
         
-        pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"));
+        pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"), session);
     }
     /**
      * This static method switches the current active page
@@ -104,6 +108,8 @@ public class pageViewer {
         else{
             System.out.println("Error: View not found!");
         }
+        // if data has been modified by another instance of the FOMS app, update it into the session
+        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
     }
     /**
      * This static method handles the input of the current active page
@@ -115,7 +121,6 @@ public class pageViewer {
             try {
                 currentPage.handleInput(choice);
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -128,10 +133,5 @@ public class pageViewer {
         AddMenuItemPage addMenuItemPage = new AddMenuItemPage(session, selectedItem);
         currentPage = addMenuItemPage;
         currentPage.viewOptions(); // Display the AddMenuItemPage options.
-    }
-
-    public static void setSession(Session newSession) {
-        session = newSession;
-        pathTracker.setSession(session); // Make sure the path tracker also updates its session
     }
 }

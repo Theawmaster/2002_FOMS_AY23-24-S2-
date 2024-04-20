@@ -1,8 +1,8 @@
 package pages;
 
+import java.util.ArrayList;
+
 import entities.Branch;
-import entities.MenuItem;
-import entities.Staff;
 import utilities.Logger;
 import utilities.Session;
 
@@ -21,6 +21,7 @@ public class SelectBranchPage implements iPage{
      * A local variable to count number of branches available to choose from
      */
     private int numOptions;
+    private ArrayList<Branch> availableBranches = new ArrayList<>();
     /**
      * Initialising this page sets the session provided from pageViewer
      * @param s
@@ -42,8 +43,11 @@ public class SelectBranchPage implements iPage{
         System.out.println("Select the branch you want to dine at:");
         // Iterate through all branches for users to select. Index starts at 1. Indexing is adjusted in the handleInput method
         for(Branch b : this.session.getAllBranches()){
-            numOptions++;
-            System.out.println("[" + numOptions + "] " + b.getBranchName());
+            if(b.getStatus().equalsIgnoreCase("Open")){
+                numOptions++;
+                System.out.println("[" + numOptions + "] " + b.getBranchName());
+                this.availableBranches.add(b);
+            }
         }
         System.out.println("[Q] Quit FOMS");
     }
@@ -60,11 +64,9 @@ public class SelectBranchPage implements iPage{
         try{
             int intChoice = Integer.parseInt(choice) -1; // -1 to offset indexing with user's response
 
-            Branch activeBranch = this.session.getAllBranches().get(intChoice);
-            Logger.debug("You chose option: " + (intChoice+1) + " which corresponds to: " + activeBranch.getBranchName());
+            Branch activeBranch = this.availableBranches.get(intChoice);
             // customer is now dining here. all staff and managers will belong to this branch.
             this.session.setCurrentActiveBranch(activeBranch);
-            pageViewer.setSession(this.session);
             //change view to the main page to start ordering and stuff
             pageViewer.changePage("MainPage");
         }

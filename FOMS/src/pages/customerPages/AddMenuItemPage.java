@@ -11,6 +11,7 @@ public class AddMenuItemPage implements iPage{
     private Scanner scanner = new Scanner(System.in);
     private Session session;
     private MenuItem selectedItem;
+    private static int Orderid = 1;
 
     public AddMenuItemPage(Session s){
         this.session = s;
@@ -27,48 +28,76 @@ public class AddMenuItemPage implements iPage{
         System.out.println("Branch: " + selectedItem.getBranch().getBranchName());
         System.out.println("Category: " + selectedItem.getCategory());
 
-        System.out.println("Enter any customization options: ");
+        System.out.println("Would you like any customization options: ");
+        System.out.println("If no customizations, just press 'Enter' ");
         String customization = scanner.nextLine();
         handleInput(customization);
     }
 
     public void handleInput(String input){
         // Add customization details to the item, if any
-        selectedItem.setCustomization(input.isEmpty() ? "Standard" : input);
-        // Prompt user to add to cart or not 
-        System.out.println("Would you like to add "+ selectedItem.getFood() +" to your order? ");
-        System.out.println("[Y] Yes");
-        System.out.println("[N] No");
+        selectedItem.setCustomization(input.isEmpty() ? "NA" : input);
 
-        String userdecision = scanner.nextLine().trim().toLowerCase();
-        if(userdecision.equals("y")){
-            // We add the users order to the current session
-            addToOrder(selectedItem,"", input.isEmpty() ? "Standard" : input);
-            System.out.println("Item added to your order.");
+        boolean validInputReceived = false;
+        boolean validInput = false;
 
-            // Ask the user if they are done with ordering, redirect them accordingly
-            // Ask if the user is done with ordering
-            System.out.println("Are you ready to proceed to payment? ");
-            System.out.println("[Y] Yes, proceed to payment");
-            System.out.println("[N] No, add more items");
+        while(!validInputReceived){
+            try{
+                // Prompt user to add to cart or not 
+                System.out.println("Would you like to add "+ selectedItem.getFood() +" to your order? ");
+                System.out.println("[Y] Yes");
+                System.out.println("[N] No");
+                
+                String userdecision = scanner.nextLine().trim().toLowerCase();
+                switch(userdecision){
+                    case "y":
+                    case "Y":
+                        addToOrder(selectedItem,"", input.isEmpty() ? "Standard" : input);
+                        System.out.println("Item added to your order.");
 
-            String userDecision = scanner.nextLine().trim().toLowerCase();
-            if (userDecision.equals("y")) {
-                // Direct user to the ViewOrderPage
-                pageViewer.changePage("ViewOrderPage");
-            } else {
-                // Direct user back to BrowseCategoriesPage to add more items
-                pageViewer.changePage("BrowseCategoriesPage");
+                        while(!validInput){
+                            try{
+                                System.out.println("Would you like to proceed to payment or edit your order?");
+                                System.out.println("[Y] Yes, proceed to payment / edit order");
+                                System.out.println("[N] No, add more items");
+                                String choice = scanner.nextLine().trim().toLowerCase();
+                                switch(choice){
+                                    case "y":
+                                    case "Y":
+                                        pageViewer.changePage("ViewOrderPage");
+                                        validInput = true;
+                                        break;
+                                    case "n":
+                                    case "N":
+                                        pageViewer.changePage("back");
+                                        validInput = true;
+                                        break;
+                                    default:
+                                        System.out.println("Invalid input please try again!");
+                                        break;
+                                }
+                            }catch(Exception e){
+                                System.out.println("Invalid input please try again!");
+                            }
+                        }
+                        validInputReceived = true;
+                        break;
+            
+                    case "n":
+                    case "N":
+                        System.out.println("Item not added");
+                        pageViewer.changePage("back");
+                        validInputReceived = true;
+                        break;
+                    default:
+                        System.out.println("Invalid input please try again!");
+                        break;
+                }
+            }catch(Exception e){
+                System.out.println("Invalid input please try again!");
             }
         }
-        else{
-            // Inform User his order was not added
-            System.out.println("Item not added");
-            pageViewer.changePage("BrowseCategoriesPage");
-        }
     }
-    
-
 
     private void addToOrder(MenuItem Item, String Description, String Customization){
         // Adds the item to the current active order
@@ -82,7 +111,7 @@ public class AddMenuItemPage implements iPage{
         currentOrder.printOrderDetails();
     }
 
-    private int generateOrderId(){
-        return (int)(Math.random()*10000);
+    private static int generateOrderId(){
+        return Orderid++;
     }
 }
