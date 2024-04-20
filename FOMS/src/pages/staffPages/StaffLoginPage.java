@@ -172,7 +172,7 @@ public class StaffLoginPage implements iPage {
      * Just a helper function to generate a random string for human verification
      * @return an alphanumeric combination string
      */
-    public static String generateRandomString() {
+    private static String generateRandomString() {
         int length = 6; // Length of the alphanumeric string
         StringBuilder sb = new StringBuilder(length);
         String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

@@ -1,9 +1,9 @@
 package services.payments;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import exceptionHandlers.TransactionFailedException;
+import utilities.UserInputHelper;
 import exceptionHandlers.PaymentServiceDisabledException;
 
 /**
@@ -72,16 +72,14 @@ public class CashPaymentService implements iPaymentService{
     private void askForCash(double amount) throws TransactionFailedException{
         double insertedAmt = 0;
         double in;
-        Scanner sc = new Scanner(System.in);
         System.out.println();
         while(insertedAmt<amount){
-            System.out.println("Please pay $"+ (amount-insertedAmt));
-            System.out.println("Insert cash into the terminal (-1 if you no more money, otherwise type amount inserted): ");
-            in = sc.nextDouble();
+            System.out.println(String.format("Please pay $%.2f",(amount-insertedAmt)));
+            in = UserInputHelper.getDoubleInput("Insert cash into the terminal (-1 if you no more money, otherwise type amount inserted): ");
             if(in < 0) throw new TransactionFailedException("Customer is broke! No food for you!");
             insertedAmt += in;
         }
-        System.out.println("Here's your change of $"+(insertedAmt-amount));
+        System.out.println(String.format("Here's your change of $%.2f",(insertedAmt-amount)));
         return;
     }
 }

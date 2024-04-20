@@ -2,16 +2,12 @@ package pages.customerPages;
 
 import pages.iPage;
 import pages.pageViewer;
-import utilities.Session;
 
 public class CustomerPage implements iPage{
     /**
      * The current active session 
      */
-    private Session session;
-    public CustomerPage(Session s){
-        this.session = s;
-    }
+    public CustomerPage(){}
     
     /**
      * Method to view menu options

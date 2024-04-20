@@ -5,7 +5,6 @@ import java.util.Scanner;
 import constants.OrderStatus;
 import pages.iPage;
 import pages.pageViewer;
-import entities.MenuItem;
 import utilities.Session;
 import entities.Order;
 public class ViewOrderStatus implements iPage{

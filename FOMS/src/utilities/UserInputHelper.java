@@ -6,6 +6,8 @@ import javax.swing.*;
 import constants.MealCategory;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+
 import entities.Branch;
 import entities.MenuItem;
 
@@ -39,8 +41,9 @@ public class UserInputHelper {
         try{
             return scanner.nextDouble();
         }
-        catch (NumberFormatException e){
+        catch (InputMismatchException e){
             System.out.println("Please enter a valid choice!");
+            scanner.nextLine();
             return getDoubleInput(prompt);
         }
     }

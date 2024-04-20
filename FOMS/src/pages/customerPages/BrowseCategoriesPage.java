@@ -2,16 +2,12 @@ package pages.customerPages;
 
 import pages.iPage;
 import pages.pageViewer;
-import utilities.Session;
 
 public class BrowseCategoriesPage implements iPage {
     /**
      * The current active session 
      */
-    private Session session;
-    public BrowseCategoriesPage(Session s){
-        this.session = s;
-    }
+    public BrowseCategoriesPage(){}
     /**
      * Method to view customer options
      */

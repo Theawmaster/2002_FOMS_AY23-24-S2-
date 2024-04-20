@@ -9,8 +9,6 @@ import entities.Branch;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
@@ -69,6 +67,12 @@ public class ManageMenuService {
      */
     public static void addMenuItem(Session session) {
         String food = UserInputHelper.getInput("Enter food name: ");
+        for(MenuItem m : session.getAllMenuItems()){
+            if (m.getFood().equalsIgnoreCase(food) && m.getBranch().getBranchName().equals(session.getCurrentActiveBranch().getBranchName())) {
+                System.out.println("Can't add the same item "+food);
+                return;
+            }
+        }
         double price = UserInputHelper.getDoubleInput("Enter price: ");
         MealCategory category = UserInputHelper.choosMealCategory("Enter category: ");
         String description = UserInputHelper.getInput("Enter description: ");
@@ -76,13 +80,16 @@ public class ManageMenuService {
         Branch branch = session.getCurrentActiveBranch();
 
         MenuItem newMenuItem = new MenuItem(food, price, branch, category, description, customization);
+
         
         if(LoadMenuItems.addMenuToCSV(newMenuItem)){
             session.getAllMenuItems().add(newMenuItem);
             System.out.println("Added "+newMenuItem.getFood()+" successfully. Looking Fiesty!!!!");
+            return;
         }
         else{
             System.out.println("Failed to add "+newMenuItem.getFood()+". GET THE FUCK OUT");
+            return;
         }
 
     }
@@ -120,8 +127,8 @@ public class ManageMenuService {
         MenuItem itemToEdit = UserInputHelper.chooseMenuItem(filteredItems);
     
         System.out.println("Choose an attribute to edit:");
-        System.out.println("1. Food Name\n2. Price\n3. Category\n4. Description\n5. Customization");
-        int choice = UserInputHelper.getUserChoice("Enter your choice:", 5);
+        System.out.println("1. Food Name\n2. Price\n3. Category\n4. Description");
+        int choice = UserInputHelper.getUserChoice("Enter your choice:", 4);
     
         switch (choice) {
             case 1:
@@ -135,9 +142,6 @@ public class ManageMenuService {
                 break;
             case 4:
                 itemToEdit.setDescription(UserInputHelper.getInput("Enter new description:"));
-                break;
-            case 5:
-                itemToEdit.setCustomization(UserInputHelper.getInput("Enter new customization options:"));
                 break;
             default:
                 System.out.println("Invalid choice. Operation canceled.");

@@ -1,13 +1,10 @@
 package services;
 
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 import exceptionHandlers.TransactionFailedException;
 import services.payments.PaymentDetails;
 import services.payments.iPaymentService;
-import utilities.Logger;
 import utilities.Session;
+import utilities.UserInputHelper;
 
 /**
  * This class contains mainly static methods pertaining to payment management.
@@ -37,24 +34,10 @@ public class ManagePaymentsService {
             System.out.println(i + ". " + p.getPaymentTypeName());
             i++;
         }
-        Scanner sc = new Scanner(System.in);
-        while(true){
-            try{
-                i = sc.nextInt()-1;
-
-                session.getAllPaymentServices().get(i).setEnabled(true);
-                System.out.println("Successfully enabled "+session.getAllPaymentServices().get(i).getPaymentTypeName());
-                return;
-            }
-            catch (NumberFormatException e){
-                System.out.println("Please enter only integer values! ");
-                Logger.error(e.getMessage());
-            }
-            catch (IndexOutOfBoundsException e){
-                System.out.println("Please select a payment service within the range only! ");
-                Logger.error(e.getMessage());
-            }
-        }
+        int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
+        session.getAllPaymentServices().get(choice-1).setEnabled(true);
+        System.out.println("Successfully enabled "+session.getAllPaymentServices().get(choice-1).getPaymentTypeName());
+        return;
     }
     /**
      * This method disables the chosen payment method.
@@ -67,24 +50,10 @@ public class ManagePaymentsService {
             System.out.println(i + ". " + p.getPaymentTypeName());
             i++;
         }
-        Scanner sc = new Scanner(System.in);
-        while(true){
-            try{
-                i = sc.nextInt()-1;
-
-                session.getAllPaymentServices().get(i).setEnabled(false);
-                System.out.println("Successfully disabled "+session.getAllPaymentServices().get(i).getPaymentTypeName());
-                return;
-            }
-            catch (NumberFormatException e){
-                System.out.println("Please enter only integer values! ");
-                Logger.error(e.getMessage());
-            }
-            catch (IndexOutOfBoundsException e){
-                System.out.println("Please select a payment service within the range only! ");
-                Logger.error(e.getMessage());
-            }
-        }
+        int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
+        session.getAllPaymentServices().get(choice-1).setEnabled(false);
+        System.out.println("Successfully disabled "+session.getAllPaymentServices().get(choice-1).getPaymentTypeName());
+        return;
     }
     /**
      * This method processes the payment from customers
@@ -100,27 +69,13 @@ public class ManagePaymentsService {
                 System.out.println(i + ". " + p.getPaymentTypeName());
                 i++;
             }
-            Scanner sc = new Scanner(System.in);
             try{
-                i = sc.nextInt()-1;
-                
-                session.getAllPaymentServices().get(i).pay(custID, amount);
+                int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
+                session.getAllPaymentServices().get(choice-1).pay(custID, amount);
                 return;
             }
             catch (TransactionFailedException e){
                 System.out.println(e.getMessage());
-            }
-            catch (NumberFormatException e){
-                System.out.println("Please enter only integer values! ");
-                Logger.error(e.getMessage());
-            }
-            catch (InputMismatchException e){
-                System.out.println("Please enter only integer values! ");
-                Logger.error(e.getMessage());
-            }
-            catch (IndexOutOfBoundsException e){
-                System.out.println("Please select a payment service within the range only! ");
-                Logger.error(e.getMessage());
             }
         }
     }
