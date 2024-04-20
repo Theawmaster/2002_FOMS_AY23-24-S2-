@@ -31,20 +31,16 @@ public class ViewOrderStatus implements iPage{
                 case NEW:
                 case PREPARING:
                     System.out.println("Your order is not ready yet. It's currently in the kitchen being prepared.");
-                    System.out.println("Please wait or press [B] to go back to the previous page.");
+                    pageViewer.changePage("CustomerPage");
                     break;
                 case READY_TO_PICKUP:
                     System.out.println("Your order is ready for pickup! Would you like to pick it up now?");
                     System.out.println("[Y] Yes, pick up the order.");
                     System.out.println("[N] No, not yet.");
                     break;
-                case COMPLETED:
-                    System.out.println("Your order has already been picked up. Thank you!");
-                    System.out.println("Press [B] to go back to the main menu.");
-                    break;
                 default:
                     System.out.println("Your order status is unknown. Please contact support.");
-                    System.out.println("Press [B] to go back to the main menu.");
+                    pageViewer.changePage("CustomerPage");
                     break;
             }
         }
@@ -62,7 +58,7 @@ public class ViewOrderStatus implements iPage{
             case "y":
                 if (currentOrder.getStatus() == OrderStatus.READY_TO_PICKUP) {
                     // Change the order status to COMPLETED
-                    currentOrder.setStatus(OrderStatus.COMPLETED);
+                    currentOrder.setStatus(OrderStatus.NEW);
                     System.out.println("Thank you for picking up your order. Have a great day!");
 
                     // Go back to the main customer page
@@ -76,17 +72,10 @@ public class ViewOrderStatus implements iPage{
                 System.out.println("You can come back to pick up your order later.");
                 pageViewer.changePage("CustomerPage");
                 break;
-            case "1":
-                // If the order is ready to pick up and the user presses '1'
-                if (currentOrder.getStatus() == OrderStatus.READY_TO_PICKUP) {
-                    System.out.println("Please confirm you want to pick up the order. Press 'Y' to confirm or 'N' to cancel.");
-                } else {
-                    System.out.println("Your order is not ready to pick up yet.");
-                }
-                break;
             default:
                 System.out.println("Invalid input. Please choose a valid option.");
                 break;
+            
         }
     }
 }
