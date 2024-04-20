@@ -82,6 +82,7 @@ public class StaffLoginPage implements iPage {
             case "b":
             case "B":
                 // goes back to MainPage
+                this.session.setCurrentActiveStaff(null);
                 pageViewer.changePage("back");
                 break;
             default:
@@ -113,9 +114,11 @@ public class StaffLoginPage implements iPage {
                     return false;
                 }
             } else {
+                this.session.setCurrentActiveStaff(null);
                 System.out.println("XXX WRONG. WHAT A FAILURE");
             }
         }
+        this.session.setCurrentActiveStaff(null);
         System.out.println("FAILED TOO MANY TIMES. BOO.");
         return false;
     }
@@ -135,6 +138,7 @@ public class StaffLoginPage implements iPage {
             if(generatedValue.equals(UserInputHelper.getInput("Verify you're human. Type what you see on the screen: "+generatedValue))){
                 return loginService.resetPassword(userID);
             }
+            this.session.setCurrentActiveStaff(null);
             System.out.println("WRONG! TRY AGAIN");
         }
         return false;

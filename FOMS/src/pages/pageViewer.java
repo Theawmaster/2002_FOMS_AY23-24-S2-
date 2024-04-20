@@ -80,7 +80,7 @@ public class pageViewer {
         pages.put("ViewOrderStatus", new ViewOrderStatus(session));
         // add more views here as required
         
-        pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"));
+        pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"), session);
     }
     /**
      * This static method switches the current active page
