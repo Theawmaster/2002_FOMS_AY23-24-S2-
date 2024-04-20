@@ -106,7 +106,6 @@ public class StaffLoginPage implements iPage {
                 this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
                 if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole()==Role.ADMIN) {
                     // if staff / manager is from this branch OR the guy is an admin, just let them pass
-                    pageViewer.setSession(this.session);
                     return true;
                 } else {
                     this.session.setCurrentActiveStaff(null);

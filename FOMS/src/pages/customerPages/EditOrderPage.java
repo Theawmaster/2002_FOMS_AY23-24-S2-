@@ -73,7 +73,7 @@ public class EditOrderPage implements iPage{
                     System.out.println("Failed to remove item after 3 attempts. Returning to View Order page.");
                 }
 
-                pageViewer.changePage("ViewOrderPage");
+                pageViewer.changePage("back");
                 break;
             case "2":
                 while(attempts<3 && !validInput){
@@ -99,11 +99,11 @@ public class EditOrderPage implements iPage{
                 if (!validInput) {
                     System.out.println("Failed to customise item after 3 attempts. Returning to order page.");
                 }
-                pageViewer.changePage("ViewOrderPage");
+                pageViewer.changePage("back");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("ViewOrderPage");
+                pageViewer.changePage("back");
                 break;
                 //...
             default:

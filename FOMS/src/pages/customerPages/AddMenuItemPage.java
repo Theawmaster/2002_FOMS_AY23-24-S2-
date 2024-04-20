@@ -69,7 +69,7 @@ public class AddMenuItemPage implements iPage{
                                         break;
                                     case "n":
                                     case "N":
-                                        pageViewer.changePage("BrowseCategoriesPage");
+                                        pageViewer.changePage("back");
                                         validInput = true;
                                         break;
                                     default:
@@ -86,7 +86,7 @@ public class AddMenuItemPage implements iPage{
                     case "n":
                     case "N":
                         System.out.println("Item not added");
-                        pageViewer.changePage("BrowseCategoriesPage");
+                        pageViewer.changePage("back");
                         validInputReceived = true;
                         break;
                     default:

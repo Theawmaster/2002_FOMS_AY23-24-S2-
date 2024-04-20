@@ -32,7 +32,7 @@ public class ViewOrderStatus implements iPage{
 
         if (currentOrder == null) {
             System.out.println("No active order found.");
-            pageViewer.changePage("CustomerPage");
+            pageViewer.changePage("back");
         } else {
             // Display order details
             currentOrder.printOrderDetails();
@@ -42,7 +42,7 @@ public class ViewOrderStatus implements iPage{
                 case NEW:
                 case PREPARING:
                     System.out.println("Your order is not ready yet. It's currently in the kitchen being prepared.");
-                    pageViewer.changePage("CustomerPage");
+                    pageViewer.changePage("back");
                     break;
                 case READY_TO_PICKUP:
                     System.out.println("Your order is ready for pickup! Would you like to pick it up now?");
@@ -51,7 +51,7 @@ public class ViewOrderStatus implements iPage{
                     break;
                 default:
                     System.out.println("Your order status is unknown. Please contact support.");
-                    pageViewer.changePage("CustomerPage");
+                    pageViewer.changePage("back");
                     break;
             }
         }
@@ -73,7 +73,7 @@ public class ViewOrderStatus implements iPage{
                     System.out.println("Thank you for picking up your order. Have a great day!");
 
                     // Go back to the main customer page
-                    pageViewer.changePage("CustomerPage");
+                    pageViewer.changePage("back");
                 } else {
                     System.out.println("Your order is not ready to pick up yet.");
                 }
@@ -81,7 +81,7 @@ public class ViewOrderStatus implements iPage{
             case "n":
                 // If the user selects 'No', simply go back to the main customer page
                 System.out.println("You can come back to pick up your order later.");
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input. Please choose a valid option.");

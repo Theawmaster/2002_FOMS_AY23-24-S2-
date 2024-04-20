@@ -5,8 +5,6 @@ import javax.swing.*;
 
 import constants.MealCategory;
 
-import java.io.Console;
-import java.io.IOException;
 import java.util.ArrayList;
 import entities.Branch;
 import entities.MenuItem;

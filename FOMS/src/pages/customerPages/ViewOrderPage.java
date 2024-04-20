@@ -27,7 +27,7 @@ public class ViewOrderPage implements iPage{
     public void viewOptions(){
         if(session.getCurrentActiveOrder() == null || session.getCurrentActiveOrder().countTotalItems() == 0){
             System.out.println("Your cart is empty");
-            pageViewer.changePage("CustomerPage");
+            pageViewer.changePage("back");
         }
         else{
             session.getCurrentActiveOrder().printOrderDetails();
@@ -50,13 +50,13 @@ public class ViewOrderPage implements iPage{
                 session.getCurrentActiveOrder().printOrderDetails();
                 session.addOrder(session.getCurrentActiveOrder());
                 session.setCurrentActiveOrder(null);
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
             case "2":
                 pageViewer.changePage("EditOrderPage");
                 break;
             case "3":
-                pageViewer.changePage("CustomerPage");
+                pageViewer.changePage("back");
                 break;
                 //...
             default:

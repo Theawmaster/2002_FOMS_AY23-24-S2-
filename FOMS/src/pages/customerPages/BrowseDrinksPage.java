@@ -61,7 +61,7 @@ public class BrowseDrinksPage implements iPage{
      */
     public void handleInput(String input){
         if(input.equalsIgnoreCase("b")){
-            pageViewer.changePage("BrowseCategoriesPage");
+            pageViewer.changePage("back");
             return;
         }
         

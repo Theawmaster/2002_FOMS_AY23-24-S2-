@@ -108,6 +108,7 @@ public class Session {
     public MenuItem getCurrentActiveMenuItem(){
         return this.currentActiveMenuItem;
     }
+    // you shouldnt be doing this here
     // to get order via order id
     public Order getOrderById(int orderId) {
         for (Order order : allOrders) {

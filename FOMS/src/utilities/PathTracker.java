@@ -73,8 +73,11 @@ public class PathTracker {
     
         // Collect the last 5 items
         List<String> lastFiveItems = new ArrayList<>();
+        if(itemsToSkip>0) lastFiveItems.add("...");
         while (iterator.hasNext()) {
-            lastFiveItems.add(iterator.next());
+            String x = iterator.next();
+            x = x.substring(0, x.length() - 4);
+            lastFiveItems.add(x);
         }
     
         String strPath = String.join(" > ", lastFiveItems);
@@ -89,13 +92,8 @@ public class PathTracker {
     }
 
     public void printCurrentUser() {
-    
-        if (this.session == null) {
-            System.out.println("| --- Customer section --- |");
-            return;
-        }
-    
-        if (this.session.getCurrentActiveStaff() == null && this.session.getCurrentActiveBranch() == null) {
+       
+        if (this.session == null || (this.session.getCurrentActiveStaff() == null && this.session.getCurrentActiveBranch() == null)) {
             System.out.println("| --- Customer section --- |");
             return;
         }
