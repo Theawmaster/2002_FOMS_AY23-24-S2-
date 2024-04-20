@@ -99,8 +99,14 @@ public class ManageMenuService {
      * @param session The current session containing the list of menu items.
      */
     public static void removeMenuItem(Session session) {
+        ArrayList<MenuItem> filteredItems = filterBranch(session, session.getCurrentActiveBranch());
+        if (filteredItems.isEmpty()) {
+            System.out.println("No menu items found for this branch.");
+            return;
+        }
+
         System.out.println("Select the menu item to remove:");
-        MenuItem itemToRemove = UserInputHelper.chooseMenuItem(session.getAllMenuItems());
+        MenuItem itemToRemove = UserInputHelper.chooseMenuItem(filteredItems);
         if (itemToRemove == null) {
             System.out.println("No valid menu item selected.");
             return;
