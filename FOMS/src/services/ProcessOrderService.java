@@ -14,11 +14,20 @@ import entities.Order;
 import pages.pageViewer;
 import utilities.Session;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class ProcessOrderService {
     /**
      * The current active session
      */
     private Session session;
+
+    /**
+     * Define a scheduled executor service
+     */
+    private static ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
 
     /**
      * Variable to store the order ID
@@ -31,6 +40,14 @@ public class ProcessOrderService {
      */
     public ProcessOrderService(Session s) {
         this.session = s;
+    }
+
+    /**
+     * Method to reset the stored order ID to zero
+     */
+    public static void resetStoredOrderID() {
+        // Reset storedOrderID to zero
+        storedOrderID = 0; 
     }
 
     /**
@@ -244,10 +261,46 @@ public class ProcessOrderService {
     }
 
     /**
-     * Method to reset the stored order ID to zero
+     * Method to start the background task for checking and updating order statuses
      */
-    public static void resetStoredOrderID() {
-        // Reset storedOrderID to zero
-        storedOrderID = 0; 
+    public static void startOrderStatusUpdater() {
+        // Schedule a task to run every minute
+        executorService.scheduleAtFixedRate(() -> {
+            try {
+                updateOrderStatus();
+            } catch (Exception e) {
+                System.err.println("Error in order status update task: " + e.getMessage());
+            }
+        }, 2, 1, TimeUnit.MINUTES);
+    }
+
+    /**
+     * Method to update order status to "CANCELLED" for order cancellation purposes
+     */
+    private static void updateOrderStatus() {
+        try {
+            // Read all lines from the order processing list
+            List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
+
+            // Iterate through each line in the file
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split(",");
+                int orderItemID = Integer.parseInt(parts[0].trim());
+                String status = parts[1].trim();
+
+                // Check if the order status is "READY_TO_PICKUP"
+                if (status.equals(OrderStatus.READY_TO_PICKUP.toString())) {
+                    // Update the status to "CANCELLED"
+                    parts[1] = OrderStatus.CANCELLED.toString();
+                    // Update the line
+                    lines.set(i, String.join(",", parts));
+                    // Write the updated lines back to the file
+                    Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
+                    System.out.println("Order with ID " + orderItemID + " automatically cancelled.");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred in the order processing list: " + e.getMessage());
+        }
     }
 }
