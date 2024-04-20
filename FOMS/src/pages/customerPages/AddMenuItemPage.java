@@ -11,7 +11,7 @@ public class AddMenuItemPage implements iPage{
     private Scanner scanner = new Scanner(System.in);
     private Session session;
     private MenuItem selectedItem;
-    private static int Orderid;
+    private static int Orderid = 1;
 
     public AddMenuItemPage(Session s){
         this.session = s;
@@ -85,7 +85,6 @@ public class AddMenuItemPage implements iPage{
     }
 
     private static int generateOrderId(){
-        int orderid = 1;
-        return orderid++;
+        return Orderid++;
     }
 }

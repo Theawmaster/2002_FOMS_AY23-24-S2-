@@ -18,7 +18,18 @@ public class ViewOrderStatus implements iPage{
     }
 
     public void viewOptions() {
-        Order currentOrder = session.getCurrentActiveOrder();
+        System.out.println("Please enter your order ID");
+        int orderID;
+        try {
+            orderID = Integer.parseInt(scanner.nextLine().trim());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid order ID format. Please enter a valid number.");
+            return;
+        }
+
+        // Attempt to retrieve the order using the orderId
+        Order currentOrder = session.getOrderById(orderID);
+
         if (currentOrder == null) {
             System.out.println("No active order found.");
             pageViewer.changePage("CustomerPage");
