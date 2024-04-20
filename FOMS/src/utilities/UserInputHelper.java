@@ -8,6 +8,8 @@ import constants.MealCategory;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 
+import java.util.InputMismatchException;
+
 import entities.Branch;
 import entities.MenuItem;
 
@@ -36,18 +38,23 @@ public class UserInputHelper {
         return ""; // If user cancels, return empty string
     }   
 
-    public static double getDoubleInput(String prompt){
-        System.out.println(prompt);
-        try{
-            return scanner.nextDouble();
-        }
-        catch (InputMismatchException e){
-            System.out.println("Please enter a valid choice!");
-            scanner.nextLine();
-            return getDoubleInput(prompt);
-        }
+    public static double getDoubleInput(String prompt) {
+        double input = 0.0;
+        boolean validInput = false;
+        
+        do {
+            try {
+                System.out.println(prompt);
+                input = Double.parseDouble(scanner.nextLine().trim());
+                validInput = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a valid choice!");
+            }
+        } while (!validInput);
+        
+        return input;
     }
-
+    
     public static String chooseRole() {
         String roleInput;
         do {
