@@ -1,17 +1,14 @@
 Name,Price,Branch,Category,Description,Customization
-4PC set meal,9.9,NTU,set meal,NA,NA
-COLE SLAW,2.7,JE,side,NA,NA
-3PC set meal,10.4,JE,set meal,NA,NA
-chicken nugget,6.9,JP,side,NA,NA
-chicken nugget,6.6,NTU,side,NA,NA
-pepsi,2.1,JE,drink,NA,NA
-Pepsi,2.0,JE,drink,NA,NA
-water,0.80,JP,DRINK,healthy choice
-milo,2.30,HQ,DRINK,milo is the best
-
-milo,2.40,JE,SETMEAL,something nice
-
-milo again,3.40,JE,DRINK,123
-
-milo again again,2.40,JE,DRINK,23
-
+4PC set meal,9.90,NTU,SETMEAL,NA,NA
+COLE SLAW,2.70,JE,SIDE,NA,NA
+3PC set meal,10.40,JE,SETMEAL,NA,NA
+chicken nugget,6.90,JP,SIDE,NA,NA
+chicken nugget,6.60,NTU,SIDE,NA,NA
+pepsi,2.10,JE,DRINK,NA,NA
+Pepsi,2.00,JE,DRINK,NA,NA
+water,0.80,JP,DRINK,healthy choice,NA
+milo,2.30,HQ,DRINK,milo is the best,NA
+milo,2.40,JE,UNDEFINED,something nice,NA
+milo again,3.40,JE,DRINK,123,NA
+milo again again,2.40,JE,DRINK,23,NA
+ice lemon tea,1.90,JP,DRINK,NA,NA

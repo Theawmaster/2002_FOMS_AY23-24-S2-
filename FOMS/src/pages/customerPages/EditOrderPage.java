@@ -41,44 +41,63 @@ public class EditOrderPage implements iPage{
      */
     public void handleInput(String choice){
         Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+        int attempts = 0;
         switch (choice) {
             case "1":
-                System.out.println("Enter the number of the item you wish to remove:");
-                try{
-                    int itemNumber = scanner.nextInt();
-                    scanner.nextLine();
-                    if(itemNumber > 0 && itemNumber <= session.getCurrentActiveOrder().countTotalItems()) {
-                        List<MenuItem> items = session.getCurrentActiveOrder().getItems();
-                        MenuItem itemToRemove = items.get(itemNumber - 1); 
-                        if (session.getCurrentActiveOrder().removeItem(itemToRemove)) {
-                            System.out.println("Item removed successfully.");
+                while(attempts<3 && !validInput){
+                    System.out.println("Enter the number of the item you wish to remove:");
+                    try{
+                        int itemNumber = scanner.nextInt();
+                        scanner.nextLine();
+                        if(itemNumber > 0 && itemNumber <= session.getCurrentActiveOrder().countTotalItems()) {
+                            List<MenuItem> items = session.getCurrentActiveOrder().getItems();
+                            MenuItem itemToRemove = items.get(itemNumber - 1); 
+                            if (session.getCurrentActiveOrder().removeItem(itemToRemove)) {
+                                System.out.println("Item removed successfully.");
+                            } else {
+                                System.out.println("Failed to remove the item.");
+                            }
+                            validInput = true;
                         } else {
-                            System.out.println("Failed to remove the item.");
+                            System.out.println("Invalid input. Please try again!");
                         }
-                    } else {
-                        System.out.println("Invalid item number.");
+                    }catch (InputMismatchException ime) {
+                        System.out.println("Invalid input.");
+                        scanner.nextLine();
                     }
-                }catch (InputMismatchException ime) {
-                    System.out.println("Invalid input. Please enter a number.");
-                    scanner.nextLine();
+                    attempts++;
                 }
+
+                if (!validInput) {
+                    System.out.println("Failed to remove item after 3 attempts. Returning to View Order page.");
+                }
+
                 pageViewer.changePage("ViewOrderPage");
                 break;
             case "2":
-                System.out.println("Enter the number of the item you wish to customise:");
-                try{
-                    int itemNumber = scanner.nextInt();
-                    scanner.nextLine();
-                    if(itemNumber > 0 && itemNumber <= session.getCurrentActiveOrder().countTotalItems()){
-                        System.out.println("Enter your customization:");
-                        String customization = scanner.nextLine();
-                        List<MenuItem> items = session.getCurrentActiveOrder().getItems();
-                        MenuItem itemToCustomise = items.get(itemNumber - 1); 
-                        itemToCustomise.setCustomization(customization);
+                while(attempts<3 && !validInput){
+                    System.out.println("Enter the number of the item you wish to customise:");
+                    try{
+                        int itemNumber = scanner.nextInt();
+                        scanner.nextLine();
+                        if(itemNumber > 0 && itemNumber <= session.getCurrentActiveOrder().countTotalItems()){
+                            System.out.println("Enter your customization:");
+                            String customization = scanner.nextLine();
+                            List<MenuItem> items = session.getCurrentActiveOrder().getItems();
+                            MenuItem itemToCustomise = items.get(itemNumber - 1); 
+                            itemToCustomise.setCustomization(customization);
+                        } else{
+                            System.out.println("Invalid input. Please try again!");
+                        }
+                    }catch (InputMismatchException ime) {
+                        System.out.println("Invalid input. Please try again!");
+                        scanner.nextLine();
                     }
-                }catch (InputMismatchException ime) {
-                    System.out.println("Invalid input. Please enter a number.");
-                    scanner.nextLine();
+                    attempts++;
+                }
+                if (!validInput) {
+                    System.out.println("Failed to customise item after 3 attempts. Returning to order page.");
                 }
                 pageViewer.changePage("ViewOrderPage");
                 break;
@@ -88,14 +107,8 @@ public class EditOrderPage implements iPage{
                 break;
                 //...
             default:
+                System.out.println("Enter a valid input!");
                 break;
         }
-    }
-
-    public static void main(String[] args) {
-        Session session = new Session();
-        EditOrderPage editorder = new EditOrderPage(session);
-        ManagePaymentsService.viewAllPaymentMethods(session);
-        editorder.viewOptions();
     }
 }

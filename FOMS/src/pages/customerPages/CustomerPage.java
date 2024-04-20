@@ -4,10 +4,6 @@ import pages.iPage;
 import pages.pageViewer;
 import utilities.Session;
 
-import java.util.Scanner;
-
-import entities.Order;
-
 public class CustomerPage implements iPage{
     /**
      * The current active session 
@@ -22,7 +18,7 @@ public class CustomerPage implements iPage{
      */
     public void viewOptions(){
         System.out.println("[1] Browse menu");
-        System.out.println("[2] View cart");
+        System.out.println("[2] View Cart, Make Payment or Edit Order");
         System.out.println("[3] View Order status");
         System.out.println("[B] Back to main page ");
     }

@@ -1,6 +1,7 @@
 package pages;
 
 import java.util.Map;
+import java.io.IOException;
 import java.util.HashMap;
 import entities.MenuItem;
 
@@ -52,7 +53,7 @@ public class pageViewer {
         session = new Session();
         // initialise all views
         pages.put("SelectBranchPage", new SelectBranchPage(session));
-        pages.put("MainPage", new MainPage());
+        pages.put("MainPage", new MainPage(session));
         pages.put("CustomerPage", new CustomerPage(session));
         pages.put("ViewOrderPage", new ViewOrderPage(session));
         pages.put("EditOrderPage", new EditOrderPage(session));
@@ -85,16 +86,19 @@ public class pageViewer {
         if("back".equalsIgnoreCase(pageName)){
             currentPage = pathTracker.getPrevPage();
             pathTracker.printCurrentPath();
+            pathTracker.printCurrentUser();
             currentPage.viewOptions();
         }
         else if("current".equalsIgnoreCase(pageName)){
             pathTracker.printCurrentPath();
+            pathTracker.printCurrentUser();
             currentPage.viewOptions();
         }
         else if(pages.containsKey(pageName)){
             currentPage = pages.get(pageName);
             pathTracker.goTo(pageName, currentPage);
             pathTracker.printCurrentPath();
+            pathTracker.printCurrentUser();
             currentPage.viewOptions();
         }
         else{
@@ -108,7 +112,12 @@ public class pageViewer {
      */
     public static void handleInput(String choice){
         if(currentPage != null){
-            currentPage.handleInput(choice);
+            try {
+                currentPage.handleInput(choice);
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         else
             System.out.println("No active view to handle input!");
@@ -119,5 +128,10 @@ public class pageViewer {
         AddMenuItemPage addMenuItemPage = new AddMenuItemPage(session, selectedItem);
         currentPage = addMenuItemPage;
         currentPage.viewOptions(); // Display the AddMenuItemPage options.
+    }
+
+    public static void setSession(Session newSession) {
+        session = newSession;
+        pathTracker.setSession(session); // Make sure the path tracker also updates its session
     }
 }

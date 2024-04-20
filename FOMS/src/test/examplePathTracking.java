@@ -15,7 +15,7 @@ public class examplePathTracking {
         PathTracker pathTracker = new PathTracker("default", new SelectBranchPage(s));
         pathTracker.printCurrentPath();
 
-        pathTracker.goTo("MainMenu", new MainPage());
+        pathTracker.goTo("MainMenu", new MainPage(s));
         pathTracker.printCurrentPath();
         pathTracker.goTo("page A", new ManagerAccessPage(s));
         pathTracker.printCurrentPath();
@@ -26,18 +26,5 @@ public class examplePathTracking {
         pathTracker.goTo("pAge d", new AdminManageBranchPage(s));
         pathTracker.printCurrentPath();
         pathTracker.goBack();
-        pathTracker.printCurrentPath();
-        pathTracker.goBack();
-        pathTracker.printCurrentPath();
-        pathTracker.goBack();
-        pathTracker.printCurrentPath();
-        pathTracker.goBack();
-        pathTracker.printCurrentPath();
-        pathTracker.goBack();
-        pathTracker.printCurrentPath();
-        pathTracker.goBack();
-        pathTracker.printCurrentPath();
-        pathTracker.goBack();
-        pathTracker.printCurrentPath();
     }
 }

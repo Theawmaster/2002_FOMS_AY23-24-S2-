@@ -13,6 +13,11 @@ import utilities.UserInputHelper;
  */
 public class ManageBranchService {
 
+    /**
+     * Method to change the status of a branch
+     * @param session
+     * @param open
+     */
     public static void changeBranchStatus(Session session, boolean open) {
         String status = open ? "Open" : "Close";
         Branch whichBranch = UserInputHelper.chooseBranch(session.getAllBranches());
@@ -28,6 +33,15 @@ public class ManageBranchService {
         }
     }
 
+    /**
+     * Method to add a new branch
+     * @param session The current active session
+     * @param branchName The name of the branch
+     * @param location The location of the branch
+     * @param quota The staff quota of the branch
+     * @param status The status of the branch
+     * @return True if the branch is successfully added, false otherwise
+     */
     public static void addBranch(Session session){ //String branchName, String location, int quota, String status) {
         String branchName = UserInputHelper.getInput("Enter the new branch name:");
         String location = UserInputHelper.getInput("Enter the new branch's location:");
@@ -44,6 +58,10 @@ public class ManageBranchService {
         }
     }
 
+    /**
+     * Method to remove a branch
+     * @param session
+     */
     public static void removeBranch(Session session) {
         Branch badBranch = UserInputHelper.chooseBranch(session.getAllBranches());
         if(LoadBranches.removeBranch(badBranch)){
@@ -63,6 +81,10 @@ public class ManageBranchService {
         }
     }
 
+    /**
+     * Method to display all branches
+     * @param session
+     */
     public static void displayBranches(Session session) {
         System.out.println("Branch name\tLocation\t\tQuota\tStatus");
         for (Branch branch : session.getAllBranches()) {

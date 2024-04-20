@@ -62,7 +62,7 @@ public class StaffLoginPage implements iPage {
                 if (loginSuccess) {
                     System.out.println("LOGIN SUCCESS");
                     System.out.println("Welcome, " + this.session.getCurrentActiveStaff().getFirstName());
-
+                    
                     // log in success. go to staff access page
                     pageViewer.changePage("StaffAccessPage");
                 } else {
@@ -100,14 +100,16 @@ public class StaffLoginPage implements iPage {
 
         for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
             userID = UserInputHelper.getInput("Enter your username:");
-            password = UserInputHelper.getInput("Enter your password:");
+            password = UserInputHelper.getPasswordInput("Enter your password:");
 
             if (loginService.login(userID, password)) {
                 this.session.setCurrentActiveStaff(staffLoginService.getStaffByID(userID));
-                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole() == Role.ADMIN) {
+                if (session.getCurrentActiveStaff().getBranch() == session.getCurrentActiveBranch() || session.getCurrentActiveStaff().getRole().equals("ADMIN")) {
                     // if staff / manager is from this branch OR the guy is an admin, just let them pass
+                    pageViewer.setSession(this.session);
                     return true;
                 } else {
+                    this.session.clearStaff_Session();
                     System.out.println("XXXX Imposter ALERT XXXXX Please log in from the correct branch!!!");
                     return false;
                 }
@@ -147,7 +149,7 @@ public class StaffLoginPage implements iPage {
         String userID="", oldPassword="";
         for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
             userID = UserInputHelper.getInput("Enter your username:");
-            oldPassword = UserInputHelper.getInput("Enter your old password:");
+            oldPassword = UserInputHelper.getPasswordInput("Enter your old password:");
 
             if(loginService.login(userID, oldPassword)) break; // login success. break from for loop
             System.out.println("WRONG. THINK HARDER. THINKKKKK");

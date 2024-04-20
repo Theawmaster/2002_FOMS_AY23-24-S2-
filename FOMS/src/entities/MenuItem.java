@@ -22,6 +22,10 @@ public class MenuItem {
         this.customization = customization;
     }
 
+    public MenuItem(MenuItem itemToEdit) {
+        //TODO Auto-generated constructor stub
+    }
+
     public void printMenuItems(){
         System.out.println("Food: " + getFood());
         System.out.println("Price: " + getPrice());
@@ -34,7 +38,7 @@ public class MenuItem {
         return food;
     }
 
-    protected void setFood(String food) {
+    public void setFood(String food) {
         this.food = food;
     }
 
@@ -42,7 +46,7 @@ public class MenuItem {
         return price;
     }
 
-    protected void setPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -58,7 +62,7 @@ public class MenuItem {
         return category;
     }
 
-    protected void setCategory(MealCategory category){
+    public void setCategory(MealCategory category){
         this.category = category;
     }
 
@@ -66,7 +70,7 @@ public class MenuItem {
         return description;
     }
 
-    protected void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -76,6 +80,11 @@ public class MenuItem {
 
     public void setCustomization(String customization) {
         this.customization = customization;
+    }
+
+    public char[] toCSV() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'toCSV'");
     }
 }
 

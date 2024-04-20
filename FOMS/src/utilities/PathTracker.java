@@ -5,10 +5,24 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import constants.Role;
+import entities.Branch;
+import utilities.Session;
 
 import pages.iPage;
 
 public class PathTracker {
+
+    private Session session;
+
+    /**
+     * Sets the session for this PathTracker instance.
+     * @param session The new session object containing user and other session data.
+     */
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
     /**
      * Create a LinkedHashMap to act as a stack for pushing and popping the pages navigated
      */
@@ -33,7 +47,7 @@ public class PathTracker {
     /**
      * Method to pop out the last page navigated
      */
-    private void goBack() {
+    public void goBack() {
         if (path.size() > 1) {
             // pop the last page
             this.path.remove((this.path.lastEntry().getKey()));
@@ -76,5 +90,30 @@ public class PathTracker {
         System.out.println("\u250F" + "\u2501".repeat(98) + "\u2513");
         System.out.println("\u2503 " + strPath + spaces + "\u2503");
         System.out.println("\u2517" + "\u2501".repeat(98) + "\u251B");
+    }
+
+    public void printCurrentUser() {
+    
+        if (this.session == null) {
+            System.out.println("| --- Customer section --- |");
+            return;
+        }
+    
+        if (this.session.getCurrentActiveStaff() == null && this.session.getCurrentActiveBranch() == null) {
+            System.out.println("| --- Customer section --- |");
+            return;
+        }
+    
+        // Check for user session
+        if (this.session.getCurrentActiveStaff() != null) {
+            String username = this.session.getCurrentActiveStaff().getLoginID();
+            String role = this.session.getCurrentActiveStaff().getRole().name();
+            String branch = this.session.getCurrentActiveStaff().getBranch().getBranchName();
+            System.out.println("| --- Staff Section, Current User: " + username + ", Role: " + role + ", Branch: " + branch + " --- |");
+        } else {
+            // For customer branch session
+            String customerBranch = this.session.getCurrentActiveBranch().getBranchName();
+            System.out.println("| --- Customer Section, Branch: " + customerBranch + " --- |");
+        }
     }
 }

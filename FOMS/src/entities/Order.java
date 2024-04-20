@@ -40,6 +40,7 @@ public class Order {
          * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
          */
         public Order(int orderId) {
+            this.orderId = orderId;
             this.items = new ArrayList<>();
             this.isTakeaway = false;
             this.status = OrderStatus.NEW;

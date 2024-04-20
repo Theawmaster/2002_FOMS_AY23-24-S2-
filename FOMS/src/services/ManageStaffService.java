@@ -20,19 +20,21 @@ import constants.Role;
  */
 public class ManageStaffService {
 
-    private static void displayOutput(ArrayList<Staff> staffsToDisplay){
+    private static void displayOutput(ArrayList<Staff> staffsToDisplay) {
         System.out.println("First name\tLast name\tRole\t\tGender\tAge\tBranch\t\tID");
-        for (Staff s : staffsToDisplay){
+        for (Staff s : staffsToDisplay) {
             String output = String.format("%-12s\t%-12s\t%-8s\t%-6s\t%-3d\t%-10s\t%-10s",
-                            s.getFirstName(),
-                            s.getLastName(),
-                            (s.getGender() ? "F" : "M"),
-                            s.getAge(),
-                            s.getBranch().getBranchName(),
-                            s.getLoginID());
+                s.getFirstName(),
+                s.getLastName(),
+                s.getRole().toString(), // Assuming Role is an enum and properly converted to String
+                (s.getGender() ? "F" : "M"),
+                s.getAge(),
+                s.getBranch().getBranchName(),
+                s.getLoginID());
             System.out.println(output);
         }  
     }
+    
     /**
      * Method to display all staff
      */
