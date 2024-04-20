@@ -267,7 +267,7 @@ public class ProcessOrderService {
         // Schedule a task to run every minute
         executorService.scheduleAtFixedRate(() -> {
             try {
-                updateOrderStatus();
+                updateOrderCancelStatus();
             } catch (Exception e) {
                 System.err.println("Error in order status update task: " + e.getMessage());
             }
@@ -277,7 +277,7 @@ public class ProcessOrderService {
     /**
      * Method to update order status to "CANCELLED" for order cancellation purposes
      */
-    private static void updateOrderStatus() {
+    private static void updateOrderCancelStatus() {
         try {
             // Read all lines from the order processing list
             List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
