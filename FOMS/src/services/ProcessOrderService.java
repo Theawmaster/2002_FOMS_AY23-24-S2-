@@ -205,6 +205,7 @@ public class ProcessOrderService {
                         System.out.println("This order has been completed.");
                         return;
                     }
+                    
                     // Update the status to "READY_TO_PICKUP"
                     parts[1] = OrderStatus.READY_TO_PICKUP.toString();
                     // Update the line
@@ -281,11 +282,9 @@ public class ProcessOrderService {
      */
     private void updateOrderStatusinSession(int insertOrderID) {
         // Retrieve the order from the session using the provided order ID
-        Order order = session.getOrderById(insertOrderID);
-        
+        Order order = session.getOrderById(insertOrderID);  
         // Set the status of the order to "READY_TO_PICKUP"
         order.setStatus(OrderStatus.READY_TO_PICKUP);
-        
         // Get and return the updated status of the order
         order.getStatus();
     }
@@ -312,7 +311,7 @@ public class ProcessOrderService {
                     lines.set(i, String.join(",", parts));
                     // Write the updated lines back to the file
                     Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
-                    System.out.println("Order ID " + orderItemID + " is automatically cancelled due to exceeded timeframe.");
+                    System.out.println("Order ID " + orderItemID + " is automatically cancelled due to exceed timeframe.");
                 }
             }
         } catch (IOException e) {
