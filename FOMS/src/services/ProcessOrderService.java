@@ -91,7 +91,6 @@ public class ProcessOrderService {
             orderID = Integer.parseInt(orderIDInput);
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid order ID.");
-            ProcessOrderService.displayOrderDetailsProcessOptions();
             return;
         }
     
@@ -312,6 +311,37 @@ public class ProcessOrderService {
                     // Write the updated lines back to the file
                     Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
                     System.out.println("Order ID " + orderItemID + " is automatically cancelled due to exceeded timeframe.");
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred in the order processing list: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Method to update order status to "COMPLETED" for completed orders
+     * @param orderID The ID of the order to update.
+     */
+    public static void updateOrderCompletedStatus(int orderID) {
+        try {
+            // Read all lines from the order processing list
+            List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
+
+            // Iterate through each line in the file
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split(",");
+                int orderItemID = Integer.parseInt(parts[0].trim());
+                String status = parts[1].trim();
+
+                // Check if the order ID matches and the status is "READY_TO_PICKUP"
+                if (orderItemID == orderID && status.equals(OrderStatus.READY_TO_PICKUP.toString())) {
+                    // Update the status to "COMPLETED"
+                    parts[1] = OrderStatus.COMPLETED.toString();
+                    // Update the line
+                    lines.set(i, String.join(",", parts));
+                    // Write the updated lines back to the file
+                    Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
+                    return; 
                 }
             }
         } catch (IOException e) {

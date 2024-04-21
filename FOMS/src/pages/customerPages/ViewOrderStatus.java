@@ -5,6 +5,7 @@ import java.util.Scanner;
 import constants.OrderStatus;
 import pages.iPage;
 import pages.pageViewer;
+import services.ProcessOrderService;
 import utilities.Session;
 import entities.Order;
 public class ViewOrderStatus implements iPage{
@@ -73,6 +74,7 @@ public class ViewOrderStatus implements iPage{
                 if (currentOrder.getStatus() == OrderStatus.READY_TO_PICKUP) {
                     // Change the order status to COMPLETED
                     currentOrder.setStatus(OrderStatus.COMPLETED);
+                    ProcessOrderService.updateOrderCompletedStatus(currentOrder.getOrderId());
                     System.out.println("Thank you for picking up your order. Have a great day!");
 
                     // Go back to the main customer page
