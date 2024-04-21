@@ -21,7 +21,7 @@ public class examplePathTracking {
         pathTracker.printCurrentPath();
         pathTracker.goTo("page B", new AdminAccessPage(s));
         pathTracker.printCurrentPath();
-        pathTracker.goTo("Page c", new CustomerPage(s));
+        pathTracker.goTo("Page c", new CustomerPage());
         pathTracker.printCurrentPath();
         pathTracker.goTo("pAge d", new AdminManageBranchPage(s));
         pathTracker.printCurrentPath();

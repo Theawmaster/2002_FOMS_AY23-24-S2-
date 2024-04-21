@@ -38,16 +38,30 @@ public class PathTracker {
      */
     public void goBack() {
         if (path.size() > 1) {
-            // pop the last page
-            this.path.remove((this.path.lastEntry().getKey()));
+            // Get the last key manually
+            String lastKey = null;
+            for (String key : path.keySet()) {
+                lastKey = key;
+            }
+            if (lastKey != null) {
+                path.remove(lastKey);
+            }
         }
     }
     /**
      * @return the previous page to change the view to
      */
     public iPage getPrevPage(){
-        this.goBack();
-        return this.path.lastEntry().getValue();
+        goBack();
+        iPage lastPage = null;
+        String lastKey = null;
+        for (String key : path.keySet()) {
+            lastKey = key;
+        }
+        if (lastKey != null) {
+            lastPage = path.get(lastKey);
+        }
+        return lastPage;
     }
 
     /**
