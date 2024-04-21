@@ -63,7 +63,7 @@ public class ProcessOrderService {
                 String status = parts[1].trim();
                 
                 // Check if the status is not "READY_TO_PICKUP" or "CANCELLED" before displaying
-                if (!status.equalsIgnoreCase("READY_TO_PICKUP") && !status.equalsIgnoreCase("CANCELLED")) {
+                if (!status.equalsIgnoreCase("READY_TO_PICKUP") && !status.equalsIgnoreCase("CANCELLED") && !status.equalsIgnoreCase("COMPLETED")) {
                     System.out.println(orderID + "\t\t" + status);
                 }
             }
@@ -137,7 +137,7 @@ public class ProcessOrderService {
                 }
             }
             if (!orderFound) {
-                System.out.println("Order with ID " + orderID + " not found.");
+                System.out.println("Order ID " + orderID + " not found.");
                 pageViewer.changePage("StaffProcessOrderPage");
             }
         } catch (IOException e) {
@@ -201,8 +201,10 @@ public class ProcessOrderService {
                     } else if (status.equals(OrderStatus.CANCELLED.toString())) {
                         System.out.println("This order has been cancelled.");
                         return;
+                    } else if (status.equals(OrderStatus.COMPLETED.toString())) {
+                        System.out.println("This order has been completed.");
+                        return;
                     }
-                    
                     // Update the status to "READY_TO_PICKUP"
                     parts[1] = OrderStatus.READY_TO_PICKUP.toString();
                     // Update the line
@@ -217,7 +219,7 @@ public class ProcessOrderService {
             
             // If the order ID is not found, display a message
             if (!orderFound) {
-                System.out.println("Order with ID " + InputOrderID + " not found.");
+                System.out.println("Order ID " + InputOrderID + " not found.");
             }
         } catch (IOException e) {
             System.err.println("An error occurred in the order processing list: " + e.getMessage());
