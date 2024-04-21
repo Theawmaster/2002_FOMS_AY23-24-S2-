@@ -3,13 +3,11 @@ package services;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.security.PublicKey;
 import java.util.List;
 import java.util.Scanner;
-
 import constants.FilePaths;
 import constants.OrderStatus;
-import constants.Role;
+
 import entities.Order;
 import pages.pageViewer;
 import utilities.Session;
@@ -152,12 +150,12 @@ public class ProcessOrderService {
      * Adds an order to the order processing list after payment.
      * @param order The order to be added.
      */
-    public static void addOrderToProcessingList(Order order) {
+    public static void addOrderToProcessingListinCSV(Order order) {
         try {
             // Read all lines from the order processing list
             List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
             // Add new order line
-            lines.add(order.getOrderId() + "," + order.getStatus().toString() + "," + "\"" + order.getMenuItemsAsString() + "\"" + "," + (order.isTakeaway()? "Takeaway" : "Dine-in"));
+            lines.add(order.getOrderId() + "," + order.getStatus().toString() + "," + "\"" + order.getMenuItemsAsStringinCSV() + "\"" + "," + (order.isTakeaway()? "Takeaway" : "Dine-in"));
             // Write the updated lines back to the file
             Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
         } catch (IOException e) {
@@ -168,16 +166,15 @@ public class ProcessOrderService {
     /**
      * Method to process pending orders given user input of order ID
      */
-    public static void processOrderWithUserInputOfOrderID() {
+    public void processOrderWithUserInputOfOrderID() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter order ID to process: ");
         int InputOrderID;
         // Read order ID input from the user
         try {
-            InputOrderID = Integer.parseInt(scanner.nextLine());
+            InputOrderID = Integer.parseInt(scanner.nextLine().trim());
         } catch (NumberFormatException e) {
             System.out.println("Invalid input. Please enter a valid order ID.");
-            ProcessOrderService.processOrderWithUserInputOfOrderID();
             return;
         }
         
@@ -195,7 +192,8 @@ public class ProcessOrderService {
                 
                 // Check if the current order ID matches the user input
                 if (orderItemID == InputOrderID) {
-                    String status = parts[1].trim(); // Assuming status is at index 1
+                    updateOrderStatusinSession(InputOrderID);
+                    String status = parts[1].trim(); 
 
                     // Check if the order is already processed or cancelled
                     if (status.equals(OrderStatus.READY_TO_PICKUP.toString())) {
@@ -230,34 +228,35 @@ public class ProcessOrderService {
     /**
      * Method to process the order immediately with the stored order ID from StaffViewOrderDetailsPage
      */
-    public static void processOrderImmediately() {
-            // Process the order with the stored order ID
-            try {
-                // Read all lines from the order processing list
-                List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
+    public void processOrderImmediately() {
+        // Process the order with the stored order ID
+        try {
+            // Read all lines from the order processing list
+            List<String> lines = Files.readAllLines(Paths.get(FilePaths.orderprocessListPath.getPath()));
 
-                // Iterate through each line in the file
-                for (int i = 1; i < lines.size(); i++) {
-                    String[] parts = lines.get(i).split(",");
-                    int orderItemID = Integer.parseInt(parts[0].trim());
+            // Iterate through each line in the file
+            for (int i = 1; i < lines.size(); i++) {
+                String[] parts = lines.get(i).split(",");
+                int orderItemID = Integer.parseInt(parts[0].trim());
 
-                    // Check if the current order ID matches the stored order ID
-                    if (orderItemID == storedOrderID) {
-                        // Update the status to "READY_TO_PICKUP"
-                        parts[1] = OrderStatus.READY_TO_PICKUP.toString();
-                        // Update the line
-                        lines.set(i, String.join(",", parts));
-                        // Write the updated lines back to the file
-                        Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
-                        System.out.println("Order Status Changed to 'Ready For Pickup'!");
-                        // Reset the stored order ID to zero after processing
-                        storedOrderID = 0;
-                        break;
-                    }
+                // Check if the current order ID matches the stored order ID
+                if (orderItemID == storedOrderID) {
+                    updateOrderStatusinSession(storedOrderID);
+                    // Update the status to "READY_TO_PICKUP"
+                    parts[1] = OrderStatus.READY_TO_PICKUP.toString();
+                    // Update the line
+                    lines.set(i, String.join(",", parts));
+                    // Write the updated lines back to the file
+                    Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
+                    System.out.println("Order Status Changed to 'Ready For Pickup'!");
+                    // Reset the stored order ID to zero after processing
+                    storedOrderID = 0;
+                    break;
                 }
-            } catch (IOException e) {
-                System.err.println("An error occurred in the order processing list: " + e.getMessage());
             }
+        } catch (IOException e) {
+            System.err.println("An error occurred in the order processing list: " + e.getMessage());
+        }
     }
 
     /**
@@ -272,6 +271,22 @@ public class ProcessOrderService {
                 System.err.println("Error in order status update task: " + e.getMessage());
             }
         }, 2, 1, TimeUnit.MINUTES);
+    }
+    
+    /**
+     * Updates the status of an order in the session to "READY_TO_PICKUP".
+     * 
+     * @param insertOrderID The ID of the order to update.
+     */
+    private void updateOrderStatusinSession(int insertOrderID) {
+        // Retrieve the order from the session using the provided order ID
+        Order order = session.getOrderById(insertOrderID);
+        
+        // Set the status of the order to "READY_TO_PICKUP"
+        order.setStatus(OrderStatus.READY_TO_PICKUP);
+        
+        // Get and return the updated status of the order
+        order.getStatus();
     }
 
     /**
@@ -296,7 +311,7 @@ public class ProcessOrderService {
                     lines.set(i, String.join(",", parts));
                     // Write the updated lines back to the file
                     Files.write(Paths.get(FilePaths.orderprocessListPath.getPath()), lines);
-                    System.out.println("Order with ID " + orderItemID + " automatically cancelled.");
+                    System.out.println("Order ID " + orderItemID + " is automatically cancelled due to exceeded timeframe.");
                 }
             }
         } catch (IOException e) {

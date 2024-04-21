@@ -48,6 +48,10 @@ public class ViewOrderStatus implements iPage{
                     System.out.println("[Y] Yes, pick up the order.");
                     System.out.println("[N] No, not yet.");
                     break;
+                case CANCELLED:
+                    System.out.println("Your order has been cancelled. Please contact support for more information.");
+                    pageViewer.changePage("back");
+                    break;
                 default:
                     System.out.println("Your order status is unknown. Please contact support.");
                     pageViewer.changePage("back");
@@ -68,7 +72,7 @@ public class ViewOrderStatus implements iPage{
             case "y":
                 if (currentOrder.getStatus() == OrderStatus.READY_TO_PICKUP) {
                     // Change the order status to COMPLETED
-                    currentOrder.setStatus(OrderStatus.NEW);
+                    currentOrder.setStatus(OrderStatus.COMPLETED);
                     System.out.println("Thank you for picking up your order. Have a great day!");
 
                     // Go back to the main customer page

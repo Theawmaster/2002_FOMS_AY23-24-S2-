@@ -1,3 +1,1 @@
 orderID,Status,OrderDetails,isTakeaway
-1,PREPARING,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. 4PC set meal| $9.90: SETMEAL| Customization: more sauce || 3. chicken nugget| $6.60: SIDE| Customization: more sauce pls",Dine-in
-2,CANCELLED,"1. 4PC set meal| $9.90: SETMEAL| Customization: nil || 2. chicken nugget| $6.60: SIDE| Customization: STANDARD",Dine-in

@@ -26,7 +26,8 @@ public class StaffViewOrderDetailsPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                ProcessOrderService.processOrderImmediately();
+                ProcessOrderService orderService = new ProcessOrderService(session);
+                orderService.processOrderImmediately();
                 pageViewer.changePage("StaffProcessOrderPage");
                 break;
             case "b":

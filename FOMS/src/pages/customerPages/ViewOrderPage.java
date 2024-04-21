@@ -46,7 +46,7 @@ public class ViewOrderPage implements iPage{
             case "1":
                 ManagePaymentsService.makePayment(session, session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice());
                 session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
-                ProcessOrderService.addOrderToProcessingList(session.getCurrentActiveOrder());
+                ProcessOrderService.addOrderToProcessingListinCSV(session.getCurrentActiveOrder());
                 session.getCurrentActiveOrder().printOrderDetails();
                 session.addOrder(session.getCurrentActiveOrder());
                 session.setCurrentActiveOrder(null);

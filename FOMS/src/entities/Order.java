@@ -2,16 +2,8 @@ package entities;
 
 import constants.OrderStatus;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import utilities.Time;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  * Represents an order placed by a customer.
@@ -31,36 +23,17 @@ public class Order {
     
     /** Total price of all items in the order. */
     private double totalPrice;
-    
-    /** Date and time when the order was created. */
-    private LocalDateTime orderDateTime; 
-
-        /**
-         * Constructs a new order.
-         * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
-         */
-        public Order(int orderId) {
-            this.orderId = orderId;
-            this.items = new ArrayList<>();
-            this.isTakeaway = false;
-            this.status = OrderStatus.NEW;
-            this.totalPrice = 0.0;
-            this.orderDateTime = LocalDateTime.now();  // Store the order date and time when the order is created
-        }
 
     /**
-     * Checks if the order has exceeded the specified timeframe for pickup.
-     * @param minutes The specified timeframe in minutes.
-     * @return True if the order has exceeded the specified timeframe, false otherwise.
+     * Constructs a new order.
+     * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
      */
-    public boolean hasExceededTimeframeForPickup(int minutes) {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-
-        // Calculate the difference in minutes between the current time and the order time
-        long minutesDifference = ChronoUnit.MINUTES.between(orderDateTime, currentDateTime);
-
-        // Return true if the difference exceeds the specified timeframe, false otherwise
-        return minutesDifference >= minutes;
+    public Order(int orderId) {
+        this.orderId = orderId;
+        this.items = new ArrayList<>();
+        this.isTakeaway = false;
+        this.status = OrderStatus.NEW;
+        this.totalPrice = 0.0;
     }
 
     /**
@@ -96,28 +69,28 @@ public class Order {
         return removed;
     }
 
-        /**
-         * Updates the total price of the order based on the items.
-         */
-        private void updateTotalPrice() {
-            totalPrice = items.stream().mapToDouble(MenuItem::getPrice).sum();
-        }
- 
-        /**
-         * Gets the unique identifier of the order.
-         * @return Retrieve the order ID.
-         */
-        public int getOrderId() {
-            return orderId;
-        }
+    /**
+     * Updates the total price of the order based on the items.
+     */
+    private void updateTotalPrice() {
+        totalPrice = items.stream().mapToDouble(MenuItem::getPrice).sum();
+    }
 
-        /**
-         * Set the unique identifier of the order.
-         * @return Sets the order ID.
-         */
-        public void setOrderId(int orderId) {
-            this.orderId = orderId;
-        }
+    /**
+     * Gets the unique identifier of the order.
+     * @return Retrieve the order ID.
+     */
+    public int getOrderId() {
+        return orderId;
+    }
+
+    /**
+     * Set the unique identifier of the order.
+     * @return Sets the order ID.
+     */
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
+    }
 
     /**
      * Gets the list of items in the order.
@@ -208,7 +181,7 @@ public class Order {
      * Gets the menu items of the order as a single comma-separated string with quantities and customization.
      * @return The menu items as a single comma-separated string with quantities and customization.
      */
-    public String getMenuItemsAsString() {
+    public String getMenuItemsAsStringinCSV() {
         StringBuilder sb = new StringBuilder();
         
         // Construct the combined menu items string with quantities and customization
