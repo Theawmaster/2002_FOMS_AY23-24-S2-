@@ -11,6 +11,7 @@ import entities.Order;
 public class ViewOrderStatus implements iPage{
     private Session session;
     private Scanner scanner;
+    private Order currentOrder;
     
     public ViewOrderStatus(Session s){
         this.session = s;
@@ -28,7 +29,7 @@ public class ViewOrderStatus implements iPage{
         }
 
         // Attempt to retrieve the order using the orderId
-        Order currentOrder = session.getOrderById(orderID);
+        currentOrder = session.getOrderById(orderID);
 
         if (currentOrder == null) {
             System.out.println("No active order found.");
@@ -53,6 +54,10 @@ public class ViewOrderStatus implements iPage{
                     System.out.println("Your order has been cancelled. Please contact support for more information.");
                     pageViewer.changePage("back");
                     break;
+                case COMPLETED:
+                    System.out.println("Your order is completed! Please contact support for more information if you haven't received it.");
+                    pageViewer.changePage("back");
+                    break;
                 default:
                     System.out.println("Your order status is unknown. Please contact support.");
                     pageViewer.changePage("back");
@@ -61,23 +66,14 @@ public class ViewOrderStatus implements iPage{
         }
     }
     public void handleInput(String input) {
-        // Get the current active order
-        Order currentOrder = session.getCurrentActiveOrder();
-        if (currentOrder == null) {
-            System.out.println("No active order found.");
-            return;
-        }
-
         // Handle user input
         switch (input.trim().toLowerCase()) {
             case "y":
-                if (currentOrder.getStatus() == OrderStatus.READY_TO_PICKUP) {
+                if(currentOrder != null && currentOrder.getStatus() == OrderStatus.READY_TO_PICKUP){
                     // Change the order status to COMPLETED
                     currentOrder.setStatus(OrderStatus.COMPLETED);
                     ProcessOrderService.updateOrderCompletedStatus(currentOrder.getOrderId());
                     System.out.println("Thank you for picking up your order. Have a great day!");
-
-                    // Go back to the main customer page
                     pageViewer.changePage("back");
                 } else {
                     System.out.println("Your order is not ready to pick up yet.");

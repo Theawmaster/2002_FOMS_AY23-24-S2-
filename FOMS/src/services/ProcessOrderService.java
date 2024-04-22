@@ -20,7 +20,7 @@ public class ProcessOrderService {
     /**
      * The current active session
      */
-    private Session session;
+    private static Session session;
 
     /**
      * Define a scheduled executor service
@@ -305,6 +305,10 @@ public class ProcessOrderService {
 
                 // Check if the order status is "READY_TO_PICKUP"
                 if (status.equals(OrderStatus.READY_TO_PICKUP.toString())) {
+                    Order orderToUpdate = session.getOrderById(orderItemID);
+                    if (orderToUpdate != null) {
+                        orderToUpdate.setStatus(OrderStatus.CANCELLED);
+                    }
                     // Update the status to "CANCELLED"
                     parts[1] = OrderStatus.CANCELLED.toString();
                     // Update the line
