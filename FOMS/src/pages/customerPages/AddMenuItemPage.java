@@ -52,8 +52,7 @@ public class AddMenuItemPage implements iPage{
                 switch(userdecision){
                     case "y":
                     case "Y":
-                        boolean isTakeaway = askForOrderType();
-                        addToOrder(selectedItem,"", input.isEmpty() ? "Standard" : input, isTakeaway);
+                        addToOrder(selectedItem,"", input.isEmpty() ? "Standard" : input);
                         System.out.println("Item added to your order.");
 
                         while(!validInput){
@@ -100,45 +99,18 @@ public class AddMenuItemPage implements iPage{
         }
     }
 
-    private void addToOrder(MenuItem Item, String Description, String Customization, boolean takeaway){
+    private void addToOrder(MenuItem Item, String Description, String Customization){
         // Adds the item to the current active order
         Order currentOrder = session.getCurrentActiveOrder();
         if (currentOrder == null) {
             currentOrder = new Order(generateOrderId());
-            currentOrder.setTakeaway(takeaway);
             session.setCurrentActiveOrder(currentOrder);
-        } else{
-            while(true) {
-                if(currentOrder.isTakeaway() != askForOrderType()) {
-                    System.out.println("Your current order is " + (currentOrder.isTakeaway() ? "takeaway" : "dine-in") + ".");
-                    System.out.println("Please choose the same option to add items to this order.");
-                } else {
-                    // Selected the right option
-                    break;
-                }
-            }
-        }
+        } 
+
         currentOrder.addItem(Item, Description, Customization);
         System.out.println("Current order details: ");
         currentOrder.printOrderDetails();
     } 
-    // method to get order type
-    private boolean askForOrderType() {
-        System.out.println("Are you dining in or taking away?"); 
-        System.out.println("[1] Takeaway");
-        System.out.println("[2] Dine-in");
-        
-        while (true) {
-            String response = scanner.nextLine().trim();
-            if (response.equals("1")) {
-                return true; // Takeaway
-            } else if (response.equals("2")) {
-                return false; // Dine-in
-            } else {
-                System.out.println("Invalid input, please select '1' for Takeaway or '2' for Dine-in.");
-            }
-        }
-    }
 
     private static int generateOrderId(){
         return Orderid++;
