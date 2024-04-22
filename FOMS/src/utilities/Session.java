@@ -2,6 +2,7 @@ package utilities;
 
 import java.util.ArrayList;
 
+import constants.OrderStatus;
 import entities.Staff;
 import services.payments.iPaymentService;
 import services.payments.VisaPaymentService;
@@ -69,9 +70,12 @@ public class Session {
         LoadOrders initLoadOrders = new LoadOrders(this.allBranches, this.allMenuItems);
         this.allOrders = initLoadOrders.getLoadedData();
 
-        for (Order o : this.allOrders) {
-            if (o.getOrderId() >= this.nextOrderId) {
-                this.nextOrderId = o.getOrderId() + 1;
+        if(this.currentActiveOrder==null || this.currentActiveOrder.getStatus()==OrderStatus.COMPLETED || this.currentActiveOrder.getStatus()==OrderStatus.CANCELLED){
+            // only update the next orderID accordingly if the current order has been completed / cancelled / undefined
+            for (Order o : this.allOrders) {
+                if (o.getOrderId() >= this.nextOrderId) {
+                    this.nextOrderId = o.getOrderId() + 1;
+                }
             }
         }
     }
@@ -125,6 +129,10 @@ public class Session {
     public void makeNewOrder(){
         this.currentActiveOrder = new Order(this.nextOrderId, this.currentActiveBranch);
         this.nextOrderId++;
+    }
+
+    public void closeSession(){
+        LoadOrders.destroyOrders();
     }
 
 }

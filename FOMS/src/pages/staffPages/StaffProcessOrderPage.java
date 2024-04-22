@@ -19,7 +19,7 @@ public class StaffProcessOrderPage implements iPage{
      */
     public void viewOptions(){
         for(Order o : this.session.getAllOrders()){
-            System.out.println("Order number: " + o.getOrderId() + "[" + o.getStatus() + "]");
+            System.out.println("Order number: " + o.getOrderId() + " [" + o.getStatus() + "]");
         }
         System.out.println("[1] Process Order");
         System.out.println("[2] View Order Details");

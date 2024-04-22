@@ -58,7 +58,7 @@ public class SelectBranchPage implements iPage{
      */
     public void handleInput(String choice){
         if(choice.equalsIgnoreCase("q") || choice.equalsIgnoreCase("quit")){
-            SerialiseCSV.eraseCSVData("FOMS/src/utilities/data/order_process_list.csv");
+            this.session.closeSession();
             System.out.println("If you have a complaint I suggest you submit it through our email system. You are done.");
             // Terminate entire programme. Only this class can do this
             System.exit(0);

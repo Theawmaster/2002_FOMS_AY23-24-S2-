@@ -4,6 +4,7 @@ import pages.iPage;
 import pages.PageViewer;
 import services.ManagePaymentsService;
 import services.ProcessOrderService;
+import test.exampleShowStaff;
 import utilities.Session;
 
 /**
@@ -32,7 +33,7 @@ public class ViewOrderPage implements iPage{
             session.getCurrentActiveOrder().printOrderDetails();
             System.out.println("[1] Make Payment");
             System.out.println("[2] Edit Order");
-            System.out.println("[3] Continue Browsing");
+            System.out.println("[B] Continue Browsing");
         }
         //...
     }
@@ -43,20 +44,23 @@ public class ViewOrderPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice()))
+                if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice())){
                     ProcessOrderService.customerPaid(this.session);
-                PageViewer.changePage("back");
+                    PageViewer.changePage("MainPage");
+                }
+                else
+                    PageViewer.changePage("current");
                 break;
             case "2":
                 PageViewer.changePage("EditOrderPage");
                 break;
-            case "3":
-                PageViewer.changePage("back");
+            case "b":
+            case "B":
+                // brings user back to browse the categories  
+                PageViewer.changePage("BrowseCategoriesPage");
                 break;
-                //...
             default:
                 System.out.println("Invalid choice, please try again.");
-                viewOptions();
                 break;
         }
     }

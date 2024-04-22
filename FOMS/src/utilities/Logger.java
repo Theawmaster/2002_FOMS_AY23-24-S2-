@@ -7,7 +7,7 @@ public class Logger {
     /**
      * Set to false to disable logging. Set to true to enable logging of info, debug, or error messages
      */
-    public static boolean loggerIsEnabled = true;
+    public static boolean loggerIsEnabled = false;
 
     /**
      * color string constant for ANSI_RESET

@@ -165,7 +165,8 @@ public class UserInputHelper {
     
     public static Order chooseOrder(ArrayList<Order> order, Branch branch){
         while(true){
-            int option = getUserChoice("Enter your order ID", 999);
+            int option = getUserChoice("Enter your order ID (c to cancel): ", 999, "c");
+            if(option == -1) return null;
             for(Order o : order){
                 if(o.getOrderId() == option && o.getBranchName().equals(branch.getBranchName())){
                     return o;

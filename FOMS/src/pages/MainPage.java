@@ -1,5 +1,6 @@
 package pages;
 
+import services.ProcessOrderService;
 import utilities.Session;
 
 /**
@@ -27,7 +28,8 @@ public class MainPage implements iPage{
                            "                                            \n" +
                            "                                            ");
         System.out.println("[1] Start Ordering");
-        System.out.println("[2] Log in as staff");
+        System.out.println("[2] Collect order");
+        System.out.println("[3] Log in as staff");
         System.out.println("[B] Back to select branch");
     }
 
@@ -42,6 +44,10 @@ public class MainPage implements iPage{
                     PageViewer.changePage("CustomerPage");
                     break;
                 case "2":
+                    ProcessOrderService.collectOrder(this.session);
+                    PageViewer.changePage("current");
+                    break;
+                case "3":
                     PageViewer.changePage("StaffLoginPage");
                     break;
                 case "b":

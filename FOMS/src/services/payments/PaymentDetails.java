@@ -20,7 +20,7 @@ public class PaymentDetails {
         this.customerID = ID;
         this.amount = amt;
         this.paymentType = pmtType;
-        this.confirmation = "Customer "+ this.customerID + " paid $" + this.amount + " with " + this.paymentType.getPaymentTypeName();
+        this.confirmation = "Customer "+ this.customerID + String.format(" paid $%.2f",  this.amount)  + " with " + this.paymentType.getPaymentTypeName();
     }
     /**
      * Simply prints out the confirmation slip (just to prove the customer paid $x using what payment type)

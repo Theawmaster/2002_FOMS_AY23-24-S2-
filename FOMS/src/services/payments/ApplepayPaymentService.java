@@ -3,6 +3,7 @@ package services.payments;
 import java.util.ArrayList;
 
 import exceptionHandlers.TransactionFailedException;
+import utilities.Logger;
 import utilities.UserInputHelper;
 import exceptionHandlers.PaymentServiceDisabledException;
 
@@ -53,14 +54,14 @@ public class ApplepayPaymentService implements iPaymentService {
             try{
                 simulateTap(amount);
                 this.transactionHist.add(new PaymentDetails(customerID, amount, this));
-                System.out.println("Payment via " + this.getPaymentTypeName() + " successful.");
+                System.out.println(Logger.ANSI_GREEN+"Payment via " + this.getPaymentTypeName() + " successful."+Logger.ANSI_RESET);
             }
             catch (TransactionFailedException e){
                 throw e;
             }
         }
         else
-            throw new PaymentServiceDisabledException(this.getPaymentTypeName() + " is currently disabled!");
+            throw new PaymentServiceDisabledException(Logger.ANSI_RED+this.getPaymentTypeName() + " is currently disabled!"+Logger.ANSI_RESET);
     }
     /**
      * @return an array list of payment details
@@ -76,8 +77,8 @@ public class ApplepayPaymentService implements iPaymentService {
      */
     private void simulateTap(double amount) throws TransactionFailedException{
         // get user to type "tap" to simulate Apple pay payment
-        String simulatedTap = UserInputHelper.getInput("Please tap your phone to transact $"+amount+". (type 'tap'):");
+        String simulatedTap = UserInputHelper.getInput("Please tap your phone to transact $"+String.format("%.2f", amount)+". (type 'tap'):");
         if(simulatedTap.equalsIgnoreCase("tap")) return;
-        else throw new TransactionFailedException("Apple pay transaction failed");
+        else throw new TransactionFailedException(Logger.ANSI_RED+"Apple pay transaction failed"+Logger.ANSI_RESET);
     }
 }

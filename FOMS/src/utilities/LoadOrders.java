@@ -65,6 +65,7 @@ public class LoadOrders extends LoadData<Order>{
             ArrayList<MenuItem> orderItems = new ArrayList<>(); // create a new list of orderItems
             String[] itemNames = row[4].split("\\|");
             for(String itemN : itemNames){ // for each item name, match the MenuItem object and Branch object to clone
+                if(itemN.equals("")) continue;
                 for(MenuItem m : menu){
                     if(m.getFood().equalsIgnoreCase(itemN) && m.getBranch()==orderBranch){
                         MenuItem newItem;
@@ -82,7 +83,7 @@ public class LoadOrders extends LoadData<Order>{
             // processing ItemCustomisation and total price column at the same time
             Double totalPrice = 0.0;
             String[] itemCustomise = row[5].split("\\|");
-            for(int i=0; i<itemCustomise.length; i++){ // for each customisation, set it in the corresponding menu items
+            for(int i=0; i<itemCustomise.length-1; i++){ // for each customisation, set it in the corresponding menu items
                 orderItems.get(i).setCustomization(itemCustomise[i]);
                 totalPrice += orderItems.get(i).getPrice();
             }
@@ -100,6 +101,8 @@ public class LoadOrders extends LoadData<Order>{
      * @return
      */
     public static boolean addOrderToCSV(Order order) {
+        // remove existing record
+        SerialiseCSV.deleteToCSV(Integer.toString(order.getOrderId()), 0, FilePaths.orderprocessListPath.getPath());
         String items = "";
         String itemCust = "";
         for(MenuItem m : order.getItems()){
@@ -111,13 +114,17 @@ public class LoadOrders extends LoadData<Order>{
                             + (order.isTakeaway() ? "Takeaway" : "Dine-in") +","
                             + order.getBranchName() +","
                             + items +","
-                            + itemCust;
+                            + itemCust +",";
 
         return SerialiseCSV.appendToCSV(orderRecord, FilePaths.orderprocessListPath.getPath());
     }
 
     public static boolean updateOrderStatus(Order order, OrderStatus status){
         return SerialiseCSV.replaceColumnValue(Integer.toString(order.getOrderId()), 1, status.toString(), FilePaths.orderprocessListPath.getPath());
+    }
+
+    public static void destroyOrders(){
+        SerialiseCSV.resetCSVData(FilePaths.orderprocessListPath.getPath(), "orderID,Status,isTakeaway,Items,ItemCustomisation\n");
     }
 
 }
