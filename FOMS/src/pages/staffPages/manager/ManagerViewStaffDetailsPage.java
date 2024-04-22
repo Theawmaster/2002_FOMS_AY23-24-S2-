@@ -3,7 +3,7 @@ package pages.staffPages.manager;
 import constants.FilePaths;
 import constants.Role;
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.ManageStaffService;
 import utilities.PersistenceHandler;
 import utilities.Session;
@@ -44,47 +44,47 @@ public class ManagerViewStaffDetailsPage implements iPage{
         switch (choice) {
             case "1":
                 ManageStaffService.displayStaff_sortName(this.session, true);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "2":
                 ManageStaffService.displayStaff_sortName(this.session, false);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "3":
                 ManageStaffService.displayStaff_sortAge(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "4":
                 if(session.getCurrentActiveStaff().getRole()!=Role.ADMIN) System.out.println("Invalid input!");
                 else{
                     ManageStaffService.displayStaff_filterAge(this.session);
-                    pageViewer.changePage("current");
+                    PageViewer.changePage("current");
                 }
                 break;
             case "5":
                 if(session.getCurrentActiveStaff().getRole()!=Role.ADMIN) System.out.println("Invalid input!");
                 else{
                     ManageStaffService.displayStaff_filterGender(this.session);
-                    pageViewer.changePage("current");
+                    PageViewer.changePage("current");
                 }
                 break;
             case "6":
                 if(session.getCurrentActiveStaff().getRole()!=Role.ADMIN) System.out.println("Invalid input!");
                 else{
                     ManageStaffService.displayStaff_filterRole(this.session);
-                    pageViewer.changePage("current");
+                    PageViewer.changePage("current");
                 }
                 break;
             case "7":
                 if(session.getCurrentActiveStaff().getRole()!=Role.ADMIN) System.out.println("Invalid input!");
                 else{
                     ManageStaffService.displayStaff_filterBranch(this.session);
-                    pageViewer.changePage("current");
+                    PageViewer.changePage("current");
                 }
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input!");

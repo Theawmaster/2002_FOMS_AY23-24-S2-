@@ -39,15 +39,15 @@ public class MainPage implements iPage{
         try{
             switch (choice) {
                 case "1":
-                    pageViewer.changePage("CustomerPage");
+                    PageViewer.changePage("CustomerPage");
                     break;
                 case "2":
-                    pageViewer.changePage("StaffLoginPage");
+                    PageViewer.changePage("StaffLoginPage");
                     break;
                 case "b":
                 case "B":
                     this.session.setCurrentActiveBranch(null);
-                    pageViewer.changePage("SelectBranchPage");
+                    PageViewer.changePage("back");
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");

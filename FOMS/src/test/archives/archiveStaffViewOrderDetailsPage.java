@@ -1,23 +1,23 @@
-package pages.staffPages;
+package test.archives;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.ProcessOrderService;
 import utilities.Session;
 
-public class StaffViewOrderDetailsPage implements iPage{
+public class archiveStaffViewOrderDetailsPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
-    public StaffViewOrderDetailsPage(Session s){
+    public archiveStaffViewOrderDetailsPage(Session s){
         this.session = s;
     }
     /**
      * Method to view order details process options
      */
     public void viewOptions(){
-        ProcessOrderService.displayOrderDetailsProcessOptions();;
+        
     }
     /**
      * Method to handle user input 
@@ -26,14 +26,12 @@ public class StaffViewOrderDetailsPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                ProcessOrderService orderService = new ProcessOrderService(session);
-                orderService.processOrderImmediately();
-                pageViewer.changePage("StaffProcessOrderPage");
+                ProcessOrderService.processOrder(this.session);
+                PageViewer.changePage("StaffProcessOrderPage");
                 break;
             case "b":
             case "B":
-                ProcessOrderService.resetStoredOrderID();
-                pageViewer.changePage("StaffProcessOrderPage");
+                PageViewer.changePage("StaffProcessOrderPage");
                 break;
             default:
                 System.out.println("Invalid choice!");

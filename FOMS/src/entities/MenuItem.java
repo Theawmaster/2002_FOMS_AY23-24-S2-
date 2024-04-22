@@ -2,7 +2,7 @@ package entities;
 
 import constants.MealCategory;
 
-public class MenuItem {
+public class MenuItem implements Cloneable{
 
     private String food;
     private double price;
@@ -20,10 +20,6 @@ public class MenuItem {
         this.category = category;
         this.description = description;
         this.customization = customization;
-    }
-
-    public MenuItem(MenuItem itemToEdit) {
-        //TODO Auto-generated constructor stub
     }
 
     public void printMenuItems(){
@@ -82,9 +78,8 @@ public class MenuItem {
         this.customization = customization;
     }
 
-    public char[] toCSV() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'toCSV'");
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }
 

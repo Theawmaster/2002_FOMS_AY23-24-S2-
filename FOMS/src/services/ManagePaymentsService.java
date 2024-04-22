@@ -58,10 +58,10 @@ public class ManagePaymentsService {
     /**
      * This method processes the payment from customers
      * @param session the current context
-     * @param custID the customer ID 
+     * @param orderID the customer ID 
      * @param amount the amount to pay
      */
-    public static void makePayment(Session session, int custID, double amount){
+    public static boolean makePayment(Session session, int orderID, double amount){
         while(true){
             System.out.println("Select payment type:");
             int i=1;
@@ -70,9 +70,10 @@ public class ManagePaymentsService {
                 i++;
             }
             try{
-                int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
-                session.getAllPaymentServices().get(choice-1).pay(custID, amount);
-                return;
+                int choice = UserInputHelper.getUserChoice("Enter your choice (c to cancel)", i-1, "c");
+                if(choice == -1) return false; // user devided to cancel payment
+                session.getAllPaymentServices().get(choice-1).pay(orderID, amount);
+                return true;
             }
             catch (TransactionFailedException e){
                 System.out.println(e.getMessage());

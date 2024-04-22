@@ -2,7 +2,7 @@ package pages.staffPages.admin;
 
 import constants.Role;
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.Session;
 
 /**
@@ -35,7 +35,7 @@ public class AdminAccessPage implements iPage {
         else{
             System.out.println("You are not an admin! You do not have access to this page!");
             // go back to staff access page
-            pageViewer.changePage("back");
+            PageViewer.changePage("back");
         }
     }
 
@@ -46,20 +46,20 @@ public class AdminAccessPage implements iPage {
     public void handleInput(String choice) {
         switch (choice) {
             case "1":
-                pageViewer.changePage("AdminManageStaffPage");
+                PageViewer.changePage("AdminManageStaffPage");
                 break;
             case "2":
-                pageViewer.changePage("AdminManageBranchPage");
+                PageViewer.changePage("AdminManageBranchPage");
                 break;
             case "3":
-                pageViewer.changePage("AdminManagePaymentPage");
+                PageViewer.changePage("AdminManagePaymentPage");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
-                pageViewer.changePage("Invalid choice");
+                PageViewer.changePage("Invalid choice");
                 break;
         }
     }

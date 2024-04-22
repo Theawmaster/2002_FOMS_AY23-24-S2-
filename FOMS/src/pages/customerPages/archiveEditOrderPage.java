@@ -1,7 +1,7 @@
 package pages.customerPages;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.ManagePaymentsService;
 import utilities.Session;
 
@@ -12,12 +12,12 @@ import java.util.Scanner;
 import entities.MenuItem;
 import entities.Order;
 
-public class EditOrderPage implements iPage{
+public class archiveEditOrderPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
-    public EditOrderPage(Session s){
+    public archiveEditOrderPage(Session s){
         this.session = s;
     }
     /**
@@ -31,7 +31,7 @@ public class EditOrderPage implements iPage{
             System.out.println("[B] Back to View Order Page");
         }catch(Exception e){
             System.out.println("Order hasn't been made!");
-            pageViewer.changePage("ViewOrderPage");
+            PageViewer.changePage("ViewOrderPage");
         }
         //...
     }
@@ -73,7 +73,7 @@ public class EditOrderPage implements iPage{
                     System.out.println("Failed to remove item after 3 attempts. Returning to View Order page.");
                 }
 
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             case "2":
                 while(attempts<3 && !validInput){
@@ -99,11 +99,11 @@ public class EditOrderPage implements iPage{
                 if (!validInput) {
                     System.out.println("Failed to customise item after 3 attempts. Returning to order page.");
                 }
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
                 //...
             default:

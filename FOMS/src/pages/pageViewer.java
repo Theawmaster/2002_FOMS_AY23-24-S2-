@@ -6,36 +6,21 @@ import constants.FilePaths;
 
 import java.io.IOException;
 import java.util.HashMap;
-import entities.MenuItem;
 
 import utilities.PathTracker;
 import utilities.PersistenceHandler;
 import utilities.Session;
-import pages.customerPages.AddMenuItemPage;
-import pages.customerPages.BrowseCategoriesPage;
-import pages.customerPages.BrowseDrinksPage;
-import pages.customerPages.BrowseSetMealPage;
-import pages.customerPages.BrowseSidesPage;
-import pages.customerPages.CustomerPage;
-import pages.customerPages.EditOrderPage;
-import pages.customerPages.ViewOrderPage;
-import pages.customerPages.ViewOrderStatus;
-import pages.staffPages.StaffLoginPage;
+import pages.customerPages.*;
 import pages.staffPages.*;
-import pages.staffPages.admin.AdminAccessPage;
-import pages.staffPages.admin.AdminManagePaymentPage;
-import pages.staffPages.admin.AdminManageBranchPage;
-import pages.staffPages.admin.AdminManageStaffPage;
-import pages.staffPages.manager.ManagerAccessPage;
-import pages.staffPages.manager.ManagerEditMenuItemsPage;
-import pages.staffPages.manager.ManagerViewStaffDetailsPage;
+import pages.staffPages.admin.*;
+import pages.staffPages.manager.*;
 
 /**
  * This class serves to manage the different pages. Call this class to change to the active page required. 
  * This class depends on iPage, which means every page will be dependant on this class.
  * @author Siah Yee Long
  */
-public class pageViewer {
+public class PageViewer {
     /**
      * Map to store every page in existence
      */
@@ -58,13 +43,12 @@ public class pageViewer {
         // initialise all views
         pages.put("SelectBranchPage", new SelectBranchPage(session));
         pages.put("MainPage", new MainPage(session));
-        pages.put("CustomerPage", new CustomerPage());
+        pages.put("CustomerPage", new CustomerPage(session));
         pages.put("ViewOrderPage", new ViewOrderPage(session));
-        pages.put("EditOrderPage", new EditOrderPage(session));
+        pages.put("EditOrderPage", new archiveEditOrderPage(session));////////
         pages.put("StaffLoginPage", new StaffLoginPage(session));
         pages.put("StaffAccessPage", new StaffAccessPage(session));
         pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));
-        pages.put("StaffViewOrderDetailsPage", new StaffViewOrderDetailsPage(session));
         pages.put("ManagerAccessPage", new ManagerAccessPage(session));
         pages.put("ManagerEditMenuItemsPage", new ManagerEditMenuItemsPage(session));
         pages.put("ManagerViewStaffDetailsPage", new ManagerViewStaffDetailsPage(session));
@@ -77,7 +61,6 @@ public class pageViewer {
         pages.put("BrowseSidesPage", new BrowseSidesPage(session));
         pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
         pages.put("AddMenuItemPage", new AddMenuItemPage(session));
-        pages.put("ViewOrderStatus", new ViewOrderStatus(session));
         // add more views here as required
         
         pathTracker = new PathTracker("SelectBranchPage", pages.get("SelectBranchPage"), session);
@@ -89,25 +72,31 @@ public class pageViewer {
     public static void changePage(String pageName){
         if("back".equalsIgnoreCase(pageName)){
             currentPage = pathTracker.getPrevPage();
-            pathTracker.printCurrentPath();
-            pathTracker.printCurrentUser();
-            currentPage.viewOptions();
         }
         else if("current".equalsIgnoreCase(pageName)){
-            pathTracker.printCurrentPath();
-            pathTracker.printCurrentUser();
-            currentPage.viewOptions();
+            // no action required
         }
         else if(pages.containsKey(pageName)){
-            currentPage = pages.get(pageName);
-            pathTracker.goTo(pageName, currentPage);
-            pathTracker.printCurrentPath();
-            pathTracker.printCurrentUser();
-            currentPage.viewOptions();
+            if(pathTracker.isNotBehind(pageName)){
+                currentPage = pages.get(pageName);
+                pathTracker.goTo(pageName, currentPage);
+            }
+            else{
+                // if the page requested is a few pages behind the current, navigate there appropriately
+                currentPage = pathTracker.getBackTo(pageName);
+            }
+        }
+        else if("init".equalsIgnoreCase(pageName)){
+            currentPage = pages.get("SelectBranchPage");
         }
         else{
             System.out.println("Error: View not found!");
         }
+        
+        pathTracker.printCurrentPath();
+        pathTracker.printCurrentUser();
+        currentPage.viewOptions();
+
         // if data has been modified by another instance of the FOMS app, update it into the session
         if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
     }
@@ -126,12 +115,5 @@ public class pageViewer {
         }
         else
             System.out.println("No active view to handle input!");
-    }
-
-    // no, just call changePage(<the page you wanna go to>) within whatever function youre in
-    public static void navigateToAddMenuItemPage(MenuItem selectedItem) {
-        AddMenuItemPage addMenuItemPage = new AddMenuItemPage(session, selectedItem);
-        currentPage = addMenuItemPage;
-        currentPage.viewOptions(); // Display the AddMenuItemPage options.
     }
 }

@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import utilities.Logger;
 import pages.iPage;
 
 public class PathTracker {
@@ -36,7 +37,7 @@ public class PathTracker {
     /**
      * Method to pop out the last page navigated
      */
-    public void goBack() {
+    private void goBack() {
         if (path.size() > 1) {
             // Get the last key manually
             String lastKey = null;
@@ -45,6 +46,7 @@ public class PathTracker {
             }
             if (lastKey != null) {
                 path.remove(lastKey);
+                return;
             }
         }
     }
@@ -62,6 +64,14 @@ public class PathTracker {
             lastPage = path.get(lastKey);
         }
         return lastPage;
+    }
+    public iPage getBackTo(String pageName){
+        if(this.path.get(pageName)!=getPrevPage()) return getBackTo(pageName);
+        return this.path.get(pageName);
+    }
+
+    public boolean isNotBehind(String pageName){
+        return this.path.get(pageName)==null;
     }
 
     /**

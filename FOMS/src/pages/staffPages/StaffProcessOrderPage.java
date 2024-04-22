@@ -1,7 +1,8 @@
 package pages.staffPages;
 
+import entities.Order;
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.Session;
 import services.ProcessOrderService;
 
@@ -17,7 +18,12 @@ public class StaffProcessOrderPage implements iPage{
      * Method to display list of pending orders & view process order options
      */
     public void viewOptions(){
-        ProcessOrderService.displayProcessOptions();
+        for(Order o : this.session.getAllOrders()){
+            System.out.println("Order number: " + o.getOrderId() + "[" + o.getStatus() + "]");
+        }
+        System.out.println("[1] Process Order");
+        System.out.println("[2] View Order Details");
+        System.out.println("[B] Return to Staff Access Page");
     }
     /**
     * Method to handle user input 
@@ -26,16 +32,16 @@ public class StaffProcessOrderPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                ProcessOrderService processOrderService = new ProcessOrderService(session);
-                processOrderService.processOrderWithUserInputOfOrderID();
-                pageViewer.changePage("StaffProcessOrderPage");
+                ProcessOrderService.processOrder(this.session);
+                PageViewer.changePage("current");
                 break;
             case "2":
-                pageViewer.changePage("StaffViewOrderDetailsPage");
+                ProcessOrderService.viewOrderDetails(this.session);
+                PageViewer.changePage("current");
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

@@ -7,7 +7,7 @@ import utilities.UserInputHelper;
 import constants.Role;
 import constants.Settings;
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.authenticator.iLoginService;
 import services.authenticator.StaffLoginService;
 
@@ -27,7 +27,7 @@ public class StaffLoginPage implements iPage {
      */
     private StaffLoginService staffLoginService;
     /**
-     * Initialising this page sets the session provided from pageViewer
+     * Initialising this page sets the session provided from PageViewer
      * @param s
      */
     public StaffLoginPage(Session s){
@@ -64,26 +64,26 @@ public class StaffLoginPage implements iPage {
                     System.out.println("Welcome, " + this.session.getCurrentActiveStaff().getFirstName());
                     
                     // log in success. go to staff access page
-                    pageViewer.changePage("StaffAccessPage");
+                    PageViewer.changePage("StaffAccessPage");
                 } else {
                     System.out.println("Login failed.");
-                    pageViewer.changePage("back");
+                    PageViewer.changePage("back");
                 }
                 break;
             case "2":
                 if(tryForgotPassword(staffLoginService)) System.out.println("OI STOP FUCKING FORGETTING. RESET SUCCESS ANYWAY");
                 else System.out.println("failed reset pw");
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "3": 
                 if(tryChangePassword(staffLoginService)) System.out.println(("CHANGE PASSWORD SUCCESS YAYYY"));
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "b":
             case "B":
                 // goes back to MainPage
                 this.session.setCurrentActiveStaff(null);
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

@@ -1,7 +1,7 @@
 package pages.customerPages;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 
 public class BrowseCategoriesPage implements iPage {
     /**
@@ -25,17 +25,17 @@ public class BrowseCategoriesPage implements iPage {
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                pageViewer.changePage("BrowseSetMealPage");
+                PageViewer.changePage("BrowseSetMealPage");
                 break;
             case "2":
-                pageViewer.changePage("BrowseDrinksPage");
+                PageViewer.changePage("BrowseDrinksPage");
                 break;
             case "3":
-                pageViewer.changePage("BrowseSidesPage");
+                PageViewer.changePage("BrowseSidesPage");
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input, please put in a valid input");

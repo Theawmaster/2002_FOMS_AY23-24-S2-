@@ -1,13 +1,16 @@
 package pages.customerPages;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
+import services.ProcessOrderService;
+import utilities.Session;
 
 public class CustomerPage implements iPage{
     /**
      * The current active session 
      */
-    public CustomerPage(){}
+    private Session session;
+    public CustomerPage(Session session){ this.session = session; }
     
     /**
      * Method to view menu options
@@ -27,21 +30,21 @@ public class CustomerPage implements iPage{
         try{
             switch (choice) {
                 case "1":
-                    pageViewer.changePage("BrowseCategoriesPage");
+                    PageViewer.changePage("BrowseCategoriesPage");
                     break;
                 case "2":
-                    pageViewer.changePage("ViewOrderPage");
+                    PageViewer.changePage("ViewOrderPage");
                     break;
                 case "3": 
-                    pageViewer.changePage("ViewOrderStatus");
+                    ProcessOrderService.custViewOrderStatus(this.session.getAllOrders());
+                    PageViewer.changePage("current");
                     break;
                 case "B":
                 case "b":
-                    pageViewer.changePage("back");
+                    PageViewer.changePage("back");
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");
-                    viewOptions();  // Re-display the options for the user
                     break;
             }
         }catch(Exception e){

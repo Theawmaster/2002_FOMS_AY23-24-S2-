@@ -24,7 +24,7 @@ public class SelectBranchPage implements iPage{
     private int numOptions;
     private ArrayList<Branch> availableBranches = new ArrayList<>();
     /**
-     * Initialising this page sets the session provided from pageViewer
+     * Initialising this page sets the session provided from PageViewer
      * @param s
      */
     public SelectBranchPage(Session s){
@@ -70,7 +70,7 @@ public class SelectBranchPage implements iPage{
             // customer is now dining here. all staff and managers will belong to this branch.
             this.session.setCurrentActiveBranch(activeBranch);
             //change view to the main page to start ordering and stuff
-            pageViewer.changePage("MainPage");
+            PageViewer.changePage("MainPage");
         }
         catch (NumberFormatException e){
             System.out.println("Please enter only integer values, or 'q' to quit! ");

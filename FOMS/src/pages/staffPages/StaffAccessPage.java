@@ -1,7 +1,7 @@
 package pages.staffPages;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.Session;
 
 public class StaffAccessPage implements iPage {
@@ -29,19 +29,19 @@ public class StaffAccessPage implements iPage {
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                pageViewer.changePage("StaffProcessOrderPage");
+                PageViewer.changePage("StaffProcessOrderPage");
                 break;
             case "2":
-                pageViewer.changePage("ManagerAccessPage");
+                PageViewer.changePage("ManagerAccessPage");
                 break;
             case "3":
-                pageViewer.changePage("AdminAccessPage");
+                PageViewer.changePage("AdminAccessPage");
                 break;
             case "b":
             case "B":
                 this.session.setCurrentActiveStaff(null);
                 System.out.println("Logging out...");
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

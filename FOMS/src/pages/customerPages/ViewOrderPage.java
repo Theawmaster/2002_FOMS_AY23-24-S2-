@@ -1,11 +1,10 @@
 package pages.customerPages;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.ManagePaymentsService;
-import utilities.Session;
-import constants.OrderStatus;
 import services.ProcessOrderService;
+import utilities.Session;
 
 /**
  * This is the View Order Page that the user will see after choosing View Cart on Customer Page. 
@@ -26,8 +25,8 @@ public class ViewOrderPage implements iPage{
      */
     public void viewOptions(){
         if(session.getCurrentActiveOrder() == null || session.getCurrentActiveOrder().countTotalItems() == 0){
-            System.out.println("Your cart is empty");
-            pageViewer.changePage("back");
+            System.out.println("Your cart is currently empty");
+            PageViewer.changePage("back");
         }
         else{
             session.getCurrentActiveOrder().printOrderDetails();
@@ -44,19 +43,15 @@ public class ViewOrderPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                ManagePaymentsService.makePayment(session, session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice());
-                session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
-                ProcessOrderService.addOrderToProcessingListinCSV(session.getCurrentActiveOrder());
-                session.getCurrentActiveOrder().printOrderDetails();
-                session.addOrder(session.getCurrentActiveOrder());
-                session.setCurrentActiveOrder(null);
-                pageViewer.changePage("back");
+                if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice()))
+                    ProcessOrderService.customerPaid(this.session);
+                PageViewer.changePage("back");
                 break;
             case "2":
-                pageViewer.changePage("EditOrderPage");
+                PageViewer.changePage("EditOrderPage");
                 break;
             case "3":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
                 //...
             default:

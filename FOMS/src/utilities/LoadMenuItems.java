@@ -15,8 +15,8 @@ import entities.Branch;
  * @author @Theawmaster
  */
 public class LoadMenuItems extends LoadData<MenuItem>{
-    public LoadMenuItems(ArrayList<Branch> branches) {
-        super(branches);
+    public LoadMenuItems(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
+        super(branches, menu);
     }
 
     /**
@@ -24,7 +24,7 @@ public class LoadMenuItems extends LoadData<MenuItem>{
      * @return a list of MenuItem objects with information loaded in
      */
     @Override
-    public ArrayList<MenuItem> loadDatafromCSV(ArrayList<Branch> branches){
+    public ArrayList<MenuItem> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> x){
         ArrayList<MenuItem> menuitems = new ArrayList<>(); // the return value
     
         // load data from the menu list csv

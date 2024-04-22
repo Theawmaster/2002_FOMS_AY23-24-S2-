@@ -4,14 +4,15 @@ import java.util.ArrayList;
 
 import constants.FilePaths;
 import entities.Branch;
+import entities.MenuItem;
 
 /**
  * The {@link LoadStaffs} class loads Branch data from the CSV database
  */
 public class LoadBranches extends LoadData<Branch>{
 
-    public LoadBranches(ArrayList<Branch> branches) {
-        super(branches);
+    public LoadBranches(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
+        super(branches, menu);
     }
 
     /**
@@ -19,7 +20,7 @@ public class LoadBranches extends LoadData<Branch>{
      * @return a list of Branch objects with information loaded in
      */
     @Override
-    public ArrayList<Branch> loadDatafromCSV(ArrayList<Branch> x){
+    public ArrayList<Branch> loadDatafromCSV(ArrayList<Branch> x, ArrayList<MenuItem> y){
         ArrayList<Branch> branches = new ArrayList<>();
         ArrayList<String> serialisedData = SerialiseCSV.readCSV(FilePaths.branchListPath.getPath());
 
