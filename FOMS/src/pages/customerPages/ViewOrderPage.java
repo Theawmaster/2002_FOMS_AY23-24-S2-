@@ -50,7 +50,7 @@ public class ViewOrderPage implements iPage{
                 session.getCurrentActiveOrder().printOrderDetails();
                 session.addOrder(session.getCurrentActiveOrder());
                 session.setCurrentActiveOrder(null);
-                pageViewer.changePage("back");
+                pageViewer.changePage("CustomerPage");
                 break;
             case "2":
                 pageViewer.changePage("EditOrderPage");
