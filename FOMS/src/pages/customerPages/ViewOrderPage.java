@@ -76,23 +76,4 @@ public class ViewOrderPage implements iPage{
                 break;
         }
     }
-
-    // method to get order type
-    private boolean askForOrderType() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Are you dining in or taking away?"); 
-        System.out.println("[1] Takeaway");
-        System.out.println("[2] Dine-in");
-        
-        while (true) {
-            String response = scanner.nextLine().trim();
-            if (response.equals("1")) {
-                return true; // Takeaway
-            } else if (response.equals("2")) {
-                return false; // Dine-in
-            } else {
-                System.out.println("Invalid input, please select '1' for Takeaway or '2' for Dine-in.");
-            }
-        }
-    }
 }
