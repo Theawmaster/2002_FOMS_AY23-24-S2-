@@ -1,6 +1,5 @@
 package utilities;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import constants.FilePaths;
@@ -88,8 +87,12 @@ public class LoadOrders extends LoadData<Order>{
                 totalPrice += orderItems.get(i).getPrice();
             }
 
+            // processing LastModified
+            long lastModified = Long.parseLong(row[6]);
+
+
             // done processing. now load the data all into an order object
-            Order newOrder = new Order(orderID, orderItems, isTakeaway, status, totalPrice, orderBranch);
+            Order newOrder = new Order(orderID, orderItems, isTakeaway, status, totalPrice, orderBranch, lastModified);
             orders.add(newOrder);
         }
         return orders;
@@ -114,17 +117,19 @@ public class LoadOrders extends LoadData<Order>{
                             + (order.isTakeaway() ? "Takeaway" : "Dine-in") +","
                             + order.getBranchName() +","
                             + items +","
-                            + itemCust +",";
+                            + itemCust +","
+                            + Long.toString(order.getLastModified());
 
         return SerialiseCSV.appendToCSV(orderRecord, FilePaths.orderprocessListPath.getPath());
     }
 
     public static boolean updateOrderStatus(Order order, OrderStatus status){
-        return SerialiseCSV.replaceColumnValue(Integer.toString(order.getOrderId()), 1, status.toString(), FilePaths.orderprocessListPath.getPath());
+        return SerialiseCSV.replaceColumnValue(Integer.toString(order.getOrderId()), 1, status.toString(), FilePaths.orderprocessListPath.getPath())
+                && SerialiseCSV.replaceColumnValue(Integer.toString(order.getOrderId()), 6, Long.toString(order.getLastModified()), FilePaths.orderprocessListPath.getPath());
     }
 
     public static void destroyOrders(){
-        SerialiseCSV.resetCSVData(FilePaths.orderprocessListPath.getPath(), "orderID,Status,isTakeaway,Items,ItemCustomisation\n");
+        SerialiseCSV.resetCSVData(FilePaths.orderprocessListPath.getPath(), "orderID,Status,isTakeaway,Branch,Items,ItemCustomisation,LastModified\n");
     }
 
 }

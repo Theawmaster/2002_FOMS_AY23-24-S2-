@@ -21,8 +21,9 @@ public class StaffProcessOrderPage implements iPage{
         for(Order o : this.session.getAllOrders()){
             System.out.println("Order number: " + o.getOrderId() + " [" + o.getStatus() + "]");
         }
-        System.out.println("[1] Process Order");
-        System.out.println("[2] View Order Details");
+        System.out.println("[1] Process an Order");
+        System.out.println("[2] Cancel an Order");
+        System.out.println("[3] View Order Details");
         System.out.println("[B] Return to Staff Access Page");
     }
     /**
@@ -36,6 +37,10 @@ public class StaffProcessOrderPage implements iPage{
                 PageViewer.changePage("current");
                 break;
             case "2":
+                ProcessOrderService.cancelOrder(this.session);
+                PageViewer.changePage("current");
+                break;
+            case "3":
                 ProcessOrderService.viewOrderDetails(this.session);
                 PageViewer.changePage("current");
                 break;

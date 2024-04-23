@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import entities.Branch;
 import utilities.Logger;
-import utilities.SerialiseCSV;
 import utilities.Session;
 
 /**
@@ -51,6 +50,7 @@ public class SelectBranchPage implements iPage{
             }
         }
         System.out.println("[Q] Quit FOMS");
+        Logger.error("Logger is active");
     }
     /**
      * Method to handle user input 

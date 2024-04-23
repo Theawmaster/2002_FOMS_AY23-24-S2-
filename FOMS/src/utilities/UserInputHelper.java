@@ -4,17 +4,12 @@ import java.util.Scanner;
 import javax.swing.*;
 
 import constants.MealCategory;
-import constants.OrderStatus;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-
-import java.util.InputMismatchException;
 
 import entities.Branch;
 import entities.MenuItem;
 import entities.Order;
-import services.payments.iPaymentService;
 
 public class UserInputHelper {
     private static Scanner scanner = new Scanner(System.in);
@@ -176,6 +171,23 @@ public class UserInputHelper {
         }
     }
 
+    public static boolean chooseTakeaway(Order order){
+        String choice = getInput("Enter your choice");
+        switch (choice) {
+            case "1":
+                order.setTakeaway(false);
+                return true;
+            case "2":
+                order.setTakeaway(true);
+                return true;
+            case "c":
+            case "C":
+                return false;
+            default:
+                System.out.println("Please enter a valid choice!");
+                return chooseTakeaway(order);
+        }
+    }
     
 }
 

@@ -99,7 +99,7 @@ public class StaffLoginPage implements iPage {
     private boolean tryLogin(iLoginService loginService){
         String userID, password;
 
-        for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
+        for(int i=0; i<(int)Settings.PW_MAX_TRIES.getValue(); i++){
             userID = UserInputHelper.getInput("Enter your username:");
             password = UserInputHelper.getPasswordInput("Enter your password:");
 
@@ -132,7 +132,7 @@ public class StaffLoginPage implements iPage {
     private boolean tryForgotPassword(iLoginService loginService){
         String generatedValue;
 
-        for(int i=0; i<Settings.FORGOTPW_MAX_TRIES.getValue(); i++){
+        for(int i=0; i<(int)Settings.FORGOTPW_MAX_TRIES.getValue(); i++){
             String userID = UserInputHelper.getInput("Enter your username:");
             generatedValue = generateRandomString();
             if(generatedValue.equals(UserInputHelper.getInput("Verify you're human. Type what you see on the screen: "+generatedValue))){
@@ -150,18 +150,18 @@ public class StaffLoginPage implements iPage {
      */
     private boolean tryChangePassword(iLoginService loginService){
         String userID="", oldPassword="";
-        for(int i=0; i<Settings.PW_MAX_TRIES.getValue(); i++){
+        for(int i=0; i<(int)Settings.PW_MAX_TRIES.getValue(); i++){
             userID = UserInputHelper.getInput("Enter your username:");
             oldPassword = UserInputHelper.getPasswordInput("Enter your old password:");
 
             if(loginService.login(userID, oldPassword)) break; // login success. break from for loop
             System.out.println("WRONG. THINK HARDER. THINKKKKK");
-            if(i+1 == Settings.PW_MAX_TRIES.getValue()) return false; // tried max times and still fail login
+            if(i+1 == (int)Settings.PW_MAX_TRIES.getValue()) return false; // tried max times and still fail login
         }
 
         String newPassword = UserInputHelper.getInput("Enter the new password:");
         // check if password meets minimum length criteria
-        while (newPassword.length() < Settings.PW_MIN_CHARACTERS.getValue()){
+        while (newPassword.length() < (int)Settings.PW_MIN_CHARACTERS.getValue()){
             System.out.println("Password length too short! Passwords must be at least " + Settings.PW_MIN_CHARACTERS.getValue() + " long");
             newPassword = UserInputHelper.getInput("Enter the new password:");
         }

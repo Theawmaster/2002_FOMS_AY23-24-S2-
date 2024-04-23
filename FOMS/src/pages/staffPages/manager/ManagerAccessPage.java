@@ -36,10 +36,10 @@ public class ManagerAccessPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                PageViewer.changePage("ManagerViewStaffDetailsPage");
+                PageViewer.changePage("ViewStaffDetailsPage");
                 break;
             case "2":
-                PageViewer.changePage("ManagerEditMenuItemsPage");
+                PageViewer.changePage("EditMenuItemsPage");
                 break;
             case "b":
             case "B":

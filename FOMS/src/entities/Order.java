@@ -1,9 +1,10 @@
 package entities;
 
 import constants.OrderStatus;
+import utilities.TimeHandler;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Represents an order placed by a customer.
@@ -26,6 +27,8 @@ public class Order {
 
     private Branch branch;
 
+    private long lastModified;
+
     /**
      * Constructs a new order.
      * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
@@ -37,6 +40,7 @@ public class Order {
         this.status = OrderStatus.NEW;
         this.totalPrice = 0.0;
         this.branch = branch;
+        this.lastModified = TimeHandler.getCurrentTime();
     }
     /**
      * This is the constructor for when the order is loaded in from the CSV file
@@ -47,13 +51,14 @@ public class Order {
      * @param totalPrice
      * @param branch 
      */
-    public Order(int orderID, ArrayList<MenuItem> items, boolean isTakeaway, OrderStatus status, double totalPrice, Branch branch){
+    public Order(int orderID, ArrayList<MenuItem> items, boolean isTakeaway, OrderStatus status, double totalPrice, Branch branch, long lastModified){
         this.orderID = orderID;
         this.items = items;
         this.isTakeaway = isTakeaway;
         this.status = status;
         this.totalPrice = totalPrice;
         this.branch = branch;
+        this.lastModified = lastModified;
     }
 
     public void addItem(MenuItem item) {
@@ -124,6 +129,7 @@ public class Order {
      */
     public void setStatus(OrderStatus status) {
         this.status = status;
+        this.lastModified = TimeHandler.getCurrentTime();
     }
 
     /**
@@ -144,6 +150,10 @@ public class Order {
 
     public String getBranchName(){
         return this.branch.getBranchName();
+    }
+
+    public long getLastModified(){
+        return this.lastModified;
     }
 
     /**

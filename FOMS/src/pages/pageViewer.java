@@ -50,8 +50,8 @@ public class PageViewer {
         pages.put("StaffAccessPage", new StaffAccessPage(session));
         pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));
         pages.put("ManagerAccessPage", new ManagerAccessPage(session));
-        pages.put("ManagerEditMenuItemsPage", new ManagerEditMenuItemsPage(session));
-        pages.put("ManagerViewStaffDetailsPage", new ManagerViewStaffDetailsPage(session));
+        pages.put("EditMenuItemsPage", new EditMenuItemsPage(session));
+        pages.put("ViewStaffDetailsPage", new ViewStaffDetailsPage(session));
         pages.put("AdminAccessPage", new AdminAccessPage(session));
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
         pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
@@ -92,13 +92,12 @@ public class PageViewer {
         else{
             System.out.println("Error: View not found!");
         }
+        // if data has been modified by another instance of the FOMS app, update it into the session
+        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
         
         pathTracker.printCurrentPath();
         pathTracker.printCurrentUser();
         currentPage.viewOptions();
-
-        // if data has been modified by another instance of the FOMS app, update it into the session
-        if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
     }
     /**
      * This static method handles the input of the current active page

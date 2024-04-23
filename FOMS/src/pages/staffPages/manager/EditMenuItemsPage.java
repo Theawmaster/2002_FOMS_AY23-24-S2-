@@ -6,12 +6,12 @@ import pages.iPage;
 import pages.PageViewer;
 import utilities.Session;
 
-public class ManagerEditMenuItemsPage implements iPage {
+public class EditMenuItemsPage implements iPage {
         /**
      * The current active session 
      */
     private Session session;
-    public ManagerEditMenuItemsPage(Session s){
+    public EditMenuItemsPage(Session s){
         this.session = s;
     }
     /**

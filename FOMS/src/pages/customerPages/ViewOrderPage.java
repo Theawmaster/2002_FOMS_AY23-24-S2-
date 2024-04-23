@@ -4,8 +4,8 @@ import pages.iPage;
 import pages.PageViewer;
 import services.ManagePaymentsService;
 import services.ProcessOrderService;
-import test.exampleShowStaff;
 import utilities.Session;
+import utilities.UserInputHelper;
 
 /**
  * This is the View Order Page that the user will see after choosing View Cart on Customer Page. 
@@ -44,11 +44,23 @@ public class ViewOrderPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
+                // ask for having here / take away
+                System.out.println("Would you like to dine in or takeaway?");
+                System.out.println("[1] Dine in");
+                System.out.println("[2] Take away");
+                System.out.println("[C] Cancel payment");
+                if(!UserInputHelper.chooseTakeaway(this.session.getCurrentActiveOrder())){
+                    // if user cancelled payment, just go back to this page
+                    PageViewer.changePage("current");
+                };
+                // use chose dine in / takeaway. now ask for money
                 if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice())){
+                    // money goes through, process the paid order
                     ProcessOrderService.customerPaid(this.session);
                     PageViewer.changePage("MainPage");
                 }
                 else
+                    // transaction cancelled, remain in this page
                     PageViewer.changePage("current");
                 break;
             case "2":

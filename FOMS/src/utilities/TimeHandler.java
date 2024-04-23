@@ -3,7 +3,7 @@ package utilities;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Time {
+public class TimeHandler {
     public static String getCurrentDateTimeAsString() {
         // Get the current date and time
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -15,5 +15,12 @@ public class Time {
         String formattedDateTime = currentDateTime.format(formatter);
         
         return formattedDateTime;
+    }
+    public static long getCurrentTime(){
+        return System.currentTimeMillis() / 1000;
+    }
+    public static boolean hasElapsed(int seconds, long lastTime){
+        Logger.debug("Time elapsed: "+(getCurrentTime()-lastTime));
+        return (getCurrentTime()-lastTime) >= seconds;
     }
 }

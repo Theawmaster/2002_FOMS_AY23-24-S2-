@@ -8,12 +8,12 @@ import services.ManageStaffService;
 import utilities.PersistenceHandler;
 import utilities.Session;
 
-public class ManagerViewStaffDetailsPage implements iPage{
+public class ViewStaffDetailsPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
-    public ManagerViewStaffDetailsPage(Session s){
+    public ViewStaffDetailsPage(Session s){
         this.session = s;
     }
     /**

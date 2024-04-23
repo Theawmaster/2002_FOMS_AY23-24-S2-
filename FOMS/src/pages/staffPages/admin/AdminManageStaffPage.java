@@ -43,7 +43,7 @@ public class AdminManageStaffPage implements iPage {
         switch(option) {
             case "1":
                 // just go to this page instead since the functions are alr there
-                PageViewer.changePage("ManagerViewStaffDetailsPage");
+                PageViewer.changePage("ViewStaffDetailsPage");
                 break;
             case "2":
                 ManageStaffService.fireStaff(this.session);

@@ -2,7 +2,6 @@ package pages.customerPages;
 
 import pages.iPage;
 import pages.PageViewer;
-import services.ManagePaymentsService;
 import utilities.Session;
 
 import java.util.InputMismatchException;
@@ -10,7 +9,6 @@ import java.util.List;
 import java.util.Scanner;
 
 import entities.MenuItem;
-import entities.Order;
 
 public class archiveEditOrderPage implements iPage{
     /**

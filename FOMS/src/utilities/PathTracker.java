@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import utilities.Logger;
 import pages.iPage;
 
 public class PathTracker {
@@ -96,7 +95,6 @@ public class PathTracker {
             x = x.substring(0, x.length() - 4);
             lastFiveItems.add(x);
         }
-    
         String strPath = String.join(" > ", lastFiveItems);
         String spaces = String.format("%" + (79 - strPath.length()) + "s", "");
     
