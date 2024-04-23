@@ -8,8 +8,6 @@ This repo contains the Fast Food Ordering and Management System (FOMS) project i
 - Chan Zi Hao
 - Siah Yee Long
 
-Project management Google Sheet: https://docs.google.com/spreadsheets/d/1dPtr8qC_U1CEHDBrYfFGHZv_c4DwXO4q4GOTOtAYkY8/edit?usp=sharing
-
 # Project description
 
 The Fastfood Ordering and Management System (FOMS) is a command-line interface application designed to streamline operations in fast food restaurants. This system facilitates menu browsing, order customisation, payment processing, and order tracking, enhancing the overall customer experience and operational efficiency.
@@ -22,6 +20,28 @@ The Fastfood Ordering and Management System (FOMS) is a command-line interface a
 
 # Use
 
+1. To compile and run the project:
+    ```bash
+    make run
+    ```
+
+2. To generate javadocs:
+    ```bash
+    make doc
+    ```
+    if on mac:
+    ```bash
+    open FOMS/docs/index.html
+    ```
+    if on windows:
+    ```bash
+    start FOMS/docs/index.html
+    ```
+3. To clean up the project (remove all .class files):
+    ```bash
+    make clean
+    ```
+
 # File Structure
 - **FOMS:** root folder for source code
     - **docs:** where javadocs files are stored
@@ -32,66 +52,29 @@ The Fastfood Ordering and Management System (FOMS) is a command-line interface a
         - **pages:** all UI pages (front end)
             - customerPages
             - staffPages
+                - admin
+                - manager
         - **services:** all services used by the pages
             - authenticator
             - payments
         - **utilities:** utility functions handling low-level responsibilities
             - data: contains raw CSV data
-        - **test:** FOR TESTING ONLY, DELETE BEFORE SUBMITTING
-- **UML Diagram:** contains all UML Diagrams drawn
+            - exceptionHandlers
+- **UML Diagram:** contains all UML Diagrams drawn and reference documents
 
 
-# Generating Javadocs
-Javadoc comments are special comments used in Java to generate documentation for your code. Here's a simple guide on how to add Javadoc comments:
+# Generating Javadocs manually
 
-1. **Class-level comments**: Place Javadoc comments immediately before the class declaration. Describe the purpose and usage of the class.
+cd into FOMS where src is found
 
-    ```java
-    /**
-     * This is a sample class that demonstrates Javadoc comments.
-     * It provides an example of how to add Javadoc comments to a class.
-     */
-    public class MyClass {
-        // Class implementation...
-    }
-    ```
+```bash
+cd FOMS
+```
 
-2. **Method-level comments**: Place Javadoc comments immediately before the method declaration. Describe what the method does, its parameters, and return value.
+Generate javadocs
 
-    ```java
-    /**
-     * Returns the sum of two numbers.
-     * 
-     * @param a The first number.
-     * @param b The second number.
-     * @return The sum of a and b.
-     */
-    public int add(int a, int b) {
-        return a + b;
-    }
-    ```
+```bash
+javadoc -d docs -sourcepath src -subpackages main:utilities:constants:entities:exceptionHandlers:pages:services -private  
+```
 
-3. **Attribute-level comments**: Place Javadoc comments immediately before the attribute declaration. Describe the purpose and usage of the attribute.
-
-    ```java
-    /**
-     * The name of the person.
-     */
-    private String name;
-    ```
-
-4. **Generating Javadocs to see what you just made**: 
-
-    cd into FOMS where src is found
-
-    ```bash
-    cd FOMS
-    ```
-
-    Generate javadocs
-
-    ```bash
-    javadoc -d docs -sourcepath src -subpackages main:utilities:test -private  
-    ```
-
-    Navigate to ```FOMS/docs/index.html``` and open it in a browser
+Navigate to ```FOMS/docs/index.html``` and open it in a browser
