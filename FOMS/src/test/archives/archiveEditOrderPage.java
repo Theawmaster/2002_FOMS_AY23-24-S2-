@@ -106,6 +106,7 @@ public class archiveEditOrderPage implements iPage{
                 //...
             default:
                 System.out.println("Enter a valid input!");
+                scanner.close();
                 break;
         }
     }
