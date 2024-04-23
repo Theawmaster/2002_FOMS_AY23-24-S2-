@@ -69,7 +69,7 @@ public class ViewOrderPage implements iPage{
             case "b":
             case "B":
                 // brings user back to browse the categories  
-                PageViewer.changePage("BrowseCategoriesPage");
+                PageViewer.changePage("SelectCategoriesPage");
                 break;
             default:
                 System.out.println("Invalid choice, please try again.");

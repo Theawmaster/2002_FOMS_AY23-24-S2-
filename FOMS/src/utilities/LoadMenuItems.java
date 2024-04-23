@@ -36,18 +36,11 @@ public class LoadMenuItems extends LoadData<MenuItem>{
                 continue;
     
             String categorystr = row[3].trim().split("\\s+")[0].toUpperCase(); // take the first word
-            MealCategory category;
-            if ("SIDE".equals(categorystr)) {
-                category = MealCategory.SIDE;
-            } else if ("SET".equals(categorystr)) {
-                category = MealCategory.SETMEAL;
-            } else if ("BURGER".equals(categorystr)) {
-                category = MealCategory.BURGER;
-            } else if ("DRINK".equals(categorystr)) {
-                category = MealCategory.DRINK;
-            } else{
-                category = MealCategory.UNDEFINED;
-            }    
+            MealCategory category=MealCategory.UNDEFINED;
+
+            for(MealCategory mc : MealCategory.values()){
+                if(categorystr.equalsIgnoreCase(mc.toString())) category = mc;
+            }
             
             String food = row[0].trim();
             Double price = Double.parseDouble(row[1].trim());
@@ -73,20 +66,14 @@ public class LoadMenuItems extends LoadData<MenuItem>{
          * @return
          */
         public static boolean addMenuToCSV(MenuItem m) {
-            String menuData = String.format("%s,%.2f,%s,%s,%s\n", m.getFood(), m.getPrice(), m.getBranch().getBranchName(), m.getCategory(), m.getDescription(), m.getCustomization());
-            // this function is alr written in SerialiseCSV, why not just use the methods if it's alr available
-            // try {
-            //     Files.write(Paths.get(FilePaths.menuListPath.getPath()), menuData.getBytes(), StandardOpenOption.APPEND);
-            //     return true;
-            // } catch (IOException e) {
-            //     System.out.println("Failed to write to CSV: " + e.getMessage());
-            //     return false;
-            // }
+            String menuData = String.format("%s,%.2f,%s,%s,%s\n", m.getFood(), m.getPrice(), m.getBranch().getBranchName(), m.getCategory(), m.getDescription());
             return SerialiseCSV.appendToCSV(menuData, FilePaths.menuListPath.getPath());
         }
         public static boolean removeMenuItem(MenuItem m){
             return SerialiseCSV.deleteToCSV(m.getFood(), 0, FilePaths.menuListPath.getPath());
         }
-
+        public static boolean replaceMenuItem(MenuItem oldItem, MenuItem newItem){
+            return removeMenuItem(oldItem) && addMenuToCSV(newItem);
+        }
         
 }

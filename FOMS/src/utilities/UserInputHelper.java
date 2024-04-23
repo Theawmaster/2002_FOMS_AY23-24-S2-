@@ -115,10 +115,10 @@ public class UserInputHelper {
     }
 
     public static Branch chooseBranch(ArrayList<Branch> branches) {
-        int numOptions = 0;
+        int numOptions = 1;
         for(Branch b : branches){
-            numOptions++;
             System.out.println(numOptions + ". " + b.getBranchName());
+            numOptions++;
         }
         int option = getUserChoice("Select a menu item", numOptions-1);
         if (option == -1) return null;
@@ -126,10 +126,10 @@ public class UserInputHelper {
     }
 
     public static MenuItem chooseMenuItem(ArrayList<MenuItem> menuItems){
-        int numOptions = 0;
+        int numOptions = 1;
         for(MenuItem m : menuItems){
-            numOptions++;
             System.out.println(numOptions + ". " + m.getFood());
+            numOptions++;
         }
         int option = getUserChoice("Select a menu item", numOptions-1);
         if (option == -1) return null;
@@ -140,6 +140,7 @@ public class UserInputHelper {
         System.out.println(prompt);
         int i = 1;
         for (MealCategory mc : MealCategory.values()) {
+            if(mc == MealCategory.UNDEFINED) continue;
             System.out.println(i + ". " + mc.toString());
             i++;
         }

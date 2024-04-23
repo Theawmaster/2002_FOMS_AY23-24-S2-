@@ -30,7 +30,7 @@ public class CustomerPage implements iPage{
         try{
             switch (choice) {
                 case "1":
-                    PageViewer.changePage("BrowseCategoriesPage");
+                    PageViewer.changePage("SelectCategoriesPage");
                     break;
                 case "2":
                     PageViewer.changePage("ViewOrderPage");

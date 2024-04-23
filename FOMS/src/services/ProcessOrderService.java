@@ -84,6 +84,10 @@ public class ProcessOrderService {
         }
     }
     public static void custViewOrderStatus(ArrayList<Order> allOrders){
+        if(allOrders.size()==0){
+            System.out.println("No orders placed at the moment");
+            return;
+        }
         int orderID = UserInputHelper.getUserChoice("Enter your order ID to view", 999);
         if(orderID == -1) return;
 
@@ -109,36 +113,28 @@ public class ProcessOrderService {
                         break;
                 }
                 System.out.println("Your current order '"+orderID+"'"+" is "+status);
-                return;
+                if(o.getStatus() != OrderStatus.READY_TO_PICKUP) return;
+                else{
+                    collectOrder(o);
+                    return;
+                }
             }
         }
         System.out.println("Your order "+orderID+" was not found!");
         return;
     }
-    public static void collectOrder(Session session){
-        Order order = UserInputHelper.chooseOrder(session.getAllOrders(), session.getCurrentActiveBranch());
-        if(order == null) return;
-        // cancel order if time has elapsed by a certain amount
-        checkToCancelOrder(order);
-
-        if(order.getStatus()==OrderStatus.READY_TO_PICKUP){
-            order.setStatus(OrderStatus.COMPLETED);
-            System.out.println(Logger.ANSI_CYAN+"(You have just collected your order: Order "+Integer.toString(order.getOrderId())+")"+Logger.ANSI_RESET);
-            System.out.println("Enjoy your meal!");
-            LoadOrders.addOrderToCSV(order);
-            return;
-        }
-        else if(order.getStatus()==OrderStatus.CANCELLED){
-            System.out.println("Your order has been cancelled. Please approach our staff for help");
-            return;
-        }
-        else if(order.getStatus()==OrderStatus.PREPARING){
-            System.out.println("Your order is not ready yet");
-            return;
-        }
-        else{
-            System.out.println("Unfortunately, we have not received this order. Please approach our staff for help");
-            return;
+    public static void collectOrder(Order order){
+        String choice = UserInputHelper.getInput("Wanna pick your order up now? [Y/N]:");
+        switch (choice) {
+            case "y":
+            case "Y":
+                order.setStatus(OrderStatus.COMPLETED);
+                System.out.println(Logger.ANSI_CYAN+"(You have just collected your order: Order "+Integer.toString(order.getOrderId())+")"+Logger.ANSI_RESET);
+                System.out.println("Enjoy your meal!");
+                LoadOrders.addOrderToCSV(order);
+                return;
+            default:
+                return;
         }
     }
     public static void viewOrderDetails(Session session){

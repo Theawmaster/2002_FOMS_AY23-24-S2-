@@ -105,16 +105,6 @@ public class Staff {
 		return this.branch;
 	}
 
-	// protected void getBranch() {
-	// 	return;
-	// }
-
-
-	// protected void getLogInDetails() {
-	// 	// TODO - implement Staff.getLogInDetails
-	// 	throw new UnsupportedOperationException();
-	// }
-
 	/**
      * Facilitates processing of orders by updating their statuses.
      * @param orders The list of orders to process.

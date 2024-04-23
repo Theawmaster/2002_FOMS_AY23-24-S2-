@@ -43,9 +43,6 @@ public class PageViewer {
         // initialise all views
         pages.put("SelectBranchPage", new SelectBranchPage(session));
         pages.put("MainPage", new MainPage(session));
-        pages.put("CustomerPage", new CustomerPage(session));
-        pages.put("ViewOrderPage", new ViewOrderPage(session));
-        pages.put("EditOrderPage", new EditOrderPage(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
         pages.put("StaffAccessPage", new StaffAccessPage(session));
         pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));
@@ -56,10 +53,14 @@ public class PageViewer {
         pages.put("AdminManagePaymentPage", new AdminManagePaymentPage(session));
         pages.put("AdminManageBranchPage", new AdminManageBranchPage(session));
         pages.put("AdminManageStaffPage", new AdminManageStaffPage(session));
-        pages.put("BrowseCategoriesPage", new BrowseCategoriesPage());
+        pages.put("CustomerPage", new CustomerPage(session));
+        pages.put("ViewOrderPage", new ViewOrderPage(session));
+        pages.put("EditOrderPage", new EditOrderPage(session));
+        pages.put("SelectCategoriesPage", new SelectCategoriesPage());
         pages.put("BrowseDrinksPage", new BrowseDrinksPage(session));
         pages.put("BrowseSidesPage", new BrowseSidesPage(session));
         pages.put("BrowseSetMealPage", new BrowseSetMealPage(session));
+        pages.put("BrowseBurgerPage", new BrowseBurgerPage(session));
         pages.put("AddMenuItemPage", new AddMenuItemPage(session));
         // add more views here as required
         
