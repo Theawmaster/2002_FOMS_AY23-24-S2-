@@ -2,7 +2,7 @@ package pages.staffPages.admin;
 
 import constants.FilePaths;
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.PersistenceHandler;
 import utilities.Session;
 import services.ManageBranchService;
@@ -45,27 +45,27 @@ public class AdminManageBranchPage implements iPage {
         switch (option) {
             case "1":
                 ManageBranchService.changeBranchStatus(this.session, true);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "2":
                 ManageBranchService.changeBranchStatus(this.session, false);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "3":
                 ManageBranchService.addBranch(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "4": 
                 ManageBranchService.removeBranch(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "5":
                 ManageBranchService.displayBranches(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input");

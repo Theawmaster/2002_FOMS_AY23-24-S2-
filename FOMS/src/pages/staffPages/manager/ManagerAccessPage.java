@@ -2,7 +2,7 @@ package pages.staffPages.manager;
 
 import constants.Role;
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.Session;
 
 public class ManagerAccessPage implements iPage{
@@ -21,7 +21,7 @@ public class ManagerAccessPage implements iPage{
             // allow MANAGER or ADMIN only
             System.out.println("You are not a manager! You do not have access to this page!");
             // go back to staff access page
-            pageViewer.changePage("back");
+            PageViewer.changePage("back");
         }
         else {
             System.out.println("[1] Display My Staffs");
@@ -36,14 +36,14 @@ public class ManagerAccessPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                pageViewer.changePage("ManagerViewStaffDetailsPage");
+                PageViewer.changePage("ViewStaffDetailsPage");
                 break;
             case "2":
-                pageViewer.changePage("ManagerEditMenuItemsPage");
+                PageViewer.changePage("EditMenuItemsPage");
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

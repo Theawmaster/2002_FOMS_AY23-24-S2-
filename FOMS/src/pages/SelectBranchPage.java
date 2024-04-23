@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import entities.Branch;
 import utilities.Logger;
-import utilities.SerialiseCSV;
 import utilities.Session;
 
 /**
@@ -24,7 +23,7 @@ public class SelectBranchPage implements iPage{
     private int numOptions;
     private ArrayList<Branch> availableBranches = new ArrayList<>();
     /**
-     * Initialising this page sets the session provided from pageViewer
+     * Initialising this page sets the session provided from PageViewer
      * @param s
      */
     public SelectBranchPage(Session s){
@@ -51,6 +50,7 @@ public class SelectBranchPage implements iPage{
             }
         }
         System.out.println("[Q] Quit FOMS");
+        Logger.error("Logger is active");
     }
     /**
      * Method to handle user input 
@@ -58,7 +58,7 @@ public class SelectBranchPage implements iPage{
      */
     public void handleInput(String choice){
         if(choice.equalsIgnoreCase("q") || choice.equalsIgnoreCase("quit")){
-            SerialiseCSV.eraseCSVData("FOMS/src/utilities/data/order_process_list.csv");
+            this.session.closeSession();
             System.out.println("If you have a complaint I suggest you submit it through our email system. You are done.");
             // Terminate entire programme. Only this class can do this
             System.exit(0);
@@ -70,7 +70,7 @@ public class SelectBranchPage implements iPage{
             // customer is now dining here. all staff and managers will belong to this branch.
             this.session.setCurrentActiveBranch(activeBranch);
             //change view to the main page to start ordering and stuff
-            pageViewer.changePage("MainPage");
+            PageViewer.changePage("MainPage");
         }
         catch (NumberFormatException e){
             System.out.println("Please enter only integer values, or 'q' to quit! ");

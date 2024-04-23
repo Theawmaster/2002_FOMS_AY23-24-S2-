@@ -36,7 +36,7 @@ public class PathTracker {
     /**
      * Method to pop out the last page navigated
      */
-    public void goBack() {
+    private void goBack() {
         if (path.size() > 1) {
             // Get the last key manually
             String lastKey = null;
@@ -45,6 +45,7 @@ public class PathTracker {
             }
             if (lastKey != null) {
                 path.remove(lastKey);
+                return;
             }
         }
     }
@@ -62,6 +63,14 @@ public class PathTracker {
             lastPage = path.get(lastKey);
         }
         return lastPage;
+    }
+    public iPage getBackTo(String pageName){
+        if(this.path.get(pageName)!=getPrevPage()) return getBackTo(pageName);
+        return this.path.get(pageName);
+    }
+
+    public boolean isNotBehind(String pageName){
+        return this.path.get(pageName)==null;
     }
 
     /**
@@ -86,7 +95,6 @@ public class PathTracker {
             x = x.substring(0, x.length() - 4);
             lastFiveItems.add(x);
         }
-    
         String strPath = String.join(" > ", lastFiveItems);
         String spaces = String.format("%" + (79 - strPath.length()) + "s", "");
     

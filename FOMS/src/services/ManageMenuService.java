@@ -6,14 +6,11 @@ import utilities.Session;
 import utilities.UserInputHelper;
 import entities.MenuItem;
 import entities.Branch;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-
-import constants.FilePaths;
 import constants.MealCategory;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * The {@link ManageMenuService} class contains methods to manage the menu items in the system
@@ -25,11 +22,11 @@ public class ManageMenuService {
 
     private static void displayOutput(ArrayList<MenuItem> menuItems) {
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
-        System.out.printf("%-25s%-25s%-10s%-20s%-35s%-15s\n", "Branch", "Food", "Price", "Category", "Description", "Customizable");
+        System.out.printf("%-25s%-25s%-10s%-20s%-35s\n", "Branch", "Food", "Price", "Category", "Description");
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
         for (MenuItem menuItem : menuItems) {
-            String output = String.format("%-25s%-25s%-10.2f%-20s%-35s%-15s",
-                    menuItem.getBranch(), menuItem.getFood(), menuItem.getPrice(), menuItem.getCategory(), menuItem.getDescription(), menuItem.getCustomization());
+            String output = String.format("%-25s%-25s%-10.2f%-20s%-35s",
+                    menuItem.getBranch(), menuItem.getFood(), menuItem.getPrice(), menuItem.getCategory(), menuItem.getDescription());
             System.out.println(output);
         }
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
@@ -58,6 +55,12 @@ public class ManageMenuService {
      */
     public static void displayAllMenuItems(Session session) {
         ArrayList<MenuItem> menuItems = filterBranch(session, session.getCurrentActiveBranch());
+        Collections.sort(menuItems, new Comparator<MenuItem>() {
+            @Override
+            public int compare(MenuItem m1, MenuItem m2){
+                return m1.getCategory().compareTo(m2.getCategory());
+            }   
+        });
         displayOutput(menuItems);
     }
 
@@ -130,7 +133,10 @@ public class ManageMenuService {
         }
 
         System.out.println("Select the menu item to edit:");
-        MenuItem itemToEdit = UserInputHelper.chooseMenuItem(filteredItems);
+        MenuItem oldItem = UserInputHelper.chooseMenuItem(filteredItems);
+        MenuItem newItem;
+        try{ newItem = (MenuItem)oldItem.clone();} // clone the old item first
+        catch (Exception e){ return; } // there shouldnt be an exception
     
         System.out.println("Choose an attribute to edit:");
         System.out.println("1. Food Name\n2. Price\n3. Category\n4. Description");
@@ -140,73 +146,34 @@ public class ManageMenuService {
             case 1:
                 String foodEdit = UserInputHelper.getInput("Enter new food name:");
                 for(MenuItem m : session.getAllMenuItems()){
-                    if (m.getFood().equalsIgnoreCase(foodEdit) && m.getBranch().getBranchName().equals(session.getCurrentActiveBranch().getBranchName())) {
+                    if (m.getFood().equals(foodEdit) && m.getBranch().getBranchName().equals(session.getCurrentActiveBranch().getBranchName())) {
                         System.out.println("Can't add the same item "+foodEdit);
                         return;
                     }
                 }
-                itemToEdit.setFood(foodEdit);
+                newItem.setFood(foodEdit);
                 break;
             case 2:
-                itemToEdit.setPrice(UserInputHelper.getDoubleInput("Enter new price:"));
+                newItem.setPrice(UserInputHelper.getDoubleInput("Enter new price:"));
                 break;
             case 3:
-                itemToEdit.setCategory(UserInputHelper.choosMealCategory("Choose a category:"));
+                newItem.setCategory(UserInputHelper.choosMealCategory("Choose a category:"));
                 break;
             case 4:
-                itemToEdit.setDescription(UserInputHelper.getInput("Enter new description:"));
+                newItem.setDescription(UserInputHelper.getInput("Enter new description:"));
                 break;
             default:
                 System.out.println("Invalid choice. Operation canceled.");
                 return;
         }
-    
-        // Directly update the CSV through LoadMenuItems utility function
-        if (updateMenuItem(session, itemToEdit)) {
-            System.out.println("Menu item updated successfully.");
-        } else {
-            System.out.println("Failed to update the menu item.");
+        // replace MenuItem data stored in CSV
+        if(LoadMenuItems.replaceMenuItem(oldItem, newItem)){
+            session.updateSession(); // quick way to reset loaded menu item data
+            return;
+        }   
+        else{
+            System.out.println("Something went wrong with saving data");
+            return;
         }
     }
-    
-    public static boolean updateMenuItem(Session session, MenuItem updatedItem) {
-        ArrayList<MenuItem> allItems = session.getAllMenuItems();
-        boolean isUpdated = false;
-    
-        // Update the item in the global list
-        for (int i = 0; i < allItems.size(); i++) {
-            MenuItem item = allItems.get(i);
-            if (item.getFood().equals(updatedItem.getFood()) && item.getBranch().getBranchName().equals(updatedItem.getBranch().getBranchName())) {
-                allItems.set(i, updatedItem); // Update the item with new details
-                isUpdated = true;
-                break;
-            }
-        }
-    
-        // Write the complete, updated list back to the CSV
-        if (isUpdated) {
-            return rewriteCSV(allItems); // Pass the entire list to rewrite
-        }
-    
-        return false;
-    }
-
-    public static boolean rewriteCSV(ArrayList<MenuItem> items) {
-        File file = new File(FilePaths.menuListPath.getPath());
-        try (PrintWriter pw = new PrintWriter(file)) {
-            pw.println("Name,Price,Branch,Category,Description,Customization"); // Write header
-            for (MenuItem item : items) {
-                pw.printf("%s,%.2f,%s,%s,%s,%s\n",
-                    item.getFood(), item.getPrice(), item.getBranch().getBranchName(),
-                    item.getCategory().toString(), item.getDescription(), item.getCustomization());
-            }
-            return true;
-        } catch (FileNotFoundException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    
-
 }

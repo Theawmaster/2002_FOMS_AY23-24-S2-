@@ -1,19 +1,19 @@
 package entities;
 
 import constants.OrderStatus;
+import utilities.TimeHandler;
+
 import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Represents an order placed by a customer.
  */
 public class Order {
     /** Unique identifier for the order. */
-    private int orderId;
+    private int orderID;
     
     /** List of items included in the order. */
-    private List<MenuItem> items;
+    private ArrayList<MenuItem> items;
     
     /** Indicates whether the order is for takeaway or dine-in. */
     private boolean isTakeaway;
@@ -24,56 +24,52 @@ public class Order {
     /** Total price of all items in the order. */
     private double totalPrice;
 
+    private Branch branch;
+
+    private long lastModified;
+
     /**
      * Constructs a new order.
      * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
      */
-    public Order(int orderId) {
-        this.orderId = orderId;
+    public Order(int orderId, Branch branch) {
+        this.orderID = orderId;
         this.items = new ArrayList<>();
         this.isTakeaway = false;
         this.status = OrderStatus.NEW;
         this.totalPrice = 0.0;
+        this.branch = branch;
+        this.lastModified = TimeHandler.getCurrentTime();
+    }
+    /**
+     * This is the constructor for when the order is loaded in from the CSV file
+     * @param orderID
+     * @param items
+     * @param isTakeaway
+     * @param status
+     * @param totalPrice
+     * @param branch 
+     */
+    public Order(int orderID, ArrayList<MenuItem> items, boolean isTakeaway, OrderStatus status, double totalPrice, Branch branch, long lastModified){
+        this.orderID = orderID;
+        this.items = items;
+        this.isTakeaway = isTakeaway;
+        this.status = status;
+        this.totalPrice = totalPrice;
+        this.branch = branch;
+        this.lastModified = lastModified;
     }
 
-    /**
-     * Adds a menu item to the order.
-     * @param item The menu item to add.
-     * @param customization Customization details for the menu item.
-     */
-    public void addItem(MenuItem item, String description, String customization) {
-        // Create a new MenuItem with customization and add it to the order
-        MenuItem customizedItem = new MenuItem(item.getFood(), item.getPrice(), item.getBranch(),item.getCategory(), description, customization);
-        if (customization.isEmpty())
-        {
-            items.add(item); // Add menu items in order without customization 
-            updateTotalPrice();
-        }
-        else
-        {
-            items.add(customizedItem); // Add menu items in order with customization
-            updateTotalPrice();
-        }
+    public void addItem(MenuItem item) {
+        this.items.add(item);
+        this.totalPrice+=item.getPrice();
     }
 
-    /**
-     * Removes a menu item from the order.
-     * @param item The menu item to remove.
-     * @return True if the item was successfully removed, false otherwise.
-     */
     public boolean removeItem(MenuItem item) {
-        boolean removed = items.remove(item);
-        if (removed) {
-            updateTotalPrice();
-        }
+        boolean removed = this.items.remove(item);
+        if (removed)
+            this.totalPrice-=item.getPrice();
         return removed;
-    }
-
-    /**
-     * Updates the total price of the order based on the items.
-     */
-    private void updateTotalPrice() {
-        totalPrice = items.stream().mapToDouble(MenuItem::getPrice).sum();
     }
 
     /**
@@ -81,7 +77,7 @@ public class Order {
      * @return Retrieve the order ID.
      */
     public int getOrderId() {
-        return orderId;
+        return orderID;
     }
 
     /**
@@ -89,15 +85,15 @@ public class Order {
      * @return Sets the order ID.
      */
     public void setOrderId(int orderId) {
-        this.orderId = orderId;
+        this.orderID = orderId;
     }
 
     /**
      * Gets the list of items in the order.
      * @return The list of items.
      */
-    public List<MenuItem> getItems() {
-        return new ArrayList<>(items); 
+    public ArrayList<MenuItem> getItems() {
+        return this.items; 
     }
 
     /**
@@ -132,6 +128,7 @@ public class Order {
      */
     public void setStatus(OrderStatus status) {
         this.status = status;
+        this.lastModified = TimeHandler.getCurrentTime();
     }
 
     /**
@@ -150,57 +147,31 @@ public class Order {
         return items.size();
     }
 
+    public String getBranchName(){
+        return this.branch.getBranchName();
+    }
+
+    public long getLastModified(){
+        return this.lastModified;
+    }
+
     /**
      * Prints the details of the order including customization.
      */
     public void printOrderDetails() {
-        String formattedTotalPrice = String.format("%.2f", totalPrice);
 
-        System.out.println("Order ID: " + orderId);
-        System.out.println("Order Type: " + (isTakeaway ? "Takeaway" : "Dine-in"));
-        System.out.println("Order Status: " + status);
+        System.out.println("Order ID: " + this.orderID);
+        System.out.println("Order Type: " + (this.isTakeaway ? "Takeaway" : "Dine-in"));
+        System.out.println("Order Status: " + this.status);
         System.out.println("Total Items in Order: " + countTotalItems());
         System.out.println("Items in Order:");
-        AtomicInteger i = new AtomicInteger(1);
 
-        items.forEach(item -> {
-            // Format the price to display only two decimal places
-            String formattedPrice = String.format("%.2f", item.getPrice());
-            String itemDetails = i.getAndIncrement() + "- " + item.getFood() + ", $" + formattedPrice + ": " + item.getCategory();
-
-            if (!item.getCustomization().isEmpty()) {
-                itemDetails += "| Customization: " + item.getCustomization();
-            }
-
-            System.out.println(itemDetails);
-        });
-        System.out.println("Total Price: $" + formattedTotalPrice);
-    }
-
-    /**
-     * Gets the menu items of the order as a single comma-separated string with quantities and customization.
-     * @return The menu items as a single comma-separated string with quantities and customization.
-     */
-    public String getMenuItemsAsStringinCSV() {
-        StringBuilder sb = new StringBuilder();
-        
-        // Construct the combined menu items string with quantities and customization
-        int itemIndex = 1;
-        for (MenuItem item : items) {
-            String itemName = item.getFood();
-            String itemPrice = String.format("$%.2f", item.getPrice());
-            String itemDetails = itemIndex + ". " + itemName + "| " + itemPrice + ": " + item.getCategory();
-            if (!item.getCustomization().isEmpty()) {
-                itemDetails += "| Customization: " + item.getCustomization();
-            }
-            sb.append(itemDetails).append(" || ");
-            itemIndex++;
+        for(MenuItem m : this.items){
+            System.out.println("- " + m.getFood() 
+                                + " ("+ m.getCategory() + ") $" 
+                                + m.getPrice() + " -- " 
+                                + (m.getCustomization().equalsIgnoreCase("NA")?"Standard":m.getCustomization()));
         }
-
-        // Remove the trailing " || "
-        if (sb.length() > 0) {
-            sb.setLength(sb.length() - 4);
-        }
-        return sb.toString();
+        System.out.println(String.format("Total price: %.2f", this.totalPrice));
     }
 }

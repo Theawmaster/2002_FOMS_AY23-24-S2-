@@ -1,5 +1,6 @@
 package pages;
 
+import services.ProcessOrderService;
 import utilities.Session;
 
 /**
@@ -27,7 +28,8 @@ public class MainPage implements iPage{
                            "                                            \n" +
                            "                                            ");
         System.out.println("[1] Start Ordering");
-        System.out.println("[2] Log in as staff");
+        System.out.println("[2] Collect order");
+        System.out.println("[3] Log in as staff");
         System.out.println("[B] Back to select branch");
     }
 
@@ -39,15 +41,19 @@ public class MainPage implements iPage{
         try{
             switch (choice) {
                 case "1":
-                    pageViewer.changePage("CustomerPage");
+                    PageViewer.changePage("CustomerPage");
                     break;
                 case "2":
-                    pageViewer.changePage("StaffLoginPage");
+                    ProcessOrderService.custViewOrderStatus(this.session.getAllOrders());
+                    PageViewer.changePage("current");
+                    break;
+                case "3":
+                    PageViewer.changePage("StaffLoginPage");
                     break;
                 case "b":
                 case "B":
                     this.session.setCurrentActiveBranch(null);
-                    pageViewer.changePage("SelectBranchPage");
+                    PageViewer.changePage("back");
                     break;
                 default:
                     System.out.println("Invalid choice, please try again.");

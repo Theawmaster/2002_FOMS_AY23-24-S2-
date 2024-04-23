@@ -1,5 +1,7 @@
 package utilities;
 
+import constants.Settings;
+
 /**
  * This class should be used for logging messages in the project
  */
@@ -7,7 +9,7 @@ public class Logger {
     /**
      * Set to false to disable logging. Set to true to enable logging of info, debug, or error messages
      */
-    public static boolean loggerIsEnabled = true;
+    public static boolean loggerIsEnabled = (boolean)Settings.ENABLE_DEBUG.getValue();
 
     /**
      * color string constant for ANSI_RESET

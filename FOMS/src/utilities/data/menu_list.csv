@@ -1,14 +1,87 @@
-Name,Price,Branch,Category,Description,Customization
-4PC set meal,9.90,NTU,UNDEFINED,NA,NA
-COLE SLAW,2.70,JE,SIDE,NA,NA
-3PC set meal,10.40,JE,UNDEFINED,NA,NA
-chicken nugget,6.90,JP,SIDE,NA,NA
-chicken nugget,6.60,NTU,SIDE,NA,NA
-pepsi,2.10,JE,DRINK,NA,NA
-Pepsi,2.00,JE,DRINK,NA,NA
-water,0.80,JP,DRINK,healthy choice,NA
-milo,2.30,HQ,DRINK,milo is the best,NA
-milo,2.40,JE,UNDEFINED,something nice,NA
-milo again,3.40,JE,DRINK,123,NA
-milo again again,2.40,JE,DRINK,23,NA
-ice lemon tea,1.90,JP,DRINK,NA,NA
+Name,Price,Branch,Category,Description
+Apple Soda,2.50,CWP,DRINK,Crisp apple flavor in a fizzy soda
+Pulled Pork Burger,13.70,CWP,BURGER,Slow-cooked pork with tangy slaw on a brioche bun
+Grilled Salmon Set,15.30,CWP,SETMEAL,Grilled salmon fillet with steamed veggies and rice
+Chili Cheese Nachos,5.20,CWP,SIDE,Spicy chili and melted cheese over crispy nachos
+Sweet Corn Cup,2.80,CWP,SIDE,Steamed sweet corn seasoned with butter and herbs
+Sparkling Water,1.50,CWP,DRINK,Sparkling mineral water that refreshes and invigorates
+Raspberry Lemonade,3.50,CWP,DRINK,Bursting with the tartness of raspberry and the zest of lemon
+Black Bean Burger,11.00,CWP,BURGER,Spicy black beans with avocado and salsa on a whole wheat bun
+Veggie Delight Burger,10.20,CWP,BURGER,A garden of veggies topped with a zesty ranch dressing
+Broccoli and Cheese Set,12.40,CWP,SETMEAL,Cheesy goodness meets fresh steamed broccoli
+Pasta Primavera Set,13.80,CWP,SETMEAL,Vibrant vegetables tossed with al dente pasta in a light herb sauce
+Bacon Mac and Cheese,6.50,CWP,SIDE,Creamy macaroni with crispy bacon and a rich cheese sauce
+
+Water,0.80,JP,DRINK,The healthiest choice
+Ice lemon tea,1.90,JP,DRINK,Zi Hao's favourite
+Fruit Punch,3.00,JP,DRINK,Mixed fruits blended into a refreshing punch
+Beef Steak Burger,14.50,JP,BURGER,Thick cut steak with smoky barbecue sauce on a sesame bun
+Chicken Caesar Wrap,11.20,JP,SETMEAL,Crispy chicken with Caesar salad wrapped in a soft tortilla
+Garlic Bread,3.80,JP,SIDE,Buttery and garlicky slices perfect for sharing
+Mozzarella Sticks,4.90,JP,SIDE,Oozy cheese in a crispy coating served with marinara dip
+Mint Mojito,4.50,JP,DRINK,A refreshing blend of mint leaves muddled with lime and soda
+Peach Iced Tea,2.80,JP,DRINK,Sweet peach nectar mixed with brisk iced tea
+Tuna Melt Burger,12.90,JP,BURGER,Grilled tuna with melted cheddar on a toasted bun
+Vegetarian Wrap,9.30,JP,SETMEAL,A wrap filled with hummus grilled veggies and feta
+Quinoa Salad,10.90,JP,SETMEAL,Fluffy quinoa with cherry tomatoes avocado and cucumber
+Zucchini Fries,5.10,JP,SIDE,Crisp zucchini sticks breaded and fried to a golden brown
+
+Herbal Tea,2.40,JE,DRINK,Soothing herbal blend to calm and relax
+Spicy Chai,3.30,JE,DRINK,Warming spices steeped in black tea with a dash of milk
+Falafel Burger,11.50,JE,BURGER,Crispy falafel patties with tahini and pickled turnips
+Halloumi Burger,12.70,JE,BURGER,Grilled halloumi with a tangy lemon herb dressing
+Korean BBQ Set,14.50,JE,SETMEAL,Spicy and sweet marinated beef grilled to perfection
+Japanese Bento Set,13.20,JE,SETMEAL,Assorted sushi with tempura and miso soup
+Coleslaw,3.40,JE,SIDE,Crisp cabbage and carrots in a sweet creamy dressing
+3PC set meal,10.40,JE,SETMEAL,3 chicken lives were lost at the kampung today but it was all worth it
+Nasi Lemak set meal,5.67,JE,SETMEAL,Taste the bliss of south-east asia right from your fork
+Soya Chicken Rice,7.30,JE,SETMEAL,Authentic street food flavor with a touch of soy
+Tofu and Veggie Platter,8.40,JE,SETMEAL,A hearty meal of tofu and mixed vegetables
+Fanta,2.10,JE,DRINK,Not just a soft drink but a delightful play of flavours right at your taste buds
+Pepsi,2.00,JE,DRINK,Pepsi deez nutz
+Lemon Iced Tea,2.75,JE,DRINK,Refreshing and tangy -- perfect for a hot day
+French Fries,3.20,JE,SIDE,Crispy thin-cut strips of potatoes fried in only the freshest olive oil
+Sweet Potato Fries,4.50,JE,SIDE,Gently spiced and roasted to perfection
+
+Coke Zero,2.30,NTU,DRINK,Spine chilling soft drink that kicks you right in the butt to get through the afternoon
+Green Tea,1.90,NTU,DRINK,Cooling and subtly sweet -- brewed fresh
+Classic Cheeseburger,13.00,NTU,BURGER,Made with only the freshest ingredients
+Triple Patty Deluxe,16.80,NTU,BURGER,Triple layers of juicy beef patties with deluxe toppings
+4PC set meal,9.80,NTU,SETMEAL,4 delightful pieces of joy right on your plate
+Fish Fillet Rice,6.50,NTU,SETMEAL,Lightly battered fish served with fragrant rice
+Grilled Chicken Salad,10.30,NTU,SETMEAL,Grilled chicken atop a bed of fresh greens
+Chicken Nugget,6.60,NTU,SIDE,Fresh off the kampung
+Onion Rings,4.20,NTU,SIDE,Crunchy and golden with a hint of sweetness
+Ginger Ale,2.80,NTU,DRINK,Smooth ginger flavor with a hint of citrus zest
+Espresso,2.50,NTU,DRINK,Rich and bold espresso with a creamy crema
+Meatball Sub,14.10,NTU,BURGER,Savory meatballs drenched in marinara topped with mozzarella
+Lamb Burger,15.50,NTU,BURGER,Juicy lamb patty with mint yogurt sauce
+Vegan Sushi Set,7.90,NTU,SETMEAL,Assorted vegan sushi with wasabi and soy sauce
+Chicken Parmesan Set,11.80,NTU,SETMEAL,Crispy chicken with marinara and melted parmesan
+Loaded Fries,5.80,NTU,SIDE,Fries topped with cheese bacon and sour cream
+
+Blueberry Smoothie,4.30,TAMPINES,DRINK,Blended blueberries with a touch of vanilla
+Hot Chocolate,3.70,TAMPINES,DRINK,Decadent chocolate melted into steaming milk
+Steak Sandwich,14.20,TAMPINES,BURGER,Thinly sliced steak with caramelized onions on ciabatta
+Fish and Chips Burger,13.40,TAMPINES,BURGER,Beer battered fish with tartar sauce in a fluffy bun
+Steak and Potato Set,16.50,TAMPINES,SETMEAL,Grilled steak with garlic mashed potatoes
+Vegan Curry Set,9.70,TAMPINES,SETMEAL,Rich coconut curry with tofu and mixed vegetables
+Onion Bhaji,5.50,TAMPINES,SIDE,Spicy onion fritters served with a cooling mint yogurt sauce
+BBQ Chicken Burger,11.90,TAMPINES,BURGER,Barbecue glazed chicken with crispy onions
+Mango Smoothie,3.90,TAMPINES,DRINK,Smooth mango puree blended with a hint of yogurt
+Roast Beef Sandwich,12.10,TAMPINES,SETMEAL,Slow-roasted beef with mustard on rye bread
+Panko Shrimp,6.40,TAMPINES,SIDE,Crispy panko-coated shrimp served with a spicy dip
+Stuffed Jalapeños,5.30,TAMPINES,SIDE,Jalapeños filled with cream cheese and lightly fried
+
+Iced Matcha Latte,4.10,HQ,DRINK,Smooth matcha blended with milk and served chilled
+Mushroom Swiss Burger,12.90,HQ,BURGER,Earthy mushrooms and melted Swiss cheese on a beef patty
+Chicken Teriyaki Bowl,10.20,HQ,SETMEAL,Grilled chicken glazed with teriyaki over steamed rice
+Baked Potato Skins,4.75,HQ,SIDE,Crispy skins loaded with cheese and bacon bits
+Seasoned Wedges,4.00,HQ,SIDE,Thick potato wedges with a hint of rosemary
+Caramel Latte,4.40,HQ,DRINK,Sweet caramel blended into a rich latte
+Green Juice,5.20,HQ,DRINK,Pressed juice from kale spinach apple and lemon
+Eggplant Parm Burger,12.60,HQ,BURGER,Crispy eggplant with basil marinara and provolone
+Portobello Mushroom Burger,13.40,HQ,BURGER,Balsamic glazed portobello with arugula and aioli
+Lentil Soup Set,11.40,HQ,SETMEAL,Hearty lentil soup served with a side of crusty bread
+Soba Noodle Set,10.60,HQ,SETMEAL,Buckwheat noodles with edamame in a light soy dressing
+Roasted Brussel Sprouts,4.90,HQ,SIDE,Brussel sprouts roasted with garlic and parmesan

@@ -3,6 +3,7 @@ package services.payments;
 import java.util.ArrayList;
 
 import exceptionHandlers.TransactionFailedException;
+import utilities.Logger;
 import utilities.UserInputHelper;
 import exceptionHandlers.PaymentServiceDisabledException;
 
@@ -53,13 +54,13 @@ public class VisaPaymentService implements iPaymentService{
             try{
                 simulateSwipe(amount);
                 this.transactionHist.add(new PaymentDetails(customerID, amount, this));
-                System.out.println("Payment via " + this.getPaymentTypeName() + " successful.");
+                System.out.println(Logger.ANSI_GREEN+"Payment via " + this.getPaymentTypeName() + " successful."+Logger.ANSI_RESET);
                 return;
             }
             catch (TransactionFailedException e){throw e;}
         }
         else
-            throw new PaymentServiceDisabledException(this.getPaymentTypeName() + " is currently disabled!");
+            throw new PaymentServiceDisabledException(Logger.ANSI_RED+this.getPaymentTypeName() + " is currently disabled!"+Logger.ANSI_RESET);
     }
         /**
      * @return an array list of payment details
@@ -70,8 +71,8 @@ public class VisaPaymentService implements iPaymentService{
     }
     private void simulateSwipe(double amount) throws TransactionFailedException{
         // get user to type "tap" to simulate Apple pay payment
-        String simulatedSwipe = UserInputHelper.getInput("Please swipe your card to transact $"+amount+". (type 'swipe'):");
+        String simulatedSwipe = UserInputHelper.getInput("Please swipe your card to transact $"+String.format("%.2f", amount)+". (type 'swipe'):");
         if(simulatedSwipe.equalsIgnoreCase("swipe")) return;
-        else throw new TransactionFailedException("Visa transaction failed");
+        else throw new TransactionFailedException(Logger.ANSI_RED+"Visa transaction failed"+Logger.ANSI_RESET);
     }
 }

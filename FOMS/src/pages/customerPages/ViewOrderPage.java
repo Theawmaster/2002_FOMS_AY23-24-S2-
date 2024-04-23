@@ -1,14 +1,11 @@
 package pages.customerPages;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.ManagePaymentsService;
-import utilities.Session;
-
-import java.util.Scanner;
-
-import constants.OrderStatus;
 import services.ProcessOrderService;
+import utilities.Session;
+import utilities.UserInputHelper;
 
 /**
  * This is the View Order Page that the user will see after choosing View Cart on Customer Page. 
@@ -29,14 +26,14 @@ public class ViewOrderPage implements iPage{
      */
     public void viewOptions(){
         if(session.getCurrentActiveOrder() == null || session.getCurrentActiveOrder().countTotalItems() == 0){
-            System.out.println("Your cart is empty");
-            pageViewer.changePage("back");
+            System.out.println("Your cart is currently empty");
+            PageViewer.changePage("back");
         }
         else{
             session.getCurrentActiveOrder().printOrderDetails();
             System.out.println("[1] Make Payment");
             System.out.println("[2] Edit Order");
-            System.out.println("[3] Continue Browsing");
+            System.out.println("[B] Continue Browsing");
         }
         //...
     }
@@ -47,25 +44,35 @@ public class ViewOrderPage implements iPage{
     public void handleInput(String choice){
         switch (choice) {
             case "1":
-                session.getCurrentActiveOrder().setTakeaway(askForOrderType());
-                ManagePaymentsService.makePayment(session, session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice());
-                session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
-                ProcessOrderService.addOrderToProcessingListinCSV(session.getCurrentActiveOrder());
-                session.getCurrentActiveOrder().printOrderDetails();
-                session.addOrder(session.getCurrentActiveOrder());
-                session.setCurrentActiveOrder(null);
-                pageViewer.changePage("CustomerPage");
+                // ask for having here / take away
+                System.out.println("Would you like to dine in or takeaway?");
+                System.out.println("[1] Dine in");
+                System.out.println("[2] Take away");
+                System.out.println("[C] Cancel payment");
+                if(!UserInputHelper.chooseTakeaway(this.session.getCurrentActiveOrder())){
+                    // if user cancelled payment, just go back to this page
+                    PageViewer.changePage("current");
+                };
+                // use chose dine in / takeaway. now ask for money
+                if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice())){
+                    // money goes through, process the paid order
+                    ProcessOrderService.customerPaid(this.session);
+                    PageViewer.changePage("MainPage");
+                }
+                else
+                    // transaction cancelled, remain in this page
+                    PageViewer.changePage("current");
                 break;
             case "2":
-                pageViewer.changePage("EditOrderPage");
+                PageViewer.changePage("EditOrderPage");
                 break;
-            case "3":
-                pageViewer.changePage("back");
+            case "b":
+            case "B":
+                // brings user back to browse the categories  
+                PageViewer.changePage("SelectCategoriesPage");
                 break;
-                //...
             default:
                 System.out.println("Invalid choice, please try again.");
-                viewOptions();
                 break;
         }
     }

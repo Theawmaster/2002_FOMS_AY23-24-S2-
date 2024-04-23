@@ -3,15 +3,15 @@ package pages.staffPages.manager;
 import services.ManageMenuService;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.Session;
 
-public class ManagerEditMenuItemsPage implements iPage {
+public class EditMenuItemsPage implements iPage {
         /**
      * The current active session 
      */
     private Session session;
-    public ManagerEditMenuItemsPage(Session s){
+    public EditMenuItemsPage(Session s){
         this.session = s;
     }
     /**
@@ -33,23 +33,23 @@ public class ManagerEditMenuItemsPage implements iPage {
         switch (choice) {
              case "1":
                  ManageMenuService.displayAllMenuItems(this.session);
-                 pageViewer.changePage("current");
+                 PageViewer.changePage("current");
                  break;
             case "2":
                 ManageMenuService.addMenuItem(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "3":
                 ManageMenuService.removeMenuItem(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "4":
                 ManageMenuService.editMenuItem(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "b":
             case "B":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid choice!");

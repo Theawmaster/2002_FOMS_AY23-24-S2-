@@ -3,7 +3,7 @@ package pages.staffPages.admin;
 import services.ManageStaffService;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import utilities.Session;
 
 /**
@@ -43,27 +43,27 @@ public class AdminManageStaffPage implements iPage {
         switch(option) {
             case "1":
                 // just go to this page instead since the functions are alr there
-                pageViewer.changePage("ManagerViewStaffDetailsPage");
+                PageViewer.changePage("ViewStaffDetailsPage");
                 break;
             case "2":
                 ManageStaffService.fireStaff(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "3":
                 ManageStaffService.hireStaff(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "4":
                 ManageStaffService.promoteStaff(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "5":
                 ManageStaffService.transferStaff(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input");

@@ -2,6 +2,7 @@ package utilities;
 
 import java.util.ArrayList;
 
+import constants.OrderStatus;
 import entities.Staff;
 import services.payments.iPaymentService;
 import services.payments.VisaPaymentService;
@@ -21,28 +22,31 @@ public class Session {
     private ArrayList<Staff> allStaffs;
     protected ArrayList<Branch> allBranches;
     private ArrayList<MenuItem> allMenuItems;
-    private ArrayList<iPaymentService> allPaymentServices;
     private ArrayList<Order> allOrders;
+    private ArrayList<iPaymentService> allPaymentServices;
 
     private Staff currentActiveStaff;
     private Branch currentActiveBranch;
     private Order currentActiveOrder;
     private MenuItem currentActiveMenuItem;
+    private int nextOrderId;
 
 
     /**
-     * Initialised in pageViewer only. Loads all data from LoadData's child classes to set the context of the current session
+     * Initialised in PageViewer only. Loads all data from LoadData's child classes to set the context of the current session
      */
     public Session(){
 
-        LoadBranches initLoadBranches = new LoadBranches(null);
+        LoadBranches initLoadBranches = new LoadBranches(null, null);
         this.allBranches = initLoadBranches.getLoadedData();
     
-        LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches);
+        LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches, null);
         this.allStaffs = initLoadStaffs.getLoadedData();
     
-        LoadMenuItems initLoadMenuItems = new LoadMenuItems(this.allBranches);
+        LoadMenuItems initLoadMenuItems = new LoadMenuItems(this.allBranches, null);
         this.allMenuItems = initLoadMenuItems.getLoadedData();
+
+        this.nextOrderId = 1;
     
         allPaymentServices = new ArrayList<>();
         allPaymentServices.add(new VisaPaymentService());
@@ -53,14 +57,27 @@ public class Session {
 
     // Update session if required
     public void updateSession(){
-        LoadBranches initLoadBranches = new LoadBranches(null);
+        LoadBranches initLoadBranches = new LoadBranches(null, null);
         this.allBranches = initLoadBranches.getLoadedData();
     
-        LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches);
+        LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches, null);
         this.allStaffs = initLoadStaffs.getLoadedData();
     
-        LoadMenuItems initLoadMenuItems = new LoadMenuItems(this.allBranches);
+        LoadMenuItems initLoadMenuItems = new LoadMenuItems(this.allBranches, null);
         this.allMenuItems = initLoadMenuItems.getLoadedData();
+
+        // if there is another instance of the programme, there will be orders that are not loaded in yet.
+        LoadOrders initLoadOrders = new LoadOrders(this.allBranches, this.allMenuItems);
+        this.allOrders = initLoadOrders.getLoadedData();
+
+        if(this.currentActiveOrder==null || this.currentActiveOrder.getStatus()==OrderStatus.COMPLETED || this.currentActiveOrder.getStatus()==OrderStatus.CANCELLED){
+            // only update the next orderID accordingly if the current order has been completed / cancelled / undefined
+            for (Order o : this.allOrders) {
+                if (o.getOrderId() >= this.nextOrderId) {
+                    this.nextOrderId = o.getOrderId() + 1;
+                }
+            }
+        }
     }
 
     // Getters
@@ -108,20 +125,14 @@ public class Session {
     public MenuItem getCurrentActiveMenuItem(){
         return this.currentActiveMenuItem;
     }
-    // you shouldnt be doing this here
-    // to get order via order id
-    public Order getOrderById(int orderId) {
-        for (Order order : allOrders) {
-            if (order.getOrderId() == orderId) {
-                return order;
-            }
-        }
-        return null; // Return null if the order is not found
+
+    public void makeNewOrder(){
+        this.currentActiveOrder = new Order(this.nextOrderId, this.currentActiveBranch);
+        this.nextOrderId++;
     }
-    public void addOrder(Order order) {
-        if (allOrders == null) {
-            allOrders = new ArrayList<>();
-        }
-        allOrders.add(order);
+
+    public void closeSession(){
+        LoadOrders.destroyOrders();
     }
+
 }

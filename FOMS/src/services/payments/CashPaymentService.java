@@ -3,6 +3,7 @@ package services.payments;
 import java.util.ArrayList;
 
 import exceptionHandlers.TransactionFailedException;
+import utilities.Logger;
 import utilities.UserInputHelper;
 import exceptionHandlers.PaymentServiceDisabledException;
 
@@ -53,14 +54,14 @@ public class CashPaymentService implements iPaymentService{
             try{
                 askForCash(amount);
                 this.transactionHist.add(new PaymentDetails(customerID, amount, this));
-                System.out.println("Payment via " + this.getPaymentTypeName() + " successful.");
+                System.out.println(Logger.ANSI_GREEN+"Payment via " + this.getPaymentTypeName() + " successful."+Logger.ANSI_RESET);
             }
             catch (TransactionFailedException e){
                 throw e;
             }
         }
         else
-            throw new PaymentServiceDisabledException(this.getPaymentTypeName() + " is currently disabled!");
+            throw new PaymentServiceDisabledException(Logger.ANSI_RED+this.getPaymentTypeName() + " is currently disabled!"+Logger.ANSI_RESET);
     }
         /**
      * @return an array list of payment details
@@ -76,10 +77,10 @@ public class CashPaymentService implements iPaymentService{
         while(insertedAmt<amount){
             System.out.println(String.format("Please pay $%.2f",(amount-insertedAmt)));
             in = UserInputHelper.getDoubleInput("Insert cash into the terminal (-1 if you no more money, otherwise type amount inserted): ");
-            if(in < 0) throw new TransactionFailedException("Customer is broke! No food for you!");
+            if(in < 0) throw new TransactionFailedException(Logger.ANSI_RED+"Customer is broke! No food for you!"+Logger.ANSI_RESET);
             insertedAmt += in;
         }
-        System.out.println(String.format("Here's your change of $%.2f",(insertedAmt-amount)));
+        System.out.println(String.format(Logger.ANSI_GREEN+"Here's your change of $%.2f"+Logger.ANSI_RESET,(insertedAmt-amount)));
         return;
     }
 }

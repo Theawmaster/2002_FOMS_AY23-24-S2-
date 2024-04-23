@@ -4,14 +4,13 @@ import java.util.Scanner;
 import javax.swing.*;
 
 import constants.MealCategory;
+import constants.Settings;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-
-import java.util.InputMismatchException;
 
 import entities.Branch;
 import entities.MenuItem;
+import entities.Order;
 
 public class UserInputHelper {
     private static Scanner scanner = new Scanner(System.in);
@@ -54,6 +53,29 @@ public class UserInputHelper {
         
         return input;
     }
+
+    // overloading getUserChoice method
+    public static int getUserChoice(String prompt, int maxChoice) {
+        String choice;
+        int intChoice;
+        do {
+            try {
+                choice = getInput(prompt + " ("+(String)Settings.CANCEL_CHARACTER.getValue()+" to cancel): ");
+                if(((String)Settings.CANCEL_CHARACTER.getValue()).equalsIgnoreCase(choice)){
+                    return -1;
+                }
+                intChoice = Integer.parseInt(choice);
+                if (intChoice < 1 || intChoice > maxChoice) {
+                    System.out.println("Invalid choice. Please enter a number between 1 and " + maxChoice + ".");
+                } else {
+                    return intChoice;
+                }
+            } catch (NumberFormatException e) {
+                scanner.nextLine();
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        } while (true);
+    }
     
     public static String chooseRole() {
         String roleInput;
@@ -93,82 +115,70 @@ public class UserInputHelper {
     }
 
     public static Branch chooseBranch(ArrayList<Branch> branches) {
-        int numOptions = 0;
+        int numOptions = 1;
         for(Branch b : branches){
-            numOptions++;
             System.out.println(numOptions + ". " + b.getBranchName());
+            numOptions++;
         }
-        return branches.get(getUserChoice("Select a branch: ", numOptions)-1);
+        int option = getUserChoice("Select a menu item", numOptions-1);
+        if (option == -1) return null;
+        return branches.get(option-1);
     }
 
     public static MenuItem chooseMenuItem(ArrayList<MenuItem> menuItems){
-        int numOptions = 0;
+        int numOptions = 1;
         for(MenuItem m : menuItems){
-            numOptions++;
             System.out.println(numOptions + ". " + m.getFood());
+            numOptions++;
         }
-        return menuItems.get(getUserChoice("Select a menu item:", numOptions)-1);
+        int option = getUserChoice("Select a menu item", numOptions-1);
+        if (option == -1) return null;
+        return menuItems.get(option-1);
     }
 
     public static MealCategory choosMealCategory(String prompt) {
         System.out.println(prompt);
         int i = 1;
         for (MealCategory mc : MealCategory.values()) {
+            if(mc == MealCategory.UNDEFINED) continue;
             System.out.println(i + ". " + mc.toString());
             i++;
         }
-        while (true) {
-            try {
-                int choice = Integer.parseInt(scanner.nextLine().trim());
-                if (choice >= 1 && choice <= MealCategory.values().length) {
-                    return MealCategory.values()[choice - 1];
-                } else {
-                    System.out.println("Invalid input. Please enter a valid number between 1 and " + MealCategory.values().length + ".");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
-            }
-        }
+        int option = getUserChoice("Select a menu item", i-1);
+        if (option == -1) return null;
+        return MealCategory.values()[option-1];
     }    
     
-    public static int getUserChoice(String prompt, int maxChoice) {
-        int choice;
-        do {
-            System.out.println(prompt);
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-                if (choice < 1 || choice > maxChoice) {
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + maxChoice + ".");
-                } else {
-                    return choice;
+    public static Order chooseOrder(ArrayList<Order> order, Branch branch){
+        while(true){
+            int option = getUserChoice("Enter your order ID", 999);
+            if(option == -1) return null;
+            for(Order o : order){
+                if(o.getOrderId() == option && o.getBranchName().equals(branch.getBranchName())){
+                    return o;
                 }
-            } catch (NumberFormatException e) {
-                scanner.nextLine();
-                System.out.println("Invalid input. Please enter a valid number.");
             }
-        } while (true);
+            System.out.println("No ID found!");
+        }
     }
-  
+
+    public static boolean chooseTakeaway(Order order){
+        String choice = getInput("Enter your choice");
+        switch (choice) {
+            case "1":
+                order.setTakeaway(false);
+                return true;
+            case "2":
+                order.setTakeaway(true);
+                return true;
+            case "c":
+            case "C":
+                return false;
+            default:
+                System.out.println("Please enter a valid choice!");
+                return chooseTakeaway(order);
+        }
+    }
     
-    
-    // public static boolean confirmAction(String message) {
-    //     System.out.println(message);
-    //     String input = scanner.nextLine().trim().toLowerCase();
-    //     return "y".equals(input);
-    // }
-    
-    // public static String getNewBranch(List<String> branchNames) {
-    //     System.out.println("Enter the new Branch:");
-    //     String branch;
-    //     do {
-    //         branch = scanner.nextLine().trim().toUpperCase();
-    //         if (!branchNames.contains(branch)) {
-    //             System.out.println("The branch does not exist. Please enter a valid branch:");
-    //         } else {
-    //             break;
-    //         }
-    //     } while (true);
-    //     return branch;
-    // }
 }
 

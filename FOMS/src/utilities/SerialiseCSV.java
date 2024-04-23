@@ -159,18 +159,18 @@ public class SerialiseCSV {
      * Method to erase all data except headers in order_processing_list CSV file
      * @param filename The name of the CSV file to erase data from
      */
-    public static void eraseCSVData(String filename) {
+    public static void resetCSVData(String filename, String reseString) {
         try {
             // Create a FileWriter with append mode set to false
             FileWriter writer = new FileWriter(filename, false);
 
             // Write an empty string to the file to erase all data
-            writer.write("orderID,Status,OrderDetails,isTakeaway");
+            writer.write(reseString);
             
             // Close the writer
             writer.close();
             
-            System.out.println("Data erased successfully from " + filename);
+            Logger.debug("Data erased successfully from " + filename);
         } catch (IOException e) {
             System.out.println("An error occurred: " + e.getMessage());
             e.printStackTrace();

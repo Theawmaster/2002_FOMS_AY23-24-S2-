@@ -1,7 +1,7 @@
 package pages.staffPages.admin;
 
 import pages.iPage;
-import pages.pageViewer;
+import pages.PageViewer;
 import services.ManagePaymentsService;
 import utilities.Session;
 
@@ -38,19 +38,19 @@ public class AdminManagePaymentPage implements iPage {
         switch (option) {
             case "1":
                 ManagePaymentsService.viewAllPaymentMethods(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "2":
                 ManagePaymentsService.enablePaymentsService(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "3":
                 ManagePaymentsService.disablePaymentsService(this.session);
-                pageViewer.changePage("current");
+                PageViewer.changePage("current");
                 break;
             case "B":
             case "b":
-                pageViewer.changePage("back");
+                PageViewer.changePage("back");
                 break;
             default:
                 System.out.println("Invalid input");
