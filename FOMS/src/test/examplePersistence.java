@@ -10,6 +10,7 @@ public class examplePersistence {
         while(true){
             System.out.println(PersistenceHandler.hasBeenUpdated("FOMS/src/utilities/data"));
             sc.nextLine();
+            sc.close();
         }
     }
 }
