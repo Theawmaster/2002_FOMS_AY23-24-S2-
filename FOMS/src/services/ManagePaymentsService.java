@@ -70,7 +70,7 @@ public class ManagePaymentsService {
                 i++;
             }
             try{
-                int choice = UserInputHelper.getUserChoice("Enter your choice (c to cancel)", i-1, "c");
+                int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
                 if(choice == -1) return false; // user devided to cancel payment
                 session.getAllPaymentServices().get(choice-1).pay(orderID, amount);
                 return true;

@@ -1,4 +1,4 @@
-package pages.customerPages;
+package test.archives;
 
 import pages.iPage;
 import pages.PageViewer;
@@ -22,12 +22,12 @@ public class archiveEditOrderPage implements iPage{
      * Method to view menu options
      */
     public void viewOptions(){
-        try{
+        if(this.session.getCurrentActiveOrder()!=null){
             session.getCurrentActiveOrder().printOrderDetails();
             System.out.println("[1] Remove Item");
             System.out.println("[2] Customise Item");
             System.out.println("[B] Back to View Order Page");
-        }catch(Exception e){
+        }else{
             System.out.println("Order hasn't been made!");
             PageViewer.changePage("ViewOrderPage");
         }

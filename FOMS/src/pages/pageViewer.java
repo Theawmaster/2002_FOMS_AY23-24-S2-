@@ -45,7 +45,7 @@ public class PageViewer {
         pages.put("MainPage", new MainPage(session));
         pages.put("CustomerPage", new CustomerPage(session));
         pages.put("ViewOrderPage", new ViewOrderPage(session));
-        pages.put("EditOrderPage", new archiveEditOrderPage(session));////////
+        pages.put("EditOrderPage", new EditOrderPage(session));
         pages.put("StaffLoginPage", new StaffLoginPage(session));
         pages.put("StaffAccessPage", new StaffAccessPage(session));
         pages.put("StaffProcessOrderPage", new StaffProcessOrderPage(session));

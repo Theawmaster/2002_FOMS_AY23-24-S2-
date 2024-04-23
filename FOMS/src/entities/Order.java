@@ -4,7 +4,6 @@ import constants.OrderStatus;
 import utilities.TimeHandler;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Represents an order placed by a customer.
@@ -14,7 +13,7 @@ public class Order {
     private int orderID;
     
     /** List of items included in the order. */
-    private List<MenuItem> items;
+    private ArrayList<MenuItem> items;
     
     /** Indicates whether the order is for takeaway or dine-in. */
     private boolean isTakeaway;
@@ -93,7 +92,7 @@ public class Order {
      * Gets the list of items in the order.
      * @return The list of items.
      */
-    public List<MenuItem> getItems() {
+    public ArrayList<MenuItem> getItems() {
         return this.items; 
     }
 
@@ -168,7 +167,10 @@ public class Order {
         System.out.println("Items in Order:");
 
         for(MenuItem m : this.items){
-            System.out.println("- " + m.getFood() + " ("+ m.getCategory() + ") $" + m.getPrice() + " -- " + m.getCustomization());
+            System.out.println("- " + m.getFood() 
+                                + " ("+ m.getCategory() + ") $" 
+                                + m.getPrice() + " -- " 
+                                + (m.getCustomization().equalsIgnoreCase("NA")?"Standard":m.getCustomization()));
         }
         System.out.println(String.format("Total price: %.2f", this.totalPrice));
     }

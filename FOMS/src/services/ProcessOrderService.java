@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import constants.OrderStatus;
 import constants.Settings;
+import entities.MenuItem;
 import entities.Order;
 import utilities.LoadOrders;
 import utilities.Session;
@@ -17,12 +18,28 @@ public class ProcessOrderService {
         session.getCurrentActiveOrder().addItem(session.getCurrentActiveMenuItem());
         LoadOrders.addOrderToCSV(session.getCurrentActiveOrder());
     }
-    public static void addCustomisationToOrder(Session session){
+    public static void addCustomisationToOrder(MenuItem item){
         String custom = UserInputHelper.getInput("Enter your customisation: ");
         // lazy way to ensure that user input does not contain delimmiters that will affect saving data into csv
         if(custom.indexOf(",")!=-1) custom = custom.substring(0, custom.indexOf(","));
         if(custom.indexOf("|")!=-1) custom = custom.substring(0, custom.indexOf("|"));
-        session.getCurrentActiveMenuItem().setCustomization(custom);
+        item.setCustomization(custom);
+    }
+    public static void customiseAnOrder(Session session){
+        MenuItem custItem = UserInputHelper.chooseMenuItem(session.getCurrentActiveOrder().getItems());
+        if(custItem == null) return;
+        addCustomisationToOrder(custItem);
+    }
+    public static void removeOrder(Session session){
+        if(session.getAllOrders().size() == 0){
+            System.out.println("No orders to remove");
+            return;
+        }
+
+        MenuItem badItem = UserInputHelper.chooseMenuItem(session.getCurrentActiveOrder().getItems());
+        if(badItem == null) return;
+
+        session.getCurrentActiveOrder().removeItem(badItem);
     }
     public static void processOrder(Session session){
         if(session.getAllOrders().size() == 0){
@@ -67,7 +84,7 @@ public class ProcessOrderService {
         }
     }
     public static void custViewOrderStatus(ArrayList<Order> allOrders){
-        int orderID = UserInputHelper.getUserChoice("Enter your order ID to view (c to cancel): ", 999, "c");
+        int orderID = UserInputHelper.getUserChoice("Enter your order ID to view", 999);
         if(orderID == -1) return;
 
         for(Order o : allOrders){
@@ -127,7 +144,7 @@ public class ProcessOrderService {
     public static void viewOrderDetails(Session session){
         Order selectedOrder = UserInputHelper.chooseOrder(session.getAllOrders(), session.getCurrentActiveBranch());
         if(selectedOrder==null) return;
-        
+
         selectedOrder.printOrderDetails();
         return;
     }

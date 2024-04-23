@@ -4,6 +4,7 @@ import java.util.Scanner;
 import javax.swing.*;
 
 import constants.MealCategory;
+import constants.Settings;
 
 import java.util.ArrayList;
 
@@ -53,31 +54,14 @@ public class UserInputHelper {
         return input;
     }
 
-    public static int getUserChoice(String prompt, int maxChoice) {
-        int choice;
-        do {
-            System.out.println(prompt);
-            try {
-                choice = Integer.parseInt(scanner.nextLine());
-                if (choice < 1 || choice > maxChoice) {
-                    System.out.println("Invalid choice. Please enter a number between 1 and " + maxChoice + ".");
-                } else {
-                    return choice;
-                }
-            } catch (NumberFormatException e) {
-                scanner.nextLine();
-                System.out.println("Invalid input. Please enter a valid number.");
-            }
-        } while (true);
-    }
     // overloading getUserChoice method
-    public static int getUserChoice(String prompt, int maxChoice, String cancelCharacter) {
+    public static int getUserChoice(String prompt, int maxChoice) {
         String choice;
         int intChoice;
         do {
             try {
-                choice = getInput(prompt);
-                if(cancelCharacter.equals(choice)){
+                choice = getInput(prompt + " ("+(String)Settings.CANCEL_CHARACTER.getValue()+" to cancel): ");
+                if(((String)Settings.CANCEL_CHARACTER.getValue()).equalsIgnoreCase(choice)){
                     return -1;
                 }
                 intChoice = Integer.parseInt(choice);
@@ -136,7 +120,9 @@ public class UserInputHelper {
             numOptions++;
             System.out.println(numOptions + ". " + b.getBranchName());
         }
-        return branches.get(getUserChoice("Select a branch: ", numOptions)-1);
+        int option = getUserChoice("Select a menu item", numOptions-1);
+        if (option == -1) return null;
+        return branches.get(option-1);
     }
 
     public static MenuItem chooseMenuItem(ArrayList<MenuItem> menuItems){
@@ -145,7 +131,9 @@ public class UserInputHelper {
             numOptions++;
             System.out.println(numOptions + ". " + m.getFood());
         }
-        return menuItems.get(getUserChoice("Select a menu item:", numOptions)-1);
+        int option = getUserChoice("Select a menu item", numOptions-1);
+        if (option == -1) return null;
+        return menuItems.get(option-1);
     }
 
     public static MealCategory choosMealCategory(String prompt) {
@@ -155,12 +143,14 @@ public class UserInputHelper {
             System.out.println(i + ". " + mc.toString());
             i++;
         }
-        return MealCategory.values()[getUserChoice(prompt, i)-1];
+        int option = getUserChoice("Select a menu item", i-1);
+        if (option == -1) return null;
+        return MealCategory.values()[option-1];
     }    
     
     public static Order chooseOrder(ArrayList<Order> order, Branch branch){
         while(true){
-            int option = getUserChoice("Enter your order ID (c to cancel): ", 999, "c");
+            int option = getUserChoice("Enter your order ID", 999);
             if(option == -1) return null;
             for(Order o : order){
                 if(o.getOrderId() == option && o.getBranchName().equals(branch.getBranchName())){

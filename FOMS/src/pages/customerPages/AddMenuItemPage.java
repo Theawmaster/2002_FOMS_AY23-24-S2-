@@ -40,7 +40,7 @@ public class AddMenuItemPage implements iPage{
                 break;
             case "c":
             case "C":
-                ProcessOrderService.addCustomisationToOrder(this.session);
+                ProcessOrderService.addCustomisationToOrder(this.session.getCurrentActiveMenuItem());
                 PageViewer.changePage("current");
                 break;
             default:
