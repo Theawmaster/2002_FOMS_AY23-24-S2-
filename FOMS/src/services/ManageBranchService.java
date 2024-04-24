@@ -20,6 +20,7 @@ public class ManageBranchService {
     public static void changeBranchStatus(Session session, boolean open) {
         String status = open ? "Open" : "Close";
         Branch whichBranch = UserInputHelper.chooseBranch(session.getAllBranches());
+        if(whichBranch == null) return;
         if(LoadBranches.updateBranchStatus(whichBranch, status)){
             session.getAllBranches().add(whichBranch);
             whichBranch.setStatus(status);

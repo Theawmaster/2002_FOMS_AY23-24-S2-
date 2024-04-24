@@ -1,7 +1,5 @@
 package pages;
 
-import java.util.ArrayList;
-
 import entities.Branch;
 import utilities.Logger;
 import utilities.Session;
@@ -21,7 +19,6 @@ public class SelectBranchPage implements iPage{
      * A local variable to count number of branches available to choose from
      */
     private int numOptions;
-    private ArrayList<Branch> availableBranches = new ArrayList<>();
     /**
      * Initialising this page sets the session provided from PageViewer
      * @param s
@@ -42,12 +39,9 @@ public class SelectBranchPage implements iPage{
                             "                                                             ");
         System.out.println("Select the branch you want to dine at:");
         // Iterate through all branches for users to select. Index starts at 1. Indexing is adjusted in the handleInput method
-        for(Branch b : this.session.getAllBranches()){
-            if(b.getStatus().equalsIgnoreCase("Open")){
-                numOptions++;
-                System.out.println("[" + numOptions + "] " + b.getBranchName());
-                this.availableBranches.add(b);
-            }
+        for(Branch b : this.session.getAllOpenBranches()){
+            numOptions++;
+            System.out.println("[" + numOptions + "] " + b.getBranchName());
         }
         System.out.println("[Q] Quit FOMS");
         Logger.error("Logger is active");
@@ -65,10 +59,10 @@ public class SelectBranchPage implements iPage{
         }
         try{
             int intChoice = Integer.parseInt(choice) -1; // -1 to offset indexing with user's response
-            if (intChoice < 0 || intChoice >= availableBranches.size()) {
+            if (intChoice < 0 || intChoice >= this.session.getAllOpenBranches().size()) {
                 throw new IndexOutOfBoundsException("Selected branch index is out of range."); // Manually throw an exception if the index is out of range
             }
-            Branch activeBranch = this.availableBranches.get(intChoice);
+            Branch activeBranch = this.session.getAllOpenBranches().get(intChoice);
             // customer is now dining here. all staff and managers will belong to this branch.
             this.session.setCurrentActiveBranch(activeBranch);
             //change view to the main page to start ordering and stuff
