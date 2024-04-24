@@ -24,7 +24,7 @@ public class StaffProcessOrderPage implements iPage{
         this.session = s;
     }
     /**
-     * Method to display list of pending orders & view process order options
+     * Method to display list of pending orders and view process order options
      */
     public void viewOptions(){
         for(Order o : this.session.getAllOrders()){

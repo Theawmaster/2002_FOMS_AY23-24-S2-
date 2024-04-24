@@ -11,13 +11,18 @@ import entities.Staff;
 import utilities.exceptionHandlers.StaffManagementException;
 
 /**
- * The {@link LoadStaffs} class loads Staff data and corresponding passwords from the CSV database
+ * The {@link LoadStaffs} class loads Staff data and corresponding passwords from the CSV database. It inherits from the {@link LoadData} class 
+ * @author Siah Yee Long
  */
 public class LoadStaffs extends LoadData<Staff>{
-    public LoadStaffs(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
+    /**
+     * This constructor creates a LoadStaffs object with a list of Branch objects and a list of MenuItem objects
+     * @param branches all information about branches
+     * @param menu null
+     */
+    protected LoadStaffs(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
         super(branches, menu);
     }
-
     /**
      * The {@link loadedPasswords} private variable stores a hashmap of staffID:password to be loaded into the Staff class. 
      * This variable will not be accessible outside of this class
@@ -25,10 +30,12 @@ public class LoadStaffs extends LoadData<Staff>{
     private HashMap<String, String> loadedPasswords;
     /**
      * The {@link loadDatafromCSV} method in this class loads in staff data from staff_list.csv 
+     * @param branches all information about branches
+     * @param x null
      * @return a list of Staff objects with information loaded in
      */
     @Override
-    public ArrayList<Staff> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> x){
+    protected ArrayList<Staff> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> x){
         ArrayList<Staff> staffs = new ArrayList<Staff>(); // the return value
 
         // load data from the staff list csv
@@ -92,9 +99,8 @@ public class LoadStaffs extends LoadData<Staff>{
         }
         return staffs;
     }
-
     /**
-    * The {@link updatePassword} method calls on the {@link SerialiseCSV.replaceColumnValue} method to update the 2nd column with the new password
+    * The {@link updatePassword} method calls on the SerialiseCSV.replaceColumnValue method to update the 2nd column with the new password
     * @param loginID search String
     * @param newPassword updated new password
     * @return true if successful
@@ -102,7 +108,6 @@ public class LoadStaffs extends LoadData<Staff>{
    public static boolean updatePassword(String loginID, String newPassword){
         return SerialiseCSV.replaceColumnValue(loginID, 1, newPassword, FilePaths.staffPasswordsPath.getPath());
     }
-
     /**
      * The {@link getPasswords} private method reads in saved passwords from staff_passwords.csv and stores them in the private variable {@link loadedPasswords}
      */
@@ -123,7 +128,7 @@ public class LoadStaffs extends LoadData<Staff>{
     }
     /**
      * The {@link appendNewPasswordRecord} private function appends a new password record 
-     * Used in the {@link loadData} method above if password not already existing for the current Staff
+     * Used in the loadData method above if password not already existing for the current Staff
      * @param staffID String argument of the corresponding staffID
      * @param staffPassword String argument of the corresponding staffPassword
      */
@@ -131,30 +136,37 @@ public class LoadStaffs extends LoadData<Staff>{
         String passwordRecord = staffID + "," + staffPassword;
         SerialiseCSV.appendToCSV(passwordRecord, FilePaths.staffPasswordsPath.getPath());
     }
-
-
-
     /**
-     * Adds a new staff member to the staff list CSV file.
-     * @param name
-     * @param id
-     * @param role
-     * @param gender
-     * @param age
-     * @param branch
-     * @return
-     * @author Alvin Aw Yong
+     * This method adds a Staff object to the CSV file
+     * @param s the Staff object to be added
+     * @return true if the Staff is successfully added to the CSV file
      */
     public static boolean addStaffToCSV(Staff s) {
         String staffData = String.format("%s,%s,%s,%s,%d,%s", s.getFirstName()+" "+s.getLastName(), s.getLoginID(), s.getRole(), (s.getGender()?"F":"M"), s.getAge(), s.getBranch().getBranchName());
         return SerialiseCSV.appendToCSV(staffData, FilePaths.staffListPath.getPath());
     }    
+    /**
+     * This method adds a Staff object to the CSV file
+     * @param staff the Staff object to be added
+     * @return true if the Staff is successfully added to the CSV file
+     */
     public static boolean updatePromotedStaff(Staff staff){
         return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 2, "MANAGER", FilePaths.staffListPath.getPath());
     }
+    /**
+     * This method adds a Staff object to the CSV file
+     * @param staff the Staff object to be added
+     * @param branch the Branch object to be added
+     * @return true if the Staff is successfully added to the CSV file
+     */
     public static boolean updateTransferredStaff(Staff staff, Branch branch){
         return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 5, branch.getBranchName(), FilePaths.staffListPath.getPath());
     }
+    /**
+     * This method adds a Staff object to the CSV file
+     * @param staff the Staff object to be added
+     * @return true if the Staff is successfully added to the CSV file
+     */
     public static boolean updateFiredStaff(Staff staff){
         return SerialiseCSV.deleteToCSV(staff.getLoginID(), 1, FilePaths.staffListPath.getPath()) 
             && SerialiseCSV.deleteToCSV(staff.getLoginID(), 0, FilePaths.staffPasswordsPath.getPath());

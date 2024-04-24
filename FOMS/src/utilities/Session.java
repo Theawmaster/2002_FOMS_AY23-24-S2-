@@ -2,38 +2,47 @@ package utilities;
 
 import java.util.ArrayList;
 
-import constants.OrderStatus;
 import entities.Staff;
+import entities.Branch;
+import entities.MenuItem;
+import entities.Order;
+import constants.OrderStatus;
 import services.payments.iPaymentService;
 import services.payments.VisaPaymentService;
 import services.payments.CashPaymentService;
 import services.payments.ApplepayPaymentService;
-import entities.Branch;
-import entities.MenuItem;
-import entities.Order;
 
 
 /**
- * This class acts as a data store and contains all active entities in the programme.
+ * This class acts as a data store and contains all active entities within the runtime of the programme (i.e. the current session)
  * @author Siah Yee Long
- * TODO: add in javadoc comments 
  */
 public class Session {
+
+    /** The list of staffs in the programme */
     private ArrayList<Staff> allStaffs;
+    /** The list of branches in the programme */
     private ArrayList<Branch> allBranches;
+    /** The list of branches that are open in the programme */
     private ArrayList<Branch> allOpenBranches;
+    /** The list of menu items in the programme */
     private ArrayList<MenuItem> allMenuItems;
+    /** The list of orders in the programme */
     private ArrayList<Order> allOrders;
+    /** The list of payment services in the programme */
     private ArrayList<iPaymentService> allPaymentServices;
-
+    /** The current active staff in the session */
     private Staff currentActiveStaff;
+    /** The current active branch in the session */
     private Branch currentActiveBranch;
+    /** The current active order in the session */
     private Order currentActiveOrder;
+    /** The current active menu item in the session */
     private MenuItem currentActiveMenuItem;
+    /** The next order ID to be assigned to a new order */
     private int nextOrderId;
-
-
     /**
+     * Constructor for Session
      * Initialised in PageViewer only. Loads all data from LoadData's child classes to set the context of the current session
      */
     public Session(){
@@ -62,8 +71,9 @@ public class Session {
         allPaymentServices.add(new ApplepayPaymentService());
         // add more payment services if added
     }
-
-    // Update session if required
+    /**
+     * Updates the session with the latest data if there has been a change in the CSV files
+     */
     public void updateSession(){
         LoadBranches initLoadBranches = new LoadBranches(null, null);
         this.allBranches = initLoadBranches.getLoadedData();
@@ -94,63 +104,84 @@ public class Session {
             }
         }
     }
-
-    // Getters
-    public ArrayList<Staff> getAllStaffs(){
-        return this.allStaffs;
-    }
-    public ArrayList<Branch> getAllBranches(){
-        return this.allBranches;
-    }
-    public ArrayList<MenuItem> getAllMenuItems(){
-        return this.allMenuItems;
-    }
-    public ArrayList<iPaymentService> getAllPaymentServices(){
-        return this.allPaymentServices;
-    }
-    public ArrayList<Order> getAllOrders() {
-        return allOrders;
-    }
-    public ArrayList<Branch> getAllOpenBranches(){
-        return this.allOpenBranches;
-    }
-
-    public void setCurrentActiveStaff(Staff s){
-        this.currentActiveStaff = s;
-    }
-    public void setCurrentActiveBranch(Branch b){
-        this.currentActiveBranch = b;
-    }
-    public void setCurrentActiveOrder(Order o){
-        this.currentActiveOrder = o;
-    }
-    public void setCurrentActiveMenuItem(MenuItem menuItem){
-        this.currentActiveMenuItem = menuItem;
-    }
-    public void setAllOrders(ArrayList<Order> allOrders) {
-        this.allOrders = allOrders;
-    }
-
-    public Staff getCurrentActiveStaff(){
-        return this.currentActiveStaff;
-    }
-    public Branch getCurrentActiveBranch(){
-        return this.currentActiveBranch;
-    }
-    public Order getCurrentActiveOrder(){
-        return this.currentActiveOrder;
-    }
-    public MenuItem getCurrentActiveMenuItem(){
-        return this.currentActiveMenuItem;
-    }
-
-    // public void addNewStaff(Staff s){
-    //     this.allStaffs.add(s);
-    // }
-    // public void removeStaff(Staff s){
-    //     this.allStaffs.remove(s);
-    // }
-
+    /**
+     * Returns all staffs in the session
+     * @return allStaffs
+     */
+    public ArrayList<Staff> getAllStaffs(){ return this.allStaffs; }
+    /**
+     * Returns all branches in the session
+     * @return allBranches
+     */
+    public ArrayList<Branch> getAllBranches(){ return this.allBranches; }
+    /**
+     * Returns all menu items in the session
+     * @return allMenuItems
+     */
+    public ArrayList<MenuItem> getAllMenuItems(){ return this.allMenuItems; }
+    /**
+     * Returns all payment services in the session
+     * @return allPaymentServices
+     */
+    public ArrayList<iPaymentService> getAllPaymentServices(){ return this.allPaymentServices; }
+    /**
+     * Returns all orders in the session
+     * @return allOrders
+     */
+    public ArrayList<Order> getAllOrders() { return allOrders; }
+    /**
+     * Returns the next order ID to be assigned to a new order
+     * @return nextOrderId
+     */
+    public ArrayList<Branch> getAllOpenBranches(){ return this.allOpenBranches; }
+    /**
+     * Sets the current active staff in the session
+     * @param s The staff to be set as the current active staff
+     */
+    public void setCurrentActiveStaff(Staff s){ this.currentActiveStaff = s; }
+    /**
+     * Sets the current active branch in the session
+     * @param b The branch to be set as the current active branch
+     */
+    public void setCurrentActiveBranch(Branch b){ this.currentActiveBranch = b; }
+    /**
+     * Sets the current active order in the session
+     * @param o The order to be set as the current active order
+     */
+    public void setCurrentActiveOrder(Order o){ this.currentActiveOrder = o; }
+    /**
+     * Sets the current active menu item in the session
+     * @param menuItem The menu item to be set as the current active menu item
+     */
+    public void setCurrentActiveMenuItem(MenuItem menuItem){ this.currentActiveMenuItem = menuItem; }
+    /**
+     * Sets the orders in the session
+     * @param allOrders The orders to be set in the session
+     */
+    public void setAllOrders(ArrayList<Order> allOrders) { this.allOrders = allOrders; }
+    /**
+     * Returns the current active staff in the session
+     * @return currentActiveStaff
+     */
+    public Staff getCurrentActiveStaff(){ return this.currentActiveStaff; }
+    /**
+     * Returns the current active branch in the session
+     * @return currentActiveBranch
+     */
+    public Branch getCurrentActiveBranch(){ return this.currentActiveBranch; }
+    /**
+     * Returns the current active order in the session
+     * @return currentActiveOrder
+     */
+    public Order getCurrentActiveOrder(){ return this.currentActiveOrder; }
+    /**
+     * Returns the current active menu item in the session
+     * @return currentActiveMenuItem
+     */
+    public MenuItem getCurrentActiveMenuItem(){ return this.currentActiveMenuItem; }
+    /**
+     * Create a new order that exists within the session
+     */
     public void makeNewOrder(){
         this.currentActiveOrder = new Order(this.nextOrderId, this.currentActiveBranch);
         this.nextOrderId++;

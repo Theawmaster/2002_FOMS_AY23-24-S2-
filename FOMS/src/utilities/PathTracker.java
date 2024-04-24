@@ -7,10 +7,15 @@ import java.util.List;
 
 import pages.iPage;
 
+/**
+ * The {@link PathTracker} class is used to keep track of the pages navigated by the user
+ * @author Siah Yee Long
+ */
 public class PathTracker {
-
+    /**
+     * The {@link session} variable stores the current session of the user
+     */
     private Session session;
-
     /**
      * Create a LinkedHashMap to act as a stack for pushing and popping the pages navigated
      */
@@ -19,6 +24,7 @@ public class PathTracker {
      * Constructor for this object
      * @param defaultLocation the default location name
      * @param defaultPage the default page
+     * @param session the current session
      */
     public PathTracker(String defaultLocation, iPage defaultPage, Session session) {
         this.path = new LinkedHashMap<>();
@@ -50,6 +56,7 @@ public class PathTracker {
         }
     }
     /**
+     * Method to get the previous page navigated
      * @return the previous page to change the view to
      */
     public iPage getPrevPage(){
@@ -64,15 +71,23 @@ public class PathTracker {
         }
         return lastPage;
     }
+    /**
+     * Method to get the page navigated before the specified page. Method runs recursively if the previous page was not the specified page
+     * @param pageName the page name to navigate back to
+     * @return the page to change the view to
+     */
     public iPage getBackTo(String pageName){
         if(this.path.get(pageName)!=getPrevPage()) return getBackTo(pageName);
         return this.path.get(pageName);
     }
-
+    /**
+     * Method to check if the specified page is behind the current page (either directly behind or a few pages behind)
+     * @param pageName the page name to check
+     * @return true if the page is not behind the current page, false otherwise
+     */
     public boolean isNotBehind(String pageName){
         return this.path.get(pageName)==null;
     }
-
     /**
      * Prints the current path, but if there are more than 5 pages navigated, it will only show the last 5
      */
@@ -92,7 +107,7 @@ public class PathTracker {
         if(itemsToSkip>0) lastFiveItems.add("...");
         while (iterator.hasNext()) {
             String x = iterator.next();
-            x = x.substring(0, x.length() - 4);
+            x = x.substring(0, x.length() - 4); // ignore the word "Page"
             lastFiveItems.add(x);
         }
         String strPath = String.join(" > ", lastFiveItems);
@@ -105,7 +120,9 @@ public class PathTracker {
         System.out.println("\u2503 " + strPath + spaces + "\u2503");
         System.out.println("\u2517" + "\u2501".repeat(80) + "\u251B");
     }
-
+    /**
+     * Prints the current user logged in
+     */
     public void printCurrentUser() {
        
         if (this.session.getCurrentActiveStaff() == null && this.session.getCurrentActiveBranch() == null) {

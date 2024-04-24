@@ -9,22 +9,27 @@ import entities.MenuItem;
 import entities.Branch;
 
 /**
- * The {@link LoadStaffs} class loads MenuItem data from the CSV database
- * @param branches
- * @return a list of MenuItem objects with information loaded in
+ * The {@link LoadStaffs} class loads MenuItem data from the CSV database. It inherits from the {@link LoadData} class
  * @author Alvin Aw Yong
+ * @author Siah Yee Long
  */
 public class LoadMenuItems extends LoadData<MenuItem>{
-    public LoadMenuItems(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
+    /**
+     * This constructor creates a LoadMenuItems object with a list of Branch objects and a list of MenuItem objects
+     * @param branches all information about branches
+     * @param menu null 
+     */
+    protected LoadMenuItems(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
         super(branches, menu);
     }
-
     /**
-     * The {@link loadDatafromCSV} method in this class loads in MenuItem data from menu_list.csv 
+     * The {@link loadDatafromCSV} method in this class loads in MenuItem data from menu_list.csv
+     * @param branches all information about branches
+     * @param x null
      * @return a list of MenuItem objects with information loaded in
      */
     @Override
-    public ArrayList<MenuItem> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> x){
+    protected ArrayList<MenuItem> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> x){
         ArrayList<MenuItem> menuitems = new ArrayList<>(); // the return value
     
         // load data from the menu list csv
@@ -59,21 +64,31 @@ public class LoadMenuItems extends LoadData<MenuItem>{
         }
         return menuitems;
         }
-
-        /**
-         * This method adds a MenuItem object to the CSV file
-         * @param m
-         * @return
-         */
-        public static boolean addMenuToCSV(MenuItem m) {
-            String menuData = String.format("%s,%.2f,%s,%s,%s\n", m.getFood(), m.getPrice(), m.getBranch().getBranchName(), m.getCategory(), m.getDescription());
-            return SerialiseCSV.appendToCSV(menuData, FilePaths.menuListPath.getPath());
-        }
-        public static boolean removeMenuItem(MenuItem m){
-            return SerialiseCSV.deleteToCSV(m.getFood(), 0, FilePaths.menuListPath.getPath());
-        }
-        public static boolean replaceMenuItem(MenuItem oldItem, MenuItem newItem){
-            return removeMenuItem(oldItem) && addMenuToCSV(newItem);
-        }
+    /**
+     * This method adds a MenuItem object to the CSV file
+     * @param m the MenuItem object to be added
+     * @return true if the MenuItem is successfully added to the CSV file
+     */
+    public static boolean addMenuToCSV(MenuItem m) {
+        String menuData = String.format("%s,%.2f,%s,%s,%s\n", m.getFood(), m.getPrice(), m.getBranch().getBranchName(), m.getCategory(), m.getDescription());
+        return SerialiseCSV.appendToCSV(menuData, FilePaths.menuListPath.getPath());
+    }
+    /**
+     * This method removes a MenuItem object from the CSV file
+     * @param m the MenuItem object to be removed
+     * @return true if the MenuItem is successfully removed from the CSV file
+     */
+    public static boolean removeMenuItem(MenuItem m){
+        return SerialiseCSV.deleteToCSV(m.getFood(), 0, FilePaths.menuListPath.getPath());
+    }
+    /**
+     * This method replaces an old MenuItem object with a new MenuItem object in the CSV file
+     * @param oldItem the old MenuItem object to be replaced
+     * @param newItem the new MenuItem object to replace the old MenuItem object
+     * @return true if the MenuItem is successfully replaced in the CSV file
+     */
+    public static boolean replaceMenuItem(MenuItem oldItem, MenuItem newItem){
+        return removeMenuItem(oldItem) && addMenuToCSV(newItem);
+    }
         
 }

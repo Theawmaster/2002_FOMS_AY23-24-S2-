@@ -39,7 +39,7 @@ public class AdminManageStaffPage implements iPage {
     }
     /**
      * Method to handle user input. Calls the respective ManageStaffService methods based on user input
-     * @param option
+     * @param option the user input
      */
     public void handleInput(String option) {
         switch(option) {

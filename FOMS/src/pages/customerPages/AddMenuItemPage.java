@@ -15,7 +15,7 @@ public class AddMenuItemPage implements iPage{
     private Session session;
     /**
      * Constructor for AddMenuItemPage
-     * @param s
+     * @param s The running session
      */
     public AddMenuItemPage(Session s){
         this.session = s;

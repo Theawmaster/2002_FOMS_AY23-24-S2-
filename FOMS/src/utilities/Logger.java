@@ -10,7 +10,6 @@ public class Logger {
      * Set to false to disable logging. Set to true to enable logging of info, debug, or error messages
      */
     public static boolean loggerIsEnabled = (boolean)Settings.ENABLE_DEBUG.getValue();
-
     /**
      * color string constant for ANSI_RESET
      */
@@ -67,7 +66,6 @@ public class Logger {
         if (loggerIsEnabled)
             System.out.println(ANSI_GREEN + "[INFO]: " + msg + ANSI_RESET);
     }
-
     /**
      * Prints debug message in yellow if logger is enabled 
      * @param msg msg to print
@@ -76,7 +74,6 @@ public class Logger {
         if (loggerIsEnabled)
             System.out.println(ANSI_YELLOW + "[DEBUG]: " + msg + ANSI_RESET);
     }
-
     /**
      * Prints error message in red if logger is enabled
      * @param msg msg to print

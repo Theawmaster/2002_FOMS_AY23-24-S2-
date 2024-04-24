@@ -87,7 +87,7 @@ public class Order {
 
     /**
      * Set the unique identifier of the order.
-     * @return Sets the order ID.
+     * @param orderId The order ID to set.
      */
     public void setOrderId(int orderId) {
         this.orderID = orderId;

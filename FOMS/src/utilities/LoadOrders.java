@@ -8,18 +8,27 @@ import entities.Branch;
 import entities.MenuItem;
 import entities.Order;
 
+/**
+ * The {@link LoadOrders} class loads Order data from the CSV database. It inherits from the {@link LoadData} class
+ * @author Siah Yee Long
+ */
 public class LoadOrders extends LoadData<Order>{
-
-    public LoadOrders(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
+    /**
+     * This constructor creates a LoadOrders object with a list of Branch objects and a list of MenuItem objects
+     * @param branches all information about branches
+     * @param menu all information about menu items
+     */
+    protected LoadOrders(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
         super(branches, menu);
     }
-
     /**
-     * The {@link loadDatafromCSV} method in this class loads in MenuItem data from menu_list.csv 
-     * @return a list of MenuItem objects with information loaded in
+     * The {@link loadDatafromCSV} method in this class loads in Order data from orderprocess_list.csv
+     * @param branches all information about branches
+     * @param menu all information about menu items
+     * @return a list of Order objects with information loaded in
      */
     @Override
-    public ArrayList<Order> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> menu){
+    protected ArrayList<Order> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> menu){
         
         ArrayList<Order> orders = new ArrayList<>(); // the return value
     
@@ -97,11 +106,10 @@ public class LoadOrders extends LoadData<Order>{
         }
         return orders;
     }
-
     /**
-     * This method adds a MenuItem object to the CSV file
-     * @param m
-     * @return
+     * This method adds an Order object to the CSV file
+     * @param order the Order object to be added
+     * @return true if the Order is successfully added to the CSV file
      */
     public static boolean addOrderToCSV(Order order) {
         // remove existing record
@@ -122,12 +130,19 @@ public class LoadOrders extends LoadData<Order>{
 
         return SerialiseCSV.appendToCSV(orderRecord, FilePaths.orderprocessListPath.getPath());
     }
-
+    /**
+     * This method updates an Order object from the CSV file
+     * @param order the Order object to be removed
+     * @param status the status of the order
+     * @return true if the Order is successfully removed from the CSV file
+     */
     public static boolean updateOrderStatus(Order order, OrderStatus status){
         return SerialiseCSV.replaceColumnValue(Integer.toString(order.getOrderId()), 1, status.toString(), FilePaths.orderprocessListPath.getPath())
                 && SerialiseCSV.replaceColumnValue(Integer.toString(order.getOrderId()), 6, Long.toString(order.getLastModified()), FilePaths.orderprocessListPath.getPath());
     }
-
+    /**
+     * This method removes an Order object from the CSV file
+     */
     public static void destroyOrders(){
         SerialiseCSV.resetCSVData(FilePaths.orderprocessListPath.getPath(), "orderID,Status,isTakeaway,Branch,Items,ItemCustomisation,LastModified\n");
     }
