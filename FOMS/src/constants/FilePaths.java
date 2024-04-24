@@ -35,7 +35,7 @@ public enum FilePaths {
     paymentListPath("FOMS/src/entities/data/payment_list.csv"),
 
     /**
-     * Path to the folder where all csv files are stored
+     * Path to the folder where all CSV files are stored
      */
     dataFolderPath("FOMS/src/utilities/data");
 

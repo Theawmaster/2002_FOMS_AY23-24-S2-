@@ -1,6 +1,5 @@
 constants
 entities
-exceptionHandlers
 main
 pages
 pages.customerPages
@@ -11,3 +10,4 @@ services
 services.authenticator
 services.payments
 utilities
+utilities.exceptionHandlers

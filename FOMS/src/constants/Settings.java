@@ -1,12 +1,33 @@
 package constants;
 
+/**
+ * Enum to define the programme-wide settings. Change here as required
+ */
 public enum Settings {
-    ENABLE_DEBUG(false), // enable / disable debugging
-    PW_MAX_TRIES(3), // max number of tries for password keying in attempt
-    PW_MIN_CHARACTERS(8), // min number of characters for setting of new password
-    FORGOTPW_MAX_TRIES(3), // TODO: check again, dk what this does
-    MAX_COLLECTION_TIME_SECONDS(60), // max time the customer can take to collect an order before it becomes cancelled
-    CANCEL_CHARACTER("c"); // character to cancel option selection
+    /**
+     * Enable / disable debugging
+     */
+    ENABLE_DEBUG(false),
+    /**
+     * Max number of tries for password keying in attempt
+     */
+    PW_MAX_TRIES(3),
+    /**
+     * Min number of characters for setting of new password
+     */
+    PW_MIN_CHARACTERS(8), 
+    /**
+     * Max number of times a user can key in the Captcha string wrongly 
+     */
+    FORGOTPW_MAX_TRIES(3),
+    /**
+     * Max time the customer can take to collect an order before it becomes cancelled
+     */
+    MAX_COLLECTION_TIME_SECONDS(60),
+    /**
+     * Character to cancel option selection
+     */
+    CANCEL_CHARACTER("c"); 
     /**
      * Set the setting object to final
      */
@@ -19,7 +40,7 @@ public enum Settings {
         this.value = value;
     }
     /**
-     * @return the settings object. downcast as required
+     * @return the settings object. Downcast as required
      */
     public Object getValue() {
         return this.value;

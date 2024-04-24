@@ -6,31 +6,28 @@ import utilities.TimeHandler;
 import java.util.ArrayList;
 
 /**
- * Represents an order placed by a customer.
+ * The Order class encapsulates the attributes and contains the methods for operations related to an Order
+ * An Order is a unique order tied to each new customer, and contains the list of items they are buying, and the summary of the order details
  */
 public class Order {
-    /** Unique identifier for the order. */
+    /** A unique order identifier*/
     private int orderID;
-    
     /** List of items included in the order. */
     private ArrayList<MenuItem> items;
-    
     /** Indicates whether the order is for takeaway or dine-in. */
     private boolean isTakeaway;
-    
     /** Current status of the order. */
     private OrderStatus status;
-    
     /** Total price of all items in the order. */
     private double totalPrice;
-
+    /** The branch which the customer is ordering from */
     private Branch branch;
-
+    /** The last modified time of this order. This is used to see if the order should be cancelled too if the user took too long to collect */
     private long lastModified;
-
     /**
-     * Constructs a new order.
-     * @param isTakeaway True if the order is for takeaway, false if it is for dine-in.
+     * The constructor of a new order during runtime
+     * @param orderId 
+     * @param branch
      */
     public Order(int orderId, Branch branch) {
         this.orderID = orderId;
@@ -43,12 +40,14 @@ public class Order {
     }
     /**
      * This is the constructor for when the order is loaded in from the CSV file
+     * (For persistence)
      * @param orderID
      * @param items
      * @param isTakeaway
      * @param status
      * @param totalPrice
-     * @param branch 
+     * @param branch
+     * @param lastModified
      */
     public Order(int orderID, ArrayList<MenuItem> items, boolean isTakeaway, OrderStatus status, double totalPrice, Branch branch, long lastModified){
         this.orderID = orderID;
@@ -59,19 +58,25 @@ public class Order {
         this.branch = branch;
         this.lastModified = lastModified;
     }
-
+    /**
+     * The method to add a new item into the list of items. It also updates the total price of this order
+     * @param item the new item to add
+     */
     public void addItem(MenuItem item) {
         this.items.add(item);
         this.totalPrice+=item.getPrice();
     }
-
+    /**
+     * The method to remove an item from the list of items. It also updates the total price of this order
+     * @param item item to remove
+     * @return true if operation was successful
+     */
     public boolean removeItem(MenuItem item) {
         boolean removed = this.items.remove(item);
         if (removed)
             this.totalPrice-=item.getPrice();
         return removed;
     }
-
     /**
      * Gets the unique identifier of the order.
      * @return Retrieve the order ID.
@@ -95,7 +100,6 @@ public class Order {
     public ArrayList<MenuItem> getItems() {
         return this.items; 
     }
-
     /**
      * Checks if the order is for takeaway.
      * @return True if the order is for takeaway, false otherwise.
@@ -103,7 +107,6 @@ public class Order {
     public boolean isTakeaway() {
         return isTakeaway;
     }
-
     /**
      * Sets whether the order is for takeaway or dine-in.
      * @param isTakeaway True for takeaway, false for dine-in.
@@ -111,26 +114,22 @@ public class Order {
     public void setTakeaway(boolean isTakeaway) {
         this.isTakeaway = isTakeaway;
     }
-
     /**
-     * Gets the status of the order.
-     * @param orderId The unique identifier of the order.
-     * @return The status of the order.
+     * Checks the status of the order
+     * @return the status of the order. (See OrderStatus enums)
      */
     public OrderStatus getStatus() {
         // Yet to implement orderId to capture status of the order ...
         return status;
     }
-
     /**
-     * Sets the status of the order.
+     * Sets the status of the order. Updates the last modified time accordingly
      * @param status The status of the order.
      */
     public void setStatus(OrderStatus status) {
         this.status = status;
         this.lastModified = TimeHandler.getCurrentTime();
     }
-
     /**
      * Gets the total price of the order.
      * @return The total price.
@@ -138,7 +137,6 @@ public class Order {
     public double getTotalPrice() {
         return totalPrice;
     }
-
     /**
      * Counts the total number of items in the order.
      * @return The total number of items.
@@ -146,15 +144,20 @@ public class Order {
     public int countTotalItems(){
         return items.size();
     }
-
+    /**
+     * Method to quickly get the name of the branch this order belongs to
+     * @return the branch name
+     */
     public String getBranchName(){
         return this.branch.getBranchName();
     }
-
+    /**
+     * Method to get the last modified time
+     * @return the last modified time
+     */
     public long getLastModified(){
         return this.lastModified;
     }
-
     /**
      * Prints the details of the order including customization.
      */

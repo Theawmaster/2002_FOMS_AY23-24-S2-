@@ -1,30 +1,40 @@
 package entities;
 
-import java.util.List;
-
-import constants.OrderStatus;
 import constants.Role;
 import services.authenticator.LoginDetail;
 
+/**
+ * The Staff class encapsulates the attributes and contains the methods for operations related to a Staff.
+ * A Manager will be an instance of a Staff object
+ * An Admin will be an instance of a Staff object
+ */
 public class Staff {
-
+    /** The first name of the staff. e.g. Alvin Aw Yong's first name will be Alvin */
 	private String firstName;
+    /** The last name of the staff. e.g. Alvin Aw Yong's last name will be Aw (currently no support for double-barrelled surnames) */
 	private String lastName;
+    /** The loginID of the staff */
     private String loginID;
+    /** The role of the staff. (See Role enums) */
     private Role role;
-	private boolean gender; // True: F, False: Male, because the woman is always right
+    /** The gender of the staff. T=Female, F=Male (Because men are always wrong) */
+	private boolean gender;
+    /** The age of a staff */
 	private int age;
+    /** The login details of the staff */
 	private LoginDetail loginDetail;
+    /** The branch this staff belongs to */
 	private Branch branch;
-	// private Branch branch;
-	// private Stats stats;
 
-    /** 
-     * Constructor for Staff
+    /**
+     * The constructor for a staff
      * @param firstName
      * @param lastName
-     * @param age
+     * @param loginID
+     * @param role
      * @param gender
+     * @param age
+     * @param staffPassword default set to "password"
      */
 	public Staff(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
         this.firstName = firstName;
@@ -35,7 +45,9 @@ public class Staff {
         this.age = age;
 		this.loginDetail = new LoginDetail(loginID, staffPassword); // sets default login details first. default pw is loginID
 	}
-
+    /**
+     * The method to print the details of this staff
+     */
     public void printStaff(){
         System.out.println("Name: " + getFirstName() + " " + getLastName());
         System.out.println("Login ID: " + getLoginID());
@@ -44,130 +56,104 @@ public class Staff {
         System.out.println("Age: " + getAge());
         System.out.println("Branch: " + branch.getBranchName());
     }
-
-	// Setters
-
+    /**
+     * The setter method to set the staff's first name
+     * @param firstName the staff's first name
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
-
+    /**
+     * The setter method to set the staff's last name
+     * @param lastName the staff's last name
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-
+    /**
+     * The setter method to set the staff's gender
+     * @param gender the staff's gender
+     */
     public void setGender(boolean gender) {
         this.gender = gender;
     }
-
+    /**
+     * The setter method to set the staff's age
+     * @param age the staff's age
+     */
     public void setAge(int age) {
         this.age = age;
     }
-
+    /**
+     * The setter method to set the staff's role
+     * @param loginID the staff's role
+     */
     public void setRole(Role role) {
         this.role = role;
     }
-
-	// New method to set the Branch of a Staff member
+    /**
+     * The setter method to set the staff's branch
+     * @param loginID the staff's branch
+     */
 	public void setBranch(Branch branch) {
 		this.branch = branch;
 	}
-	
-	// Getters
+	/**
+     * The getter method to get the staff's first name
+     * @return the staff's first name
+     */
 	public String getFirstName() {
 		return this.firstName;
 	}
-
+    /**
+     * The getter method to get the staff's last name
+     * @return the staff's last name
+     */
 	public String getLastName() {
         return this.lastName;
 	}
-
+    /**
+     * The getter method to get the staff's loginID
+     * @return the staff's loginID
+     */
     public String getLoginID(){
         return this.loginID;
     }
-    
+    /**
+     * The getter method to get the staff's role
+     * @return the staff's role
+     */
     public Role getRole(){
         return this.role;
     }
-
+    /**
+     * The getter method to get the staff's gender
+     * @return the staff's gender
+     */
     public boolean getGender() {
         return this.gender;
     }
-    
+    /**
+     * The getter method to get the staff's age
+     * @return the staff's age
+     */
 	public int getAge() {
         return this.age;
 	}
+    /**
+     * The getter method to get the staff's login details
+     * @return the staff's login details
+     */
 	public LoginDetail getLoginDetail(){
 		return this.loginDetail;
 	}
-
-	// If you also need to get the Branch of a Staff member, add a getter method
+    /**
+     * The getter method to get the staff's branch
+     * @return the staff's branch
+     */
 	public Branch getBranch() {
 		return this.branch;
 	}
-
-	/**
-     * Facilitates processing of orders by updating their statuses.
-     * @param orders The list of orders to process.
-     */
-    public void processOrders(List<Order> orders) {
-        if (orders.isEmpty()) {
-            System.out.println("There are no orders to process.");
-            return;
-        }
-
-		// Display the orders to process
-        System.out.println("Processing Orders:");
-        for (Order order : orders) {
-            // Process each order here, for example, updating its status
-            order.setStatus(OrderStatus.READY_TO_PICKUP);
-            System.out.println("Order ID: " + order.getOrderId() + " processed. Status updated to: " + order.getStatus());
-        }
-    }
-    
-	/**
-     * Views all orders in the system.
-     * @param orders The list of orders to view.
-     */
-    public void viewAllOrders(List<Order> orders) {
-        if (orders.isEmpty()) {
-            System.out.println("There are no orders to view.");
-            return;
-        }
-
-        // Display all orders
-        System.out.println("All Orders:");
-        for (Order order : orders) {
-            System.out.println("Order ID: " + order.getOrderId());
-            System.out.println("Order Type: " + (order.isTakeaway() ? "Takeaway" : "Dine-in"));
-            System.out.println("Order Status: " + order.getStatus());
-            System.out.println("Total Price: " + order.getTotalPrice());
-        }
-    }
-
-	/**
-	* Displays the details of a specific order identified by the orderId.
-	* If the order is found, its details are printed; otherwise, a message indicating 
-	* that the order does not exist is printed.
-	* 
-	* @param orders The list of orders to search for the specific order.
-	* @param orderId The ID of the order to be viewed.
-	*/
-	public void viewSpecificOrder(List<Order> orders, int orderId) {
-		// Find the order with the given orderId and print its details
-		// If the order is not found, print a message indicating that the order does not exist
-		boolean found = false;
-		for (Order order : orders) {
-			if (order.getOrderId() == orderId) {
-				order.printOrderDetails();
-				found = true;
-				break;
-			}
-		}
-		if (!found) {
-			System.out.println("Order with ID " + orderId + " does not exist.");
-		}
-	}
-
     /**
      * Returns a string representation of the object. In this case, it returns
      * a formatted string containing the person's name, login ID, role, gender,
