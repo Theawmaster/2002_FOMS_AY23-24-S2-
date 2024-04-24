@@ -4,6 +4,9 @@ import utilities.LoadStaffs;
 import utilities.Logger;
 import utilities.Session;
 import utilities.UserInputHelper;
+import utilities.exceptionHandlers.ExceededBranchQuotaException;
+import utilities.exceptionHandlers.NotEnoughManagersException;
+import utilities.exceptionHandlers.StaffManagementException;
 import entities.Branch;
 import entities.Staff;
 
@@ -131,6 +134,7 @@ public class ManageStaffService {
         System.out.println("M. Manager");
         System.out.println("A. Admin");
         String choice = UserInputHelper.chooseRole();
+
         for(Staff s : session.getAllStaffs()){
             //display staff only of the role
             if(choice.equals("S") && s.getRole() == Role.STAFF){
@@ -150,6 +154,9 @@ public class ManageStaffService {
         //ask admin to select branch
         System.out.println("Select the branch you want to filter by: ");
         Branch chosenBranch = UserInputHelper.chooseBranch(session.getAllBranches());
+        if (chosenBranch == null) {
+            return;
+        }
         ArrayList<Staff> filteredStaff = filterBranch(session, chosenBranch);
         displayOutput(filteredStaff);
         return;
@@ -164,24 +171,36 @@ public class ManageStaffService {
     }
     public static void fireStaff(Session session){
         //ask admin to type out staffID (cause you dw the admin anyhow fire people, if it was be i would be very sad :( )
-        String badStaff = UserInputHelper.getInput("Enter the staff you want to fire: ");
+        String badStaff = UserInputHelper.getInput("Enter the staff ID of the staff you want to fire: ");
         for(Staff s : session.getAllStaffs()){
             if(s.getLoginID().equalsIgnoreCase(badStaff)){
-                if(s.getRole()==Role.MANAGER && s.getBranch().getManagerCount()-1 < s.getBranch().getMinAllowedManagers()){
-                    // if this guy is a manager and removing him would make the branch fall short of managers, disallow firing
-                    System.out.println("Can't fire manager! Does not fit requirements. Fire a staff first hehe...");
-                    return;
-                }
-                else{
+                try{
+                    if(s.getRole() == Role.MANAGER)
+                        s.getBranch().decrementManagerCount();
+                    else if(s.getRole() == Role.STAFF)
+                        s.getBranch().decrementStaffCount();
+                    // if admin, no need to change anything to staff count
                     if(LoadStaffs.updateFiredStaff(s)){
-                        s.setRole(Role.MANAGER);
                         System.out.println("Fired "+s.getFirstName()+" successfully. Sucks to be them!");
                         return;
                     }
                     else{
+                        s.getBranch().incrementManagerCount();
                         System.out.println("Failed to fire "+s.getFirstName()+". PHEW...");
                         return;
                     }
+                }
+                catch (NotEnoughManagersException e){
+                    e.getMessage();
+                    return;
+                }
+                catch (ExceededBranchQuotaException e){
+                    e.getMessage();
+                    return;
+                }
+                catch (StaffManagementException e){
+                    e.getMessage();
+                    return;
                 }
             }
         }
@@ -195,14 +214,19 @@ public class ManageStaffService {
         String roleStr = UserInputHelper.chooseRole();
         Role role = Role.UNDEFINED;
         switch (roleStr) {
+            case "s":
             case "S": role = Role.STAFF; break;
+            case "m":
             case "M": role = Role.MANAGER; break;
+            case "a":
             case "A": role = Role.ADMIN; break;
+            default: role = Role.UNDEFINED; break;
         }
         String gender = UserInputHelper.chooseGender();
         boolean isFemale = "F".equals(gender);
         int age = UserInputHelper.chooseAge();
         Branch branch = UserInputHelper.chooseBranch(session.getAllBranches()); // Assumes branches are fetched from session
+        if(branch == null) return;
     
         // check to see the current allowed counts
         Logger.debug("Branch name:" + branch.getBranchName());
@@ -211,42 +235,53 @@ public class ManageStaffService {
         Logger.debug("Current Staff: " + branch.getStaffCount());
         Logger.debug("Staff Quota: " + branch.getbranchQuota());
 
-    
-        // Check manager quota constraints
-        if (role == Role.MANAGER && branch.getManagerCount() >= branch.getMinAllowedManagers()) {
-            System.out.println("XXXX Sian.... Cannot add more managers as there are too many in this branch! XXXX");
-            return;
+        try{
+            // Add new staff to the branch
+            if(role == Role.MANAGER){
+                branch.incrementManagerCount();
+            }
+            else if (role == Role.STAFF){
+                branch.incrementStaffCount();
+            }
+            // if admin, no need to change anything to staff count
         }
-    
-        // Check staff quota constraints
-        if (role == Role.STAFF && branch.getStaffCount() >= branch.getbranchQuota()) {
-            System.out.println("XXXX Sian.... Cannot add more staff to this branch as the branch's quota has already been met! XXXX");
+        catch (ExceededBranchQuotaException e){
+            // If the branch has exceeded its staff quota, throw an exception
+            System.out.println("Branch has exceeded its staff quota. Cannot hire more staff.");
             return;
         }
 
         Staff newStaff = new Staff(fname, lname, id, role, isFemale, age, gender);
         newStaff.setBranch(branch);
-    
+
         // new staff is now in the session
         if(LoadStaffs.addStaffToCSV(newStaff)){
             session.getAllStaffs().add(newStaff);
             System.out.println("Added "+newStaff.getFirstName()+" successfully. Welcome aboard!");
         }
         else{
-            System.out.println("Failed to add "+newStaff.getFirstName()+". GET THE FUCK OUT");
+            System.out.println("Failed to add "+newStaff.getFirstName()+". GET THE HELL OUT");
         }
     }
     public static void promoteStaff(Session session){
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String goodStaff = UserInputHelper.getInput("Enter the staff ID to promote");
         for(Staff s : session.getAllStaffs()){
-            if(s.getLoginID().equalsIgnoreCase(goodStaff) && s.getRole()==Role.STAFF){
-                // if(s.getBranch().getManagerCount() >= s.getBranch().getMinAllowedManagers()){
-                //     System.out.println("XXXX Sian.... Cannot add more managers as there are too many in this branch! XXXX");
-                //     return;
-                // }
+            if(s.getLoginID().equalsIgnoreCase(goodStaff)){
                 if(s.getRole() != Role.STAFF) System.out.println("oi what you want sia, promote you to president lah happy?");
                 else{
+                    try{
+                        s.getBranch().decrementStaffCount();
+                        s.getBranch().incrementManagerCount();
+                    }
+                    catch (ExceededBranchQuotaException e){
+                        e.getMessage();
+                        return;
+                    }
+                    catch (StaffManagementException e){
+                        e.getMessage();
+                        return;
+                    }
                     if(LoadStaffs.updatePromotedStaff(s)){
                         s.setRole(Role.MANAGER);
                         System.out.println("Promoted "+s.getFirstName()+" successfully. DINNER IS ON THEM!");
@@ -257,6 +292,7 @@ public class ManageStaffService {
                         return;
                     }
                 }
+                return;
             }
         }
     }
@@ -264,25 +300,49 @@ public class ManageStaffService {
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String trfStaff = UserInputHelper.getInput("Enter the staff ID to transfer");
         Branch trfBranch = UserInputHelper.chooseBranch(session.getAllBranches());
+        if(trfBranch == null) return;
         for(Staff s : session.getAllStaffs()){
             if(s.getLoginID().equalsIgnoreCase(trfStaff)){
-                if(s.getRole()==Role.MANAGER && s.getBranch().getManagerCount()-1 < s.getBranch().getMinAllowedManagers()){
-                    // if this guy is a manager and transferring him would make the original branch fall short of managers, disallow transfer
-                    System.out.println("Cannot transfer this manager! Otherwise branch will be short of managers!");
-                    return;
+                if(s.getRole()==Role.MANAGER){
+                    try{
+                        s.getBranch().decrementManagerCount();
+                        trfBranch.incrementManagerCount();
+                    }
+                    catch (NotEnoughManagersException e){
+                        e.getMessage();
+                        return;
+                    }
+                    catch (ExceededBranchQuotaException e){
+                        e.getMessage();
+                        return;
+                    }
+                    catch (StaffManagementException e){
+                        e.getMessage();
+                        return;
+                    }
                 }
-                else if(s.getRole() == Role.STAFF && trfBranch.getStaffCount() >= trfBranch.getbranchQuota()){
-                    System.out.println("XXXX Sian.... Cannot add more staff as there are too many in this branch! XXXX");
-                    return;
+                else if(s.getRole() == Role.STAFF){
+                    try{
+                        s.getBranch().decrementStaffCount();
+                        trfBranch.incrementStaffCount();
+                    }
+                    catch (ExceededBranchQuotaException e){
+                        e.getMessage();
+                        return;
+                    }
+                    catch (StaffManagementException e){
+                        e.getMessage();
+                        return;
+                    }
+                }
+                // if admin, no need to change anything. just transfer
+
+                if(LoadStaffs.updateTransferredStaff(s, trfBranch)){
+                    s.setBranch(trfBranch);
+                    System.out.println("Transfered "+s.getFirstName()+" successfully. Have fun there!");
                 }
                 else{
-                    if(LoadStaffs.updateTransferredStaff(s, trfBranch)){
-                        s.setBranch(trfBranch);
-                        System.out.println("Transfered "+s.getFirstName()+" successfully. Have fun there!");
-                    }
-                    else{
-                        System.out.println("Failed to transfer "+s.getFirstName()+". Too bad, sucks to be you i guess");
-                    }
+                    System.out.println("Failed to transfer "+s.getFirstName()+". Too bad, sucks to be you i guess");
                 }
             }
         }

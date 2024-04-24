@@ -1,18 +1,14 @@
 package utilities;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import constants.FilePaths;
 import constants.Role; 
 import entities.Branch;
 import entities.MenuItem;
 import entities.Staff;
+import utilities.exceptionHandlers.StaffManagementException;
 
 /**
  * The {@link LoadStaffs} class loads Staff data and corresponding passwords from the CSV database
@@ -47,9 +43,9 @@ public class LoadStaffs extends LoadData<Staff>{
                 continue;
 
             Role staffRole = Role.UNDEFINED;
-            if(row[2].trim().toUpperCase().contains("S")) staffRole = Role.STAFF;
-            else if(row[2].trim().toUpperCase().contains("M")) staffRole = Role.MANAGER;
-            else if(row[2].trim().toUpperCase().contains("A")) staffRole = Role.ADMIN;
+            if(row[2].equalsIgnoreCase("STAFF")) staffRole = Role.STAFF;
+            else if(row[2].equalsIgnoreCase("MANAGER")) staffRole = Role.MANAGER;
+            else if(row[2].equalsIgnoreCase("ADMIN")) staffRole = Role.ADMIN;
 
             boolean isFemale = row[3].trim().equalsIgnoreCase("F");
             String[] name = row[0].trim().split(" ", 2);
@@ -73,11 +69,20 @@ public class LoadStaffs extends LoadData<Staff>{
             for (Branch branch : branches) {
                 if (branch.getBranchName().equalsIgnoreCase(branchName)) {
                     if(tempStaff.getRole() == Role.MANAGER){
-                        branch.incrementManagerCount();
+                        try{
+                            branch.incrementManagerCount();
+                        }
+                        catch(StaffManagementException e){
+                            System.out.println("Error: " + e);
+                        }
                     }
                     else if(tempStaff.getRole() == Role.STAFF)
-                        branch.incrementStaffCount();
-
+                        try{
+                            branch.incrementStaffCount();
+                        }
+                        catch(StaffManagementException e){
+                            System.out.println("Error: " + e);
+                        }
                     tempStaff.setBranch(branch);
                     break;
                 }
@@ -141,39 +146,9 @@ public class LoadStaffs extends LoadData<Staff>{
      * @author @Theawmaster
      */
     public static boolean addStaffToCSV(Staff s) {
-        String staffData = String.format("%s,%s,%s,%s,%d,%s\n", s.getFirstName()+" "+s.getLastName(), s.getLoginID(), s.getRole(), s.getGender(), s.getAge(), s.getBranch().getBranchName());
-        try {
-            Files.write(Paths.get(FilePaths.staffListPath.getPath()), staffData.getBytes(), StandardOpenOption.APPEND);
-            return true;
-        } catch (IOException e) {
-            System.out.println("Failed to write to CSV: " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Reads all staff lines from the staff list CSV file.
-     * @return
-     * @throws IOException
-     * @Author @Theawmaster
-     */
-    public List<String> readAllStaffLines() throws IOException {
-        return Files.readAllLines(Paths.get(FilePaths.staffListPath.getPath()));
-    }
-    
-    /**
-     * Removes a staff line from the staff list CSV file.
-     * @param index
-     * @throws IOException
-     * @author @Theawmaster
-     */
-    public void removeStaffLine(int index) throws IOException {
-        List<String> lines = readAllStaffLines();
-        if (index >= 0 && index < lines.size()) {
-            lines.remove(index);
-            Files.write(Paths.get(FilePaths.staffListPath.getPath()), lines);
-        }
-    }
+        String staffData = String.format("%s,%s,%s,%s,%d,%s", s.getFirstName()+" "+s.getLastName(), s.getLoginID(), s.getRole(), (s.getGender()?"F":"M"), s.getAge(), s.getBranch().getBranchName());
+        return SerialiseCSV.appendToCSV(staffData, FilePaths.staffListPath.getPath());
+    }    
     public static boolean updatePromotedStaff(Staff staff){
         return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 3, "MANAGER", FilePaths.staffListPath.getPath());
     }

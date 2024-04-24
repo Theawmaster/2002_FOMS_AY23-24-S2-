@@ -120,7 +120,7 @@ public class UserInputHelper {
             System.out.println(numOptions + ". " + b.getBranchName());
             numOptions++;
         }
-        int option = getUserChoice("Select a menu item", numOptions-1);
+        int option = getUserChoice("Select a branch", numOptions-1);
         if (option == -1) return null;
         return branches.get(option-1);
     }

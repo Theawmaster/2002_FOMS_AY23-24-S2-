@@ -1,5 +1,9 @@
 package entities;
 
+import utilities.exceptionHandlers.ExceededBranchQuotaException;
+import utilities.exceptionHandlers.NotEnoughManagersException;
+import utilities.exceptionHandlers.StaffManagementException;
+
 /**
  * The Branch class encapsulates the attributes and contains the methods for operations related to Branches
  */
@@ -130,15 +134,43 @@ public class Branch {
     }
     /**
      * The method to increment the number of staff in this branch. The method also updates the minimum allowed managers after every increment
+     * @throws ExceededBranchQuotaException if there are too many staff in this branch
      */
-    public void incrementStaffCount(){
+    public void incrementStaffCount() throws ExceededBranchQuotaException{
+        if(this.staffCount+this.managerCount+1 > this.branchQuota)
+            throw new ExceededBranchQuotaException("This branch has exceeded its staff quota!");
         this.staffCount++;
         this.minAllowedManagers = calculateMinManagers();
     }
     /**
      * The method to increment the number of managers in this branch. Assume there is no maximum number of staff
+     * @throws ExceededBranchQuotaException if there are too many staff in this branch
      */
-    public void incrementManagerCount(){
+    public void incrementManagerCount() throws ExceededBranchQuotaException{
+        if(this.staffCount+this.managerCount+1 > this.branchQuota)
+            throw new ExceededBranchQuotaException("This branch has exceeded its staff quota!");
         this.managerCount++;
+    }
+    /**
+     * The method to decrement the number of staff in this branch. The method also updates the minimum allowed managers after every decrement
+     * @throws StaffManagementException if the staff count is negative
+     */
+    public void decrementStaffCount() throws StaffManagementException{
+        if(this.staffCount-1 < 0)
+            throw new StaffManagementException("Staff count cannot be negative!");
+        this.staffCount--;
+        this.minAllowedManagers = calculateMinManagers();
+    }
+    /**
+     * The method to decrement the number of managers in this branch. Assume there is no minimum number of managers
+     * @throws StaffManagementException if the manager count is negative
+     * @throws NotEnoughManagersException if the branch does not have enough managers
+     */
+    public void decrementManagerCount() throws StaffManagementException{
+        if(this.managerCount-1 < this.minAllowedManagers)
+            throw new NotEnoughManagersException("This branch does not have enough managers!");
+        if(this.managerCount-1 < 0)
+            throw new StaffManagementException("Manager count cannot be negative!");
+        else this.managerCount--;
     }
 }
