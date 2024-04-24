@@ -309,6 +309,18 @@ public class ManageStaffService {
     public static void promoteStaff(Session session){
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String goodStaff = UserInputHelper.getInput("Enter the staff ID to promote");
+        if(Logger.loggerIsEnabled)
+        {
+            Branch branch = UserInputHelper.chooseBranch(session.getAllBranches()); // Assumes branches are fetched from session
+
+            // check to see the current allowed counts
+            Logger.debug("Branch name:" + branch.getBranchName());
+            Logger.debug("Current Managers: " + branch.getManagerCount());
+            Logger.debug("Minimum Allowed Managers: " + branch.getMinAllowedManagers());
+            Logger.debug("Current Staff: " + branch.getStaffCount());
+            Logger.debug("Staff Quota: " + branch.getbranchQuota());
+        }
+
         for(Staff s : session.getAllStaffs()){
             if(s.getLoginID().equalsIgnoreCase(goodStaff)){
                 if(s.getRole() != Role.STAFF) System.out.println("oi what you want sia, promote you to president lah happy?");
@@ -349,6 +361,14 @@ public class ManageStaffService {
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String trfStaff = UserInputHelper.getInput("Enter the staff ID to transfer");
         Branch trfBranch = UserInputHelper.chooseBranch(session.getAllBranches());
+
+        // check to see the current allowed counts
+        Logger.debug("Branch name:" + trfBranch.getBranchName());
+        Logger.debug("Current Managers: " + trfBranch.getManagerCount());
+        Logger.debug("Minimum Allowed Managers: " + trfBranch.getMinAllowedManagers());
+        Logger.debug("Current Staff: " + trfBranch.getStaffCount());
+        Logger.debug("Staff Quota: " + trfBranch.getbranchQuota());
+
         if(trfBranch == null) return;
         for(Staff s : session.getAllStaffs()){
             if(s.getLoginID().equalsIgnoreCase(trfStaff)){
