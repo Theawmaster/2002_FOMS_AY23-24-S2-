@@ -32,7 +32,6 @@ public class StaffLoginPage implements iPage {
      */
     public StaffLoginPage(Session s){
         this.session = s;
-        this.staffLoginService = new StaffLoginService(this.session.getAllStaffs());
     }
     /**
      * Method to view menu options
@@ -56,6 +55,8 @@ public class StaffLoginPage implements iPage {
      * @param choice branches the pages
      */
     public void handleInput(String choice){
+        this.session.updateSession();
+        this.staffLoginService = new StaffLoginService(this.session.getAllStaffs());
         switch (choice) {
             case "1":
                 boolean loginSuccess = tryLogin(staffLoginService);

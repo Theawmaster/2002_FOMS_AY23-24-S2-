@@ -144,6 +144,13 @@ public class Session {
         return this.currentActiveMenuItem;
     }
 
+    // public void addNewStaff(Staff s){
+    //     this.allStaffs.add(s);
+    // }
+    // public void removeStaff(Staff s){
+    //     this.allStaffs.remove(s);
+    // }
+
     public void makeNewOrder(){
         this.currentActiveOrder = new Order(this.nextOrderId, this.currentActiveBranch);
         this.nextOrderId++;

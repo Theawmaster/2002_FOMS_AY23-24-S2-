@@ -181,6 +181,7 @@ public class ManageStaffService {
                         s.getBranch().decrementStaffCount();
                     // if admin, no need to change anything to staff count
                     if(LoadStaffs.updateFiredStaff(s)){
+                        session.getAllStaffs().remove(s);
                         System.out.println("Fired "+s.getFirstName()+" successfully. Sucks to be them!");
                         return;
                     }
