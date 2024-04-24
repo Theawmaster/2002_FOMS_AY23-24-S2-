@@ -2,7 +2,7 @@ package services.payments;
 
 import java.util.ArrayList;
 
-import exceptionHandlers.TransactionFailedException;
+import utilities.exceptionHandlers.TransactionFailedException;
 
 /**
  * This interface is implemented by every new type of payment service class. PaymentServices should be able to do the following functions.

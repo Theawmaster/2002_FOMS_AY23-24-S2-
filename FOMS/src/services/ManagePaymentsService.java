@@ -1,10 +1,10 @@
 package services;
 
-import exceptionHandlers.TransactionFailedException;
 import services.payments.PaymentDetails;
 import services.payments.iPaymentService;
 import utilities.Session;
 import utilities.UserInputHelper;
+import utilities.exceptionHandlers.TransactionFailedException;
 
 /**
  * This class contains mainly static methods pertaining to payment management.

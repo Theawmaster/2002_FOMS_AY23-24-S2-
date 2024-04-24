@@ -1,4 +1,4 @@
-package exceptionHandlers;
+package utilities.exceptionHandlers;
 
 public class PaymentServiceDisabledException extends TransactionFailedException{
     public PaymentServiceDisabledException(String s){

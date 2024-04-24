@@ -18,7 +18,7 @@ The Fastfood Ordering and Management System (FOMS) is a command-line interface a
 - Develop practical skills in Java programming.
 - Enhance teamwork capabilities by collaboratively working on a software project.
 
-# Use
+# Use 
 
 1. To compile and run the project:
     ```bash
@@ -74,7 +74,7 @@ cd FOMS
 Generate javadocs
 
 ```bash
-javadoc -d docs -sourcepath src -subpackages main:utilities:constants:entities:exceptionHandlers:pages:services -private  
+javadoc -d docs -sourcepath src -subpackages main:utilities:constants:entities:pages:services -private  
 ```
 
 Navigate to ```FOMS/docs/index.html``` and open it in a browser
