@@ -36,7 +36,7 @@ public class CustomerPage implements iPage{
                     PageViewer.changePage("ViewOrderPage");
                     break;
                 case "3": 
-                    ProcessOrderService.custViewOrderStatus(this.session.getAllOrders());
+                    ProcessOrderService.custViewOrderStatus(this.session.getAllOrders(), this.session.getCurrentActiveBranch());
                     PageViewer.changePage("current");
                     break;
                 case "B":

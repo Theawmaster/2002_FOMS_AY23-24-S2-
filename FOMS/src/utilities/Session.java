@@ -149,8 +149,4 @@ public class Session {
         this.nextOrderId++;
     }
 
-    public void closeSession(){
-        LoadOrders.destroyOrders();
-    }
-
 }

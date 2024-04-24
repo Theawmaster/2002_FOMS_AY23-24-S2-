@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import constants.OrderStatus;
 import constants.Settings;
+import entities.Branch;
 import entities.MenuItem;
 import entities.Order;
 import utilities.LoadOrders;
@@ -83,7 +84,7 @@ public class ProcessOrderService {
             return;
         }
     }
-    public static void custViewOrderStatus(ArrayList<Order> allOrders){
+    public static void custViewOrderStatus(ArrayList<Order> allOrders, Branch branch){
         if(allOrders.size()==0){
             System.out.println("No orders placed at the moment");
             return;
@@ -92,7 +93,7 @@ public class ProcessOrderService {
         if(orderID == -1) return;
 
         for(Order o : allOrders){
-            if(o.getOrderId() == orderID){
+            if(o.getOrderId() == orderID && o.getBranchName().equalsIgnoreCase(branch.getBranchName())){
                 checkToCancelOrder(o);
                 String status = "";
                 switch (o.getStatus()) {
