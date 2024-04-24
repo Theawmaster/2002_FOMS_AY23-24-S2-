@@ -11,9 +11,26 @@ import utilities.exceptionHandlers.TransactionFailedException;
  * @author Siah Yee Long
  */
 public interface iPaymentService {
+    /**
+     * @return the name of the payment service
+     */
     String getPaymentTypeName();
+    /**
+     * @return if the current payment service is enabled
+     */
     boolean checkEnabled();
+    /**
+     * @param enable to enable / disable the payment service 
+     */
     void setEnabled(boolean enable);
+    /**
+     * The method used to make a transaction. Payment details stored in the transaction history
+     * @param customerID the ID of the customer
+     * @param amount the amount to pay
+     */
     void pay(int customerID, double amount) throws TransactionFailedException;
+    /**
+     * @return the transaction history of the payment service
+     */
     ArrayList<PaymentDetails> getTransactionHist();
 }

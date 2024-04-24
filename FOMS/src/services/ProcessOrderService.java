@@ -13,12 +13,27 @@ import utilities.TimeHandler;
 import utilities.UserInputHelper;
 import utilities.Logger;
 
+/**
+ * This class contains mainly static methods pertaining to order processing
+ * @author Winnie
+ * @author Jed
+ * @author Chan Zi Hao
+ * @author Siah Yee Long
+ */
 public class ProcessOrderService {
+    /**
+     * Method to add an item to the current active order and update the CSV files accordingly
+     * @param session
+     */
     public static void addItemToOrder(Session session){
         if(session.getCurrentActiveOrder()==null) session.makeNewOrder();
         session.getCurrentActiveOrder().addItem(session.getCurrentActiveMenuItem());
         LoadOrders.addOrderToCSV(session.getCurrentActiveOrder());
     }
+    /**
+     * Method to add customisation to an item in the current active order and update the CSV files accordingly
+     * @param item
+     */
     public static void addCustomisationToOrder(MenuItem item){
         String custom = UserInputHelper.getInput("Enter your customisation: ");
         // lazy way to ensure that user input does not contain delimmiters that will affect saving data into csv
@@ -26,11 +41,19 @@ public class ProcessOrderService {
         if(custom.indexOf("|")!=-1) custom = custom.substring(0, custom.indexOf("|"));
         item.setCustomization(custom);
     }
+    /**
+     * Method to customise an order in the current active order and update the CSV files accordingly. This method will call the above method to add customisation to an item in the current active order
+     * @param session
+     */
     public static void customiseAnOrder(Session session){
         MenuItem custItem = UserInputHelper.chooseMenuItem(session.getCurrentActiveOrder().getItems());
         if(custItem == null) return;
         addCustomisationToOrder(custItem);
     }
+    /**
+     * Method to remove an order from the current active order and update the CSV files accordingly
+     * @param session
+     */
     public static void removeOrder(Session session){
         if(session.getAllOrders().size() == 0){
             System.out.println("No orders to remove");
@@ -42,6 +65,10 @@ public class ProcessOrderService {
 
         session.getCurrentActiveOrder().removeItem(badItem);
     }
+    /**
+     * Method to process an order and update the CSV files accordingly
+     * @param session
+     */
     public static void processOrder(Session session){
         if(session.getAllOrders().size() == 0){
             System.out.println("No orders to process");
@@ -66,6 +93,10 @@ public class ProcessOrderService {
             return;
         }
     }
+    /**
+     * Method to cancel an order and update the CSV files accordingly
+     * @param session
+     */
     public static void cancelOrder(Session session){
         if(session.getAllOrders().size() == 0){
             System.out.println("No orders to cancel");
@@ -84,6 +115,11 @@ public class ProcessOrderService {
             return;
         }
     }
+    /**
+     * Method to view the status of an order, and ask to pick up the order if it is ready
+     * @param allOrders The list of all orders
+     * @param branch The branch that the user is currently at
+     */
     public static void custViewOrderStatus(ArrayList<Order> allOrders, Branch branch){
         if(allOrders.size()==0){
             System.out.println("No orders placed at the moment");
@@ -124,7 +160,37 @@ public class ProcessOrderService {
         System.out.println("Your order "+orderID+" was not found!");
         return;
     }
-    public static void collectOrder(Order order){
+    /**
+     * Method to view the details of an order
+     * @param session
+     */
+    public static void viewOrderDetails(Session session){
+        Order selectedOrder = UserInputHelper.chooseOrder(session.getAllOrders(), session.getCurrentActiveBranch());
+        if(selectedOrder==null) return;
+        
+        selectedOrder.printOrderDetails();
+        return;
+    }
+    /**
+     * Method to process an order once the customer has paid and update the CSV files accordingly
+     * @param session
+     */
+    public static void customerPaid(Session session){
+        // set order status to PROCESSING
+        session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
+        // print receipt
+        System.out.println(Logger.ANSI_CYAN+"\n-- Here's your receipt --"+Logger.ANSI_RESET);
+        session.getCurrentActiveOrder().printOrderDetails();
+        // save data into CSV
+        LoadOrders.addOrderToCSV(session.getCurrentActiveOrder());
+        // clear active order
+        session.setCurrentActiveOrder(null);
+    }
+    /**
+     * Method to collect an order
+     * @param order
+     */
+    private static void collectOrder(Order order){
         String choice = UserInputHelper.getInput("Wanna pick your order up now? [Y/N]:");
         switch (choice) {
             case "y":
@@ -138,24 +204,10 @@ public class ProcessOrderService {
                 return;
         }
     }
-    public static void viewOrderDetails(Session session){
-        Order selectedOrder = UserInputHelper.chooseOrder(session.getAllOrders(), session.getCurrentActiveBranch());
-        if(selectedOrder==null) return;
-
-        selectedOrder.printOrderDetails();
-        return;
-    }
-    public static void customerPaid(Session session){
-        // set order status to PROCESSING
-        session.getCurrentActiveOrder().setStatus(OrderStatus.PREPARING);
-        // print receipt
-        System.out.println(Logger.ANSI_CYAN+"\n-- Here's your receipt --"+Logger.ANSI_RESET);
-        session.getCurrentActiveOrder().printOrderDetails();
-        // save data into CSV
-        LoadOrders.addOrderToCSV(session.getCurrentActiveOrder());
-        // clear active order
-        session.setCurrentActiveOrder(null);
-    }
+    /**
+     * Method to check if an order should be cancelled if it has exceeded the time limit
+     * @param order
+     */
     private static void checkToCancelOrder(Order order){
         if(order.getStatus()==OrderStatus.READY_TO_PICKUP && TimeHandler.hasElapsed((int)Settings.MAX_COLLECTION_TIME_SECONDS.getValue(), order.getLastModified())){
             order.setStatus(OrderStatus.CANCELLED);

@@ -8,10 +8,11 @@ import utilities.exceptionHandlers.PaymentServiceDisabledException;
 import utilities.exceptionHandlers.TransactionFailedException;
 
 /**
+ * This class is used to handle Visa transactions. It implements iPaymentService
  * @author Siah Yee Long
  */
 public class VisaPaymentService implements iPaymentService{
-        /**
+    /**
      * Determines if current payment service is enabled
      */
     private boolean isEnabled;
@@ -62,7 +63,7 @@ public class VisaPaymentService implements iPaymentService{
         else
             throw new PaymentServiceDisabledException(Logger.ANSI_RED+this.getPaymentTypeName() + " is currently disabled!"+Logger.ANSI_RESET);
     }
-        /**
+    /**
      * @return an array list of payment details
      */
     @Override

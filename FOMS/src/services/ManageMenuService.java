@@ -14,12 +14,13 @@ import java.util.Comparator;
 
 /**
  * The {@link ManageMenuService} class contains methods to manage the menu items in the system
- * @param session
- * @return a list of MenuItem objects with information loaded in
  * @author Alvin Aw Yong
  */
 public class ManageMenuService {
-
+    /**
+     * This method displays the menu items and formats them properly
+     * @param menuItems
+     */
     private static void displayOutput(ArrayList<MenuItem> menuItems) {
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.printf("%-25s%-25s%-10s%-20s%-35s\n", "Branch", "Food", "Price", "Category", "Description");
@@ -31,12 +32,11 @@ public class ManageMenuService {
         }
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
     }
-    
     /**
      * This method filters the menu items based on the branch
      * @param session
      * @param whichBranch
-     * @return
+     * @return the filtered menu items
      */
     private static ArrayList<MenuItem> filterBranch(Session session, Branch whichBranch) {
         ArrayList<MenuItem> filteredMenuItems = new ArrayList<>();
@@ -46,9 +46,7 @@ public class ManageMenuService {
             }
         }
         return filteredMenuItems;
-    
     }
-
     /**
      * This method displays all menu items
      * @param session
@@ -63,7 +61,6 @@ public class ManageMenuService {
         });
         displayOutput(menuItems);
     }
-
     /**
      * This method allows the user to add a menu item
      * @param session
@@ -84,7 +81,6 @@ public class ManageMenuService {
 
         MenuItem newMenuItem = new MenuItem(food, price, branch, category, description, customization);
 
-        
         if(LoadMenuItems.addMenuToCSV(newMenuItem)){
             session.getAllMenuItems().add(newMenuItem);
             System.out.println("Added "+newMenuItem.getFood()+" successfully. Looking Fiesty!!!!");
@@ -94,11 +90,9 @@ public class ManageMenuService {
             System.out.println("Failed to add "+newMenuItem.getFood()+". GET THE FUCK OUT");
             return;
         }
-
     }
-
     /**
-     * Removes a menu item from the session's list of menu items.
+     * Removes a menu item from the session's list of menu items and updates CSV accordingly
      * @param session The current session containing the list of menu items.
      */
     public static void removeMenuItem(Session session) {
@@ -123,7 +117,10 @@ public class ManageMenuService {
             System.out.println("Failed to remove the menu item.");
         }
     }
-
+    /**
+     * Edits a menu item from the session's list of menu items and updates CSV accordingly
+     * @param session
+     */
     public static void editMenuItem(Session session) {
 
         ArrayList<MenuItem> filteredItems = filterBranch(session, session.getCurrentActiveBranch());

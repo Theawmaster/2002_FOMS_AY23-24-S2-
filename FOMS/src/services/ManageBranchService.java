@@ -7,15 +7,15 @@ import utilities.Session;
 import utilities.UserInputHelper; 
 
 /**
- * Service class for managing branches
+ * Service class for managing branch operations. This class is called by the AdminManageBranchPage
  * @author Alvin Aw Yong
+ * @author Siah Yee Long
  */
 public class ManageBranchService {
-
     /**
-     * Method to change the status of a branch
-     * @param session
-     * @param open
+     * Method to change the status of a branch and update the CSV files accordingly
+     * @param session the current active session
+     * @param open true if the branch is to be opened, false if the branch is to be closed
      */
     public static void changeBranchStatus(Session session, boolean open) {
         String status = open ? "Open" : "Close";
@@ -32,15 +32,9 @@ public class ManageBranchService {
             return;
         }
     }
-
     /**
-     * Method to add a new branch
-     * @param session The current active session
-     * @param branchName The name of the branch
-     * @param location The location of the branch
-     * @param quota The staff quota of the branch
-     * @param status The status of the branch
-     * @return True if the branch is successfully added, false otherwise
+     * Method to add a new branch and update the CSV files accordingly
+     * @param session the current active session
      */
     public static void addBranch(Session session){ //String branchName, String location, int quota, String status) {
         String branchName = UserInputHelper.getInput("Enter the new branch name:");
@@ -58,10 +52,9 @@ public class ManageBranchService {
             return;
         }
     }
-
     /**
-     * Method to remove a branch
-     * @param session
+     * Method to remove a branch and update the CSV files accordingly
+     * @param session the current active session
      */
     public static void removeBranch(Session session) {
         Branch badBranch = UserInputHelper.chooseBranch(session.getAllBranches());
@@ -82,10 +75,9 @@ public class ManageBranchService {
             System.out.println("Removal of branch failed. phew...");
         }
     }
-
     /**
      * Method to display all branches
-     * @param session
+     * @param session the current active session
      */
     public static void displayBranches(Session session) {
         System.out.println("Branch name\tLocation\t\tQuota\tStatus");

@@ -8,6 +8,7 @@ import utilities.exceptionHandlers.PaymentServiceDisabledException;
 import utilities.exceptionHandlers.TransactionFailedException;
 
 /**
+ * This class is used to handle Apple pay transactions. It implements iPaymentService 
  * @author Siah Yee Long
  */
 public class ApplepayPaymentService implements iPaymentService {

@@ -8,10 +8,11 @@ import utilities.exceptionHandlers.PaymentServiceDisabledException;
 import utilities.exceptionHandlers.TransactionFailedException;
 
 /**
+ * This class is used to handle Cash transactions. It implements iPaymentService
  * @author Siah Yee Long
  */
 public class CashPaymentService implements iPaymentService{
-        /**
+    /**
      * Determines if current payment service is enabled
      */
     private boolean isEnabled;
@@ -63,7 +64,7 @@ public class CashPaymentService implements iPaymentService{
         else
             throw new PaymentServiceDisabledException(Logger.ANSI_RED+this.getPaymentTypeName() + " is currently disabled!"+Logger.ANSI_RESET);
     }
-        /**
+    /**
      * @return an array list of payment details
      */
     @Override

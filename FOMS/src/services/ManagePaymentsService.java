@@ -7,7 +7,7 @@ import utilities.UserInputHelper;
 import utilities.exceptionHandlers.TransactionFailedException;
 
 /**
- * This class contains mainly static methods pertaining to payment management.
+ * This class contains mainly static methods pertaining to payment management
  * @author Siah Yee Long
  */
 public class ManagePaymentsService {
@@ -82,6 +82,10 @@ public class ManagePaymentsService {
             }
         }
     }
+    /**
+     * This method prints out all transactions made with all payment services
+     * @param session
+     */
     public static void printAllTransactions(Session session){
         for(iPaymentService p : session.getAllPaymentServices()){
             int c = 1;

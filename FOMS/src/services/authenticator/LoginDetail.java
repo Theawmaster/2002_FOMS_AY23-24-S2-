@@ -1,15 +1,26 @@
 package services.authenticator;
 
 /**
- * This class is used for storing the staff's log in details
+ * This class is used for storing the staff's log in details (SRP)
+ * @author Siah Yee Long
  */
 public class LoginDetail {
+    /**
+     * The user's log in details
+     */
     private String userID; // user will never be able to change their userID once it has been set
+    /**
+     * The user's password
+     */
     private String userPassword;
-
+    /**
+     * The last time the user logged in
+     */
     private String lastLogin; // records last login using Time 
+    /**
+     * Boolean to check if the user is still using the default password
+     */
     private boolean defaultPassword;
-
     /**
      * Constructor for log in details. When called, sets the user's corresponding userID and password for the first time
      * @param userID is the user's unique ID
@@ -23,7 +34,7 @@ public class LoginDetail {
         this.lastLogin = "Never";
     }
     /**
-     * Protected method to set the last login time. Called by a LoginService
+     * Protected setter method to set the last login time. Called by a LoginService
      * @param when was the last login set
      */
     protected void setLastLogin(String when){

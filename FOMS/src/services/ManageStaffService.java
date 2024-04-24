@@ -17,11 +17,15 @@ import java.util.Comparator;
 import constants.Role;
 
 /**
- * This class provides services to manage staff
+ * This class provides services to manage staff members in the system. This class is called by the AdminManageStaffPage and ViewStaffDetailsPage
  * @author Siah Yee Long
+ * @author Alvin Aw Yong
  */
 public class ManageStaffService {
-
+    /**
+     * Method to display the staff members and format them properly
+     * @param staffsToDisplay
+     */
     private static void displayOutput(ArrayList<Staff> staffsToDisplay) {
         System.out.println("First name\tLast name\tRole\t\tGender\tAge\tBranch\t\tID");
         for (Staff s : staffsToDisplay) {
@@ -36,9 +40,8 @@ public class ManageStaffService {
             System.out.println(output);
         }  
     }
-    
     /**
-     * Method to display all staff
+     * Method to display staff sorted by name
      */
     public static void displayStaff_sortName(Session session, boolean byFirstName) {
         if(session.getCurrentActiveStaff().getRole() == Role.ADMIN){
@@ -73,6 +76,10 @@ public class ManageStaffService {
             displayOutput(managersStaff);
         }
     }
+    /**
+     * Method to display staff sorted by age
+     * @param session
+     */
     public static void displayStaff_sortAge(Session session){
         ArrayList<Staff> filteredStaff = session.getAllStaffs();
         //sort staff by age
@@ -90,6 +97,11 @@ public class ManageStaffService {
         displayOutput(filteredStaff);
         return;
     }
+    /**
+     * Method to display staff filtered by an age range
+     * Available to Admins only
+     * @param session
+     */
     public static void displayStaff_filterAge(Session session){
         // ask admin to select age range
         ArrayList<Staff> filteredStaff = new ArrayList<>();
@@ -106,7 +118,12 @@ public class ManageStaffService {
         }
         displayOutput(filteredStaff);
         return;
-    }
+    }   
+    /**
+     * Method to display staff filtered by gender
+     * Available to Admins only
+     * @param session
+     */
     public static void displayStaff_filterGender(Session session){
         //ask admin to select gender
         ArrayList<Staff> filteredStaff = new ArrayList<>();
@@ -126,6 +143,11 @@ public class ManageStaffService {
         displayOutput(filteredStaff);
         return;
     }
+    /**
+     * Method to display staff filtered by role
+     * Available to Admins only
+     * @param session
+     */
     public static void displayStaff_filterRole(Session session){
         //ask admin to select role
         ArrayList<Staff> filteredStaff = new ArrayList<>();
@@ -150,6 +172,11 @@ public class ManageStaffService {
         displayOutput(filteredStaff);
         return;
     }
+    /**
+     * Method to display staff filtered by branch
+     * Available to Admins only (Managers will only get to see the staff in their branch)
+     * @param session
+     */
     public static void displayStaff_filterBranch(Session session){
         //ask admin to select branch
         System.out.println("Select the branch you want to filter by: ");
@@ -169,6 +196,11 @@ public class ManageStaffService {
         }
         return ret;
     }
+    /**
+     * Method to fire a staff and update accordingly in the CSV files
+     * Available to Admins only
+     * @param session
+     */
     public static void fireStaff(Session session){
         //ask admin to type out staffID (cause you dw the admin anyhow fire people, if it was be i would be very sad :( )
         String badStaff = UserInputHelper.getInput("Enter the staff ID of the staff you want to fire: ");
@@ -205,8 +237,13 @@ public class ManageStaffService {
                 }
             }
         }
-
     }
+    /**
+     * Method to hire a new staff and update accordingly in the CSV files
+     * Available to Admins only
+     * The method also checks if adding a new staff will exceed the branch's staff quota. Assume there can be an infinite number of admins
+     * @param session
+     */
     public static void hireStaff(Session session){
         //Gather necessary input for new staff member
         String fname = UserInputHelper.getInput("Enter new staff's first name: ");
@@ -264,6 +301,11 @@ public class ManageStaffService {
             System.out.println("Failed to add "+newStaff.getFirstName()+". GET THE HELL OUT");
         }
     }
+    /**
+     * Method to promote a staff member to manager and update accordingly in the CSV files
+     * Available to Admins only
+     * @param session
+     */
     public static void promoteStaff(Session session){
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String goodStaff = UserInputHelper.getInput("Enter the staff ID to promote");
@@ -297,6 +339,12 @@ public class ManageStaffService {
             }
         }
     }
+    /**
+     * Method to transfer a staff member to another branch and update accordingly in the CSV files
+     * Available to Admins only
+     * The method also checks if transferring a staff member will exceed the branch's staff quota, or if there are enough managers in the branch
+     * @param session
+     */
     public static void transferStaff(Session session){
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String trfStaff = UserInputHelper.getInput("Enter the staff ID to transfer");
