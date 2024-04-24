@@ -91,9 +91,8 @@ public class StaffLoginPage implements iPage {
                 break;
         }
     }
-
     /**
-     * The {@link tryLogin} method will allow the user a maximum of {@link Settings.PW_MAX_TRIES} tries for logging in
+     * The {@link tryLogin} private method will allow the user a maximum of {@link Settings.PW_MAX_TRIES} tries for logging in
      * @param loginService is the service used to do the login
      * @return true if successful
      */
@@ -124,7 +123,7 @@ public class StaffLoginPage implements iPage {
         return false;
     }
     /**
-     * The {@link tryForgotPassword} method resets the user's password by verifying that they are 
+     * The {@link tryForgotPassword} private method resets the user's password by verifying that they are 
      * a human (simulated only) a maximum of {@link Settings.FORGOTPW_MAX_TRIES} times, and resets 
      * the user's password accordingly
      * @param loginService 
@@ -145,7 +144,7 @@ public class StaffLoginPage implements iPage {
         return false;
     }
     /**
-     * The {@link tryChangePassword} allows the user to change their password with a maximum of {@link Settings.PW_MAX_TRIES} tries
+     * The {@link tryChangePassword} private method allows the user to change their password with a maximum of {@link Settings.PW_MAX_TRIES} tries
      * @param loginService
      * @return true if successful
      */
@@ -170,7 +169,7 @@ public class StaffLoginPage implements iPage {
         return loginService.changePassword(userID, oldPassword, newPassword);
     }
     /**
-     * Just a helper function to generate a random string for human verification
+     * Just a helper function to generate a random string for human verification. Simulates Captcha
      * @return an alphanumeric combination string
      */
     private static String generateRandomString() {

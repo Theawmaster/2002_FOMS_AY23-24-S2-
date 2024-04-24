@@ -9,12 +9,17 @@ import utilities.Session;
  * @author Siah Yee Long
  */
 public class MainPage implements iPage{
-
+    /**
+     * The session object 
+     */
     private Session session;
+    /**
+     * Constructor for the MainPage class
+     * @param s the current session
+     */
     public MainPage(Session s){
         this.session = s;
     }
-
     /**
      * Method to view menu options
      */
@@ -32,7 +37,6 @@ public class MainPage implements iPage{
         System.out.println("[3] Log in as staff");
         System.out.println("[B] Back to select branch");
     }
-
     /**
      * Method to handle user input 
      * @param choice branches the pages

@@ -9,17 +9,20 @@ import utilities.Session;
  * This class is the page that the admin will see after logging in
  * This page facilitates the admin's access to the system
  * The admin can manage staff, branches, and payment methods
- * @author @Theawmaster
+ * @author Alvin Aw Yong
  */
 public class AdminAccessPage implements iPage {
     /**
      * The current active session
      */
     private Session session;
+    /**
+     * Constructor for AdminAccessPage
+     * @param s the current session
+     */
     public AdminAccessPage(Session s) {
         this.session = s;
     }
-
     /**
      * Method to view admin access options
      */

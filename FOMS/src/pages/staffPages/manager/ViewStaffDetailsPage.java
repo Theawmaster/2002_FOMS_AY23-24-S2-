@@ -8,6 +8,10 @@ import services.ManageStaffService;
 import utilities.PersistenceHandler;
 import utilities.Session;
 
+/**
+ * This page is responsible for displaying and handling inputs for the manager to view staff details
+ * @author Siah Yee Long
+ */
 public class ViewStaffDetailsPage implements iPage{
     /**
      * The current active session 
@@ -35,7 +39,7 @@ public class ViewStaffDetailsPage implements iPage{
         System.out.println("[B] Return to Manager Access Page");
     }
     /**
-     * Method to handle user input 
+     * Method to handle user input. Calls the respective ManageStaffService methods based on user input
      * @param choice branches the pages
      */
     public void handleInput(String choice){

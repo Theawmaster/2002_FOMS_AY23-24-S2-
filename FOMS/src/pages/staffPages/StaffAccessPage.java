@@ -4,12 +4,19 @@ import pages.iPage;
 import pages.PageViewer;
 import utilities.Session;
 
+/**
+ * This page allows the staff to access the staff options
+ * @author Siah Yee Long
+ */
 public class StaffAccessPage implements iPage {
-    
     /**
      * The current active session 
      */
     private Session session;
+    /**
+     * Constructor for the StaffAccessPage class
+     * @param s the current session
+     */
     public StaffAccessPage(Session s){
         this.session = s;
     }

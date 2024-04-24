@@ -6,11 +6,20 @@ import pages.PageViewer;
 import utilities.Session;
 import services.ProcessOrderService;
 
+/**
+ * This page is responsible for displaying and handling inputs for staff to process orders
+ * @author Siah Yee Long
+ * @author Chan Zi Hao
+ */
 public class StaffProcessOrderPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
+    /**
+     * Constructor for the StaffProcessOrderPage class
+     * @param s the current session
+     */
     public StaffProcessOrderPage(Session s){
         this.session = s;
     }
@@ -28,7 +37,7 @@ public class StaffProcessOrderPage implements iPage{
         System.out.println("[B] Return to Staff Access Page");
     }
     /**
-    * Method to handle user input 
+    * Method to handle user input. Calls the respective ProcessOrderService methods based on user input
     * @param choice branches the pages
     */
     public void handleInput(String choice){

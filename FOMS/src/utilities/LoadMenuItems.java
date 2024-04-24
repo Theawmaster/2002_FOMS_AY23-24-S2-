@@ -12,7 +12,7 @@ import entities.Branch;
  * The {@link LoadStaffs} class loads MenuItem data from the CSV database
  * @param branches
  * @return a list of MenuItem objects with information loaded in
- * @author @Theawmaster
+ * @author Alvin Aw Yong
  */
 public class LoadMenuItems extends LoadData<MenuItem>{
     public LoadMenuItems(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {

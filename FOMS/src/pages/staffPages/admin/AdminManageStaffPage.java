@@ -10,18 +10,21 @@ import utilities.Session;
  * The AdminManageStaffPage class is a page that allows the admin to manage staff members
  * The admin can view all staff members, fire staff members, hire staff members, and promote staff members
  * The admin can also go back to the AdminAccessPage
- * @author @Theawmaster
+ * @author Siah Yee Long
+ * @author Alvin Aw Yong
  */
 public class AdminManageStaffPage implements iPage {
     /**
      * The current active session
      */
     private Session session;
-
+    /**
+     * Constructor for AdminManageStaffPage
+     * @param session the current session
+     */
     public AdminManageStaffPage(Session session) {
         this.session = session;
     }
-
     /**
      * Method to display staff management page
      */
@@ -34,9 +37,8 @@ public class AdminManageStaffPage implements iPage {
         System.out.println("[5] Transfer Staff");
         System.out.println("[B] Back");
     }
-
     /**
-     * Method to handle user input
+     * Method to handle user input. Calls the respective ManageStaffService methods based on user input
      * @param option
      */
     public void handleInput(String option) {

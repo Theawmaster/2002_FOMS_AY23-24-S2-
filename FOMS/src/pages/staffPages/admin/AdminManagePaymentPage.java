@@ -8,17 +8,21 @@ import utilities.Session;
 /**
  * This page allows the admin to manage payment methods
  * The admin can view all payment methods, enable a payment method, and disable a payment method
- * @author @Theawmaster
+ * @author Alvin Aw Yong
+ * @author Siah Yee Long
  */
 public class AdminManagePaymentPage implements iPage {
     /**
      * The current active session
      */
     private Session session;
+    /**
+     * Constructor for AdminManagePaymentPage
+     * @param session the current session
+     */
     public AdminManagePaymentPage(Session session) {
         this.session = session;
     }
-
     /**
      * Method to view Admin Manage Payment Methods Page
      */
@@ -29,7 +33,6 @@ public class AdminManagePaymentPage implements iPage {
         System.out.println("[3] Disable a payment method");
         System.out.println("[B] Go back");
     }
-
     /**
      * Method to handle user input. Calls ManagePaymentsService to do the job instead
      * @param option: user input

@@ -6,11 +6,20 @@ import pages.iPage;
 import pages.PageViewer;
 import utilities.Session;
 
+/**
+ * This page is responsible for displaying and handling inputs for the manager to edit menu items 
+ * @author Siah Yee Long
+ * @author Alvin Aw Yong
+ */
 public class EditMenuItemsPage implements iPage {
-        /**
+    /**
      * The current active session 
      */
     private Session session;
+    /**
+     * Constructor for the EditMenuItemsPage class
+     * @param s the current session
+     */
     public EditMenuItemsPage(Session s){
         this.session = s;
     }
@@ -26,7 +35,7 @@ public class EditMenuItemsPage implements iPage {
         System.out.println("[B] Return to Manager Access Page");
     }
     /**
-     * Method to handle user input 
+     * Method to handle user input. Calls the respective ManageMenuService methods based on user input
      * @param choice branches the pages
      */
     public void handleInput(String choice){

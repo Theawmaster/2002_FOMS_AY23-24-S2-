@@ -10,18 +10,21 @@ import services.ManageBranchService;
 /**
  * This page allows the admin to manage branches
  * The admin can open/enable a branch and close/disable a branch
- * @author @Theawmaster
+ * @author Alvin Aw Yong
+ * @author Siah Yee Long
  */
 public class AdminManageBranchPage implements iPage {
     /**
      * The current active session
      */
     private Session session;
-
+    /**
+     * Constructor for AdminManageBranchPage
+     * @param session the current session
+     */
     public AdminManageBranchPage(Session session) {
         this.session = session;
     }
-
     /**
      * Method to view Admin Manage Payment Methods Page
      */
@@ -34,9 +37,8 @@ public class AdminManageBranchPage implements iPage {
         System.out.println("[5] View all branches");
         System.out.println("[B] Go back");
     }
-
     /**
-     * Method to handle user input
+     * Method to handle user input. Calls the respective ManageBranchService methods based on user input
      * @param option: user input
      */
     public void handleInput(String option) {

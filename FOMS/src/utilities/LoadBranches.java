@@ -57,7 +57,7 @@ public class LoadBranches extends LoadData<Branch>{
      * @param quota The staff quota of the branch
      * @param status The status of the branch
      * @return true if the branch was added successfully, false otherwise
-     * @author @Theawmaster
+     * @author Alvin Aw Yong
      */
     public static boolean addBranch(Branch branch) {
         String newBranchData = branch.getBranchName() + "," + branch.getLocation() + "," + branch.getbranchQuota() + "," + branch.getStatus();
@@ -69,7 +69,7 @@ public class LoadBranches extends LoadData<Branch>{
      * @param branchName The name of the branch
      * @param status The new status of the branch
      * @return true if the branch status was updated successfully, false otherwise
-     * @author @Theawmaster
+     * @author Alvin Aw Yong
      */
     public static boolean updateBranchStatus(Branch branch, String status) {
         return SerialiseCSV.replaceColumnValue(branch.getBranchName(), 3, status, FilePaths.branchListPath.getPath());
@@ -79,7 +79,7 @@ public class LoadBranches extends LoadData<Branch>{
      * Remove a branch from the CSV file
      * @param branchName The name of the branch to remove
      * @return true if the branch was removed successfully, false otherwise
-     * @author @Theawmaster
+     * @author Alvin Aw Yong
      */
     public static boolean removeBranch(Branch branch) {
         return SerialiseCSV.deleteToCSV(branch.getBranchName(), 0, FilePaths.branchListPath.getPath());

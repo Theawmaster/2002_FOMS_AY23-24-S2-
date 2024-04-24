@@ -16,7 +16,7 @@ import java.util.Comparator;
  * The {@link ManageMenuService} class contains methods to manage the menu items in the system
  * @param session
  * @return a list of MenuItem objects with information loaded in
- * @author @Theawmaster
+ * @author Alvin Aw Yong
  */
 public class ManageMenuService {
 

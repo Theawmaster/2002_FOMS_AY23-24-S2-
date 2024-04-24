@@ -3,9 +3,14 @@ package pages.customerPages;
 import pages.iPage;
 import pages.PageViewer;
 
+/**
+ * This page is for the customer to browse the different categories of menu items
+ * @author Siah Yee Long
+ * @author Jed
+ */
 public class SelectCategoriesPage implements iPage {
     /**
-     * The current active session 
+     * The default constructor for SelectCategoriesPage 
      */
     public SelectCategoriesPage(){}
     /**

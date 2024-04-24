@@ -123,7 +123,7 @@ public class SerialiseCSV {
      * @param deleteKey    The value to search for deletion.
      * @param csvFilePath  The path to the CSV file.
      * @return true if a row was deleted successfully, false otherwise.
-     * @author @Theawmaster
+     * @author Alvin Aw Yong
      */
     public static boolean deleteToCSV(String deleteKey, int deleteAt, String csvFilePath) {
         ArrayList<String> lines = readCSV(csvFilePath);

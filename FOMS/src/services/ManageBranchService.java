@@ -8,7 +8,7 @@ import utilities.UserInputHelper;
 
 /**
  * Service class for managing branches
- * @author @Theawmaster
+ * @author Alvin Aw Yong
  */
 public class ManageBranchService {
 

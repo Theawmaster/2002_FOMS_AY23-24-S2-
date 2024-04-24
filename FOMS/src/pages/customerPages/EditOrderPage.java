@@ -5,11 +5,19 @@ import services.ProcessOrderService;
 import pages.PageViewer;
 import utilities.Session;
 
+/**
+ * This page is responsible for displaying and handling inputs for customers to edit their order 
+ * @author Siah Yee Long
+ */
 public class EditOrderPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
+    /**
+     * Constructor for EditOrderPage
+     * @param s the current session
+     */
     public EditOrderPage(Session s){
         this.session = s;
     }
@@ -26,10 +34,9 @@ public class EditOrderPage implements iPage{
             System.out.println("Order hasn't been made!");
             PageViewer.changePage("ViewOrderPage");
         }
-        //...
     }
     /**
-     * Method to handle user input 
+     * Method to handle user input. Calls the respective ProcessOrderService methods based on user input
      * @param choice branches the pages
      */
     public void handleInput(String choice){

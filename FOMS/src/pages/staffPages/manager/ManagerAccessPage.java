@@ -5,11 +5,20 @@ import pages.iPage;
 import pages.PageViewer;
 import utilities.Session;
 
+/**
+ * This page is responsible for displaying and handling inputs for the manager access page
+ * @author Siah Yee Long
+ * @author Chan Zi Hao
+ */
 public class ManagerAccessPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
+    /**
+     * Constructor for ManagerAccessPage
+     * @param s the current session
+     */
     public ManagerAccessPage(Session s){
         this.session = s;
     }

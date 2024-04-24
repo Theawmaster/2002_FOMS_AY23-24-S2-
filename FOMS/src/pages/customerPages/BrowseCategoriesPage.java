@@ -7,8 +7,15 @@ import utilities.Session;
 import entities.Branch;
 import entities.MenuItem;
 import constants.MealCategory;
-
+/**
+ * This page is responsible for displaying and handling inputs for the different categories of menu items
+ * @author Siah Yee Long
+ * @author Jed
+ */
 public class BrowseCategoriesPage implements iPage{
+    /**
+     * The category of the menu items to be displayed
+     */
     protected MealCategory category;
     /**
      * The current active session 
@@ -18,7 +25,10 @@ public class BrowseCategoriesPage implements iPage{
      * The list of items
      */
     private ArrayList<MenuItem> displayedMenuItems;
-
+    /**
+     * Constructor for BrowseCategoriesPage
+     * @param s the current session
+     */
     public BrowseCategoriesPage(Session s){
         this.session = s;
         this.category = MealCategory.UNDEFINED;

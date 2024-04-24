@@ -143,7 +143,7 @@ public class LoadStaffs extends LoadData<Staff>{
      * @param age
      * @param branch
      * @return
-     * @author @Theawmaster
+     * @author Alvin Aw Yong
      */
     public static boolean addStaffToCSV(Staff s) {
         String staffData = String.format("%s,%s,%s,%s,%d,%s", s.getFirstName()+" "+s.getLastName(), s.getLoginID(), s.getRole(), (s.getGender()?"F":"M"), s.getAge(), s.getBranch().getBranchName());

@@ -17,7 +17,7 @@ import pages.staffPages.manager.*;
 
 /**
  * This class serves to manage the different pages. Call this class to change to the active page required. 
- * This class depends on iPage, which means every page will be dependant on this class.
+ * This class depends on iPage, and every page will be dependant on this class.
  * @author Siah Yee Long
  */
 public class PageViewer {
@@ -33,6 +33,9 @@ public class PageViewer {
      * The current session (to hold the current active Branch / Staff / Order)
      */
     private static Session session;
+    /**
+     * The path tracker to keep track of the path the user has taken
+     */
     private static PathTracker pathTracker;
     /**
      * Initialises this class by loading the pages in existence and linking them to a meaningful name
@@ -68,6 +71,10 @@ public class PageViewer {
     }
     /**
      * This static method switches the current active page
+     * If a "back" page is called, programme traverses to the previous page
+     * If a "current" page is called, the current page is displayed
+     * If a page name is provided, the programme will switch to that page
+     * If "init" is called, the programme will switch to the SelectBranchPage
      * @param pageName the next page you want to go to
      */
     public static void changePage(String pageName){

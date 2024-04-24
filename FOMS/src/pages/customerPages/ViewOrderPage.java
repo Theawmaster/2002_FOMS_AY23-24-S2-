@@ -11,13 +11,17 @@ import utilities.UserInputHelper;
  * This is the View Order Page that the user will see after choosing View Cart on Customer Page. 
  * This page offers options to either make payment, edit order or to return back to CustomerPage
  * @author Winnie
+ * @author Siah Yee Long
  */
-
 public class ViewOrderPage implements iPage{
     /**
      * The current active session 
      */
     private Session session;
+    /**
+     * Constructor for ViewOrderPage
+     * @param s the current session
+     */
     public ViewOrderPage(Session s){
         this.session = s;
     }
@@ -35,10 +39,9 @@ public class ViewOrderPage implements iPage{
             System.out.println("[2] Edit Order");
             System.out.println("[B] Continue Browsing");
         }
-        //...
     }
     /**
-     * Method to handle user input 
+     * Method to handle user input. Calls the respective ProcessOrderService and ManagePaymentsService methods based on user input
      * @param choice branches the pages
      */
     public void handleInput(String choice){

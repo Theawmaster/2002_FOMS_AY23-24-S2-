@@ -5,13 +5,24 @@ import services.ProcessOrderService;
 import pages.PageViewer;
 import utilities.Session;
 
+/**
+ * This page is responsible for displaying the details of the menu item that the customer has selected
+ * @author Jed
+ * @author Siah Yee Long
+ */
 public class AddMenuItemPage implements iPage{
+    /** The running session */
     private Session session;
-
+    /**
+     * Constructor for AddMenuItemPage
+     * @param s
+     */
     public AddMenuItemPage(Session s){
         this.session = s;
     }
-
+    /**
+     * This method displays the details of the menu item that the customer has selected
+     */
     public void viewOptions(){
         System.out.println("<< " + this.session.getCurrentActiveMenuItem().getFood()+ " >>");
         System.out.println("Price: $ "+this.session.getCurrentActiveMenuItem().getPrice());
@@ -25,6 +36,10 @@ public class AddMenuItemPage implements iPage{
         System.out.println("[N] No");
         System.out.println("[C] Customise order");
     }
+    /**
+     * Method to handle user input. Calls the relevant ProcessOrderService methods 
+     * @param choice branches the pages
+     */
     public void handleInput(String choice){
         switch (choice) {
             case "Y":
