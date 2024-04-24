@@ -55,9 +55,9 @@ public class ViewOrderPage implements iPage{
                 if(!UserInputHelper.chooseTakeaway(this.session.getCurrentActiveOrder())){
                     // if user cancelled payment, just go back to this page
                     PageViewer.changePage("current");
-                };
+                }
                 // use chose dine in / takeaway. now ask for money
-                if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice())){
+                else if(ManagePaymentsService.makePayment(this.session, this.session.getCurrentActiveOrder().getOrderId(), session.getCurrentActiveOrder().getTotalPrice())){
                     // money goes through, process the paid order
                     ProcessOrderService.customerPaid(this.session);
                     PageViewer.changePage("MainPage");
