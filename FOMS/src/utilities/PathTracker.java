@@ -111,14 +111,14 @@ public class PathTracker {
             lastFiveItems.add(x);
         }
         String strPath = String.join(" > ", lastFiveItems);
-        String spaces = String.format("%" + (84 - strPath.length()) + "s", "");
+        String spaces = String.format("%" + (81 - strPath.length()) + "s", "");
     
         // Display
         System.out.println();
         System.out.println();
-        System.out.println("\u250F" + "\u2501".repeat(85) + "\u2513");
+        System.out.println("\u250F" + "\u2501".repeat(82) + "\u2513");
         System.out.println("\u2503 " + strPath + spaces + "\u2503");
-        System.out.println("\u2517" + "\u2501".repeat(85) + "\u251B");
+        System.out.println("\u2517" + "\u2501".repeat(82) + "\u251B");
     }
     /**
      * Prints the current user logged in
