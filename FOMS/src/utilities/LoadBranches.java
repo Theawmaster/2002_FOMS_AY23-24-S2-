@@ -7,16 +7,22 @@ import entities.Branch;
 import entities.MenuItem;
 
 /**
- * The {@link LoadStaffs} class loads Branch data from the CSV database
+ * The {@link LoadStaffs} class loads Branch data from the CSV database. It inherits from the {@link LoadData} class
+ * @author Jed
  */
 public class LoadBranches extends LoadData<Branch>{
-
+    /**
+     * This constructor creates a LoadBranches object with a list of Branch objects and a list of MenuItem objects
+     * @param branches null
+     * @param menu null
+     */
     public LoadBranches(ArrayList<Branch> branches, ArrayList<MenuItem> menu) {
         super(branches, menu);
     }
-
     /**
      * The {@link loadDatafromCSV} method in this class loads in Branch data from branch_list.csv 
+     * @param x null
+     * @param y null
      * @return a list of Branch objects with information loaded in
      */
     @Override
@@ -49,37 +55,28 @@ public class LoadBranches extends LoadData<Branch>{
         }
         return branches;
     }
-
     /**
      * Add a new branch to the CSV file
-     * @param branchName The name of the branch
-     * @param location The location of the branch
-     * @param quota The staff quota of the branch
-     * @param status The status of the branch
+     * @param branch
      * @return true if the branch was added successfully, false otherwise
-     * @author Alvin Aw Yong
      */
     public static boolean addBranch(Branch branch) {
         String newBranchData = branch.getBranchName() + "," + branch.getLocation() + "," + branch.getbranchQuota() + "," + branch.getStatus();
         return SerialiseCSV.appendToCSV(newBranchData, FilePaths.branchListPath.getPath());
     }
-
     /**
      * Update the status of a branch in the CSV file
-     * @param branchName The name of the branch
-     * @param status The new status of the branch
+     * @param branch
+     * @param status
      * @return true if the branch status was updated successfully, false otherwise
-     * @author Alvin Aw Yong
      */
     public static boolean updateBranchStatus(Branch branch, String status) {
         return SerialiseCSV.replaceColumnValue(branch.getBranchName(), 3, status, FilePaths.branchListPath.getPath());
     }
-
     /**
      * Remove a branch from the CSV file
-     * @param branchName The name of the branch to remove
+     * @param branch
      * @return true if the branch was removed successfully, false otherwise
-     * @author Alvin Aw Yong
      */
     public static boolean removeBranch(Branch branch) {
         return SerialiseCSV.deleteToCSV(branch.getBranchName(), 0, FilePaths.branchListPath.getPath());

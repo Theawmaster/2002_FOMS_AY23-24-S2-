@@ -12,12 +12,21 @@ import java.io.File;
  * @author Siah Yee Long
  */
 public class PersistenceHandler {
+    /**
+     * The {@link lastKnownModTime} variable stores the last known modification time of the "data" directory
+     */
     private static long lastKnownModTime;
-
+    /**
+     * Static block to initialise the {@link lastKnownModTime} variable
+     */
     static {
-        lastKnownModTime = getLastModifiedTime("data"); // Adjusted to point to a directory
+        lastKnownModTime = getLastModifiedTime("data"); // adjusted to point to a directory
     }
-
+    /**
+     * Method to get the last modified time of a file or directory
+     * @param path the path to the file or directory
+     * @return the last modified time of the file or directory
+     */
     private static long getLastModifiedTime(String path) {
         File file = new File(path);
         if (file.isDirectory()) {
@@ -25,8 +34,11 @@ public class PersistenceHandler {
         }
         return file.lastModified();
     }
-
-    // Method to get the most recent modification time of the directory or any file within it
+    /**
+     * Method to get the maximum last modified time of a directory and its subdirectories
+     * @param directory the directory to check
+     * @return the maximum last modified time of the directory and its subdirectories
+     */
     private static long getMaxModifiedTime(File directory) {
         long maxTime = directory.lastModified();
         File[] files = directory.listFiles();
@@ -44,11 +56,18 @@ public class PersistenceHandler {
         }
         return maxTime;
     }
-
-    public static void setLastModifiedTime(String path) {
+    /**
+     * Method to set the last known modification time of the "data" directory
+     * @param path
+     */
+    private static void setLastModifiedTime(String path) {
         lastKnownModTime = getLastModifiedTime(path);
     }
-
+    /**
+     * Method to check if the "data" directory has been updated since the last known modification time
+     * @param path
+     * @return
+     */
     public static boolean hasBeenUpdated(String path) {
         long newModTime = getLastModifiedTime(path);
         if (newModTime > lastKnownModTime) {

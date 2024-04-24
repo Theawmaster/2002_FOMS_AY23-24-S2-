@@ -9,14 +9,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * Class that reads and writes data with CSV files
+ * The {@link SerialiseCSV} class is used to read and write data to CSV files
+ * @author Siah Yee Long
+ * @author Alvin Aw Yong
  */
 public class SerialiseCSV {   
     /**
      * Default constructor
      */
     public SerialiseCSV(){}
-
     /**
      * To read CSV file specified by the file path
      * @param csvFilePath
@@ -38,7 +39,6 @@ public class SerialiseCSV {
         }
         return dataReadFromCSV;
     }
-    
     /**
      * To write to CSV file specified by the CSV file path
      * @param s
@@ -72,7 +72,6 @@ public class SerialiseCSV {
             return false; // Return false to indicate failure
         }
     }
-
     /**
      * Replaces a specified value in a specified column of a CSV file.
      *
@@ -116,14 +115,11 @@ public class SerialiseCSV {
             return false;
         }
     }
-
     /**
      * Deletes a row in the CSV file where the first column matches the deleteKey.
-     *
      * @param deleteKey    The value to search for deletion.
      * @param csvFilePath  The path to the CSV file.
      * @return true if a row was deleted successfully, false otherwise.
-     * @author Alvin Aw Yong
      */
     public static boolean deleteToCSV(String deleteKey, int deleteAt, String csvFilePath) {
         ArrayList<String> lines = readCSV(csvFilePath);
@@ -154,10 +150,10 @@ public class SerialiseCSV {
             return false;
         }
     }
-
     /**
      * Method to erase all data except headers in order_processing_list CSV file
      * @param filename The name of the CSV file to erase data from
+     * @param reseString The header of the CSV file
      */
     public static void resetCSVData(String filename, String reseString) {
         try {
