@@ -361,6 +361,7 @@ public class ManageStaffService {
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
         String trfStaff = UserInputHelper.getInput("Enter the staff ID to transfer");
         Branch trfBranch = UserInputHelper.chooseBranch(session.getAllBranches());
+        if(trfBranch == null) return;
 
         // check to see the current allowed counts
         Logger.debug("Branch name:" + trfBranch.getBranchName());
@@ -369,7 +370,6 @@ public class ManageStaffService {
         Logger.debug("Current Staff: " + trfBranch.getStaffCount());
         Logger.debug("Staff Quota: " + trfBranch.getbranchQuota());
 
-        if(trfBranch == null) return;
         for(Staff s : session.getAllStaffs()){
             if(s.getLoginID().equalsIgnoreCase(trfStaff)){
                 if(s.getRole()==Role.MANAGER){
