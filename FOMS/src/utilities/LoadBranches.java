@@ -85,38 +85,5 @@ public class LoadBranches extends LoadData<Branch>{
         return SerialiseCSV.deleteToCSV(branch.getBranchName(), 0, FilePaths.branchListPath.getPath());
     }
 
-    /**
-     * Gets the staff quota for a specific branch.
-     *
-     * @param branchName The name of the branch.
-     * @param branchLines The list of lines from the branch list file.
-     * @return The staff quota for the branch.
-     * @throws IOException 
-     * @Author @Theawmaster
-     */
-    // public static int getBranchQuota(String branchName) throws IOException {
-    //     List<String> branchLines = Files.readAllLines(Paths.get(FilePaths.branchListPath.getPath()));
-    //     return branchLines.stream()
-    //         .skip(1)
-    //         .map(line -> line.split(","))
-    //         .filter(parts -> parts.length >= 3 && parts[0].trim().equalsIgnoreCase(branchName))
-    //         .findFirst()
-    //         .map(parts -> Integer.parseInt(parts[2].trim()))
-    //         .orElse(0);
-    // }
-    
-    // public List<String> getBranchNames() throws IOException {
-    //     List<String> branchLines = Files.readAllLines(Paths.get(FilePaths.branchListPath.getPath()));
-    //     return branchLines.stream()
-    //                       .skip(1) // Skip header
-    //                       .map(line -> line.split(",")[0].trim())
-    //                       .collect(Collectors.toList());
-    // }
-    
-    // public boolean branchExists(String branchName) throws IOException {
-    //     List<String> branchNames = getBranchNames();
-    //     return branchNames.contains(branchName);
-    // }
-
 }
 

@@ -20,7 +20,8 @@ import entities.Order;
  */
 public class Session {
     private ArrayList<Staff> allStaffs;
-    protected ArrayList<Branch> allBranches;
+    private ArrayList<Branch> allBranches;
+    private ArrayList<Branch> allOpenBranches;
     private ArrayList<MenuItem> allMenuItems;
     private ArrayList<Order> allOrders;
     private ArrayList<iPaymentService> allPaymentServices;
@@ -39,6 +40,13 @@ public class Session {
 
         LoadBranches initLoadBranches = new LoadBranches(null, null);
         this.allBranches = initLoadBranches.getLoadedData();
+
+        this.allOpenBranches = new ArrayList<>();
+        for(Branch b : this.allBranches){
+            if(b.getStatus().equalsIgnoreCase("Open")){
+                this.allOpenBranches.add(b);
+            }
+        }
     
         LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches, null);
         this.allStaffs = initLoadStaffs.getLoadedData();
@@ -59,6 +67,13 @@ public class Session {
     public void updateSession(){
         LoadBranches initLoadBranches = new LoadBranches(null, null);
         this.allBranches = initLoadBranches.getLoadedData();
+
+        this.allOpenBranches = new ArrayList<>();
+        for(Branch b : this.allBranches){
+            if(b.getStatus().equalsIgnoreCase("Open")){
+                this.allOpenBranches.add(b);
+            }
+        }
     
         LoadStaffs initLoadStaffs = new LoadStaffs(this.allBranches, null);
         this.allStaffs = initLoadStaffs.getLoadedData();
@@ -96,6 +111,9 @@ public class Session {
     public ArrayList<Order> getAllOrders() {
         return allOrders;
     }
+    public ArrayList<Branch> getAllOpenBranches(){
+        return this.allOpenBranches;
+    }
 
     public void setCurrentActiveStaff(Staff s){
         this.currentActiveStaff = s;
@@ -129,10 +147,6 @@ public class Session {
     public void makeNewOrder(){
         this.currentActiveOrder = new Order(this.nextOrderId, this.currentActiveBranch);
         this.nextOrderId++;
-    }
-
-    public void closeSession(){
-        LoadOrders.destroyOrders();
     }
 
 }

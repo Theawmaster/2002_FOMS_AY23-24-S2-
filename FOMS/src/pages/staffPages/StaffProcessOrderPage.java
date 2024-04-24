@@ -19,7 +19,8 @@ public class StaffProcessOrderPage implements iPage{
      */
     public void viewOptions(){
         for(Order o : this.session.getAllOrders()){
-            System.out.println("Order number: " + o.getOrderId() + " [" + o.getStatus() + "]");
+            if(o.getBranchName().equalsIgnoreCase(this.session.getCurrentActiveBranch().getBranchName()))
+                System.out.println("Order number: " + o.getOrderId() + " [" + o.getStatus() + "]");
         }
         System.out.println("[1] Process an Order");
         System.out.println("[2] Cancel an Order");
