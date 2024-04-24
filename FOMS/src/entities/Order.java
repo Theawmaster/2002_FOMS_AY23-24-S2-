@@ -175,6 +175,12 @@ public class Order {
                                 + m.getPrice() + " -- " 
                                 + (m.getCustomization().equalsIgnoreCase("NA")?"Standard":m.getCustomization()));
         }
-        System.out.println(String.format("Total price: %.2f", this.totalPrice));
+
+        this.totalPrice = 0.0;
+        for (MenuItem item : this.items) {
+            this.totalPrice += item.getPrice();
+        }
+
+        System.out.println(String.format("Total price: $%.2f", this.totalPrice));
     }
 }
