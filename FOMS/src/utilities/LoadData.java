@@ -8,6 +8,7 @@ import entities.MenuItem;
 /**
  * The {@link LoadData} class is an abstract class that loads data from CSV files
  * It is inherited by classes that load data for different entities such as Staff, Branch, Order and MenuItem
+ * @param <T> The type of data to be loaded
  * @author Siah Yee Long
  */
 public abstract class LoadData<T> {

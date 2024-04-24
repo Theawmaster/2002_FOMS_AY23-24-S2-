@@ -100,7 +100,7 @@ public class LoadStaffs extends LoadData<Staff>{
         return staffs;
     }
     /**
-    * The {@link updatePassword} method calls on the {@link SerialiseCSV.replaceColumnValue} method to update the 2nd column with the new password
+    * The {@link updatePassword} method calls on the SerialiseCSV.replaceColumnValue method to update the 2nd column with the new password
     * @param loginID search String
     * @param newPassword updated new password
     * @return true if successful
@@ -128,7 +128,7 @@ public class LoadStaffs extends LoadData<Staff>{
     }
     /**
      * The {@link appendNewPasswordRecord} private function appends a new password record 
-     * Used in the {@link loadData} method above if password not already existing for the current Staff
+     * Used in the loadData method above if password not already existing for the current Staff
      * @param staffID String argument of the corresponding staffID
      * @param staffPassword String argument of the corresponding staffPassword
      */

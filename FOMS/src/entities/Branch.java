@@ -39,7 +39,7 @@ public class Branch {
 
     /**
      * The constructor for the Branch object
-     * @param branchName
+     * @param branchName 
      * @param location
      * @param branchQuota
      * @param status

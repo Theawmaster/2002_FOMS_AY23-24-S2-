@@ -86,14 +86,14 @@ public class Staff {
     }
     /**
      * The setter method to set the staff's role
-     * @param loginID the staff's role
+     * @param role the staff's role
      */
     public void setRole(Role role) {
         this.role = role;
     }
     /**
      * The setter method to set the staff's branch
-     * @param loginID the staff's branch
+     * @param branch the staff's branch
      */
 	public void setBranch(Branch branch) {
 		this.branch = branch;

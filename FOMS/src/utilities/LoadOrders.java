@@ -107,9 +107,9 @@ public class LoadOrders extends LoadData<Order>{
         return orders;
     }
     /**
-     * This method adds a MenuItem object to the CSV file
-     * @param m the MenuItem object to be added
-     * @return true if the MenuItem is successfully added to the CSV file
+     * This method adds an Order object to the CSV file
+     * @param order the Order object to be added
+     * @return true if the Order is successfully added to the CSV file
      */
     public static boolean addOrderToCSV(Order order) {
         // remove existing record

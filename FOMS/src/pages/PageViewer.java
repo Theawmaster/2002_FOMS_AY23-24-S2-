@@ -1,12 +1,9 @@
 package pages;
 
 import java.util.Map;
-
-import constants.FilePaths;
-
-import java.io.IOException;
 import java.util.HashMap;
 
+import constants.FilePaths;
 import utilities.PathTracker;
 import utilities.PersistenceHandler;
 import utilities.Session;
@@ -114,11 +111,7 @@ public class PageViewer {
      */
     public static void handleInput(String choice){
         if(currentPage != null){
-            try {
-                currentPage.handleInput(choice);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            currentPage.handleInput(choice);
         }
         else
             System.out.println("No active view to handle input!");
