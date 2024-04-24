@@ -35,6 +35,7 @@ public class ManagePaymentsService {
             i++;
         }
         int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
+        if (choice == -1) return; // user decided to cancel enabling (back to main menu)
         session.getAllPaymentServices().get(choice-1).setEnabled(true);
         System.out.println("Successfully enabled "+session.getAllPaymentServices().get(choice-1).getPaymentTypeName());
         return;
@@ -51,6 +52,7 @@ public class ManagePaymentsService {
             i++;
         }
         int choice = UserInputHelper.getUserChoice("Enter your choice", i-1);
+        if (choice == -1) return; // user decided to cancel disabling (back to main menu)
         session.getAllPaymentServices().get(choice-1).setEnabled(false);
         System.out.println("Successfully disabled "+session.getAllPaymentServices().get(choice-1).getPaymentTypeName());
         return;

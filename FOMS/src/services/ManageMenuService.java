@@ -134,6 +134,10 @@ public class ManageMenuService {
 
         System.out.println("Select the menu item to edit:");
         MenuItem oldItem = UserInputHelper.chooseMenuItem(filteredItems);
+        if(oldItem == null){
+            System.out.println("No valid menu item selected.");
+            return;
+        }
         MenuItem newItem;
         try{ newItem = (MenuItem)oldItem.clone();} // clone the old item first
         catch (Exception e){ return; } // there shouldnt be an exception
@@ -141,6 +145,9 @@ public class ManageMenuService {
         System.out.println("Choose an attribute to edit:");
         System.out.println("1. Food Name\n2. Price\n3. Category\n4. Description");
         int choice = UserInputHelper.getUserChoice("Enter your choice:", 4);
+        if (choice == -1) {
+            return;
+        }
     
         switch (choice) {
             case 1:

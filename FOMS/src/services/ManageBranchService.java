@@ -46,6 +46,7 @@ public class ManageBranchService {
         String branchName = UserInputHelper.getInput("Enter the new branch name:");
         String location = UserInputHelper.getInput("Enter the new branch's location:");
         int quota = UserInputHelper.getUserChoice("Enter the branch's staff quota:", 999);
+        if(quota == -1) return; // user decided to cancel adding (back to main menu)
         Branch newBranch = new Branch(branchName, location, quota, "Open");
         if(LoadBranches.addBranch(newBranch)){
             session.getAllBranches().add(newBranch);
@@ -64,6 +65,7 @@ public class ManageBranchService {
      */
     public static void removeBranch(Session session) {
         Branch badBranch = UserInputHelper.chooseBranch(session.getAllBranches());
+        if(badBranch == null) return;
         if(LoadBranches.removeBranch(badBranch)){
             for(Staff unluckyStaff : session.getAllStaffs()){
                 if(unluckyStaff.getBranch() == badBranch){
