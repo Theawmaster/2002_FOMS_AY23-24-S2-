@@ -150,10 +150,10 @@ public class LoadStaffs extends LoadData<Staff>{
         return SerialiseCSV.appendToCSV(staffData, FilePaths.staffListPath.getPath());
     }    
     public static boolean updatePromotedStaff(Staff staff){
-        return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 3, "MANAGER", FilePaths.staffListPath.getPath());
+        return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 2, "MANAGER", FilePaths.staffListPath.getPath());
     }
     public static boolean updateTransferredStaff(Staff staff, Branch branch){
-        return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 6, branch.getBranchName(), FilePaths.staffListPath.getPath());
+        return SerialiseCSV.replaceColumnValue(staff.getFirstName()+" "+staff.getLastName(), 5, branch.getBranchName(), FilePaths.staffListPath.getPath());
     }
     public static boolean updateFiredStaff(Staff staff){
         return SerialiseCSV.deleteToCSV(staff.getLoginID(), 1, FilePaths.staffListPath.getPath()) 
