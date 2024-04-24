@@ -65,7 +65,9 @@ public class SelectBranchPage implements iPage{
         }
         try{
             int intChoice = Integer.parseInt(choice) -1; // -1 to offset indexing with user's response
-
+            if (intChoice < 0 || intChoice >= availableBranches.size()) {
+                throw new IndexOutOfBoundsException("Selected branch index is out of range."); // Manually throw an exception if the index is out of range
+            }
             Branch activeBranch = this.availableBranches.get(intChoice);
             // customer is now dining here. all staff and managers will belong to this branch.
             this.session.setCurrentActiveBranch(activeBranch);
