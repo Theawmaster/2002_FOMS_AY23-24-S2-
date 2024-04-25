@@ -19,7 +19,7 @@ public class VisaPaymentService implements iPaymentService{
     /**
      * A list of PaymentDetails which used this service
      */
-    ArrayList<PaymentDetails> transactionHist;
+    private ArrayList<PaymentDetails> transactionHist;
     /**
      * Constructor called from Session
      */
@@ -70,6 +70,11 @@ public class VisaPaymentService implements iPaymentService{
     public ArrayList<PaymentDetails> getTransactionHist(){
         return this.transactionHist;
     }
+    /**
+     * Method to simulate a swipe of a Visa card
+     * @param amount the amount to pay
+     * @throws TransactionFailedException if the transaction fails
+     */
     private void simulateSwipe(double amount) throws TransactionFailedException{
         // get user to type "tap" to simulate Apple pay payment
         String simulatedSwipe = UserInputHelper.getInput("Please swipe your card to transact $"+String.format("%.2f", amount)+". (type 'swipe'):");

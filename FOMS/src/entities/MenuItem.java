@@ -34,12 +34,12 @@ public class MenuItem implements Cloneable{
     private Branch branch;
     /**
      * The constructor for the MenuItem object
-     * @param food
-     * @param price
-     * @param branch
-     * @param category
-     * @param description
-     * @param customization
+     * @param food The name of the item
+     * @param price The price of the item
+     * @param branch The branch that this item is available in
+     * @param category The category of this item
+     * @param description A description for this item
+     * @param customization A field for the customer to write their special requests (if any)
      */
     public MenuItem(String food, double price, Branch branch, MealCategory category, String description, String customization) {
         this.food = food; 

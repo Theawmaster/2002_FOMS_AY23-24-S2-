@@ -39,10 +39,10 @@ public class Branch {
 
     /**
      * The constructor for the Branch object
-     * @param branchName 
-     * @param location
-     * @param branchQuota
-     * @param status
+     * @param branchName The branch name
+     * @param location The location of the branch
+     * @param branchQuota The maximum number of staff this branch can have
+     * @param status Whether this branch is currently Open or Close
      */
     public Branch(String branchName, String location, int branchQuota, String status){
         this.branchName = branchName;
@@ -103,7 +103,7 @@ public class Branch {
     public int getManagerCount(){ return this.managerCount; }
     /**
      * The getter method to get the minimum number of managers allowed in this branch
-     * @return
+     * @return the minimum number of managers allowed
      */
     public int getMinAllowedManagers(){ return this.minAllowedManagers; }
     /**

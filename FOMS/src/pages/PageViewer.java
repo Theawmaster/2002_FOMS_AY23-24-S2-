@@ -19,6 +19,10 @@ import pages.staffPages.manager.*;
  */
 public class PageViewer {
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private PageViewer(){}
+    /**
      * Map to store every page in existence
      */
     private static Map<String, iPage> pages = new HashMap<>();

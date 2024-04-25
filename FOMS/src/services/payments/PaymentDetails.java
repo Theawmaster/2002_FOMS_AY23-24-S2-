@@ -23,9 +23,9 @@ public class PaymentDetails {
     private String confirmation;
     /**
      * Constructor to initialise the payment details
-     * @param ID
-     * @param amt
-     * @param pmtType
+     * @param ID the customer's order ID
+     * @param amt the amount paid
+     * @param pmtType the payment type used
      */
     public PaymentDetails(int ID, double amt, iPaymentService pmtType){
         this.customerID = ID;

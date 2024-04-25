@@ -24,6 +24,10 @@ public class UserInputHelper {
      */
     private static Scanner scanner = new Scanner(System.in);
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private UserInputHelper() {}
+    /**
      * This method gets the basic string input from users
      * @param prompt The prompt to display to the user
      * @return The user's input as a string

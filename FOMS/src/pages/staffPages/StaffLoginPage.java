@@ -28,7 +28,7 @@ public class StaffLoginPage implements iPage {
     private StaffLoginService staffLoginService;
     /**
      * Initialising this page sets the session provided from PageViewer
-     * @param s
+     * @param s the current session
      */
     public StaffLoginPage(Session s){
         this.session = s;
@@ -72,7 +72,7 @@ public class StaffLoginPage implements iPage {
                 }
                 break;
             case "2":
-                if(tryForgotPassword(staffLoginService)) System.out.println("OI STOP FUCKING FORGETTING. RESET SUCCESS ANYWAY");
+                if(tryForgotPassword(staffLoginService)) System.out.println("OI STOP FORGETTING! RESET SUCCESS ANYWAY");
                 else System.out.println("failed reset pw");
                 PageViewer.changePage("current");
                 break;
@@ -126,7 +126,7 @@ public class StaffLoginPage implements iPage {
      * The {@link tryForgotPassword} private method resets the user's password by verifying that they are 
      * a human (simulated only) a maximum of Settings.FORGOTPW_MAX_TRIES times, and resets 
      * the user's password accordingly
-     * @param loginService 
+     * @param loginService is the service used to do the login
      * @return true if successful
      */
     private boolean tryForgotPassword(iLoginService loginService){
@@ -145,7 +145,7 @@ public class StaffLoginPage implements iPage {
     }
     /**
      * The {@link tryChangePassword} private method allows the user to change their password with a maximum of Settings.PW_MAX_TRIES tries
-     * @param loginService
+     * @param loginService is the service used to do the login
      * @return true if successful
      */
     private boolean tryChangePassword(iLoginService loginService){

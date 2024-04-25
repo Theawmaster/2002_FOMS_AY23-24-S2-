@@ -26,7 +26,7 @@ clean:
 
 # Rule to generate JavaDoc
 doc:
-	$(JAVADOC) -d $(DOC_DIR) -sourcepath $(SRC_DIR) -subpackages main:utilities:constants:entities:pages:services -private
+	$(JAVADOC) -d $(DOC_DIR) -sourcepath $(SRC_DIR) -subpackages main:utilities:constants:entities:pages:services -private -noqualifier all -author
 
 # Prevent make from doing something with a file named 'run' or 'clean' or 'doc'
 .PHONY: all clean run doc

@@ -10,7 +10,7 @@ import constants.MealCategory;
 /**
  * This page is responsible for displaying and handling inputs for the different categories of menu items
  * @author Siah Yee Long
- * @author Jed
+ * @author Lee Jedidiah
  */
 public class BrowseCategoriesPage implements iPage{
     /**

@@ -7,22 +7,22 @@ package services.authenticator;
 public interface iLoginService {
     /**
      * Method to verify login
-     * @param userID
-     * @param password
+     * @param userID the user ID of the staff
+     * @param password the password of the staff
      * @return true if login is successful, false otherwise
      */
     boolean login(String userID, String password);
     /**
      * Method to reset password
-     * @param userID
+     * @param userID the user ID of the staff
      * @return true if password is reset successfully, false otherwise
      */
     boolean resetPassword(String userID);
     /**
      * Method to change password
-     * @param userID
-     * @param oldPassword
-     * @param newPassword
+     * @param userID the user ID of the staff
+     * @param oldPassword the old password
+     * @param newPassword the new password
      * @return true if password is changed successfully, false otherwise
      */
     boolean changePassword(String userID, String oldPassword, String newPassword);

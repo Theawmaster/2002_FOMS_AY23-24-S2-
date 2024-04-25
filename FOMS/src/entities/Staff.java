@@ -28,12 +28,12 @@ public class Staff {
 
     /**
      * The constructor for a staff
-     * @param firstName
-     * @param lastName
-     * @param loginID
-     * @param role
-     * @param gender
-     * @param age
+     * @param firstName the first name of the staff
+     * @param lastName the last name of the staff
+     * @param loginID the loginID of the staff
+     * @param role the role of the staff
+     * @param gender the gender of the staff
+     * @param age the age of the staff
      * @param staffPassword default set to "password"
      */
 	public Staff(String firstName, String lastName, String loginID, Role role, boolean gender, int age, String staffPassword) {
