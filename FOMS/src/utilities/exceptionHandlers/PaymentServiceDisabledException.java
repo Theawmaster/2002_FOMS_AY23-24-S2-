@@ -7,7 +7,7 @@ package utilities.exceptionHandlers;
 public class PaymentServiceDisabledException extends TransactionFailedException{
     /**
      * This constructor creates an exception with a custom message
-     * @param s
+     * @param s the custom message
      */
     public PaymentServiceDisabledException(String s){
         super(s);

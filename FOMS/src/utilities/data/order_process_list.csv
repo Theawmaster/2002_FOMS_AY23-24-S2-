@@ -1,5 +1,1 @@
 orderID,Status,isTakeaway,Branch,Items,ItemCustomisation,LastModified
-2,COMPLETED,Takeaway,JE,Falafel Burger|,NA|,1713946405
-1,COMPLETED,Takeaway,NTU,Classic Cheeseburger|,NA|,1713946483
-3,NEW,Dine-in,NTU,Green Tea|Coke Zero|,NA|NA|,1713965418
-4,NEW,Dine-in,NTU,4PC set meal|,NA|,1713966589

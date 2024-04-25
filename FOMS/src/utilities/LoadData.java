@@ -25,8 +25,10 @@ public abstract class LoadData<T> {
         this.loadedData = loadDatafromCSV(branches, menu);
     }
     /**
-     * Abstract method where reading of CSV is called and data is sorted accordingly to corresponding classes
-     * @return a list of data loaded from CSV, and saves it in this.loadedData
+     * This method is implemented by the subclasses to load data from CSV files
+     * @param branches if information about branches is not needed, it will be passed in as null
+     * @param menu if information about menu items is not needed, it will be passed in as null
+     * @return a list of class T
      */
     protected abstract ArrayList<T> loadDatafromCSV(ArrayList<Branch> branches, ArrayList<MenuItem> menu);
     /**

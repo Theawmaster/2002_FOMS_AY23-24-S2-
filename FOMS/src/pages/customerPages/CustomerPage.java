@@ -8,7 +8,7 @@ import utilities.Session;
 /**
  * This page is for the customer. It allows the customer to browse the menu, view cart, make payment, edit order, view order status and go back to the main page.
  * @author Siah Yee Long
- * @author Jed
+ * @author Lee Jedidiah
  */
 public class CustomerPage implements iPage{
     /**

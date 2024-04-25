@@ -26,8 +26,8 @@ public class Order {
     private long lastModified;
     /**
      * The constructor of a new order during runtime
-     * @param orderId 
-     * @param branch
+     * @param orderId the unique identifier of the order
+     * @param branch the branch the order is from
      */
     public Order(int orderId, Branch branch) {
         this.orderID = orderId;
@@ -41,13 +41,13 @@ public class Order {
     /**
      * This is the constructor for when the order is loaded in from the CSV file
      * (For persistence)
-     * @param orderID
-     * @param items
-     * @param isTakeaway
-     * @param status
-     * @param totalPrice
-     * @param branch
-     * @param lastModified
+     * @param orderID the unique identifier of the order
+     * @param items the list of items in the order
+     * @param isTakeaway whether the order is for takeaway
+     * @param status the status of the order
+     * @param totalPrice the total price of the order
+     * @param branch the branch the order is from
+     * @param lastModified the last modified time of the order
      */
     public Order(int orderID, ArrayList<MenuItem> items, boolean isTakeaway, OrderStatus status, double totalPrice, Branch branch, long lastModified){
         this.orderID = orderID;

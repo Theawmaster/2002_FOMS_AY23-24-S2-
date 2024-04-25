@@ -15,15 +15,19 @@ import utilities.Logger;
 
 /**
  * This class contains mainly static methods pertaining to order processing
- * @author Winnie
- * @author Jed
+ * @author Koh Huei Shan, Winnie
+ * @author Lee Jedidiah
  * @author Chan Zi Hao
  * @author Siah Yee Long
  */
 public class ProcessOrderService {
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private ProcessOrderService() {}
+    /**
      * Method to add an item to the current active order and update the CSV files accordingly
-     * @param session
+     * @param session The current session
      */
     public static void addItemToOrder(Session session){
         if(session.getCurrentActiveOrder()==null) session.makeNewOrder();
@@ -32,7 +36,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to add customisation to an item in the current active order and update the CSV files accordingly
-     * @param item
+     * @param item The item to add customisation to
      */
     public static void addCustomisationToOrder(MenuItem item){
         String custom = UserInputHelper.getInput("Enter your customisation: ");
@@ -43,7 +47,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to customise an order in the current active order and update the CSV files accordingly. This method will call the above method to add customisation to an item in the current active order
-     * @param session
+     * @param session The current session
      */
     public static void customiseAnOrder(Session session){
         MenuItem custItem = UserInputHelper.chooseMenuItem(session.getCurrentActiveOrder().getItems());
@@ -52,7 +56,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to remove an order from the current active order and update the CSV files accordingly
-     * @param session
+     * @param session The current session
      */
     public static void removeOrder(Session session){
         if(session.getAllOrders().size() == 0){
@@ -67,7 +71,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to process an order and update the CSV files accordingly
-     * @param session
+     * @param session The current session
      */
     public static void processOrder(Session session){
         if(session.getAllOrders().size() == 0){
@@ -95,7 +99,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to cancel an order and update the CSV files accordingly
-     * @param session
+     * @param session The current session
      */
     public static void cancelOrder(Session session){
         if(session.getAllOrders().size() == 0){
@@ -162,7 +166,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to view the details of an order
-     * @param session
+     * @param session The current session
      */
     public static void viewOrderDetails(Session session){
         Order selectedOrder = UserInputHelper.chooseOrder(session.getAllOrders(), session.getCurrentActiveBranch());
@@ -173,7 +177,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to process an order once the customer has paid and update the CSV files accordingly
-     * @param session
+     * @param session The current session
      */
     public static void customerPaid(Session session){
         // set order status to PROCESSING
@@ -188,7 +192,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to collect an order
-     * @param order
+     * @param order The order to collect
      */
     private static void collectOrder(Order order){
         String choice = UserInputHelper.getInput("Wanna pick your order up now? [Y/N]:");
@@ -206,7 +210,7 @@ public class ProcessOrderService {
     }
     /**
      * Method to check if an order should be cancelled if it has exceeded the time limit
-     * @param order
+     * @param order The order to check
      */
     private static void checkToCancelOrder(Order order){
         if(order.getStatus()==OrderStatus.READY_TO_PICKUP && TimeHandler.hasElapsed((int)Settings.MAX_COLLECTION_TIME_SECONDS.getValue(), order.getLastModified())){

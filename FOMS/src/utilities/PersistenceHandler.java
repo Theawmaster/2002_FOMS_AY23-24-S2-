@@ -23,6 +23,10 @@ public class PersistenceHandler {
         lastKnownModTime = getLastModifiedTime("data"); // adjusted to point to a directory
     }
     /**
+     * Private constructor to prevent instantiation of the class
+     */
+    private PersistenceHandler() {}
+    /**
      * Method to get the last modified time of a file or directory
      * @param path the path to the file or directory
      * @return the last modified time of the file or directory
@@ -58,15 +62,15 @@ public class PersistenceHandler {
     }
     /**
      * Method to set the last known modification time of the "data" directory
-     * @param path
+     * @param path the path to the file or directory
      */
     private static void setLastModifiedTime(String path) {
         lastKnownModTime = getLastModifiedTime(path);
     }
     /**
      * Method to check if the "data" directory has been updated since the last known modification time
-     * @param path
-     * @return
+     * @param path the path to the file or directory
+     * @return true if the "data" directory has been updated since the last known modification time, false otherwise
      */
     public static boolean hasBeenUpdated(String path) {
         long newModTime = getLastModifiedTime(path);

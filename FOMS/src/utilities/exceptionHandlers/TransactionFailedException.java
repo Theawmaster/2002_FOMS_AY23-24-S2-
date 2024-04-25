@@ -7,7 +7,7 @@ package utilities.exceptionHandlers;
 public class TransactionFailedException extends Exception{
     /**
      * This constructor creates an exception with a custom message
-     * @param s
+     * @param s the custom message
      */
     public TransactionFailedException(String s){
         super(s);

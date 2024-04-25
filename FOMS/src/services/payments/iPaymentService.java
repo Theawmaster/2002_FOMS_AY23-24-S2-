@@ -13,13 +13,16 @@ import utilities.exceptionHandlers.TransactionFailedException;
 public interface iPaymentService {
     /**
      * The name of the payment service
+     * @return the name of the payment service
      */
     String getPaymentTypeName();
     /**
      * If the current payment service is enabled
+     * @return true if enabled, false otherwise
      */
     boolean checkEnabled();
     /**
+     * Method to enable / disable the payment service
      * @param enable to enable / disable the payment service 
      */
     void setEnabled(boolean enable);
@@ -31,6 +34,7 @@ public interface iPaymentService {
      */
     void pay(int customerID, double amount) throws TransactionFailedException;
     /**
+     * Method to get the transaction history of the payment service
      * @return the transaction history of the payment service
      */
     ArrayList<PaymentDetails> getTransactionHist();

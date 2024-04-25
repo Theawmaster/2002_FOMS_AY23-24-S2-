@@ -24,6 +24,10 @@ public class UserInputHelper {
      */
     private static Scanner scanner = new Scanner(System.in);
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private UserInputHelper() {}
+    /**
      * This method gets the basic string input from users
      * @param prompt The prompt to display to the user
      * @return The user's input as a string
@@ -39,6 +43,7 @@ public class UserInputHelper {
      * @return The user's input as a string
      */
     public static String getPasswordInput(String prompt) {
+        // Option 1: Using JPasswordField
         JPanel panel = new JPanel();
         JLabel label = new JLabel(prompt);
         JPasswordField pass = new JPasswordField(10);
@@ -46,13 +51,16 @@ public class UserInputHelper {
         panel.add(pass);
         String[] options = new String[]{"OK", "Cancel"};
         int option = JOptionPane.showOptionDialog(null, panel, "Password Input",
-                                                  JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
-                                                  null, options, options[0]);
+            JOptionPane.NO_OPTION, JOptionPane.PLAIN_MESSAGE,
+            null, options, options[0]);
         if (option == 0) { // Pressing OK button
             char[] password = pass.getPassword();
             return new String(password);
         }
         return ""; // If user cancels, return empty string
+
+        // Option 2: Using Command line Scanner
+        // return getInput(prompt);
     }   
     /**
      * This method gets the double input from users

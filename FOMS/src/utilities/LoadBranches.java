@@ -8,7 +8,7 @@ import entities.MenuItem;
 
 /**
  * The {@link LoadStaffs} class loads Branch data from the CSV database. It inherits from the {@link LoadData} class
- * @author Jed
+ * @author Lee Jedidiah
  */
 public class LoadBranches extends LoadData<Branch>{
     /**
@@ -57,7 +57,7 @@ public class LoadBranches extends LoadData<Branch>{
     }
     /**
      * Add a new branch to the CSV file
-     * @param branch
+     * @param branch The branch to add
      * @return true if the branch was added successfully, false otherwise
      */
     public static boolean addBranch(Branch branch) {
@@ -66,8 +66,8 @@ public class LoadBranches extends LoadData<Branch>{
     }
     /**
      * Update the status of a branch in the CSV file
-     * @param branch
-     * @param status
+     * @param branch The branch to update
+     * @param status The new status of the branch
      * @return true if the branch status was updated successfully, false otherwise
      */
     public static boolean updateBranchStatus(Branch branch, String status) {
@@ -75,7 +75,7 @@ public class LoadBranches extends LoadData<Branch>{
     }
     /**
      * Remove a branch from the CSV file
-     * @param branch
+     * @param branch The branch to remove
      * @return true if the branch was removed successfully, false otherwise
      */
     public static boolean removeBranch(Branch branch) {

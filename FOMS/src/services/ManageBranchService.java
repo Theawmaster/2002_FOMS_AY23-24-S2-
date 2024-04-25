@@ -13,6 +13,10 @@ import utilities.UserInputHelper;
  */
 public class ManageBranchService {
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private ManageBranchService() {}
+    /**
      * Method to change the status of a branch and update the CSV files accordingly
      * @param session the current active session
      * @param open true if the branch is to be opened, false if the branch is to be closed

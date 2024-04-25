@@ -23,8 +23,12 @@ import constants.Role;
  */
 public class ManageStaffService {
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private ManageStaffService() {}
+    /**
      * Method to display the staff members and format them properly
-     * @param staffsToDisplay
+     * @param staffsToDisplay the staff members to display
      */
     private static void displayOutput(ArrayList<Staff> staffsToDisplay) {
         System.out.println("First name\tLast name\tRole\t\tGender\tAge\tBranch\t\tID");
@@ -42,6 +46,8 @@ public class ManageStaffService {
     }
     /**
      * Method to display staff sorted by name
+     * @param session the current session
+     * @param byFirstName true if sorting by first name, false if sorting by last name
      */
     public static void displayStaff_sortName(Session session, boolean byFirstName) {
         if(session.getCurrentActiveStaff().getRole() == Role.ADMIN){
@@ -78,7 +84,7 @@ public class ManageStaffService {
     }
     /**
      * Method to display staff sorted by age
-     * @param session
+     * @param session the current session
      */
     public static void displayStaff_sortAge(Session session){
         ArrayList<Staff> filteredStaff = session.getAllStaffs();
@@ -100,7 +106,7 @@ public class ManageStaffService {
     /**
      * Method to display staff filtered by an age range
      * Available to Admins only
-     * @param session
+     * @param session the current session
      */
     public static void displayStaff_filterAge(Session session){
         // ask admin to select age range
@@ -122,7 +128,7 @@ public class ManageStaffService {
     /**
      * Method to display staff filtered by gender
      * Available to Admins only
-     * @param session
+     * @param session the current session
      */
     public static void displayStaff_filterGender(Session session){
         //ask admin to select gender
@@ -146,7 +152,7 @@ public class ManageStaffService {
     /**
      * Method to display staff filtered by role
      * Available to Admins only
-     * @param session
+     * @param session the current session
      */
     public static void displayStaff_filterRole(Session session){
         //ask admin to select role
@@ -175,7 +181,7 @@ public class ManageStaffService {
     /**
      * Method to display staff filtered by branch
      * Available to Admins only (Managers will only get to see the staff in their branch)
-     * @param session
+     * @param session the current session
      */
     public static void displayStaff_filterBranch(Session session){
         //ask admin to select branch
@@ -188,6 +194,12 @@ public class ManageStaffService {
         displayOutput(filteredStaff);
         return;
     }
+    /**
+     * Method to display staff filtered by branch and role
+     * @param session the current session
+     * @param whichBranch the branch to filter by
+     * @return an ArrayList of staff members that meet the criteria
+     */
     private static ArrayList<Staff> filterBranch(Session session, Branch whichBranch){
         ArrayList<Staff> ret = new ArrayList<>();
         for(Staff s : session.getAllStaffs()){
@@ -199,7 +211,7 @@ public class ManageStaffService {
     /**
      * Method to fire a staff and update accordingly in the CSV files
      * Available to Admins only
-     * @param session
+     * @param session the current session
      */
     public static void fireStaff(Session session){
         //ask admin to type out staffID (cause you dw the admin anyhow fire people, if it was be i would be very sad :( )
@@ -242,7 +254,7 @@ public class ManageStaffService {
      * Method to hire a new staff and update accordingly in the CSV files
      * Available to Admins only
      * The method also checks if adding a new staff will exceed the branch's staff quota. Assume there can be an infinite number of admins
-     * @param session
+     * @param session the current session
      */
     public static void hireStaff(Session session){
         //Gather necessary input for new staff member
@@ -304,7 +316,7 @@ public class ManageStaffService {
     /**
      * Method to promote a staff member to manager and update accordingly in the CSV files
      * Available to Admins only
-     * @param session
+     * @param session the current session
      */
     public static void promoteStaff(Session session){
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)
@@ -355,7 +367,7 @@ public class ManageStaffService {
      * Method to transfer a staff member to another branch and update accordingly in the CSV files
      * Available to Admins only
      * The method also checks if transferring a staff member will exceed the branch's staff quota, or if there are enough managers in the branch
-     * @param session
+     * @param session the current session
      */
     public static void transferStaff(Session session){
         //ask admin to type out staffID (you dw the admin to anyhow promote ppl bc no nepotism in singapore! no corruption!)

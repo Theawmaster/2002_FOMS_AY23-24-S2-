@@ -7,7 +7,7 @@ package utilities.exceptionHandlers;
 public class ExceededBranchQuotaException extends StaffManagementException{
     /**
      * This constructor creates an exception with a custom message
-     * @param message
+     * @param message the custom message
      */
     public ExceededBranchQuotaException(String message) {
         super(message);

@@ -19,7 +19,7 @@ public class CashPaymentService implements iPaymentService{
     /**
      * A list of PaymentDetails which used this service
      */
-    ArrayList<PaymentDetails> transactionHist;
+    private ArrayList<PaymentDetails> transactionHist;
     /**
      * Constructor called from Session
      */
@@ -71,6 +71,11 @@ public class CashPaymentService implements iPaymentService{
     public ArrayList<PaymentDetails> getTransactionHist(){
         return this.transactionHist;
     }
+    /**
+     * Method to simulate the swipe of a card
+     * @param amount the amount to pay
+     * @throws TransactionFailedException if the transaction fails
+     */
     private void askForCash(double amount) throws TransactionFailedException{
         double insertedAmt = 0;
         double in;

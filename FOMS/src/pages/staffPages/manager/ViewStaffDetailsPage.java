@@ -17,6 +17,10 @@ public class ViewStaffDetailsPage implements iPage{
      * The current active session 
      */
     private Session session;
+    /**
+     * The constructor for the ViewStaffDetailsPage
+     * @param s the current session
+     */
     public ViewStaffDetailsPage(Session s){
         this.session = s;
     }

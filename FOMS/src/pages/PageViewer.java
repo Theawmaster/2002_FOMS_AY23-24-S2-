@@ -19,6 +19,10 @@ import pages.staffPages.manager.*;
  */
 public class PageViewer {
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private PageViewer(){}
+    /**
      * Map to store every page in existence
      */
     private static Map<String, iPage> pages = new HashMap<>();
@@ -75,28 +79,18 @@ public class PageViewer {
      * @param pageName the next page you want to go to
      */
     public static void changePage(String pageName){
-        if("back".equalsIgnoreCase(pageName)){
-            currentPage = pathTracker.getPrevPage();
-        }
-        else if("current".equalsIgnoreCase(pageName)){
-            // no action required
-        }
+        if("back".equalsIgnoreCase(pageName)){ currentPage = pathTracker.getPrevPage(); }
+        else if("current".equalsIgnoreCase(pageName)){ /* no action required */ }
         else if(pages.containsKey(pageName)){
             if(pathTracker.isNotBehind(pageName)){
                 currentPage = pages.get(pageName);
                 pathTracker.goTo(pageName, currentPage);
             }
-            else{
-                // if the page requested is a few pages behind the current, navigate there appropriately
-                currentPage = pathTracker.getBackTo(pageName);
-            }
+            // if the page requested is a few pages behind the current, navigate there appropriately  
+            else{ currentPage = pathTracker.getBackTo(pageName); }
         }
-        else if("init".equalsIgnoreCase(pageName)){
-            currentPage = pages.get("SelectBranchPage");
-        }
-        else{
-            System.out.println("Error: View not found!");
-        }
+        else if("init".equalsIgnoreCase(pageName)){ currentPage = pages.get("SelectBranchPage"); }
+        else{ System.out.println("Error: View not found!"); }
         // if data has been modified by another instance of the FOMS app, update it into the session
         if(PersistenceHandler.hasBeenUpdated(FilePaths.dataFolderPath.getPath())){ session.updateSession(); }
         

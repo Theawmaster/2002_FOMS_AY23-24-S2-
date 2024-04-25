@@ -12,6 +12,10 @@ import utilities.exceptionHandlers.TransactionFailedException;
  */
 public class ManagePaymentsService {
     /**
+     * Private constructor to prevent instantiation
+     */
+    private ManagePaymentsService(){} 
+    /**
      * This method displays all payment methods, and displays if it has been disabled.
      * @param session the current context
      */
@@ -58,10 +62,11 @@ public class ManagePaymentsService {
         return;
     }
     /**
-     * This method processes the payment from customers
+     * This method makes a payment using the chosen payment method.
      * @param session the current context
-     * @param orderID the customer ID 
+     * @param orderID the ID of the order
      * @param amount the amount to pay
+     * @return true if payment is successful, false if user cancels payment
      */
     public static boolean makePayment(Session session, int orderID, double amount){
         while(true){
@@ -84,7 +89,7 @@ public class ManagePaymentsService {
     }
     /**
      * This method prints out all transactions made with all payment services
-     * @param session
+     * @param session the current context
      */
     public static void printAllTransactions(Session session){
         for(iPaymentService p : session.getAllPaymentServices()){

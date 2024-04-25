@@ -38,7 +38,9 @@ public enum FilePaths {
      * Path to the folder where all CSV files are stored
      */
     dataFolderPath("FOMS/src/utilities/data");
-
+    /**
+     * The file path associated with the enum constant.
+     */
     private final String path;
 
     /**

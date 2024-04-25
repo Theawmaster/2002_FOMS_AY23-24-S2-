@@ -9,8 +9,12 @@ import java.time.format.DateTimeFormatter;
  */
 public class TimeHandler {
     /**
+     * Private constructor for the TimeHandler class to prevent instantiation
+     */
+    private TimeHandler(){}
+    /**
      * This method returns the current date and time as a string in the format "yyyy-MM-dd HH:mm:ss"
-     * @return
+     * @return The current date and time as a string
      */
     public static String getCurrentDateTimeAsString() {
         // Get the current date and time

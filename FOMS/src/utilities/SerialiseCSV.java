@@ -13,14 +13,14 @@ import java.util.ArrayList;
  * @author Siah Yee Long
  * @author Alvin Aw Yong
  */
-public class SerialiseCSV {   
+public class SerialiseCSV { 
     /**
-     * Default constructor
+     * Private constructor to prevent instantiation of the class
      */
-    public SerialiseCSV(){}
+    private SerialiseCSV(){}
     /**
      * To read CSV file specified by the file path
-     * @param csvFilePath
+     * @param csvFilePath The file path of the CSV file
      * @return rows of data as a list of string
      */
     public static ArrayList<String> readCSV(String csvFilePath) {
@@ -41,8 +41,8 @@ public class SerialiseCSV {
     }
     /**
      * To write to CSV file specified by the CSV file path
-     * @param s
-     * @param csvFilePath
+     * @param s The data to be written
+     * @param csvFilePath The file path of the CSV file
      */
     public static void writeToCSV(String s, String csvFilePath) {
         try {
@@ -58,9 +58,10 @@ public class SerialiseCSV {
         }
     }
     /**
-     * To append data to a CSV file specified by the CSV file path
-     * @param s The data to be appended
-     * @param csvFilePath The file path of the CSV file
+     * Appends a string to a CSV file.
+     * @param s The string to append to the CSV file.
+     * @param csvFilePath The file path of the CSV file.
+     * @return true if the string is appended successfully, false otherwise.
      */
     public static boolean appendToCSV(String s, String csvFilePath) {
         try (FileWriter fw = new FileWriter(csvFilePath, true)) { // true to append
@@ -74,7 +75,6 @@ public class SerialiseCSV {
     }
     /**
      * Replaces a specified value in a specified column of a CSV file.
-     *
      * @param searchString The value to search for in column 0.
      * @param columnIndex  The index of the column in which the value will be replaced.
      * @param newValue      The new value to replace the old value with.
@@ -116,10 +116,11 @@ public class SerialiseCSV {
         }
     }
     /**
-     * Deletes a row in the CSV file where the first column matches the deleteKey.
-     * @param deleteKey    The value to search for deletion.
-     * @param csvFilePath  The path to the CSV file.
-     * @return true if a row was deleted successfully, false otherwise.
+     * Deletes a row from a CSV file based on a specified key and column index.
+     * @param deleteKey The key to search for in the specified column.
+     * @param deleteAt The index of the column in which the key will be searched.
+     * @param csvFilePath The file path of the CSV file.
+     * @return true if the row is found and deleted successfully, false otherwise.
      */
     public static boolean deleteToCSV(String deleteKey, int deleteAt, String csvFilePath) {
         ArrayList<String> lines = readCSV(csvFilePath);

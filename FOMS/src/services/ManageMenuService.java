@@ -18,8 +18,12 @@ import java.util.Comparator;
  */
 public class ManageMenuService {
     /**
+     * Private constructor to prevent instantiation of this class
+     */
+    private ManageMenuService() {}
+    /**
      * This method displays the menu items and formats them properly
-     * @param menuItems
+     * @param menuItems The list of menu items to display
      */
     private static void displayOutput(ArrayList<MenuItem> menuItems) {
         System.out.println("----------------------------------------------------------------------------------------------------------------------------------------------");
@@ -34,8 +38,8 @@ public class ManageMenuService {
     }
     /**
      * This method filters the menu items based on the branch
-     * @param session
-     * @param whichBranch
+     * @param session The current session containing the list of menu items.
+     * @param whichBranch The branch to filter the menu items by
      * @return the filtered menu items
      */
     private static ArrayList<MenuItem> filterBranch(Session session, Branch whichBranch) {
@@ -49,7 +53,7 @@ public class ManageMenuService {
     }
     /**
      * This method displays all menu items
-     * @param session
+     * @param session The current session containing the list of menu items.
      */
     public static void displayAllMenuItems(Session session) {
         ArrayList<MenuItem> menuItems = filterBranch(session, session.getCurrentActiveBranch());
@@ -63,7 +67,7 @@ public class ManageMenuService {
     }
     /**
      * This method allows the user to add a menu item
-     * @param session
+     * @param session The current session containing the list of menu items.
      */
     public static void addMenuItem(Session session) {
         String food = UserInputHelper.getInput("Enter food name: ");
@@ -87,7 +91,7 @@ public class ManageMenuService {
             return;
         }
         else{
-            System.out.println("Failed to add "+newMenuItem.getFood()+". GET THE FUCK OUT");
+            System.out.println("Failed to add "+newMenuItem.getFood()+". GET THE HELL OUT");
             return;
         }
     }
@@ -119,7 +123,7 @@ public class ManageMenuService {
     }
     /**
      * Edits a menu item from the session's list of menu items and updates CSV accordingly
-     * @param session
+     * @param session   The current session containing the list of menu items.
      */
     public static void editMenuItem(Session session) {
 
