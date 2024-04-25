@@ -3,8 +3,8 @@ This repo contains the Fast Food Ordering and Management System (FOMS) project i
 
 ## The team -- Lab group: FDAC
 - Alvin Aw Yong
-- Koh Huei Shan, Koh Huei Shan, Winnie
-- Lee Jedidiahidiah Lee
+- Koh Huei Shan, Winnie
+- Lee Jedidiah Lee
 - Chan Zi Hao
 - Siah Yee Long
 
