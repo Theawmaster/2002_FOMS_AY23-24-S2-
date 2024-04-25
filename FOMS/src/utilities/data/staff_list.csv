@@ -6,8 +6,8 @@ Manzukic,MM7,STAFF,M,40,CWP
 Dante,DANTE4,STAFF,M,32,CWP
 Robben,AR10,STAFF,F,26,CWP
 alice everstone,alice123,ADMIN,F,21,CWP
-kumar rishi,kumarBC,ADMIN,M,32,NTU
-Alexei Sanchez,SanAlex12,STAFF,F,25,NTU
+kumar rishi,kumarBC,STAFF,M,32,CWP
+Alexei Sanchez,SanAlex12,MANAGER,F,25,NTU
 BlackmoreC,BlackmoreBC,MANAGER,M,32,NTU
 Aria Nightingale,AriaN,ADMIN,M,24,JP
 Jasper Frost,JF,STAFF,M,25,JP
@@ -31,3 +31,4 @@ alvin aw,aaw09,MANAGER,M,28,TAMPINES
 ALEX OH,AlexO,ADMIN,M,30,TAMPINES
 SiQi Goh,giveusA,ADMIN,F,25,NTU
 boss babe,boss,ADMIN,F,99,HQ
+bill gates,gates,staff,m,99,HQ

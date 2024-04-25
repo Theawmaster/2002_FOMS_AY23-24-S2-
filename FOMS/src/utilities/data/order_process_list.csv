@@ -1,1 +1,4 @@
 orderID,Status,isTakeaway,Branch,Items,ItemCustomisation,LastModified
+1,CANCELLED,Takeaway,NTU,4PC set meal|Coke Zero|Coke Zero|,XTRA CRISPY|NA|NA|,1714049133
+2,COMPLETED,Dine-in,NTU,Grilled Chicken Salad|,NA|,1714049125
+3,PREPARING,Dine-in,NTU,4PC set meal|,NA|,1714049767

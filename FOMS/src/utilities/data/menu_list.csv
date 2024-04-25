@@ -11,7 +11,6 @@ Veggie Delight Burger,10.20,CWP,BURGER,A garden of veggies topped with a zesty r
 Broccoli and Cheese Set,12.40,CWP,SETMEAL,Cheesy goodness meets fresh steamed broccoli
 Pasta Primavera Set,13.80,CWP,SETMEAL,Vibrant vegetables tossed with al dente pasta in a light herb sauce
 Bacon Mac and Cheese,6.50,CWP,SIDE,Creamy macaroni with crispy bacon and a rich cheese sauce
-
 Water,0.80,JP,DRINK,The healthiest choice
 Ice lemon tea,1.90,JP,DRINK,Zi Hao's favourite
 Fruit Punch,3.00,JP,DRINK,Mixed fruits blended into a refreshing punch
@@ -25,7 +24,6 @@ Tuna Melt Burger,12.90,JP,BURGER,Grilled tuna with melted cheddar on a toasted b
 Vegetarian Wrap,9.30,JP,SETMEAL,A wrap filled with hummus grilled veggies and feta
 Quinoa Salad,10.90,JP,SETMEAL,Fluffy quinoa with cherry tomatoes avocado and cucumber
 Zucchini Fries,5.10,JP,SIDE,Crisp zucchini sticks breaded and fried to a golden brown
-
 Herbal Tea,2.40,JE,DRINK,Soothing herbal blend to calm and relax
 Spicy Chai,3.30,JE,DRINK,Warming spices steeped in black tea with a dash of milk
 Falafel Burger,11.50,JE,BURGER,Crispy falafel patties with tahini and pickled turnips
@@ -42,7 +40,6 @@ Pepsi,2.00,JE,DRINK,Pepsi deez nutz
 Lemon Iced Tea,2.75,JE,DRINK,Refreshing and tangy -- perfect for a hot day
 French Fries,3.20,JE,SIDE,Crispy thin-cut strips of potatoes fried in only the freshest olive oil
 Sweet Potato Fries,4.50,JE,SIDE,Gently spiced and roasted to perfection
-
 Coke Zero,2.30,NTU,DRINK,Spine chilling soft drink that kicks you right in the butt to get through the afternoon
 Green Tea,1.90,NTU,DRINK,Cooling and subtly sweet -- brewed fresh
 Classic Cheeseburger,13.00,NTU,BURGER,Made with only the freshest ingredients
@@ -59,7 +56,6 @@ Lamb Burger,15.50,NTU,BURGER,Juicy lamb patty with mint yogurt sauce
 Vegan Sushi Set,7.90,NTU,SETMEAL,Assorted vegan sushi with wasabi and soy sauce
 Chicken Parmesan Set,11.80,NTU,SETMEAL,Crispy chicken with marinara and melted parmesan
 Loaded Fries,5.80,NTU,SIDE,Fries topped with cheese bacon and sour cream
-
 Blueberry Smoothie,4.30,TAMPINES,DRINK,Blended blueberries with a touch of vanilla
 Hot Chocolate,3.70,TAMPINES,DRINK,Decadent chocolate melted into steaming milk
 Steak Sandwich,14.20,TAMPINES,BURGER,Thinly sliced steak with caramelized onions on ciabatta
@@ -72,7 +68,6 @@ Mango Smoothie,3.90,TAMPINES,DRINK,Smooth mango puree blended with a hint of yog
 Roast Beef Sandwich,12.10,TAMPINES,SETMEAL,Slow-roasted beef with mustard on rye bread
 Panko Shrimp,6.40,TAMPINES,SIDE,Crispy panko-coated shrimp served with a spicy dip
 Stuffed Jalapeños,5.30,TAMPINES,SIDE,Jalapeños filled with cream cheese and lightly fried
-
 Iced Matcha Latte,4.10,HQ,DRINK,Smooth matcha blended with milk and served chilled
 Mushroom Swiss Burger,12.90,HQ,BURGER,Earthy mushrooms and melted Swiss cheese on a beef patty
 Chicken Teriyaki Bowl,10.20,HQ,SETMEAL,Grilled chicken glazed with teriyaki over steamed rice
@@ -86,4 +81,5 @@ Lentil Soup Set,11.40,HQ,SETMEAL,Hearty lentil soup served with a side of crusty
 Soba Noodle Set,10.60,HQ,SETMEAL,Buckwheat noodles with edamame in a light soy dressing
 Roasted Brussel Sprouts,4.90,HQ,SIDE,Brussel sprouts roasted with garlic and parmesan
 foodname,1.00,CWP,null,j
+RICE W CHICKN,8.00,NTU,SETMEAL,LESS FLAVORFUL
 

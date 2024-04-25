@@ -27,10 +27,11 @@ public class AdminManagePaymentPage implements iPage {
      * Method to view Admin Manage Payment Methods Page
      */
     public void viewOptions() {
+        System.out.println("Current available payment methods:");
+        ManagePaymentsService.viewAllPaymentMethods(this.session);
         System.out.println("== FOMS | Admin Manage Payment Methods ==");
-        System.out.println("[1] View all payment methods");
-        System.out.println("[2] Enable a payment method");
-        System.out.println("[3] Disable a payment method");
+        System.out.println("[1] Enable a payment method");
+        System.out.println("[2] Disable a payment method");
         System.out.println("[B] Go back");
     }
     /**
@@ -40,14 +41,10 @@ public class AdminManagePaymentPage implements iPage {
     public void handleInput(String option) {
         switch (option) {
             case "1":
-                ManagePaymentsService.viewAllPaymentMethods(this.session);
-                PageViewer.changePage("current");
-                break;
-            case "2":
                 ManagePaymentsService.enablePaymentsService(this.session);
                 PageViewer.changePage("current");
                 break;
-            case "3":
+            case "2":
                 ManagePaymentsService.disablePaymentsService(this.session);
                 PageViewer.changePage("current");
                 break;
