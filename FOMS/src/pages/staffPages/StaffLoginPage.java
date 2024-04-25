@@ -162,7 +162,7 @@ public class StaffLoginPage implements iPage {
         String newPassword = UserInputHelper.getPasswordInput("Enter the new password:");
         // check if password meets minimum length criteria
         while (newPassword.length() < (int)Settings.PW_MIN_CHARACTERS.getValue()){
-            System.out.println("Password length too short! Passwords must be at least " + Settings.PW_MIN_CHARACTERS.getValue() + " long");
+            System.out.println("Password length too short! Passwords must be at least " + Settings.PW_MIN_CHARACTERS.getValue() + " characters long");
             newPassword = UserInputHelper.getPasswordInput("Enter the new password:");
         }
 

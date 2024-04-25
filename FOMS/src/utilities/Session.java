@@ -10,6 +10,7 @@ import constants.OrderStatus;
 import services.payments.iPaymentService;
 import services.payments.VisaPaymentService;
 import services.payments.CashPaymentService;
+//import services.payments.PaypalPaymentService;
 import services.payments.ApplepayPaymentService;
 
 
@@ -69,6 +70,7 @@ public class Session {
         allPaymentServices.add(new VisaPaymentService());
         allPaymentServices.add(new CashPaymentService());
         allPaymentServices.add(new ApplepayPaymentService());
+        //allPaymentServices.add(new PaypalPaymentService());
         // add more payment services if added
     }
     /**
