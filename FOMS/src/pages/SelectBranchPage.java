@@ -21,7 +21,7 @@ public class SelectBranchPage implements iPage{
     private int numOptions;
     /**
      * Initialising this page sets the session provided from PageViewer
-     * @param s
+     * @param s the current session
      */
     public SelectBranchPage(Session s){
         this.session = s;

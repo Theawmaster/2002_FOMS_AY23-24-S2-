@@ -47,20 +47,20 @@ public class Logger {
      */
     public static final String ANSI_BLACK = "\u001B[30m";
     /**
-     * Default constructor
+     * Private constructor to prevent instantiation
      */
-    public Logger(){}
+    private Logger(){}
     /**
      * Prints message in colour
-     * @param msg
-     * @param color
+     * @param msg message to print
+     * @param color color to print in
      */
     public static void printColor(String msg, String color) {
         System.out.print(color + msg + ANSI_RESET);
     }
     /**
      * Prints info message in green if logger is enabled
-     * @param msg
+     * @param msg msg to print
      */
     public static void info(String msg) {
         if (loggerIsEnabled)

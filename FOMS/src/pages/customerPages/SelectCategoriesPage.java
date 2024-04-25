@@ -6,7 +6,7 @@ import pages.PageViewer;
 /**
  * This page is for the customer to browse the different categories of menu items
  * @author Siah Yee Long
- * @author Jed
+ * @author Lee Jedidiah
  */
 public class SelectCategoriesPage implements iPage {
     /**

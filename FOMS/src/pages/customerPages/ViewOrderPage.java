@@ -10,7 +10,7 @@ import utilities.UserInputHelper;
 /**
  * This is the View Order Page that the user will see after choosing View Cart on Customer Page. 
  * This page offers options to either make payment, edit order or to return back to CustomerPage
- * @author Winnie
+ * @author Koh Huei Shan, Winnie
  * @author Siah Yee Long
  */
 public class ViewOrderPage implements iPage{

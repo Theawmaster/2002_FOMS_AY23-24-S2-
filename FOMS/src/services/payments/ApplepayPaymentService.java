@@ -19,7 +19,7 @@ public class ApplepayPaymentService implements iPaymentService {
     /**
      * A list of PaymentDetails which used this service
      */
-    ArrayList<PaymentDetails> transactionHist;
+    private ArrayList<PaymentDetails> transactionHist;
     /**
      * Constructor called from Session
      */

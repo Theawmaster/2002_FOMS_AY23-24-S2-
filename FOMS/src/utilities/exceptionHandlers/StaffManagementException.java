@@ -7,7 +7,7 @@ package utilities.exceptionHandlers;
 public class StaffManagementException extends Exception{
     /**
      * This constructor creates an exception with a custom message
-     * @param message
+     * @param message the custom message
      */
     public StaffManagementException(String message) {
         super(message);

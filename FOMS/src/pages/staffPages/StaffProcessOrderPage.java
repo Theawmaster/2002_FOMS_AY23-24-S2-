@@ -27,9 +27,15 @@ public class StaffProcessOrderPage implements iPage{
      * Method to display list of pending orders and view process order options
      */
     public void viewOptions(){
+        boolean hasPendingOrders = false;
         for(Order o : this.session.getAllOrders()){
-            if(o.getBranchName().equalsIgnoreCase(this.session.getCurrentActiveBranch().getBranchName()))
+            if(o.getBranchName().equalsIgnoreCase(this.session.getCurrentActiveBranch().getBranchName())){
                 System.out.println("Order number: " + o.getOrderId() + " [" + o.getStatus() + "]");
+                hasPendingOrders = true;
+            }
+        }
+        if (!hasPendingOrders) {
+            System.out.println("== There are no pending orders at the moment ==");
         }
         System.out.println("[1] Process an Order");
         System.out.println("[2] Cancel an Order");

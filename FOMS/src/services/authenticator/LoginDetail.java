@@ -42,7 +42,7 @@ public class LoginDetail {
     }
     /**
      * Protected getter method to get last login time. Called by a LoginService
-     * @return
+     * @return the last login time
      */
     protected String getLastLogin(){
         return this.lastLogin;

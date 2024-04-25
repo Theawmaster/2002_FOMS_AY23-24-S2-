@@ -34,12 +34,13 @@ public enum Settings {
     private final Object value;
     /**
      * Constructor for the Settings class
-     * @param value
+     * @param value the settings object
      */
     Settings(Object value) {
         this.value = value;
     }
     /**
+     * Getter method to get the settings object
      * @return the settings object. Downcast as required
      */
     public Object getValue() {

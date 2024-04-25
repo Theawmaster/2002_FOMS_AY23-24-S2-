@@ -7,7 +7,7 @@ package utilities.exceptionHandlers;
 public class NotEnoughManagersException extends StaffManagementException{
     /**
      * This constructor creates an exception with a custom message
-     * @param message
+     * @param message the custom message
      */
     public NotEnoughManagersException(String message) {
         super(message);

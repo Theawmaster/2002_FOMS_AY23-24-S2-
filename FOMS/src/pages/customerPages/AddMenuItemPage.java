@@ -7,7 +7,7 @@ import utilities.Session;
 
 /**
  * This page is responsible for displaying the details of the menu item that the customer has selected
- * @author Jed
+ * @author Lee Jedidiah
  * @author Siah Yee Long
  */
 public class AddMenuItemPage implements iPage{
