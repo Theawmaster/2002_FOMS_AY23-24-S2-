@@ -75,6 +75,10 @@ public class UserInputHelper {
                 System.out.println(prompt);
                 input = Double.parseDouble(scanner.nextLine().trim());
                 validInput = true;
+                if (input < 0.0) {
+                    System.out.println("Please enter a positive number!");
+                    validInput = false;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Please enter a valid choice!");
             }

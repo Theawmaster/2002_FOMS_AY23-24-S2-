@@ -79,6 +79,7 @@ public class ManageMenuService {
         }
         double price = UserInputHelper.getDoubleInput("Enter price: ");
         MealCategory category = UserInputHelper.choosMealCategory("Enter category: ");
+        if (category == null) return;
         String description = UserInputHelper.getInput("Enter description: ");
         String customization = "NA";
         Branch branch = session.getCurrentActiveBranch();
