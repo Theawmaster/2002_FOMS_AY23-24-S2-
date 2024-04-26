@@ -30,7 +30,7 @@ public class ViewOrderPage implements iPage{
      */
     public void viewOptions(){
         if(session.getCurrentActiveOrder() == null || session.getCurrentActiveOrder().countTotalItems() == 0){
-            System.out.println("Your cart is currently empty");
+            System.out.println("== Your cart is currently empty ==");
             PageViewer.changePage("back");
         }
         else{

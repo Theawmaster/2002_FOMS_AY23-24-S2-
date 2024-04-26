@@ -37,7 +37,8 @@ public class StaffProcessOrderPage implements iPage{
         if (!hasPendingOrders) {
             System.out.println("== There are no pending orders at the moment ==");
         }
-        System.out.println("[1] Process an Order");
+        System.out.println();
+        System.out.println("[1] Prepare an Order");
         System.out.println("[2] Cancel an Order");
         System.out.println("[3] View Order Details");
         System.out.println("[B] Return to Staff Access Page");

@@ -84,6 +84,7 @@ public class ManagePaymentsService {
             }
             catch (TransactionFailedException e){
                 System.out.println(e.getMessage());
+                // continue to ask for payment when transaction fails
             }
         }
     }
