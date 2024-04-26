@@ -70,7 +70,7 @@ public class Session {
         allPaymentServices.add(new VisaPaymentService());
         allPaymentServices.add(new CashPaymentService());
         allPaymentServices.add(new ApplepayPaymentService());
-        //allPaymentServices.add(new PaypalPaymentService());
+        // allPaymentServices.add(new PaypalPaymentService());
         // add more payment services if added
     }
     /**

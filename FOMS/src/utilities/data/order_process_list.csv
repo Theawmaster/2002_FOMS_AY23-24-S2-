@@ -1,8 +1,1 @@
 orderID,Status,isTakeaway,Branch,Items,ItemCustomisation,LastModified
-1,CANCELLED,Takeaway,NTU,4PC set meal|Coke Zero|Coke Zero|,XTRA CRISPY|NA|NA|,1714049133
-2,COMPLETED,Dine-in,NTU,Grilled Chicken Salad|,NA|,1714049125
-3,PREPARING,Dine-in,NTU,4PC set meal|,NA|,1714049767
-4,NEW,Dine-in,NTU,4PC set meal|,NA|,1714050697
-5,NEW,Dine-in,NTU,4PC set meal|Classic Cheeseburger|,NA|NA|,1714050809
-6,PREPARING,Dine-in,NTU,4PC set meal|,NA|,1714050980
-7,NEW,Dine-in,CWP,Pasta Primavera Set|,NA|,1714051014

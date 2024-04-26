@@ -48,6 +48,7 @@ public class MainPage implements iPage{
                     PageViewer.changePage("CustomerPage");
                     break;
                 case "2":
+                    this.session.updateSession();
                     ProcessOrderService.custViewOrderStatus(this.session.getAllOrders(), this.session.getCurrentActiveBranch());
                     PageViewer.changePage("current");
                     break;

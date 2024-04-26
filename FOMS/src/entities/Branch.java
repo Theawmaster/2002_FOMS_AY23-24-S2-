@@ -169,7 +169,7 @@ public class Branch {
     public void decrementManagerCount() throws StaffManagementException{
         if(this.managerCount-1 < this.minAllowedManagers)
             throw new NotEnoughManagersException("This branch does not have enough managers!");
-        if(this.managerCount-1 < 0)
+        if(this.managerCount-1 <= 0)
             throw new StaffManagementException("Manager count cannot be negative!");
         else this.managerCount--;
     }

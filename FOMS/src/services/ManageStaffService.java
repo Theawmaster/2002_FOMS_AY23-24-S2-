@@ -236,15 +236,15 @@ public class ManageStaffService {
                     }
                 }
                 catch (NotEnoughManagersException e){
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     return;
                 }
                 catch (ExceededBranchQuotaException e){
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     return;
                 }
                 catch (StaffManagementException e){
-                    e.getMessage();
+                    System.out.println(e.getMessage());
                     return;
                 }
             }
@@ -342,11 +342,11 @@ public class ManageStaffService {
                         s.getBranch().incrementManagerCount();
                     }
                     catch (ExceededBranchQuotaException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                     catch (StaffManagementException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                     if(LoadStaffs.updatePromotedStaff(s)){
@@ -390,15 +390,15 @@ public class ManageStaffService {
                         trfBranch.incrementManagerCount();
                     }
                     catch (NotEnoughManagersException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                     catch (ExceededBranchQuotaException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                     catch (StaffManagementException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                 }
@@ -408,11 +408,11 @@ public class ManageStaffService {
                         trfBranch.incrementStaffCount();
                     }
                     catch (ExceededBranchQuotaException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                     catch (StaffManagementException e){
-                        e.getMessage();
+                        System.out.println(e.getMessage());
                         return;
                     }
                 }
